@@ -1,10 +1,10 @@
 
 <script>
+import store from "./utils/store";
   export default {
     mpType: 'app',
-    onLaunch: function(options) {
-      // Do something initial when launch.
-      console.log('App onLaunch')
+    onLaunch(opts) {
+      console.log('onlaunch')
     },
     onShow: function(options) {
       // Do something when show.

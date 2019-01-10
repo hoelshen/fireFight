@@ -4,7 +4,7 @@ import {
 } from "@/utils/index";
 
 
-const environment = 'test'; // 配置环境
+const environment = 'mock'; // 配置环境
 
 var fly = new flyio();
 var cookies = [],
@@ -22,7 +22,7 @@ function getBaseURL(env) {
     case 'local':
       return 'http://192.168.118.149:7005';
     case 'mock':
-      return 'http://www.amusingcode.com:8001/mock/18/flag';
+      return 'http://www.amusingcode.com:8001/mock/24/tell_v2/';
     case 'test':
       return 'https://www.amusingcode.com/flag';
     default:
@@ -58,7 +58,7 @@ function getToken(cookiesArray) {
 async function login() {
   let wxRes = await promisify(wx.login, wx)();
   let loginQuery = {
-    code: wxRes.code
+    code: wxRes.code,
   };
   await checkParams(loginQuery);
   let loginRes = {
@@ -128,16 +128,16 @@ async function logLogin(loginRes) {
 }
 
 
-async function logClickAd(user, adId, result) {
-  let openid = user.openid;
-  let userId = user._id;
-  fly.post('/log/ad', {
-    adId: adId,
-    openid: openid,
-    userId: userId,
-    result: result
-  });
-}
+// async function logClickAd(user, adId, result) {
+//   let openid = user.openid;
+//   let userId = user._id;
+//   fly.post('/log/ad', {
+//     adId: adId,
+//     openid: openid,
+//     userId: userId,
+//     result: result
+//   });
+// }
 
 async function waitingLogin() {
   return new Promise(function (resolve, reject) {
