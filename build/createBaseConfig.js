@@ -53,7 +53,7 @@ function createBaseConfig( platform = 'wechat' ) {
     },
 
     devServer: {
-      // hot: true,
+      hot: true,
     },
 
     optimization: {

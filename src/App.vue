@@ -25,3 +25,7 @@
     }
   }
 </script>
+
+<style lang="less">
+@import url(./styles/common.less);
+</style>

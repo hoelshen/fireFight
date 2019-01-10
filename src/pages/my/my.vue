@@ -1,30 +1,31 @@
 <template>
   <div class="app">
+    <div class="my_info ">
       <img class="img" :src="logo" @touchstart="changeStat">
-      <hello-world :msg="acc" :color="color"></hello-world>
-      <div>
-        <div>{{ message | toUpperCasefunction }}</div>
-        <div>{{ date | dateFormatter }}</div>
-      </div>
-      <div>{{user.count.a}}</div>
-      <input type="text" v-model="user.name">
-      <div @click="add">增加</div> 
-      <!-- <div>
-        <CompA>
-          <span slot-scope="scopeProps">{{ scopeProps.item }}</span>
-        </CompA>
-      </div> -->
+      <button @click="changeStat">点击登录</button>
+    </div>
+
+    <div class="my_function flex colum">
+      <div class="my_function-item flex j-start" @click="memory">记忆</div>
+      <div class="my_function-item flex j-between" @click="ticket">票券</div>
+      <div class="my_function-item flex j-end" @click="badge">徽章</div>
+    </div>
+
+    <div class="my_contact flex wrap">
+      <div class="my_contact-item flex j-start" @click="welfare">福利社</div>
+      <div class="my_contact-item flex j-start" @click="joinGroup">加入群聊</div>
+      <div class="my_contact-item flex j-start" @click="questionsFeedback">问题与反馈</div>
+    </div>
+
+    <div class="my_share flex j-end">
+      <button @click="share">分享</button>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from '@/components/HelloWorld.vue'
-import compA from '@/components/compA.vue'
 export default {
-  components: {
-      HelloWorld,
-      compA
-  },
+  components: {},
   data() {
     return {
       logo: 'https://user-images.githubusercontent.com/20720117/48262986-80e02780-e45f-11e8-8426-2872916adad9.png',
@@ -56,6 +57,7 @@ export default {
   },
   onLoad: function(options) {
     // Do some initialize when page load.
+    wx.hideTabBar({})
     console.log('Page [my] onLoad')
   },
   onReady: function() {
@@ -79,12 +81,28 @@ export default {
    */
   methods:{
     changeStat(){
-      this.t++
-      this.color = '#'+Math.floor(Math.random()*0xffffff).toString(16)
+      console.log('登录完成')
     },
-    add(){
-      // this.user.count +=1;
-      this.$set(this, this.user.count.a+=1)
+    memory(){
+
+    },
+    ticket(){
+
+    },
+    badge(){
+
+    },
+    welfare(){
+
+    },
+    joinGroup(){
+
+    },
+    questionsFeedback(){
+
+    },
+    share(){
+
     }
   },
   watch: {
@@ -97,17 +115,45 @@ export default {
 
 <style lang="less" scoped>
 .app{
-  padding-top: 100px;
+  padding-top: 20px;
   .img {
     display: block;
-    height: 120px;
-    width: 138px;
+    border-radius: 50%;
+    border-style: solid;
+    height: 60px;
+    width: 60px;
     margin: 20px auto;
   }
   .txt {
       color: #567567;
       font-size: 13px;
       text-align: center;
+  }
+  .my_function {
+
+    .my_function-item{
+     border-style: solid;
+     border-radius: 50%;
+     height:80px;
+     width: 80px;
+     margin:10px 20px;
+    }
+  }
+  .my_contact {
+    .my_contact-item {
+      border-style: solid;
+      margin:10px 10px;
+      height:56px;
+      width: 325px;
+    }
+  }
+  .my_share{
+    & button{
+     border-style: solid;
+     border-radius: 50%;
+     height:80px;
+     width: 80px;
+    }
   }
 }
 </style>
