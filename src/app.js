@@ -9,14 +9,12 @@ Vue.use(VHtmlPlugin)
 
 Object.keys(filters).forEach(key => Vue.filter(key, filters[key]))
 
-
-
 Vue.use(megaloRouter, {
   mode: 'strict', // strict or loose 可配置项，不配置的话默认为strict
   tabBars: [ // 必须配置项
       'pages/mailBox/index',
       '/pages/home/index',
-      '/pages/my/index',
+      '/pages/myInfo/index',
   ]
 })
 
@@ -32,19 +30,19 @@ export default {
   config: {
     // pages 的首个页面会被编译成首页
     pages: [
-      'pages/home/index',
-      'pages/consultingBox/index',
-      'pages/badge/index',
-      'pages/joinGroup/index',
-      'pages/mailBox/index',
-      'pages/solutionRoom/index',
-      'pages/ticket/index',
-      'pages/welfare/index',
-      'pages/memory/index',
-      'pages/login/index',
-      'pages/nofound/index',
-      'pages/my/index',
-      'pages/questionsFeedback/index',
+      'pages/home/index',  //首页
+      'pages/mailBox/index',  //信箱
+      'pages/myInfo/index',  //个人中心
+      'pages/consultingBox/index',  //咨询箱
+      'pages/badge/index',  //徽章
+      'pages/joinGroup/index', //加入群聊
+      'pages/solutionRoom/index',  //解忧室
+      'pages/ticket/index',  //票券
+      'pages/welfare/index',  //福利社
+      'pages/memory/index',  //记忆
+      'pages/login/index',  //登录
+      'pages/nofound/index',  //404
+      'pages/questionsFeedback/index',  //问题与反馈
     ],
     tabBar: {
       color: '#333',
@@ -52,7 +50,7 @@ export default {
       list: [
         {
           pagePath: 'pages/mailBox/index',
-          text: 'mail',
+          text: '邮件',
           iconPath: 'static/imgs/mine.png',
           selectedIconPath: 'static/imgs/mine_on.png',
         },
@@ -63,8 +61,8 @@ export default {
         selectedIconPath: 'static/imgs/home_on.png',
         },
         {
-        pagePath: 'pages/my/index',
-        text: 'my',
+        pagePath: 'pages/myInfo/index',
+        text: '我的',
         iconPath: 'static/imgs/mine.png',
         selectedIconPath: 'static/imgs/mine_on.png',
         }

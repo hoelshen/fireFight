@@ -3,7 +3,6 @@
 
     <div class="tips flex center column">
       <div class="desc">邮差迷路了，正在重新导航...</div>
-      <img src="../../../static/images/nofound.svg" alt="">
     </div>
     <div class="btns flex column center box">
       <button class="flex center" :class="isDisable ? 'disable' :''" @tap="toBack">返回首页</button>
@@ -54,7 +53,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import url(../../styles/color.less);
 .nofound {
   height: 100vh;
   background: #81cbe2;
@@ -79,7 +77,6 @@ export default {
     button {
       width: 480rpx;
       height: 100rpx;
-      background: @yellow;
       color: #fff;
       font-size: 28rpx;
       border-radius: 16rpx;

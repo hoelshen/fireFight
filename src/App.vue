@@ -1,10 +1,11 @@
 
 <script>
-import store from "./utils/store";
   export default {
     mpType: 'app',
-    onLaunch(opts) {
-      console.log('onlaunch')
+    async onLaunch(opts) {
+      let user = await this.$request.login();
+      console.log('loginRes', user)
+      this.globalData.user = user.data
     },
     onShow: function(options) {
       // Do something when show.
@@ -20,7 +21,10 @@ import store from "./utils/store";
     },
     globalData() {
       return {
-        a: 'I am global data'
+        shareTicket: 1,
+        options: {},
+        user:{},
+        sUser:{}
       }
     }
   }

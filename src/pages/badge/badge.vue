@@ -1,5 +1,5 @@
 <template>
-    badge
+    <view>徽章</view>
 
 
 </template>

@@ -1,6 +1,6 @@
 <template>
     <view>
-        sjh
+        咨询箱
     </view>
 </template>
 <script>

@@ -16,7 +16,7 @@ export default {
     },
     methods: {
       ensure(){
-          this.$router.push('/pages/my/index')
+          this.$router.push('/pages/myInfo/index')
       }  
     },
 }

@@ -14,11 +14,15 @@
 export default {
     data(){
         return {
-            imgUrls: [
-            'https://tellers.oss-cn-shenzhen.aliyuncs.com/banners/1543829994971.jpeg',
-            'https://tellers.oss-cn-shenzhen.aliyuncs.com/banners/1543830067865.png',
-            'https://tellers.oss-cn-shenzhen.aliyuncs.com/banners/1543830100237.png'
-            ],
+            imgUrls: [],
+        }
+    },
+    async created() {
+        let banner = await this.$request.banner();
+        console.log("banner" ,banner.data);
+        let arr = banner.data;
+        for(let index of arr){
+            this.imgUrls.push(index.imgUrl)
         }
     }
 }
