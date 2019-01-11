@@ -4,8 +4,6 @@
     mpType: 'app',
     async onLaunch(opts) {
       let user = await this.$request.login();
-      console.log('loginRes', user)
-      this.globalData.user = user.data
     },
     onShow: function(options) {
       // Do something when show.

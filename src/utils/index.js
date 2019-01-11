@@ -8,8 +8,6 @@ export function promisify(fn, self = null) {
   };
 }
 
-
-
 export default {
   promisify,
 }

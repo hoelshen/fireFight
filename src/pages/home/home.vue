@@ -19,7 +19,6 @@ export default {
     },
     async created() {
         let banner = await this.$request.banner();
-        console.log("banner" ,banner.data);
         let arr = banner.data;
         for(let index of arr){
             this.imgUrls.push(index.imgUrl)

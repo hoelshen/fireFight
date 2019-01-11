@@ -13,9 +13,6 @@ export default {
         }
     },
     methods:{
-        login(e){
-
-        },
         onGotUserInfo(e) {
             let {iv,userInfo, encryptedData} = e.detail;
             if (!userInfo){

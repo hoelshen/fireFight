@@ -57,35 +57,16 @@ function getToken(cookiesArray) {
 
 async function login(refer) { 
   let wxRes = await promisify(wx.login, wx)();
-  let loginQuery = {
-    code: wxRes.code,
-  };
-  console.log('wxRes', loginQuery)
-  await checkParams(loginQuery);
-  let loginRes = {
-    data: {}
-  };
-  try {
-    loginRes = await fly.get("/login", loginQuery);
-    return loginRes;
-    console.log("loginRes", loginRes)
-    // logLogin(loginRes)
-  } catch (e) {
-    console.error(e);
-  }
-  // let userInfo = loginRes.data.user;
-  // getApp().globalData.userInfo = userInfo;
+  let logRes = await fly.get(`/login?code=${wxRes.code}`);
+  return  getApp().globalData.user = logRes.data;
   // fly.unlock();
-
-  // return userInfo;
 }
 
 
 async function checkParams(loginQuery) {
-  let shareTicket = getApp().globalData.shareTicket;
-  console.log('globalData', getApp().globalData)
-  let options = getApp().globalData.options;
-  // if (options.query.refer) {
+  // let shareTicket = getApp().globalData.shareTicket;
+  // let options = getApp().globalData.options;
+  // if (options.query.refer) 
   //   loginQuery.refer = options.query.refer;
   // }
   // if (options.query.scene) {
@@ -111,20 +92,12 @@ async function saveFormid(id) {
 
 
 async function banner(){
-    console.log('bannerhome')
     try{
       let data = await fly.get("/banner");
       return data
     } catch(e){
       console.log('err', e);
     }
-}
-
-
-async function UserInfo(){
-  let wxUser = await promisify(wx.getUserInfo)();
-  console.log("wxUser", wxUser)
-  return wxUser
 }
 
 async function logLogin(loginRes) {
@@ -220,7 +193,6 @@ fly
 
 fly.login = login;
 fly.banner = banner;
-fly.UserInfo = UserInfo;
 fly.logClickAd = logClickAd;
 fly.saveFormid = saveFormid;
 export default fly;
