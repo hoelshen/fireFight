@@ -28,7 +28,8 @@ export default {
     };
   },
   onShow() {
-    setTimeout(this.getBanners, 1000);
+    // 测试接口
+    this.$request.get("/banner");
   },
   methods: {
     async getBanners() {

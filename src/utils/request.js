@@ -62,6 +62,25 @@ async function login(refer) {
   return  getApp().globalData.user = logRes.data;
 }
 
+function uploadFile(path) {
+  return new Promise(function (resolve, reject) {
+    wx.uploadFile({
+      url: getBaseURL(environment) + '/file',
+      filePath: path,
+      name: 'img',
+      header: {
+        'Cookie': cookies,
+        'x-csrf-token': token
+      },
+      success: function (res) {
+        typeof resolve == 'function' && resolve(res);
+      },
+      fail: function (err) {
+        typeof reject == 'function' && reject(err);
+      }
+    });
+  })
+}
 
 async function checkParams(loginQuery) {
   // let shareTicket = getApp().globalData.shareTicket;
