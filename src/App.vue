@@ -2,23 +2,8 @@
 <script>
   export default {
     mpType: 'app',
-    async onLaunch(opts) {
-      let user = this.globalData.user  //loginFlag
-      if(Object.keys(user).length === 0){
-        await this.$request.login();
-        console.log('还没有用户登录');    
-      } else {
-        console.log('已经有用户登录了');
-        wx.checkSession({
-          success: (result)=>{
-            console.log('result')
-          },
-          fail: ()=>{
-            console.log('缓存信息缺失')
-          },
-          complete: ()=>{}
-        });
-      }
+     onLaunch(opts) {
+      this.$request.login()
     },
     onShow: function(options) {
       // Do something when show.

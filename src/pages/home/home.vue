@@ -17,14 +17,10 @@ export default {
     };
   },
   onShow() {
-    setTimeout(this.getBanners, 1000);
+    // 测试接口
+    this.$request.get("/banner");
   },
-  methods: {
-    async getBanners() {
-      let res = await this.$request.get("/banner");
-      this.imgUrls = res.data;
-    }
-  }
+  methods: {}
 };
 </script>
 <style lang="less" scoped>

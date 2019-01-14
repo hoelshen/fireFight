@@ -2,8 +2,8 @@
 <view class="app">
         <div class="photo-circle circle">
             <div class="circle" @click="takePhoto">
-                <image v-if="imgUrl!=null" mode="aspectFit" class="userinfo-avatar" src="imgUrl" background-size="cover"></image>
-                <image v-else class="userinfo-avatar" mode="aspectFit" :src="userInfo.avatarUrl" alt="选择头像" background-size="cover"></image>
+                <image v-if="imgUrl!=null" mode="aspectFit" class="userinfo-avatar" src="imgUrl" background-size="cover"/>
+                <image v-else class="userinfo-avatar" mode="aspectFit" :src="userInfo.avatarUrl" alt="选择头像" background-size="cover"/>
             </div>
         </div>
         <div class="block">
@@ -33,11 +33,14 @@ export default {
             count: 1,
             sizeType: ['original', 'compressed'],
             sourceType: ['album', 'camera'],
-            success(res) {
+            success:function(res) {
                 // tempFilePath可以作为img标签的src属性显示图片
                 const tempFilePaths = res.tempFilePaths
                 console.log('tempFilePaths', tempFilePaths[0])
-              }
+                this.$request.uploadFile(tempFilePaths[0]).then((res)=>{
+                    console.log(res)
+                });
+              }.bind(this)
             }) 
         },
         save(){

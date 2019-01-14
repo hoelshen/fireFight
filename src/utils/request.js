@@ -4,7 +4,7 @@ import {
 } from "@/utils/index";
 
 
-const environment = 'mock'; // 配置环境
+const environment = 'test'; // 配置环境
 
 const fly = new flyio();
 let cookies = [],
@@ -62,6 +62,25 @@ async function login(refer) {
   return  getApp().globalData.user = logRes.data;
 }
 
+function uploadFile(path) {
+  return new Promise(function (resolve, reject) {
+    wx.uploadFile({
+      url: getBaseURL(environment) + '/file',
+      filePath: path,
+      name: 'img',
+      header: {
+        'Cookie': cookies,
+        'x-csrf-token': token
+      },
+      success: function (res) {
+        typeof resolve == 'function' && resolve(res);
+      },
+      fail: function (err) {
+        typeof reject == 'function' && reject(err);
+      }
+    });
+  })
+}
 
 async function checkParams(loginQuery) {
   // let shareTicket = getApp().globalData.shareTicket;
@@ -173,7 +192,7 @@ fly
   });
 
 fly.login = login;
-fly.banner = banner;
+fly.uploadFile = uploadFile;
 fly.logClickAd = logClickAd;
 fly.saveFormid = saveFormid;
 export default fly;
