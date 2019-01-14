@@ -2,8 +2,6 @@
     <view>
         walfare
     </view>
-
-
 </template>
 <script>
 export default {

@@ -32,7 +32,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 3,
 			"list": [
 				{
 					"id": -1,
@@ -49,7 +49,14 @@
 				{
 					"id": -1,
 					"name": "主页",
-					"pathName": "pages/home/index"
+					"pathName": "pages/home/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "设置笔名",
+					"pathName": "pages/auth/index",
+					"query": ""
 				}
 			]
 		}

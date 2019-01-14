@@ -1,5 +1,10 @@
 <template>
-    <view>徽章</view>
+    <view>
+        徽章
+        <view v-for="item in imgUrls" :key="item">
+            <view>{{item}}</view>
+        </view>
+    </view>
 
 
 </template>

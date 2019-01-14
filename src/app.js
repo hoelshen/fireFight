@@ -18,9 +18,7 @@ Vue.use(megaloRouter, {
   ]
 })
 
-
 Vue.prototype.$request = request; 
-
 
 const app = new Vue(
   App)
@@ -41,6 +39,7 @@ export default {
       'pages/welfare/index',  //福利社
       'pages/memory/index',  //记忆
       'pages/login/index',  //登录
+      'pages/auth/index', //设置笔名
       'pages/nofound/index',  //404
       'pages/questionsFeedback/index',  //问题与反馈
     ],

@@ -29,11 +29,27 @@ export default {
                 }).then(
                 function(authRes) {
                     wx.hideLoading();
+                    this.$router.push({path:'/pages/auth/index'})
                 }.bind(this)
                 ).catch(err=>{
                     wx.hideLoading();
                 });
-            },
+        },
+        checkUserInfoPermission(callback = () =>{}){
+            wx.getSetting({
+                success: (result)=>{
+                    if(!result.authSetting['scope.userInfo']){
+                        wx.openSetting({
+                            success(authSetting){
+                                console.log(authSetting)
+                            }
+                        })
+                    }
+                },
+                fail: ()=>{},
+                complete: ()=>{}
+            });
+        }
     }
 }
 </script>

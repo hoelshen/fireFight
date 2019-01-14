@@ -24,7 +24,7 @@
     </div>
 
     <div class="my_share flex j-end">
-      <button open-type="share" @click="share">分享</button>
+      <button open-type="share">分享</button>
     </div>
   </div>
 </template>
@@ -64,11 +64,11 @@ export default {
   },
   onShow: function() {
     // Do something when page show.
-    // setTimeout(()=>{
-    //     wx.showShareMenu({
-    //      withShareTicket: true
-    //   })
-    // },5000)
+    setTimeout(()=>{
+        wx.showShareMenu({
+         withShareTicket: true
+      })
+    },5000)
     console.log('Page [my] onShow')
   },
   onHide: function() {
@@ -97,7 +97,6 @@ export default {
     },
     welfare(){
       this.$router.push({query:{id:1}, path:'/pages/welfare/index'})
-
     },
     joinGroup(){
       this.$router.push({query:{id:1}, path:'/pages/joinGroup/index'})
@@ -106,15 +105,35 @@ export default {
       this.$router.push({query:{id:1}, path:'/pages/questionsFeedback/index'})
     }
   },
-  // onShareAppMessage(res) {
-  //   if (res.from === 'button') {
-  //     // 来自页面内转发按钮
-  //     console.log(res.target)
-  //   }
-  //   return {
-  //     title: '转发或者分享',
-  //   }
-  // }
+  onShareAppMessage(res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: '分享',
+      path: '/pages/home/index',
+      imageUrl: '@/static/imgs/home.png',
+      success: function(res){
+        wx.showToast({
+          title: '转发成功',
+          icon: 'none',
+          image: '@/static/imgs/home.png',
+          duration: 1500,
+          mask: false,
+          success: (result)=>{
+            
+          },
+          fail: ()=>{},
+          complete: ()=>{}
+        });
+        //转发成功
+      },
+      fail: function(res){
+        //转发失败
+      }
+    }
+  }
 }
 </script>
 
@@ -147,7 +166,7 @@ export default {
   }
   .my_contact {
     .my_contact-item {
-      border-style: solid;
+      border-style:1px solid;
       margin:10px 10px;
       height:56px;
       width: 325px;

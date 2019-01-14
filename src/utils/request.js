@@ -4,7 +4,7 @@ import {
 } from "@/utils/index";
 
 
-const environment = 'test'; // 配置环境
+const environment = 'mock'; // 配置环境
 
 const fly = new flyio();
 let cookies = [],
@@ -58,8 +58,8 @@ function getToken(cookiesArray) {
 async function login(refer) { 
   let wxRes = await promisify(wx.login, wx)();
   let logRes = await fly.get(`/login?code=${wxRes.code}`);
+  fly.unlock();
   return  getApp().globalData.user = logRes.data;
-  // fly.unlock();
 }
 
 
@@ -135,34 +135,15 @@ async function logClickAd(user, adId, result) {
 }
 
 
-
-async function waitingLogin() {
-  // return new Promise(function (resolve, reject) {
-  //   var hash = setInterval(function () {
-  //     if (tryCount >= 25) {
-  //       clearInterval(hash);
-  //       reject('登陆超时'); // 5秒超时时间
-  //     }
-  //     if (cookies.length > 0) {
-  //       clearInterval(hash);
-  //       resolve('登陆成功');
-  //     } else {
-  //       tryCount++;
-  //       console.log('正在加载，请稍后');
-  //     }
-  //   }, 200);
-  // });
-}
-
 fly
   .interceptors
   .request
   .use(async function (request) {
-    // if (request.url == '/login') {
-    //   fly.lock();
-    //   return request;
-    // }
-    console.log('过了request拦截')
+    let url = request.url;
+    if (url.includes('/login')) {
+      fly.lock();
+      return request;
+    }
     request.headers["Cookie"] = cookies;
     request.headers["x-csrf-token"] = token;
     return request;
