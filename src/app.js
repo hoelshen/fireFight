@@ -4,6 +4,7 @@ import VHtmlPlugin from "@megalo/vhtml-plugin";
 import filters from "./utils/filters";
 import megaloRouter from "megalo-router";
 import request from "./utils/request";
+import day from './utils/day'
 
 Vue.use(VHtmlPlugin);
 
@@ -20,6 +21,8 @@ Vue.use(megaloRouter, {
 });
 
 Vue.prototype.$request = request;
+Vue.prototype.$day = day;
+
 
 const app = new Vue(App);
 app.$mount();
@@ -35,6 +38,10 @@ export default {
       "pages/badge/index", //徽章
       "pages/joinGroup/index", //加入群聊
       "pages/solutionRoom/index", //解忧室
+      "pages/myStory/index", //我的故事
+      "pages/auth/index",  //授权
+      "pages/detail/index", //详细说明
+      "pages/dynamic/index",  //动态
       "pages/ticket/index", //票券
       "pages/welfare/index", //福利社
       "pages/memory/index", //记忆

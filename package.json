@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "@megalo/vhtml-plugin": "^0.1.2",
+    "dayjs": "^1.8.0",
     "flyio": "^0.6.9",
     "megalo": "^0.7.0",
     "megalo-router": "^1.0.3",

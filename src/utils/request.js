@@ -4,7 +4,7 @@ import {
 } from "@/utils/index";
 
 
-const environment = 'mock'; // 配置环境
+const environment = 'test'; // 配置环境
 
 const fly = new flyio();
 let cookies = [],
@@ -91,14 +91,7 @@ async function saveFormid(id) {
 }
 
 
-async function banner(){
-    try{
-      let data = await fly.get("/banner");
-      return data
-    } catch(e){
-      console.log('err', e);
-    }
-}
+
 
 async function logLogin(loginRes) {
   // if (isLog){
@@ -173,7 +166,6 @@ fly
   });
 
 fly.login = login;
-fly.banner = banner;
 fly.logClickAd = logClickAd;
 fly.saveFormid = saveFormid;
 export default fly;

@@ -1,12 +1,23 @@
 <template>
     <view>
-        <swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000">
-            <block v-for="item in imgUrls" :key="item">
-                <swiper-item>
-                    <image :src="item.imgUrl" class="slide-image" width="355" height="150" />
-                </swiper-item>
-            </block>
-        </swiper>
+        <div>
+          <swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000">
+              <block v-for="item in imgUrls" :key="item">
+                  <swiper-item>
+                      <image :src="item.imgUrl" class="slide-image" width="355" height="150" />
+                  </swiper-item>
+              </block>
+          </swiper>
+        </div> 
+        <div>
+          <button @click="onConsultingBox">咨询箱</button>
+        </div>
+        <div>
+          <button @click="onSolutionRoom">解答室</button>
+        </div>
+        <div>
+          <button @click="onDynamic">动态</button>
+        </div>
     </view>
 </template>
 <script>
@@ -21,8 +32,21 @@ export default {
   },
   methods: {
     async getBanners() {
-      let res = await this.$request.get("/banner");
-      this.imgUrls = res.data;
+      try{
+        let res = await this.$request.get("/banner");
+        this.imgUrls = res.data;
+      } catch(e){
+        console.log('err', e);
+      }
+    },
+    onConsultingBox(){
+      this.$router.push({path:'/pages/consultingBox/index'})
+    },
+    onSolutionRoom(){
+      this.$router.push({path:'/pages/solutionRoom/index'})
+    },
+    onDynamic(){
+      this.$router.push({path:'/pages/dynamic/index'})
     }
   }
 };
