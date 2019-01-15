@@ -1,6 +1,6 @@
 <template>
     <view class="app">
-            <div class="photo-circle circle">
+            <div class="photo-circle circle flex center">
                 <div class="circle" @click="takePhoto">
                     <image class="userinfo-avatar"  :src="userInfo.avatarUrl" alt="选择头像" background-size="cover"/>
                 </div>
@@ -14,6 +14,7 @@
             <div>
                 <button @click="save">保存</button>
             </div>
+        </div>
     </view>
 </template>
 <script>
@@ -52,12 +53,19 @@ export default {
             this.$router.push({query: '',path:'/pages/myInfo/index'})
         }      
     },
-
+    save() {
+      this.$router.push({ query: "", path: "/pages/myInfo/index" });
+    }
 }
 </script>
 <style lang="less" scoped>
-.app{
+.app {
   padding-top: 20px;
+  .userinfo-avatar{
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+  }
 }
 </style>
 

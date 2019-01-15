@@ -29,7 +29,7 @@ export default {
   },
   onShow() {
     // 测试接口
-    this.$request.get("/banner");
+    this.getBanners();
   },
   methods: {
     async getBanners() {
@@ -44,7 +44,11 @@ export default {
       this.$router.push({path:'/pages/consultingBox/index'})
     },
     onSolutionRoom(){
-      this.$router.push({path:'/pages/solutionRoom/index'})
+      const {user} = getApp().globalData;
+      if(!user.becomeAnswererAt){
+        return this.$router.push({query:{active: 'solverDetail'},path: '/pages/detail/index'})
+      }
+      return this.$router.push({query:{active: 'slover'},path: '/pages/solutionRoom/index'})
     },
     onMoments(){
       this.$router.push({path:'/pages/moments/index'})

@@ -10,6 +10,10 @@
             <span @click="onDetail">详细说明</span>
         </div>
         <div>
+            当前持有{{tickets}}张解忧券
+            <button @click="returnWelfare">获取更多</button>
+        </div>
+        <div>
             <button @click="onMyStory">讲述我的故事</button>
         </div>
     </view>
@@ -18,7 +22,7 @@
 export default {
     data(){
         return{
-
+            tickets: 0
         }
     },
     methods: {
@@ -27,7 +31,15 @@ export default {
         },
         onDetail(){
             this.$router.push({query: {active:'description'}, path: '/pages/detail/index'})
+        },
+        returnWelfare(){
+            this.$router.push({path:'/pages/welfare/index'})
         }
+    },
+    onShow(){
+        const { user } = getApp().globalData;
+        this.tickets = user.ticketCount
+          
     }
 }
 </script>

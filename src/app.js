@@ -14,7 +14,7 @@ Vue.use(megaloRouter, {
   mode: "strict", // strict or loose 可配置项，不配置的话默认为strict
   tabBars: [
     // 必须配置项
-    "pages/mailBox/index",
+    "pages/mailbox/index",
     "/pages/home/index",
     "/pages/myInfo/index"
   ]
@@ -32,7 +32,7 @@ export default {
     // pages 的首个页面会被编译成首页
     pages: [
       "pages/home/index", //首页
-      "pages/mailBox/index", //信箱
+      "pages/mailbox/index", //信箱
       "pages/myInfo/index", //个人中心
       "pages/consultingBox/index", //咨询箱
       "pages/badge/index", //徽章
@@ -53,7 +53,7 @@ export default {
       selectedColor: "#007d37",
       list: [
         {
-          pagePath: "pages/mailBox/index",
+          pagePath: "pages/mailbox/index",
           text: "邮件",
           iconPath: "static/imgs/mine.png",
           selectedIconPath: "static/imgs/mine_on.png"

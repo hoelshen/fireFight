@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 7,
 			"list": [
 				{
 					"id": -1,
@@ -70,6 +70,18 @@
 					"name": "咨询箱",
 					"pathName": "pages/consultingBox/index",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "信箱",
+					"pathName": "pages/mailbox/index",
+					"query": ""
+				},
+				{
+					"id": 7,
+					"name": "解答室",
+					"pathName": "pages/solutionRoom/index",
+					"query": "active=beSlover"
 				}
 			]
 		}

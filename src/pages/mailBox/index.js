@@ -1,4 +1,4 @@
-import App from './mailBox'
+import App from './mailbox'
 import Vue from 'vue'
 
 const app = new Vue(App)

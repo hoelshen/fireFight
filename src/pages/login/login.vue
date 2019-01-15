@@ -1,7 +1,7 @@
 <template>
     <view>
         <button open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">
-        微信授权登录
+        微信授权
         </button>
     </view>
 </template>

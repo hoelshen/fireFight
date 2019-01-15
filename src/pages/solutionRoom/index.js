@@ -9,7 +9,7 @@ export default {
     config: {
       navigationBarBackgroundColor: '#81CBE2',
       navigationBarTextStyle: 'white',
-      navigationBarTitleText: '解忧室',
+      navigationBarTitleText: '解答室',
       backgroundColor: '#81CBE2'  
     }
   };
