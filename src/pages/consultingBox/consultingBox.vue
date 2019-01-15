@@ -23,11 +23,10 @@ export default {
     },
     methods: {
         onMyStory(){
-            this.$router.push({path:'/pages/myStory/index'})
-            
+            this.$router.push({path:'/pages/myStory/index'}) 
         },
         onDetail(){
-            this.$router.push({path: '/pages/detail/index'})
+            this.$router.push({query: {active:'description'}, path: '/pages/detail/index'})
         }
     }
 }

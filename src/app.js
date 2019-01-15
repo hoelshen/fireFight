@@ -32,17 +32,15 @@ export default {
     // pages 的首个页面会被编译成首页
     pages: [
       "pages/home/index", //首页
-      "pages/auth/index", //首页
       "pages/mailBox/index", //信箱
       "pages/myInfo/index", //个人中心
       "pages/consultingBox/index", //咨询箱
       "pages/badge/index", //徽章
-      "pages/joinGroup/index", //加入群聊
       "pages/solutionRoom/index", //解忧室
       "pages/myStory/index", //我的故事
       "pages/auth/index",  //授权
       "pages/detail/index", //详细说明
-      "pages/dynamic/index",  //动态
+      "pages/moments/index",  //动态
       "pages/ticket/index", //票券
       "pages/welfare/index", //福利社
       "pages/memory/index", //记忆

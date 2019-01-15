@@ -6,24 +6,30 @@
     </div>
 
     <div class="my_function flex colum">
-      <div class="my_function-item flex j-start">
-        <button @click="memory">记忆</button></div>
-      <div class="my_function-item flex j-between">
-        <button @click="ticket">票券</button></div>
-      <div class="my_function-item flex j-end" >
-        <button @click="badge">徽章</button></div>
+      <div class="my_function-item">
+        <button @click="memory">记忆</button>
+      </div>
+      <div class="my_function-item">
+        <button @click="ticket">票券</button>
+      </div>
+      <div class="my_function-item" >
+        <button @click="badge">徽章</button>
+      </div>
     </div>
 
-    <div class="my_contact flex wrap">
-      <div class="my_contact-item flex j-start">
-        <button @click="welfare">福利社</button></div>
-      <div class="my_contact-item flex j-start">
-        <button @click="joinGroup">加入群聊</button></div>
-      <div class="my_contact-item flex j-start">
-        <button @click="questionsFeedback">问题与反馈</button></div>
+    <div class="my_contact flex column">
+      <div class="my_contact-item flex arrowUp" @click="welfare">
+        福利社
+      </div>
+      <div class="my_contact-item flex arrowUp" @click="joinGroup">
+        加入群聊
+      </div>
+      <div class="my_contact-item flex arrowUp" @click="questionsFeedback">
+        问题与反馈
+      </div>
     </div>
 
-    <div class="my_share flex j-end">
+    <div class="my_share flex center">
       <button open-type="share">分享</button>
     </div>
   </div>
@@ -158,6 +164,7 @@ export default {
       button{
           border-style: solid;
           border-radius: 50%;
+          line-height: 80px;
           height:80px;
           width: 80px;
           margin:10px 20px;
@@ -165,20 +172,33 @@ export default {
     }
   }
   .my_contact {
-    .my_contact-item {
+    &-item{
       border-style:1px solid;
       margin:10px 10px;
       height:56px;
       width: 325px;
+      &:after{
+        content: '';
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-top: 1px solid #656565;
+        border-right: 1px solid #656565;
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+      }      
     }
+
   }
   .my_share{
     & button{
      border-style: solid;
      border-radius: 50%;
      height:80px;
+     line-height: 80px;
      width: 80px;
     }
   }
+
 }
 </style>

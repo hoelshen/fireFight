@@ -1,4 +1,4 @@
-import App from './dynamic'
+import App from './detail'
 import Vue from 'vue'
 
 const app = new Vue(App)

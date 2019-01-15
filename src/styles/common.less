@@ -16,6 +16,9 @@
     &.j-end {
         justify-content: flex-end;
     }
+    &.a-start {
+        align-items: flex-start;
+    }
     &.a-center {
         align-items: center;
     }
@@ -26,8 +29,17 @@
         align-items: center;
         justify-content: center;
     }
+    &.s-around {
+        align-items: space-around;
+    }
+    &.s-between {
+        align-items: space-between;
+    }
     &.column {
         flex-direction: column;
+    }
+    &.row {
+        flex-direction: row;
     }
     &.wrap {
         flex-wrap: wrap;
@@ -96,3 +108,9 @@
     margin:10px 20px;
 }
 
+//span 溢出用...代替
+.spanCover{
+    overflow: hidden;  
+    text-overflow: ellipsis;  
+    white-space: nowrap;
+}

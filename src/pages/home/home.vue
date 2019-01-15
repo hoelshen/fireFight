@@ -16,7 +16,7 @@
           <button @click="onSolutionRoom">解答室</button>
         </div>
         <div>
-          <button @click="onDynamic">动态</button>
+          <button @click="onMoments">动态</button>
         </div>
     </view>
 </template>
@@ -46,8 +46,8 @@ export default {
     onSolutionRoom(){
       this.$router.push({path:'/pages/solutionRoom/index'})
     },
-    onDynamic(){
-      this.$router.push({path:'/pages/dynamic/index'})
+    onMoments(){
+      this.$router.push({path:'/pages/moments/index'})
     }
   }
 };

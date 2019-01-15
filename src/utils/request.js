@@ -187,4 +187,5 @@ fly
 fly.login = login;
 fly.logClickAd = logClickAd;
 fly.saveFormid = saveFormid;
+fly.uploadFile = uploadFile;
 export default fly;
