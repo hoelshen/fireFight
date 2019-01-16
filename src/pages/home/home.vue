@@ -28,7 +28,6 @@ export default {
     };
   },
   onShow() {
-    // 测试接口
     this.getBanners();
   },
   methods: {
@@ -48,7 +47,7 @@ export default {
       if(!user.becomeAnswererAt){
         return this.$router.push({query:{active: 'solverDetail'},path: '/pages/detail/index'})
       }
-      return this.$router.push({query:{active: 'slover'},path: '/pages/solutionRoom/index'})
+      return this.$router.push({path: '/pages/solutionRoom/index2'})
     },
     onMoments(){
       this.$router.push({path:'/pages/moments/index'})

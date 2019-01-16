@@ -14,7 +14,7 @@
 	"compileType": "miniprogram",
 	"appid": "wx0af73175e644dbfc",
 	"projectname": "tell2.0_megalo",
-	"libVersion": "2.4.3",
+	"libVersion": "2.5.0",
 	"condition": {
 		"search": {
 			"current": -1,
@@ -79,8 +79,8 @@
 				},
 				{
 					"id": 7,
-					"name": "解答室",
-					"pathName": "pages/solutionRoom/index",
+					"name": "解答室说明",
+					"pathName": "pages/solutionRoom/index1",
 					"query": "active=beSlover"
 				}
 			]

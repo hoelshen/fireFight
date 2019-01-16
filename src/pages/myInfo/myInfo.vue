@@ -1,37 +1,64 @@
 <template>
   <div class="app">
-    <div class="my_info ">
-      <img class="img" :src="logo" @touchstart="login">
-      <button @click="login">点击登录</button>
-    </div>
-
-    <div class="my_function flex colum">
-      <div class="my_function-item">
-        <button @click="memory">记忆</button>
-      </div>
-      <div class="my_function-item">
-        <button @click="ticket">票券</button>
-      </div>
-      <div class="my_function-item" >
-        <button @click="badge">徽章</button>
+    <div class="my_info flex column">
+      <img class="my_info_user-avatarUrl" :src="user.avatarUrl" mode="aspectFit"  @touchstart="login">
+      <button @click="login" v-if="!user.avatarUrl">点击登录</button>
+      <div class="flex column center" v-else>
+        <div class="flex j-around my_info_user-nickName">
+          <div class="">{{user.nickName}}</div>
+          <img class="my_info_user-nickNameImg"  src="static/imgs/矩形.png" alt="">
+        </div>
+        <div class="my_info_user-address" >{{user.city}}</div>
       </div>
     </div>
 
-    <div class="my_contact flex column">
-      <div class="my_contact-item flex arrowUp" @click="welfare">
-        福利社
-      </div>
-      <div class="my_contact-item flex arrowUp" @click="joinGroup">
-        加入群聊
-      </div>
-      <div class="my_contact-item flex arrowUp" @click="questionsFeedback">
-        问题与反馈
-      </div>
-    </div>
+    <session class="my_function flex">
+      <form class="my_function_item flex"  @submit="memory" report-submit="true">
+        <button class="my_function_item-button flex column center" form-type="submit">
+          <img class="my_function_item-img"  src="static/imgs/矩形.png" alt="">
+          <span class="my_function_item-text">记忆</span>
+        </button>
+      </form>
 
-    <div class="my_share flex center">
-      <button open-type="share">分享</button>
-    </div>
+      <form class="my_function_item flex"  @submit="ticket" report-submit="true">
+        <button class="my_function_item-button flex column center"  form-type="submit">
+          <img class="my_function_item-img"  src="static/imgs/矩形.png" alt="">
+          <span class="my_function_item-text">票券</span>
+        </button>
+      </form>
+
+      <form class="my_function_item flex"  @submit="badge" report-submit="true">
+        <button class="my_function_item-button flex column center"  form-type="submit">
+          <img class="my_function_item-img"  src="static/imgs/矩形.png" alt="">
+          <span class="my_function_item-text">徽章</span>
+        </button>
+      </form>
+
+    </session>
+
+    <session class="my_contact flex column">
+      <form class="my_contact_item flex " @submit="welfare" report-submit="true">
+        <button class="my_contact_item-button flex wrap j-start "  form-type="submit">
+          <img class="my_contact_item-img"  src="static/imgs/矩形.png" alt="">
+          <span class="my_contact_item-text">福利社</span>
+        </button>
+      </form>
+
+      <form class="my_contact-item flex " @submit="joinGroup" report-submit="true">
+        <button class="my_contact_item-button flex wrap j-start "  form-type="submit">
+          <img class="my_contact_item-img"  src="static/imgs/矩形.png" alt="">
+          <span class="my_contact_item-text">加入群聊</span>
+        </button>
+      </form>
+
+      <form class="my_contact-item flex  " @submit="questionsFeedback" report-submit="true">
+        <button class="my_contact_item-button flex wrap j-start "  form-type="submit">
+          <img class="my_contact_item-img"  src="static/imgs/矩形.png" alt="">
+          <span class="my_contact_item-text">问题与反馈</span>
+        </button>
+      </form>
+
+    </session>
   </div>
 </template>
 
@@ -61,7 +88,7 @@ export default {
   },
   onLoad: function(options) {
     // Do some initialize when page load.
-    wx.hideTabBar({})
+    // wx.hideTabBar({})
     console.log('Page [my] onLoad')
   },
   onReady: function() {
@@ -75,6 +102,8 @@ export default {
          withShareTicket: true
       })
     },5000)
+    const { user } =  getApp().globalData;
+    this.user = user;
     console.log('Page [my] onShow')
   },
   onHide: function() {
@@ -145,48 +174,101 @@ export default {
 
 <style lang="less" scoped>
 .app{
-  padding-top: 20px;
-  .img {
-    display: block;
-    border-radius: 50%;
-    border-style: solid;
-    height: 60px;
-    width: 60px;
-    margin: 20px auto;
-  }
-  .txt {
-      color: #567567;
-      font-size: 13px;
-      text-align: center;
+  width: 750rpx;
+  height:100%;
+  font-family: 'PingFang SC';
+  background-color: #F6F6F8;
+  .my_info{
+    width: 630rpx;
+    height: 508rpx;
+    margin:0 60rpx;
+    border-radius: 2px;
+    background-color: #FFFFFF ;
+    &_user{
+      &-avatarUrl {
+        display: block;
+        border-radius: 50%;
+        border-style: solid;
+        height: 216rpx;
+        width: 216rpx;
+        margin: 20px auto;
+      }
+      &-nickName{
+        width: 336rpx;
+        height: 84rpx;
+        font-size: 30rpx;
+        text-align:center
+      }
+      &-nickNameImg{
+        width: 36rpx;
+        height: 36rpx;
+      }      
+      &-address{
+        width: 146rpx;
+        height: 40rpx;
+        font-size:14rpx;
+        text-align:center
+      }
+    }
+
   }
   .my_function {
-    .my_function-item{
-      button{
-          border-style: solid;
-          border-radius: 50%;
-          line-height: 80px;
-          height:80px;
-          width: 80px;
-          margin:10px 20px;
-      }
+    width: 630rpx;
+    height:172rpx;
+    margin:32rpx 60rpx;
+    background-color: #FFFFFF ;
+    &_item{
+          height:172rpx;
+          width: 210rpx;
+          background-color: #FFFFFF ;
+          &-button{
+            height:172rpx;
+            width: 210rpx;
+          }
+          &-img{
+            height: 36rpx;
+            width: 36rpx;
+          }
+          &-text{
+            font-size: 38rpx;
+          }
     }
   }
   .my_contact {
-    &-item{
-      border-style:1px solid;
-      margin:10px 10px;
-      height:56px;
-      width: 325px;
-      &:after{
-        content: '';
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        border-top: 1px solid #656565;
-        border-right: 1px solid #656565;
-        transform: rotate(45deg);
-        -webkit-transform: rotate(45deg);
-      }      
+    width:630rpx;
+    height:324rpx;
+    margin:32rpx 60rpx;
+    background-color: #FFFFFF ;
+    &_item{
+      width: 630rpx;
+      height:108rpx;
+      background-color: #FFFFFF ;
+      &-button{
+        width: 630rpx;
+        height:108rpx;
+        align-items: center;
+          &:after{
+            content: "";
+            width: 16rpx;
+            height: 16rpx;
+            border-left: 1rpx solid #666;
+            border-bottom: 1rpx solid #666;
+            transform: rotate(225deg);
+            -webkit-transform: rotate(225deg);
+            position: absolute;
+            left: 580rpx;
+            top: 54rpx;
+          } 
+      }
+      &-img{
+        height: 36rpx;
+        width: 36rpx;
+        margin: 18rpx 20rpx;
+      }
+      &-text{
+        font-size: 28rpx;
+      }
+     
     }
 
   }
@@ -198,6 +280,9 @@ export default {
      line-height: 80px;
      width: 80px;
     }
+  }
+  .button-hover {
+    background-color: #FFF1F3;
   }
 
 }

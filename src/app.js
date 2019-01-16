@@ -36,7 +36,8 @@ export default {
       "pages/myInfo/index", //个人中心
       "pages/consultingBox/index", //咨询箱
       "pages/badge/index", //徽章
-      "pages/solutionRoom/index", //解忧室
+      "pages/solutionRoom/index2", //解答室
+      "pages/solutionRoom/index1", //成为解答者
       "pages/myStory/index", //我的故事
       "pages/auth/index",  //授权
       "pages/detail/index", //详细说明
@@ -51,6 +52,7 @@ export default {
     tabBar: {
       color: "#333",
       selectedColor: "#007d37",
+      navigationBarTextStyle:"default",
       list: [
         {
           pagePath: "pages/mailbox/index",

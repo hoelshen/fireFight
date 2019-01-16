@@ -55,7 +55,7 @@ export default {
             if(!user.authAt){
                 return this.$router.push({path:'/pages/auth/index'})
             }
-            return this.$router.push({query:{active: 'beSlover'},path:'pages/solutionRoom/index'})  
+            return this.$router.push({path:'pages/solutionRoom/index2'})  
         },
         onEnsure(){
 

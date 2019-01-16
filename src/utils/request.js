@@ -22,7 +22,7 @@ function getBaseURL(env) {
     case 'local':
       return 'http://192.168.118.149:10701';
     case 'mock':
-      return 'http://www.amusingcode.com:8001/mock/24/tell_v2/';
+      return 'http://www.amusingcode.com:8001/mock/24/tell_v2';
     case 'test':
       return  'https://www.amusingcode.com/teller-v2';
     default:
@@ -55,11 +55,12 @@ function getToken(cookiesArray) {
   return ''
 }
 
-async function login(refer) { 
-  let wxRes = await promisify(wx.login, wx)();
-  let logRes = await fly.get(`/login?code=${wxRes.code}`);
-  fly.unlock();
-  return  getApp().globalData.user = logRes.data;
+async function login() { 
+  try{
+    let wxRes = await promisify(wx.login, wx)();
+    let logRes = await fly.get(`/login?code=${wxRes.code}`)
+    return getApp().globalData.user = logRes.data;
+  }catch(err){}
 }
 
 function uploadFile(path) {
@@ -83,83 +84,39 @@ function uploadFile(path) {
 }
 
 async function checkParams(loginQuery) {
-  // let shareTicket = getApp().globalData.shareTicket;
-  // let options = getApp().globalData.options;
-  // if (options.query.refer) 
-  //   loginQuery.refer = options.query.refer;
-  // }
-  // if (options.query.scene) {
-  //   loginQuery.scene = options.query.scene;
-  // }
-  // if (options.query.extendChannel){
-  //   loginQuery.extendChannel = options.query.extendChannel;
-  // }
-  // if (shareTicket) {
-  //   let shareRes = await promisify(wx.getShareInfo, wx)({
-  //     shareTicket: shareTicket
-  //   });
-  //   loginQuery.encryptedData = shareRes.encryptedData;
-  //   loginQuery.iv = shareRes.iv;
-  // }
 }
 
 async function saveFormid(id) {
-  // await fly.post('/user/form', {
-  //   id: id
-  // });
 }
-
-
 
 
 async function logLogin(loginRes) {
-  // if (isLog){
-  //   return true;
-  // }
-  // let options = getApp().globalData.options;
-  // let query = options.query;
-  // console.log("query", query)
-  // let systemInfo = wx.getSystemInfoSync();
-  // let openid = loginRes.openid;
-  // console.log("openid", openid)
-  // let userId = loginRes.user ? loginRes.user._id : null;
-  // fly.post('/logger', {
-  //   type: "LOGIN",
-  //   lauchOpts: options,
-  //   systemInfo,
-  //   openid,
-  //   userId: userId,
-  //   query
-  // });
-  // isLog = true;
 }
-
-
-async function logClickAd(user, adId, result) {
-  // let openid = user.openid;
-  // let userId = user._id;
-  // fly.post('/log/ad', {
-  //   adId: adId,
-  //   openid: openid,
-  //   userId: userId,
-  //   result: result
-  // });
-}
-
 
 fly
   .interceptors
   .request
   .use(async function (request) {
     let url = request.url;
-    if (url.includes('/login')) {
-      fly.lock();
+    if(url.includes('/login')) {  //白名单
+      return request;
+    } else {
+      console.log('url', url, cookies)
+      if(!cookies){    //判断有无cookie
+        console.log('没有cookie')
+        fly.lock();
+        return login().then(res=>{ 
+           console.log('res', res);
+           fly.unlock();
+          }).then(()=>{
+           return request;
+          })
+      }
+      request.headers["Cookie"] = cookies;
+      request.headers["x-csrf-token"] = token;
       return request;
     }
-    request.headers["Cookie"] = cookies;
-    request.headers["x-csrf-token"] = token;
-    return request;
-  });
+});
 
 fly
   .interceptors
@@ -185,7 +142,6 @@ fly
   });
 
 fly.login = login;
-fly.logClickAd = logClickAd;
 fly.saveFormid = saveFormid;
 fly.uploadFile = uploadFile;
 export default fly;
