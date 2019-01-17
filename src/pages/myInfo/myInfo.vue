@@ -258,10 +258,10 @@ export default {
 <style lang="less" scoped>
 .app {
   width: 750rpx;
-  height: 100%;
+  min-height: 100vh;
   font-family: "PingFang SC";
   background-color: #f6f6f8;
-  border: 2rpx solid #ffffff;
+  padding-top: 32rpx;
   .my_info {
     width: 630rpx;
     height: 508rpx;
