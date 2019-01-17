@@ -12,12 +12,6 @@ Object.keys(filters).forEach(key => Vue.filter(key, filters[key]));
 
 Vue.use(megaloRouter, {
   mode: "strict", // strict or loose 可配置项，不配置的话默认为strict
-  tabBars: [
-    // 必须配置项
-    "pages/mailbox/index",
-    "/pages/home/index",
-    "/pages/myInfo/index"
-  ]
 });
 
 Vue.prototype.$request = request;
@@ -31,9 +25,9 @@ export default {
   config: {
     // pages 的首个页面会被编译成首页
     pages: [
+      "pages/myInfo/index", //个人中心
       "pages/home/index", //首页
       "pages/mailbox/index", //信箱
-      "pages/myInfo/index", //个人中心
       "pages/consultingBox/index", //咨询箱
       "pages/badge/index", //徽章
       "pages/solutionRoom/index2", //解答室
@@ -49,36 +43,12 @@ export default {
       "pages/nofound/index", //404
       "pages/questionsFeedback/index" //问题与反馈
     ],
-    tabBar: {
-      color: "#333",
-      selectedColor: "#007d37",
-      navigationBarTextStyle:"default",
-      list: [
-        {
-          pagePath: "pages/mailbox/index",
-          text: "邮件",
-          iconPath: "static/imgs/mine.png",
-          selectedIconPath: "static/imgs/mine_on.png"
-        },
-        {
-          pagePath: "pages/home/index",
-          text: "home",
-          iconPath: "static/imgs/home.png",
-          selectedIconPath: "static/imgs/home_on.png"
-        },
-        {
-          pagePath: "pages/myInfo/index",
-          text: "我的",
-          iconPath: "static/imgs/mine.png",
-          selectedIconPath: "static/imgs/mine_on.png"
-        }
-      ]
-    },
     window: {
       backgroundTextStyle: "light",
       navigationBarBackgroundColor: "#fff",
       navigationBarTitleText: "tell2.0_megalo",
-      navigationBarTextStyle: "black"
+      navigationBarTextStyle: "black",
+      backgroundColor: '#F6F6F8'
     },
     navigateToMiniProgramAppIdList: [
       "wxa7053e55658fc6f3", // 晓析心理评测

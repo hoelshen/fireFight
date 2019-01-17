@@ -10,6 +10,7 @@ export default {
       navigationBarBackgroundColor: '#81CBE2',
       navigationBarTextStyle: 'white',
       navigationBarTitleText: '我的',
-      backgroundColor: '#F6F6F8'  
+      backgroundColor: '#F6F6F8',
+      disableScroll: true,
     }
 };

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="16px" viewBox="0 0 24 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>分组</title>
+    <desc>Created with Sketch.</desc>
+    <g id="小程序" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="我的" transform="translate(-46.000000, -628.000000)">
+            <g id="分组-3" transform="translate(0.000000, 605.000000)">
+                <g id="分组-9" transform="translate(43.000000, 16.000000)">
+                    <g id="分组">
+                        <polygon id="Fill-1" points="0 30 30 30 30 0 0 0"></polygon>
+                        <path d="M3.75,22.5 L26.25,22.5 L26.25,7.5 L3.75,7.5 L3.75,22.5 Z M22.875,9.999375 L7.125,9.999375 L15,14.375625 L15,16.875 L6.249375,12 L6.249375,20.000625 L23.750625,20.000625 L23.750625,12 L15,16.875 L15,14.375625 L22.875,9.999375 Z" id="Fill-2" fill="#2A2A2A"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
