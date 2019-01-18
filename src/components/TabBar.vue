@@ -1,9 +1,51 @@
 <template>
   <div class="bar box flex a-center j-between">
     <!-- TODO:封装一层Button -->
-    <image class="mail" src="/static/svgs/mail_tab.svg" />
-    <image class="home" src="/static/svgs/home_tab.svg" />
-    <image class="mine" src="/static/svgs/mine_tab.svg" />
+    <form
+      class="flex"
+      @submit="mail"
+      report-submit="true"
+    >
+      <button
+        class=" flex column center"
+        form-type="submit"
+      >
+        <image
+          class="mail"
+          src="/static/svgs/mail_tab.svg"
+        />
+      </button>
+    </form>
+    <form
+      class=" flex"
+      @submit="home"
+      report-submit="true"
+    >
+      <button
+        class=" flex column center"
+        form-type="submit"
+      >
+        <image
+          class="home"
+          src="/static/svgs/home_tab.svg"
+        />
+      </button>
+    </form>
+    <form
+      class="flex"
+      @submit="mine"
+      report-submit="true"
+    >
+      <button
+        class="flex column center"
+        form-type="submit"
+      >
+        <image
+          class="mine"
+          src="/static/svgs/mine_tab.svg"
+        />
+      </button>
+    </form>
   </div>
 </template>
 
@@ -19,9 +61,22 @@ export default {
   data() {
     return {};
   },
-
   methods: {
-    // TODO:点击跳转
+    myInfo(e) {
+      console.log("mine: ", e);
+      this.$router.push("pages/myInfo/index");
+    },
+    home(e) {
+      console.log("mine: ", e);
+      this.$router.push("pages/home/index");
+    },
+    mail(e) {
+      console.log("mine: ", e);
+      this.$router.push("page/mail/index");
+    },
+    sjh() {
+      console.log("sjh: ", sjh);
+    }
   }
 };
 </script>
@@ -41,13 +96,13 @@ export default {
     width: 45rpx;
     height: 30rpx;
   }
-  .home{
-    width: 48rpx;;
-    height: 44rpx;;
+  .home {
+    width: 48rpx;
+    height: 44rpx;
   }
-  .mine{
-    width: 32rpx;;
-    height: 40rpx;;
+  .mine {
+    width: 32rpx;
+    height: 40rpx;
   }
 }
 </style>

@@ -3,7 +3,7 @@ import {
   promisify
 } from "@/utils/index";
 
-const environment = "mock"; // 配置环境
+const environment = "test"; // 配置环境
 
 const fly = new flyio();
 let cookies = [],

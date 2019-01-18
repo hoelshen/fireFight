@@ -2,11 +2,25 @@
   <div class="app">
     <!-- TODO:还需要调适配，以适应短屏 -->
     <div class="my_info flex column">
-      <img class="my_info_user-avatarUrl" :src="user.avatarUrl" mode="aspectFit" @touchstart="login">
-      <button @click="login" v-if="!user.avatarUrl">点击登录</button>
-      <div class="flex column center" v-else>
+      <img
+        class="my_info_user-avatarUrl"
+        :src="user.avatarUrl"
+        mode="aspectFit"
+        @touchstart="login"
+      >
+      <button
+        @click="login"
+        v-if="!user.avatarUrl"
+      >点击登录</button>
+      <div
+        class="flex column center"
+        v-else
+      >
         <div class="flex j-around my_info_user-nickName">
-          <div class="" style="margin-left:20rpx;">{{user.nickName}}</div>
+          <div
+            class=""
+            style="margin-left:20rpx;"
+          >{{user.nickName}}</div>
           <div class="iconfont icon-badge"></div>
         </div>
         <div class="my_info_user-address">{{user.city}}</div>
@@ -14,22 +28,43 @@
     </div>
 
     <session class="my_function flex">
-      <form class="my_function_item flex" @submit="memory" report-submit="true">
-        <button class="my_function_item-button flex column center" form-type="submit">
+      <form
+        class="my_function_item flex"
+        @submit="memory"
+        report-submit="true"
+      >
+        <button
+          class="my_function_item-button flex column center"
+          form-type="submit"
+        >
           <div class="iconfont icon-memery"></div>
           <span class="my_function_item-text">记忆</span>
         </button>
       </form>
 
-      <form class="my_function_item flex" @submit="ticket" report-submit="true">
-        <button class="my_function_item-button flex column center" form-type="submit">
+      <form
+        class="my_function_item flex"
+        @submit="ticket"
+        report-submit="true"
+      >
+        <button
+          class="my_function_item-button flex column center"
+          form-type="submit"
+        >
           <div class="iconfont icon-ticket"></div>
           <span class="my_function_item-text">票券</span>
         </button>
       </form>
 
-      <form class="my_function_item flex" @submit="badge" report-submit="true">
-        <button class="my_function_item-button flex column center" form-type="submit">
+      <form
+        class="my_function_item flex"
+        @submit="badge"
+        report-submit="true"
+      >
+        <button
+          class="my_function_item-button flex column center"
+          form-type="submit"
+        >
           <div class="iconfont icon-badge"></div>
           <span class="my_function_item-text">徽章</span>
         </button>
@@ -38,22 +73,43 @@
     </session>
 
     <session class="my_contact flex column">
-      <form class="my_contact_item flex " @submit="welfare" report-submit="true">
-        <button class="my_contact_item-button flex wrap j-start " form-type="submit">
+      <form
+        class="my_contact_item flex "
+        @submit="welfare"
+        report-submit="true"
+      >
+        <button
+          class="my_contact_item-button flex wrap j-start "
+          form-type="submit"
+        >
           <div class="iconfont icon-gift"></div>
           <span class="my_contact_item-text">福利社</span>
         </button>
       </form>
 
-      <form class="my_contact-item flex " @submit="joinGroup" report-submit="true">
-        <button class="my_contact_item-button flex wrap j-start " form-type="submit">
+      <form
+        class="my_contact-item flex "
+        @submit="joinGroup"
+        report-submit="true"
+      >
+        <button
+          class="my_contact_item-button flex wrap j-start "
+          form-type="submit"
+        >
           <div class="iconfont icon-group"></div>
           <span class="my_contact_item-text">加入群聊</span>
         </button>
       </form>
 
-      <form class="my_contact-item flex  " @submit="questionsFeedback" report-submit="true">
-        <button class="my_contact_item-button flex wrap j-start " form-type="submit">
+      <form
+        class="my_contact-item flex  "
+        @submit="questionsFeedback"
+        report-submit="true"
+      >
+        <button
+          class="my_contact_item-button flex wrap j-start "
+          form-type="submit"
+        >
           <div class="iconfont icon-feedback"></div>
           <span class="my_contact_item-text">问题与反馈</span>
         </button>
@@ -110,6 +166,8 @@ export default {
       });
     }, 5000);
     const { user } = getApp().globalData;
+    console.log("user: ", user);
+
     this.user = user;
     console.log("Page [my] onShow");
   },

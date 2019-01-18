@@ -13,7 +13,6 @@
             alt=""
           >
         </button>
-
       </div>
     </session>
 
@@ -55,9 +54,9 @@ export default {
       console.log("list", this.mails);
     },
     onSolutionLimit() {
-      this.$router.push({
-        query: { active: "solutionLimit", path: "'/pages/detail/index'" }
-      });
+      // this.$router.push({
+      //   query: { active: "solutionLimit", path: "'/pages/detail/index'" }
+      // });
     }
   },
   onShow() {
