@@ -1,83 +1,36 @@
 <template>
   <div class="app">
-    <session class="my_info flex column">
-      <img
-        class="my_info_user-avatarUrl"
-        :src="user.avatarUrl"
-        mode="aspectFit"
-        @touchstart="login"
-      >
-      <button
-        @click="login"
-        v-if="!user.avatarUrl"
-      >点击登录</button>
-      <div
-        class="flex column center"
-        v-else
-      >
+    <!-- TODO:还需要调适配，以适应短屏 -->
+    <div class="my_info flex column">
+      <img class="my_info_user-avatarUrl" :src="user.avatarUrl" mode="aspectFit" @touchstart="login">
+      <button @click="login" v-if="!user.avatarUrl">点击登录</button>
+      <div class="flex column center" v-else>
         <div class="flex j-around my_info_user-nickName">
-          <div class="">{{user.nickName}}</div>
-          <img
-            class="my_info_user-nickNameImg"
-            src="static/imgs/矩形.png"
-            alt=""
-          >
+          <div class="" style="margin-left:20rpx;">{{user.nickName}}</div>
+          <div class="iconfont icon-badge"></div>
         </div>
         <div class="my_info_user-address">{{user.city}}</div>
       </div>
-    </session>
+    </div>
 
     <session class="my_function flex">
-      <form
-        class="my_function_item flex"
-        @submit="memory"
-        report-submit="true"
-      >
-        <button
-          class="my_function_item-button flex column center"
-          form-type="submit"
-        >
-          <img
-            class="my_function_item-img"
-            src="static/imgs/矩形.png"
-            alt=""
-          >
+      <form class="my_function_item flex" @submit="memory" report-submit="true">
+        <button class="my_function_item-button flex column center" form-type="submit">
+          <div class="iconfont icon-memery"></div>
           <span class="my_function_item-text">记忆</span>
         </button>
       </form>
 
-      <form
-        class="my_function_item flex"
-        @submit="ticket"
-        report-submit="true"
-      >
-        <button
-          class="my_function_item-button flex column center"
-          form-type="submit"
-        >
-          <img
-            class="my_function_item-img"
-            src="static/imgs/矩形.png"
-            alt=""
-          >
+      <form class="my_function_item flex" @submit="ticket" report-submit="true">
+        <button class="my_function_item-button flex column center" form-type="submit">
+          <div class="iconfont icon-ticket"></div>
           <span class="my_function_item-text">票券</span>
         </button>
       </form>
 
-      <form
-        class="my_function_item flex"
-        @submit="badge"
-        report-submit="true"
-      >
-        <button
-          class="my_function_item-button flex column center"
-          form-type="submit"
-        >
-          <img
-            class="my_function_item-img"
-            src="static/imgs/矩形.png"
-            alt=""
-          >
+      <form class="my_function_item flex" @submit="badge" report-submit="true">
+        <button class="my_function_item-button flex column center" form-type="submit">
+          <div class="iconfont icon-badge"></div>
           <span class="my_function_item-text">徽章</span>
         </button>
       </form>
@@ -85,67 +38,39 @@
     </session>
 
     <session class="my_contact flex column">
-      <form
-        class="my_contact_item flex "
-        @submit="welfare"
-        report-submit="true"
-      >
-        <button
-          class="my_contact_item-button flex wrap j-start "
-          form-type="submit"
-        >
-          <img
-            class="my_contact_item-img"
-            src="static/imgs/矩形.png"
-            alt=""
-          >
+      <form class="my_contact_item flex " @submit="welfare" report-submit="true">
+        <button class="my_contact_item-button flex wrap j-start " form-type="submit">
+          <div class="iconfont icon-gift"></div>
           <span class="my_contact_item-text">福利社</span>
         </button>
       </form>
 
-      <form
-        class="my_contact-item flex "
-        @submit="joinGroup"
-        report-submit="true"
-      >
-        <button
-          class="my_contact_item-button flex wrap j-start "
-          form-type="submit"
-        >
-          <img
-            class="my_contact_item-img"
-            src="static/imgs/矩形.png"
-            alt=""
-          >
+      <form class="my_contact-item flex " @submit="joinGroup" report-submit="true">
+        <button class="my_contact_item-button flex wrap j-start " form-type="submit">
+          <div class="iconfont icon-group"></div>
           <span class="my_contact_item-text">加入群聊</span>
         </button>
       </form>
 
-      <form
-        class="my_contact-item flex  "
-        @submit="questionsFeedback"
-        report-submit="true"
-      >
-        <button
-          class="my_contact_item-button flex wrap j-start "
-          form-type="submit"
-        >
-          <img
-            class="my_contact_item-img"
-            src="static/imgs/矩形.png"
-            alt=""
-          >
+      <form class="my_contact-item flex  " @submit="questionsFeedback" report-submit="true">
+        <button class="my_contact_item-button flex wrap j-start " form-type="submit">
+          <div class="iconfont icon-feedback"></div>
           <span class="my_contact_item-text">问题与反馈</span>
         </button>
       </form>
 
     </session>
+
+    <TabBar></TabBar>
   </div>
 </template>
 
 <script>
+import TabBar from "@/components/TabBar";
 export default {
-  components: {},
+  components: {
+    TabBar
+  },
   data() {
     return {
       logo:
@@ -262,10 +187,11 @@ export default {
   font-family: "PingFang SC";
   background-color: #f6f6f8;
   padding-top: 32rpx;
+  padding-bottom: 124rpx;
   .my_info {
     width: 630rpx;
     height: 508rpx;
-    margin: 32rpx 60rpx 32rpx 60rpx;
+    margin: 0 60rpx;
     border-radius: 2px;
     background-color: #ffffff;
     &_user {
@@ -278,7 +204,6 @@ export default {
         margin: 20px auto;
       }
       &-nickName {
-        width: 336rpx;
         height: 84rpx;
         font-size: 30rpx;
         text-align: center;
@@ -308,9 +233,10 @@ export default {
         height: 172rpx;
         width: 210rpx;
       }
-      &-img {
-        height: 36rpx;
-        width: 36rpx;
+      .iconfont {
+        font-size: 36rpx;
+        width: 52rpx;
+        height: 52rpx;
       }
       &-text {
         font-size: 38rpx;
@@ -350,6 +276,7 @@ export default {
       }
       &-text {
         font-size: 28rpx;
+        margin-left: 20rpx;
       }
     }
   }
@@ -362,8 +289,8 @@ export default {
       width: 80px;
     }
   }
-  .button-hover {
-    background-color: #fff1f3;
-  }
+  // .button-hover {
+  //   background-color: #fff1f3;
+  // }
 }
 </style>
