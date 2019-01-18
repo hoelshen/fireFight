@@ -1,7 +1,9 @@
 import flyio from "flyio/dist/npm/wx";
-import { promisify } from "@/utils/index";
+import {
+  promisify
+} from "@/utils/index";
 
-const environment = "test"; // 配置环境
+const environment = "mock"; // 配置环境
 
 const fly = new flyio();
 let cookies = [],
@@ -61,7 +63,7 @@ async function login() {
 }
 
 function uploadFile(path) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     wx.uploadFile({
       url: getBaseURL(environment) + "/file",
       filePath: path,
@@ -70,10 +72,10 @@ function uploadFile(path) {
         Cookie: cookies,
         "x-csrf-token": token
       },
-      success: function(res) {
+      success: function (res) {
         typeof resolve == "function" && resolve(res);
       },
-      fail: function(err) {
+      fail: function (err) {
         typeof reject == "function" && reject(err);
       }
     });
@@ -86,7 +88,7 @@ async function saveFormid(id) {}
 
 async function logLogin(loginRes) {}
 
-fly.interceptors.request.use(async function(request) {
+fly.interceptors.request.use(async function (request) {
   request.headers["Cookie"] = cookies;
   request.headers["x-csrf-token"] = token;
   return request;

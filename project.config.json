@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 8,
+			"current": 11,
 			"list": [
 				{
 					"id": -1,
@@ -60,8 +60,8 @@
 					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "我的故事",
+					"id": 4,
+					"name": "讲诉我的故事",
 					"pathName": "pages/myStory/index",
 					"query": ""
 				},
@@ -81,12 +81,31 @@
 					"id": 7,
 					"name": "解答室说明",
 					"pathName": "pages/solutionRoom/index1",
-					"query": "active=beSlover"
+					"query": ""
 				},
 				{
 					"id": -1,
 					"name": "记忆",
-					"pathName": "pages/memory/index"
+					"pathName": "pages/memory/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "解答室",
+					"pathName": "pages/solutionRoom/index2",
+					"query": ""
+				},
+				{
+					"id": 10,
+					"name": "徽章页面",
+					"pathName": "pages/badge/index",
+					"query": "active=\"\""
+				},
+				{
+					"id": 11,
+					"name": "详情页面-每日解答上限说明",
+					"pathName": "pages/detail/index",
+					"query": "active=solutionLimit"
 				}
 			]
 		}
