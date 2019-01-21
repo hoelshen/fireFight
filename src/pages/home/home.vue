@@ -42,16 +42,16 @@
       >
       </button>
     </div>
-    <TabBar></TabBar>
+    <TtabBar></TtabBar>
   </view>
 </template>
 <script>
-import TabBar from "@/components/TabBar";
+import TtabBar from "@/components/TtabBar";
 import Tbutton from "@/components/Tbutton";
 
 export default {
   components: {
-    TabBar,
+    TtabBar,
     Tbutton
   },
   data() {

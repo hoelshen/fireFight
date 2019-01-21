@@ -25,8 +25,8 @@ export default {
   config: {
     // pages 的首个页面会被编译成首页
     pages: [
-      "pages/myInfo/index", //个人中心
       "pages/home/index", //首页
+      "pages/myInfo/index", //个人中心
       "pages/mailbox/index", //信箱
       "pages/consultingBox/index", //咨询箱
       "pages/badge/index", //徽章

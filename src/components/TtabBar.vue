@@ -33,7 +33,7 @@
     </form>
     <form
       class="flex"
-      @submit="mine"
+      @submit="myInfo"
       report-submit="true"
     >
       <button
@@ -51,7 +51,7 @@
 
 <script>
 export default {
-  name: "TabBar",
+  name: "TtabBar",
   props: {
     showBack: {
       type: Boolean,
@@ -72,7 +72,7 @@ export default {
     },
     mail(e) {
       console.log("mine: ", e);
-      this.$router.push("page/mail/index");
+      this.$router.push("pages/mailbox/index");
     },
     sjh() {
       console.log("sjh: ", sjh);

@@ -121,7 +121,6 @@
           'nickName':user.nickName, 
           'avatarUrl':user.avatarUrl
           }"
-          open-type="contact"
           @contact="AnswerQuestion"
         >
           <div class="iconfont icon-feedback"></div>
@@ -131,15 +130,15 @@
 
     </session>
 
-    <TabBar></TabBar>
+    <TtabBar></TtabBar>
   </div>
 </template>
 
 <script>
-import TabBar from "@/components/TabBar";
+import TtabBar from "@/components/TtabBar";
 export default {
   components: {
-    TabBar
+    TtabBar
   },
   data() {
     return {
