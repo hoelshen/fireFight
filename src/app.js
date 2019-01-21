@@ -33,15 +33,14 @@ export default {
       "pages/solutionRoom/index2", //解答室
       "pages/solutionRoom/index1", //成为解答者
       "pages/myStory/index", //我的故事
-      "pages/auth/index",  //授权
+      "pages/auth/index", //授权
       "pages/detail/index", //详细说明
-      "pages/moments/index",  //动态
+      "pages/moments/index", //动态
       "pages/ticket/index", //票券
       "pages/welfare/index", //福利社
       "pages/memory/index", //记忆
       "pages/login/index", //登录
       "pages/nofound/index", //404
-      "pages/questionsFeedback/index" //问题与反馈
     ],
     window: {
       backgroundTextStyle: "light",

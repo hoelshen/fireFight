@@ -103,12 +103,19 @@
 
       <form
         class="my_contact-item flex  "
-        @submit="questionsFeedback"
+        @submit="AnswerQuestion"
         report-submit="true"
       >
         <button
           class="my_contact_item-button flex wrap j-start "
           form-type="submit"
+          open-type="contact"
+          :session-from="{
+          'nickName':user.nickName, 
+          'avatarUrl':user.avatarUrl
+          }"
+          open-type="contact"
+          @contact="AnswerQuestion"
         >
           <div class="iconfont icon-feedback"></div>
           <span class="my_contact_item-text">问题与反馈</span>
@@ -160,16 +167,15 @@ export default {
   },
   onShow: function() {
     // Do something when page show.
-    setTimeout(() => {
-      wx.showShareMenu({
-        withShareTicket: true
-      });
-    }, 5000);
+    // setTimeout(() => {
+    //   wx.showShareMenu({
+    //     withShareTicket: true
+    //   });
+    // }, 5000);
     const { user } = getApp().globalData;
     console.log("user: ", user);
 
     this.user = user;
-    console.log("Page [my] onShow");
   },
   onHide: function() {
     // Do something when page hide.
@@ -201,11 +207,8 @@ export default {
     joinGroup() {
       this.$router.push({ query: { id: 1 }, path: "/pages/joinGroup/index" });
     },
-    questionsFeedback() {
-      this.$router.push({
-        query: { id: 1 },
-        path: "/pages/questionsFeedback/index"
-      });
+    AnswerQuestion(e) {
+      console.log("AnswerQuestion: ", e);
     }
   },
   onShareAppMessage(res) {
