@@ -95,6 +95,13 @@
         <button
           class="my_contact_item-button flex wrap j-start "
           form-type="submit"
+          open-type="contact"
+          send-message-img
+          :session-from="{
+          'nickName':user.nickName, 
+          'avatarUrl':user.avatarUrl
+          }"
+          @contact="joinGroup"
         >
           <div class="iconfont icon-group"></div>
           <span class="my_contact_item-text">加入群聊</span>
@@ -204,9 +211,7 @@ export default {
     welfare() {
       this.$router.push({ query: { id: 1 }, path: "/pages/welfare/index" });
     },
-    joinGroup() {
-      this.$router.push({ query: { id: 1 }, path: "/pages/joinGroup/index" });
-    },
+    joinGroup() {},
     AnswerQuestion(e) {
       console.log("AnswerQuestion: ", e);
     }
