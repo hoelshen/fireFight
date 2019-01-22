@@ -61,6 +61,16 @@ async function login() {
   });
   fly.lock();
 }
+async function SearchUser() {
+  await fly.get('/user').then((res) => {
+    const {
+      user
+    } = res.data
+    return getApp().globalData.user = user
+
+  })
+}
+
 
 function uploadFile(path) {
   return new Promise(function (resolve, reject) {
@@ -118,4 +128,5 @@ fly.interceptors.response.use(
 fly.login = login;
 fly.saveFormid = saveFormid;
 fly.uploadFile = uploadFile;
+fly.SearchUser = SearchUser;
 export default fly;

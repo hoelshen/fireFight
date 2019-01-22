@@ -8,6 +8,15 @@ export function promisify(fn, self = null) {
   };
 }
 
+export function checkAuth(user) {
+  if (!user.authAt)
+    return this.$router.push({
+      path: "/pages/auth/index"
+    });
+}
+
+
 export default {
   promisify,
+  checkAuth
 }

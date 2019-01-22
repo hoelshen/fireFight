@@ -1,20 +1,34 @@
 <template>
-    <view class="app">
-        <div class="photo-circle circle flex center">
-            <div class="circle" @click="takePhoto">
-                <image class="userinfo-avatar" :src="userInfo.avatarUrl" alt="选择头像" background-size="cover" />
-            </div>
-        </div>
-        <div class="block">
-            <input type="text" placeholder="设置笔名">
-        </div>
-
-        <span>你可以随时点击头像和笔名来修改它们</span>
-
-        <div>
-            <button @click="save">保存</button>
-        </div>
-    </view>
+  <view class="app flex j-start wrap">
+    <div class="photo-circle flex wrap j-start center">
+      <div
+        class="circle"
+        @click="takePhoto"
+      >
+        <image
+          class="userinfo-avatar"
+          :src="userInfo.aliasPortrait"
+          alt="选择头像"
+          background-size="cover"
+        />
+      </div>
+      <div class="userinfo-name">
+        <input
+          type="text"
+          :value="userInfo.aliasName"
+          @input="setName"
+          placeholder="设置笔名"
+          maxlength='8'
+          focus
+        >
+        <hr class="userinfo-hr" />
+        <span style="margin-top:20rpx;display:block;color:#A9A9A9">你可以随时点击头像和笔名来修改它们</span>
+      </div>
+    </div>
+    <div class="saveButton">
+      <button @click="save">保存</button>
+    </div>
+  </view>
 </template>
 <script>
 export default {
@@ -23,7 +37,8 @@ export default {
       imageUrl:
         "https://user-images.githubusercontent.com/20720117/48262986-80e02780-e45f-11e8-8426-2872916adad9.png",
       userInfo: {
-        avatarUrl: ""
+        aliasPortrait: "",
+        aliasName: ""
       }
     };
   },
@@ -32,15 +47,14 @@ export default {
       var that = this;
       wx.chooseImage({
         count: 1,
-        sizeType: ["original", "compressed"],
+        sizeType: ["compressed"],
         sourceType: ["album", "camera"],
         success(res) {
           // tempFilePath可以作为img标签的src属性显示图片
           const tempFilePaths = res.tempFilePaths;
-          console.log("this", this);
           that.$request.uploadFile(tempFilePaths[0]).then(res => {
             const data = JSON.parse(res.data);
-            that.userInfo.avatarUrl = data.data;
+            that.userInfo.aliasPortrait = data.data;
             console.log(data.data);
           });
         },
@@ -50,21 +64,59 @@ export default {
       });
     },
     save() {
+      const route = this.$router.currentRoute;
+      console.log("route: ", route);
+      const { aliasName, aliasPortrait } = this.userInfo;
+      this.$request
+        .put("/user", {
+          aliasName,
+          aliasPortrait
+        })
+        .then(res => {
+          console.log(res);
+        });
       this.$router.push({ query: "", path: "/pages/myInfo/index" });
+    },
+    setName(e) {
+      this.userInfo.aliasName = e.detail.value;
+      console.log("aliasName: ", this.userInfo.aliasName);
     }
   },
-  save() {
-    this.$router.push({ query: "", path: "/pages/myInfo/index" });
+  onShow() {
+    const { user } = getApp().globalData;
+    console.log("user: ", user);
+    this.userInfo.aliasPortrait = user.aliasPortrait;
   }
 };
 </script>
 <style lang="less" scoped>
 .app {
   padding-top: 20px;
+  margin: auto;
+  width: 630rpx;
+  height: 381rpx;
+  .photo-circle {
+    height: 548rpx;
+    width: 630rpx;
+  }
+  .circle {
+    width: 216rpx;
+    height: 216rpx;
+  }
   .userinfo-avatar {
-    width: 80px;
-    height: 80px;
+    width: 216rpx;
+    height: 216rpx;
     border-radius: 50%;
+  }
+
+  .userinfo-hr {
+    height: 2rpx;
+    border-top: 1px solid #a9a9a9;
+    margin-top: 10rpx;
+  }
+  .saveButton {
+    width: 158rpx;
+    height: 92rpx;
   }
 }
 </style>

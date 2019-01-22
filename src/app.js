@@ -5,7 +5,9 @@ import filters from "./utils/filters";
 import megaloRouter from "megalo-router";
 import request from "./utils/request";
 import day from './utils/day'
-
+import {
+  checkAuth
+} from './utils/index'
 Vue.use(VHtmlPlugin);
 
 Object.keys(filters).forEach(key => Vue.filter(key, filters[key]));
@@ -16,7 +18,7 @@ Vue.use(megaloRouter, {
 
 Vue.prototype.$request = request;
 Vue.prototype.$day = day;
-
+Vue.prototype.$checkAuth = checkAuth;
 
 const app = new Vue(App);
 app.$mount();
@@ -30,8 +32,9 @@ export default {
       "pages/mailbox/index", //信箱
       "pages/consultingBox/index", //咨询箱
       "pages/badge/index", //徽章
-      "pages/solutionRoom/index2", //解答室
       "pages/solutionRoom/index1", //成为解答者
+      "pages/solutionRoom/index2", //解答室
+      "pages/solutionRoom/index3", //信件
       "pages/myStory/index", //我的故事
       "pages/auth/index", //授权
       "pages/detail/index", //详细说明

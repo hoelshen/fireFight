@@ -79,6 +79,7 @@ export default {
     const {
       currentRoute: { query }
     } = this.$router;
+    console.log("query: ", query);
     this.active = query.active;
     const navigationBar = {
       description: "烦恼咨询服务说明",
@@ -107,9 +108,8 @@ export default {
     },
     onSoluter() {
       const { user } = getApp().globalData;
-      if (!user.authAt) {
-        return this.$router.push({ path: "/pages/auth/index" });
-      }
+      if (!user.authAt) return this.$router.push({ path: "/pages/auth/index" });
+      console.log("user: ", user);
       return this.$router.push({ path: "pages/solutionRoom/index2" });
     },
     onEnsure() {},

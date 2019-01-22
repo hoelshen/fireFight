@@ -7,11 +7,7 @@
       <div clss="solutionRoomName_question">
         <span>你今天还可以解答{{mails.length}}个咨询</span>
         <button @click="onSolutionLimit">
-          <img
-            class="solutionRoomName_question-img"
-            src="static/imgs/矩形.png"
-            alt=""
-          >
+          <div class="iconfont icon-memery"></div>
         </button>
       </div>
     </session>
@@ -20,19 +16,39 @@
       <div
         class="list_item flex column j-between"
         v-for="(item,index) in mails"
+        @click="show(index)"
         :key="index"
       >
-        <div class="list_item-receiverName">
-          <span class="list_item-receiverNameSpan">{{item.aliasName}}</span>
-          <span>收</span>
+        <div class="list_item-sendName flex wrap j-between">
+          <div class="flex column j-between">
+            <div class="list_item-receiverName">
+              <span class="list_item-receiverNameSpan">{{item.aliasName}}</span>
+              <span>收</span>
+            </div>
+            <div class="list_item-content ">
+              <span>{{item.content}}</span>
+            </div>
+          </div>
+          <div class="flex">
+            <img
+              class="mail-svg"
+              src="/static/svgs/mail.svg"
+              alt=""
+            >
+          </div>
         </div>
-        <div class="list_item-content ">
-          <span>{{item.content}}</span>
-        </div>
+
         <div class="list_item-sendName flex j-end">
           <span>{{item.creator}}</span>
         </div>
       </div>
+    </session>
+
+    <session class="solutionDetail">
+      <div
+        class="solutionDetailButton"
+        @click="solutionDetail"
+      >解答者手册</div>
     </session>
   </view>
 
@@ -43,7 +59,6 @@ export default {
     return {
       aliasName: "",
       mails: [],
-      mails: {},
       isFocus: true
     };
   },
@@ -51,20 +66,30 @@ export default {
     async getStory() {
       let res = await this.$request.get("/mail/story");
       this.mails = res.data;
-      console.log("list", this.mails);
     },
     onSolutionLimit() {
-      // this.$router.push({
-      //   query: { active: "solutionLimit", path: "'/pages/detail/index'" }
-      // });
+      this.$router.push({
+        query: { active: "solutionLimit" },
+        path: "/pages/detail/index"
+      });
+    },
+    show(index) {
+      const { _id: id } = this.mails[index];
+      this.$router.push({
+        query: { id: id },
+        path: "/pages/solutionRoom/index3"
+      });
+    },
+    solutionDetail() {
+      this.$router.push({
+        query: { active: "solver" },
+        path: "/pages/detail/index"
+      });
     }
   },
   onShow() {
     const { user } = getApp().globalData;
-    console.log("user: ", user);
-
     this.aliasName = user.aliasName;
-
     this.getStory();
   }
 };
@@ -111,7 +136,13 @@ export default {
       margin-top: 18rpx;
       font-size: 28rpx;
       color: #a9a9a9;
+      margin: 20rpx;
     }
+  }
+  .mail-svg {
+    width: 120rpx;
+    height: 120rpx;
+    margin-right: 30rpx;
   }
 }
 </style>

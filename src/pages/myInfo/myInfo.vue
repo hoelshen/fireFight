@@ -4,23 +4,20 @@
     <div class="my_info flex column">
       <img
         class="my_info_user-avatarUrl"
-        :src="user.avatarUrl"
+        :src="user.aliasPortrait"
         mode="aspectFit"
         @touchstart="login"
       >
       <button
         @click="login"
-        v-if="!user.avatarUrl"
+        v-if="!user.aliasPortrait"
       >点击登录</button>
       <div
         class="flex column center"
         v-else
       >
         <div class="flex j-around my_info_user-nickName">
-          <div
-            class=""
-            style="margin-left:20rpx;"
-          >{{user.nickName}}</div>
+          <div style="margin-left:20rpx;">{{user.aliasName}}</div>
           <div class="iconfont icon-badge"></div>
         </div>
         <div class="my_info_user-address">{{user.city}}</div>
@@ -98,8 +95,8 @@
           open-type="contact"
           send-message-img
           :session-from="{
-          'nickName':user.nickName, 
-          'avatarUrl':user.avatarUrl
+          'nickName':user.aliasName, 
+          'avatarUrl':user.aliasPortrait
           }"
           @contact="joinGroup"
         >
@@ -118,8 +115,8 @@
           form-type="submit"
           open-type="contact"
           :session-from="{
-          'nickName':user.nickName, 
-          'avatarUrl':user.avatarUrl
+          'nickName':user.aliasName, 
+          'avatarUrl':user.aliasPortrait
           }"
           @contact="AnswerQuestion"
         >
@@ -142,9 +139,7 @@ export default {
   },
   data() {
     return {
-      logo:
-        "https://user-images.githubusercontent.com/20720117/48262986-80e02780-e45f-11e8-8426-2872916adad9.png",
-      message: "sjh",
+      logo: "",
       date: new Date(),
       user: {}
     };
@@ -171,13 +166,8 @@ export default {
     // Do something when page ready.
     console.log("Page [my] onReady");
   },
-  onShow: function() {
-    // Do something when page show.
-    // setTimeout(() => {
-    //   wx.showShareMenu({
-    //     withShareTicket: true
-    //   });
-    // }, 5000);
+  async onShow() {
+    await this.$request.SearchUser();
     const { user } = getApp().globalData;
     console.log("user: ", user);
 
@@ -196,21 +186,31 @@ export default {
    */
   methods: {
     login() {
+      this.$checkAuth(this.user);
       this.$router.push({ query: { id: 1 }, path: "/pages/login/index" });
     },
     memory() {
+      this.$checkAuth(this.user);
       this.$router.push({ query: { id: 1 }, path: "/pages/memory/index" });
     },
     ticket() {
+      this.$checkAuth(this.user);
       this.$router.push({ query: { id: 1 }, path: "/pages/ticket/index" });
     },
     badge() {
+      this.$checkAuth(this.user);
       this.$router.push({ query: { id: 1 }, path: "/pages/badge/index" });
     },
     welfare() {
-      this.$router.push({ query: { id: 1 }, path: "/pages/welfare/index" });
+      this.$checkAuth(this.user);
+      return this.$router.push({
+        query: { id: 1 },
+        path: "/pages/welfare/index"
+      });
     },
-    joinGroup() {},
+    joinGroup(e) {
+      console.log("AnswerQuestion: ", e);
+    },
     AnswerQuestion(e) {
       console.log("AnswerQuestion: ", e);
     }
