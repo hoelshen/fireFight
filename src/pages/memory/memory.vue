@@ -3,11 +3,13 @@
     <session class="navigatabar flex ">
       <div
         @click="toggleQuestion"
-        class="navigatabar_item"
+        :class="{borderColor:isActive}"
+        class="navigatabar_item  flex center"
       >我的咨询</div>
       <div
-        @clcik="toggleAnswer"
-        class="navigatabar_item"
+        @click="toggleAnswer"
+        :class="{borderColor:!isActive}"
+        class="navigatabar_item flex center"
       >我的解答</div>
     </session>
 
@@ -15,18 +17,30 @@
       <div
         class="list_item flex column j-between"
         v-for="(item,index) in list"
+        @click="show(index)"
         :key="index"
       >
-        <div class="list_item-receiverName">
-          <span class="list_item-receiverNameSpan">{{item.receiverName}}</span>
-          <span>收</span>
+        <div class="list_item-sendName flex wrap j-between">
+          <div class="flex column j-between">
+            <div class="list_item-receiverName">
+              <span class="list_item-receiverNameSpan">{{item.aliasName}}</span>
+              <span>收</span>
+            </div>
+            <div class="list_item-content ">
+              <span>{{item.content}}</span>
+            </div>
+          </div>
+          <div class="flex">
+            <img
+              class="mail-svg"
+              src="/static/svgs/mail.svg"
+              alt=""
+            >
+          </div>
         </div>
-        <div class="list_item-content">
-          <span></span>{{item.content}}
-        </div>
+
         <div class="list_item-sendName flex j-end">
-          <span></span>
-          {{item.sendName}}
+          <span>{{item.creator}}</span>
         </div>
       </div>
     </session>
@@ -39,31 +53,38 @@ export default {
   data() {
     return {
       active: "question",
-      list: [
-        {
-          receiverName: "sjh",
-          content: "we are family",
-          sendName: "shj"
-        },
-        {
-          receiverName: "shy",
-          content: "we are family",
-          sendName: "syh"
-        }
-      ]
+      outboxList: [],
+      inboxList: [],
+      isActive: true,
+      list: []
     };
   },
   onShow() {
-    console.log("list", this.list);
+    this.getList();
   },
   methods: {
     toggleQuestion() {
-      this.list = "2";
       this.active = "question";
+      this.isActive = !this.isActive;
+      this.getList();
     },
     toggleAnswer() {
-      this.list = "1";
       this.active = "answer";
+      this.isActive = !this.isActive;
+      this.getList();
+    },
+    async getList() {
+      let res;
+      if (this.active === "question") {
+        res = await this.$request.get("/mail/mine/outbox"); //我的咨询
+      }
+      if (this.active === "answer") {
+        res = await this.$request.get("/mail/mine/inbox"); //我的解答
+      }
+      this.list = res.data;
+    },
+    show() {
+      //this.$router.push()
     }
   }
 };
@@ -79,10 +100,17 @@ export default {
   background-color: #ffffff;
   align-items: flex-end;
   justify-content: space-around;
+
   &_item {
     width: 162rpx;
     height: 66rpx;
     align-items: flex-end;
+    border-style: solid;
+    border-color: #ffffff;
+
+    &.borderColor {
+      border-color: #ffffff #ffffff #ff4d6b #ffffff;
+    }
   }
 }
 .list {

@@ -2,6 +2,7 @@
   <view class="app">
     <session class="solutionRoomName">
       <div class="solutionRoomName-name">
+        <span>晚上好</span>
         <span>{{aliasName}}</span>
       </div>
       <div clss="solutionRoomName_question">
@@ -44,9 +45,9 @@
       </div>
     </session>
 
-    <session class="solutionDetail">
+    <session class="solutionDetail flex center">
       <div
-        class="solutionDetailButton"
+        class="solutionDetailButton flex center"
         @click="solutionDetail"
       >解答者手册</div>
     </session>
@@ -96,8 +97,9 @@ export default {
 </script>
 <style lang="less" scoped>
 .solutionRoomName {
-  width: 448rpx;
-  height: 80rpx;
+  width: 390rpx;
+  height: 204rpx;
+  display: block;
   border: 1px solid #ffffff;
   margin: 20rpx 60rpx;
   &_question {
@@ -107,42 +109,13 @@ export default {
     }
   }
 }
-.list {
-  margin-left: 20rpx;
-  border: 1px solid #ffffff;
-  width: 100%;
-  height: auto;
-  &_item {
-    width: 630rpx;
-    height: 280rpx;
-    background-color: #ffffff;
-    margin-top: 16rpx;
-    margin-left: 60rpx;
-    &-receiverName {
-      display: inline-block;
-      color: #a9a9a9;
-    }
-    &-receiverNameSpan {
-      margin-right: 10rpx;
-      margin-top: 20rpx;
-      color: #a9a9a9;
-    }
-    &-content {
-      margin-top: 18rpx;
-      font-family: "PingFang SC";
-      font-size: 34rpx;
-    }
-    &-sendName {
-      margin-top: 18rpx;
-      font-size: 28rpx;
-      color: #a9a9a9;
-      margin: 20rpx;
-    }
-  }
-  .mail-svg {
-    width: 120rpx;
-    height: 120rpx;
-    margin-right: 30rpx;
-  }
+
+.solutionDetailButton {
+  margin-top: 16rpx;
+  border-radius: 23px;
+  width: 316rpx;
+  height: 92rpx;
+  border: 1 solid #a9a9a9;
+  background-color: #ff4d6b;
 }
 </style>

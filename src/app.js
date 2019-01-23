@@ -39,7 +39,8 @@ export default {
       "pages/auth/index", //授权
       "pages/detail/index", //详细说明
       "pages/moments/index", //动态
-      "pages/ticket/index", //票券
+      "pages/ticket/index1", //票券
+      "pages/ticket/index2", //票券
       "pages/welfare/index", //福利社
       "pages/memory/index", //记忆
       "pages/login/index", //登录

@@ -1,5 +1,5 @@
 <template>
-  <view class="app flex j-start wrap">
+  <view class="app flex column j-start ">
     <div class="photo-circle flex wrap j-start center">
       <div
         class="circle"
@@ -12,7 +12,7 @@
           background-size="cover"
         />
       </div>
-      <div class="userinfo-name">
+      <div class="userinfo-name ">
         <input
           type="text"
           :value="userInfo.aliasName"
@@ -22,7 +22,7 @@
           focus
         >
         <hr class="userinfo-hr" />
-        <span style="margin-top:20rpx;display:block;color:#A9A9A9">你可以随时点击头像和笔名来修改它们</span>
+        <span class="userinfo-text">你可以随时点击头像和笔名来修改它们</span>
       </div>
     </div>
     <div class="saveButton">
@@ -114,9 +114,22 @@ export default {
     border-top: 1px solid #a9a9a9;
     margin-top: 10rpx;
   }
+  .userinfo-text {
+    margin-top: 20rpx;
+    padding-right: 10rpx;
+    display: block;
+    color: #a9a9a9;
+    transform: scale(0.8);
+  }
   .saveButton {
-    width: 158rpx;
+    width: 316rpx;
     height: 92rpx;
+    margin: 30rpx auto;
+    & button {
+      background-color: #ff4d6b;
+      color: #ffffff;
+      border-radius: 23px;
+    }
   }
 }
 </style>
