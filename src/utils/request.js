@@ -1,15 +1,12 @@
 import flyio from "flyio/dist/npm/wx";
-import {
-  promisify
-} from "@/utils/index";
+import { promisify } from "@/utils/index";
 
 const environment = "test"; // 配置环境
 
 const fly = new flyio();
 let cookies = [],
-  token = "";
-const tryCount = 0;
-const isLog = false;
+  token = "",
+  tryCount = 0;
 
 fly.config.baseURL = getBaseURL(environment);
 fly.config.headers["Accept"] = "application/json";
@@ -55,25 +52,20 @@ function getToken(cookiesArray) {
 
 async function login() {
   let wxRes = await promisify(wx.login, wx)();
-  fly.get(`/login?code=${wxRes.code}`).then(logRes => {
-    fly.unlock();
-    return (getApp().globalData.user = logRes.data);
+  let logRes = await fly.get(`/login?code=${wxRes.code}`);
+  logLogin(); // 上报登陆信息
+  return (getApp().globalData.user = logRes.data);
+}
+
+async function getUser() {
+  await fly.get("/user").then(res => {
+    const { user } = res.data;
+    return (getApp().globalData.user = user);
   });
-  fly.lock();
 }
-async function SearchUser() {
-  await fly.get('/user').then((res) => {
-    const {
-      user
-    } = res.data
-    return getApp().globalData.user = user
-
-  })
-}
-
 
 function uploadFile(path) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function(resolve, reject) {
     wx.uploadFile({
       url: getBaseURL(environment) + "/file",
       filePath: path,
@@ -82,23 +74,56 @@ function uploadFile(path) {
         Cookie: cookies,
         "x-csrf-token": token
       },
-      success: function (res) {
+      success: function(res) {
         typeof resolve == "function" && resolve(res);
       },
-      fail: function (err) {
+      fail: function(err) {
         typeof reject == "function" && reject(err);
       }
     });
   });
 }
 
-async function checkParams(loginQuery) {}
+async function saveFormid(formId) {
+  fly.put("/record/form", {
+    formId
+  });
+}
 
-async function saveFormid(id) {}
+async function logLogin() {
+  const lauchOpts = getApp().globalData.options;
+  const systemInfo = wx.getSystemInfoSync();
+  fly.put("/record/login", {
+    lauchOpts,
+    systemInfo
+  });
+}
 
-async function logLogin(loginRes) {}
+async function waitingLogin() {
+  return new Promise(function(resolve, reject) {
+    var hash = setInterval(function() {
+      if (tryCount >= 50) {
+        clearInterval(hash);
+        reject("登陆超时"); // 10秒超时时间
+      }
+      if (cookies.length > 0) {
+        clearInterval(hash);
+        resolve("登陆成功");
+      } else {
+        tryCount++;
+        console.log("正在等候登陆结果，请稍后");
+      }
+    }, 200);
+  });
+}
 
-fly.interceptors.request.use(async function (request) {
+fly.interceptors.request.use(async function(request) {
+  if (/login\?code=/.test(request.url)) {
+    return request;
+  }
+  if (!token) {
+    await waitingLogin();
+  }
   request.headers["Cookie"] = cookies;
   request.headers["x-csrf-token"] = token;
   return request;
@@ -106,6 +131,9 @@ fly.interceptors.request.use(async function (request) {
 
 fly.interceptors.response.use(
   response => {
+    if (cookies && token) {
+      return response.data;
+    }
     if (response && response.headers && response.headers["set-cookie"]) {
       cookies = normalizeUserCookie(response.headers["set-cookie"]);
       token = getToken(response.headers["set-cookie"][0]);
@@ -128,5 +156,5 @@ fly.interceptors.response.use(
 fly.login = login;
 fly.saveFormid = saveFormid;
 fly.uploadFile = uploadFile;
-fly.SearchUser = SearchUser;
+fly.getUser = getUser;
 export default fly;

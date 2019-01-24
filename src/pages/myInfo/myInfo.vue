@@ -172,7 +172,7 @@ export default {
     console.log("Page [my] onReady");
   },
   async onShow() {
-    await this.$request.SearchUser();
+    await this.$request.getUser();
     const { user } = getApp().globalData;
     console.log("user: ", user);
 
