@@ -7,10 +7,7 @@ export default {
     this.$request.login();
   },
   onShow: function(options) {
-    wx.setTabBarBadge({
-      index: 0,
-      text: "2"
-    });
+   
   },
   onHide: function() {},
   onError: function(msg) {
@@ -19,7 +16,6 @@ export default {
   },
   globalData() {
     return {
-      shareTicket: 1,
       options: {},
       user: {},
       sUser: {}
