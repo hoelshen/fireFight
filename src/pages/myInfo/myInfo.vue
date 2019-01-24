@@ -195,10 +195,16 @@ export default {
     },
     ticket() {
       this.$checkAuth(this.user);
-      this.$router.push({ query: { id: 1 }, path: "/pages/ticket/index" });
+      this.$router.push({ query: { id: 1 }, path: "/pages/ticket/index1" });
     },
     badge() {
       this.$checkAuth(this.user);
+      wx.showToast({
+        title: "入口暂未开放",
+        icon: "none",
+        duration: 2000
+      });
+      return;
       this.$router.push({ query: { id: 1 }, path: "/pages/badge/index" });
     },
     welfare() {

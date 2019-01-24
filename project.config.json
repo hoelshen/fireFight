@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 14,
+			"current": 17,
 			"list": [
 				{
 					"id": -1,
@@ -135,6 +135,12 @@
 					"id": 16,
 					"name": "票券明细",
 					"pathName": "pages/ticket/index1",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "福利社",
+					"pathName": "pages/welfare/index",
 					"query": ""
 				}
 			]

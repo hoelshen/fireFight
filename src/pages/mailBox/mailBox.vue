@@ -1,6 +1,6 @@
 <template>
   <view>
-    <div>封信正在邮寄的路上</div>
+    <div>{{num}}封信正在邮寄的路上</div>
     <div>
 
       <session class="list">
@@ -10,14 +10,15 @@
           @click="show(index)"
           :key="index"
         >
+          <div>{{item.createdAt}}</div>
           <div class="list_item-sendName flex wrap j-between">
             <div class="flex column j-between">
               <div class="list_item-receiverName">
-                <span class="list_item-receiverNameSpan">{{item.aliasName}}</span>
+                <span class="list_item-receiverNameSpan">{{item.lastMail.aliasName}}</span>
                 <span>收</span>
               </div>
               <div class="list_item-content ">
-                <span>{{item.content}}</span>
+                <span>{{item.lastMail.content}}</span>
               </div>
             </div>
             <div class="flex">
@@ -29,7 +30,8 @@
             </div>
           </div>
 
-          <div class="list_item-sendName flex j-end">
+          <div class="list_item-sendName flex  j-between">
+            <span>{{item.isRead ? "已" : "未"}}读</span>
             <span>{{item.creator}}</span>
           </div>
         </div>
@@ -43,7 +45,9 @@ export default {
   data() {
     const day = this.$day().format("YYYY/MM/DD");
     return {
-      days: day
+      days: day,
+      num: 1,
+      list: []
     };
   },
   onShow() {
@@ -52,7 +56,7 @@ export default {
   },
   methods: {
     async getList() {
-      const res = await this.$request.get("/dailog");
+      const res = await this.$request.get("/dialog");
       this.list = res.data;
       console.log("this.list: ", this.list);
     }

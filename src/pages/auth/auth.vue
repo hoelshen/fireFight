@@ -21,7 +21,6 @@
           maxlength='8'
           focus
         >
-        <hr class="userinfo-hr" />
         <span class="userinfo-text">你可以随时点击头像和笔名来修改它们</span>
       </div>
     </div>
@@ -108,11 +107,11 @@ export default {
     height: 216rpx;
     border-radius: 50%;
   }
-
-  .userinfo-hr {
-    height: 2rpx;
-    border-top: 1px solid #a9a9a9;
-    margin-top: 10rpx;
+  .userinfo-name {
+    input {
+      margin-top: 20rpx;
+      border-bottom: 1px #989898 solid;
+    }
   }
   .userinfo-text {
     margin-top: 20rpx;
