@@ -3,7 +3,12 @@
 
 </template>
 <script>
-export default {};
+export default {
+  name: "Tloading",
+  data() {
+    return {};
+  }
+};
 </script>
 <style lang="less">
 .loadmore {

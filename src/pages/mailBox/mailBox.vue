@@ -18,7 +18,7 @@
                 <span>收</span>
               </div>
               <div class="list_item-content ">
-                <span>{{item.lastMail.content}}</span>
+                <text class="mailText">测试字数非常</text>
               </div>
             </div>
             <div class="flex">
@@ -58,8 +58,17 @@ export default {
     async getList() {
       const res = await this.$request.get("/dialog");
       this.list = res.data;
+      // const { target, lastMail, }
       console.log("this.list: ", this.list);
     }
   }
 };
 </script>
+<style lang="less">
+.mailText {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+</style>

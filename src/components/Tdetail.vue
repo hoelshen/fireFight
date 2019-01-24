@@ -69,6 +69,7 @@
 
 <script>
 export default {
+  name: "Tdetail",
   data() {
     return {
       active: "description",

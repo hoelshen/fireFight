@@ -55,7 +55,7 @@
 
       <form
         class="my_function_item flex"
-        @submit="badge"
+        @submit="welfare"
         report-submit="true"
       >
         <button
@@ -63,14 +63,14 @@
           form-type="submit"
         >
           <div class="iconfont icon-badge"></div>
-          <span class="my_function_item-text">徽章</span>
+          <span class="my_function_item-text">福利社</span>
         </button>
       </form>
 
     </session>
 
     <session class="my_contact flex column">
-      <form
+      <!-- <form
         class="my_contact_item flex "
         @submit="welfare"
         report-submit="true"
@@ -82,7 +82,7 @@
           <div class="iconfont icon-gift"></div>
           <span class="my_contact_item-text">福利社</span>
         </button>
-      </form>
+      </form> -->
 
       <form
         class="my_contact-item flex "
@@ -127,7 +127,12 @@
 
     </session>
 
-    <TtabBar></TtabBar>
+    <session class="my_share flex center">
+      <button open-type="share">安利Tell给好友
+  </div>
+  </session>
+
+  <TtabBar></TtabBar>
   </div>
 </template>
 
@@ -226,27 +231,18 @@ export default {
       // 来自页面内转发按钮
       console.log(res.target);
     }
-    return {
-      title: "分享",
+    const obj = {
+      title: "安利Tell给好友",
+      imageUrl: "../../static/cdn/shareTell.png",
       path: "/pages/home/index",
-      imageUrl: "@/static/imgs/home.png",
       success: function(res) {
-        wx.showToast({
-          title: "转发成功",
-          icon: "none",
-          image: "@/static/imgs/home.png",
-          duration: 1500,
-          mask: false,
-          success: result => {},
-          fail: () => {},
-          complete: () => {}
-        });
         //转发成功
       },
       fail: function(res) {
         //转发失败
       }
     };
+    return obj;
   }
 };
 </script>
@@ -316,7 +312,7 @@ export default {
   }
   .my_contact {
     width: 630rpx;
-    height: 324rpx;
+    height: 216rpx;
     margin: 32rpx 60rpx;
     background-color: #ffffff;
     &_item {
@@ -354,10 +350,10 @@ export default {
   .my_share {
     & button {
       border-style: solid;
-      border-radius: 50%;
-      height: 80px;
-      line-height: 80px;
-      width: 80px;
+      border-color: #ff4d6b;
+      border-radius: 23px;
+      height: 92rpx;
+      width: 316rpx;
     }
   }
   // .button-hover {
