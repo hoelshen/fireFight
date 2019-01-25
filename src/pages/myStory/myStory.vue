@@ -178,6 +178,5 @@ export default {
 .refreshBtn {
   width: 44rpx;
   height: 44rpx;
-  background: url(../../static/cdn/refresh.png) no-repeat;
 }
 </style>
