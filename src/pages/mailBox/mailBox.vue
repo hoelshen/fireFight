@@ -63,12 +63,10 @@ export default {
       this.list = res.data;
       this.list.forEach(element => {
         if (element.createdAt) {
-          console.log("ok");
           element.createdAt = this.dayFormat(element.createdAt);
         }
       });
-      // const { target, lastMail, }
-      console.log("this.list: ", this.list);
+      // console.log("this.list: ", this.list);
     },
     openMail() {
       this.$router.push({ path: "/pages/mailbox/mailDay" });

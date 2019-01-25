@@ -2,14 +2,14 @@
   <view class="app">
     <session class="solutionRoomName">
       <div class="solutionRoomName-name">
-        <span>晚上好</span>
-        <span>{{aliasName}}</span>
+        <p class="solutionRoomName-day">晚上好</p>
+        <p class="solutionRoomName-aliasName">{{aliasName}}</p>
       </div>
-      <div clss="solutionRoomName_question">
-        <span>你今天还可以解答{{mails.length}}个咨询</span>
-        <button @click="onSolutionLimit">
+      <div clss="solutionRoomName_question flex j-between">
+        <span class="solutionRoomName_question_mail">你今天还可以解答{{mails.length}}个咨询</span>
+        <!-- <button @click="onSolutionLimit">
           <div class="iconfont icon-memery"></div>
-        </button>
+        </button> -->
       </div>
     </session>
 
@@ -117,5 +117,16 @@ export default {
   height: 92rpx;
   border: 1 solid #a9a9a9;
   background-color: #ff4d6b;
+}
+.solutionRoomName-day {
+  margin-top: 40rpx;
+}
+.solutionRoomName-aliasName {
+  margin-top: 6rpx;
+  font-size: 60rpx;
+}
+.solutionRoomName_question_mail {
+  color: #a9a9a9;
+  margin-top: 20rpx;
 }
 </style>
