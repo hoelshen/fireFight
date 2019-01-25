@@ -19,7 +19,7 @@ export default {
     return {
       options: {}, // 启动参数
       user: {}, // 用户信息
-      mail:{}, // 待发送邮件
+      mail: {}, // 待发送邮件
       mys: {} // 活动主题
     };
   }
@@ -27,6 +27,7 @@ export default {
 </script>
 
 <style lang="less">
+@import url(./styles/mail.less);
 @import url(./styles/common.less);
 @import url(./styles/iconfont.css);
 </style>

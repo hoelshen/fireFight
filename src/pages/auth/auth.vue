@@ -62,21 +62,22 @@ export default {
     save() {
       const route = this.$router.currentRoute;
       // console.log("route: ", route);
-      console.log("route: ");
+
       const { aliasName, aliasPortrait } = this.userInfo;
-      this.$request
-        .put("/user", {
-          aliasName,
-          aliasPortrait
-        })
-        .then(res => {
-          console.log(res);
-        });
-      this.$router.push({ path: "/pages/myInfo/index" });
+      if (aliasName) {
+        this.$request
+          .put("/user", {
+            aliasName,
+            aliasPortrait
+          })
+          .then(res => {
+            console.log(res);
+          });
+        this.$router.push({ path: "/pages/myInfo/index" });
+      }
     },
     setName(e) {
       this.userInfo.aliasName = e.detail.value;
-      console.log("aliasName: ", this.userInfo.aliasName);
     }
   },
   onShow() {

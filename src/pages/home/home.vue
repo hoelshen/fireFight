@@ -35,13 +35,13 @@
         />
       </button>
     </div>
-    <div>
+    <!-- <div>
       <button
         class="circle"
         @click="onMoments"
       >
       </button>
-    </div>
+    </div> -->
     <TtabBar></TtabBar>
   </view>
 </template>
@@ -95,7 +95,7 @@ export default {
   margin: 0 30rpx;
   width: 630rpx;
   height: 160rpx;
-  swiper {
+  & swiper {
     width: 630rpx;
     height: 160rpx;
     margin: 0 60rpx;

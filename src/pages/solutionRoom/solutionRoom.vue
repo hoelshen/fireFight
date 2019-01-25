@@ -115,8 +115,7 @@ export default {
   border-radius: 23px;
   width: 316rpx;
   height: 92rpx;
-  border: 1 solid #a9a9a9;
-  background-color: #ff4d6b;
+  border: 1px solid #ff4d6b;
 }
 .solutionRoomName-day {
   margin-top: 40rpx;

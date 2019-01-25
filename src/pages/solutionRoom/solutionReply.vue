@@ -115,6 +115,7 @@ export default {
   border-radius: 23px;
   width: 316rpx;
   height: 92rpx;
+  color: #ffffff;
   border: 1 solid #a9a9a9;
   background-color: #ff4d6b;
 }

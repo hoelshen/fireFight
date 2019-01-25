@@ -40,9 +40,18 @@ export default {
       this.$router.push({ path: "/pages/myStory/index" });
     },
     onDetail() {
-      this.$router.push({
-        query: { active: "description" },
-        path: "/pages/detail/index"
+      wx.showModal({
+        title: "致咨询者",
+        content: "向Tell烦恼研究中心发起咨询服务，需要消耗解忧券",
+        showCancel: false,
+        confirmText: "好的",
+        confirmColor: "#ff4d6b",
+        success: result => {
+          if (result.confirm) {
+          }
+        },
+        fail: () => {},
+        complete: () => {}
       });
     },
     returnWelfare() {

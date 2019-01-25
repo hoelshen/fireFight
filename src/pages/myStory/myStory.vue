@@ -123,6 +123,7 @@ export default {
   opacity: 0.2;
   min-height: 400rpx;
   margin: 18rpx 60rpx;
+  color: black;
 }
 .textName {
   margin: 18rpx 60rpx;

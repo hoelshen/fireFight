@@ -66,10 +66,12 @@ export default {
           element.createdAt = this.dayFormat(element.createdAt);
         }
       });
-      // console.log("this.list: ", this.list);
     },
     openMail() {
       this.$router.push({ path: "/pages/mailbox/mailDay" });
+    },
+    show(index) {
+      console.log("index: ", index);
     }
   }
 };
