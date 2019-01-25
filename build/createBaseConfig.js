@@ -1,11 +1,13 @@
-const { pagesEntry } = require('@megalo/entry')
+const {
+  pagesEntry
+} = require('@megalo/entry')
 const createMegaloTarget = require('@megalo/target')
 const compiler = require('@megalo/template-compiler')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-const _ = require( './util' );
+const _ = require('./util');
 const appMainFile = _.resolve('src/app.js')
 const CSS_EXT = {
   wechat: 'wxss',
@@ -26,20 +28,20 @@ const cssLoaders = [
   px2rpxLoader
 ]
 
-function createBaseConfig( platform = 'wechat' ) {
+function createBaseConfig(platform = 'wechat') {
   const cssExt = CSS_EXT[platform]
-  
+
   return {
     mode: 'development',
 
-    target: createMegaloTarget( {
-      compiler: Object.assign( compiler, { } ),
+    target: createMegaloTarget({
+      compiler: Object.assign(compiler, {}),
       platform,
       htmlParse: {
         templateName: 'octoParse',
         src: _.resolve(`./node_modules/octoparse/lib/platform/${platform}`)
       },
-    } ),
+    }),
 
     entry: {
       'app': appMainFile,
@@ -47,7 +49,7 @@ function createBaseConfig( platform = 'wechat' ) {
     },
 
     output: {
-      path: _.resolve( `dist-${platform}/` ),
+      path: _.resolve(`dist-${platform}/`),
       filename: 'static/js/[name].js',
       chunkFilename: 'static/js/[id].js'
     },
@@ -87,12 +89,10 @@ function createBaseConfig( platform = 'wechat' ) {
         // ... other rules
         {
           test: /\.vue$/,
-          use: [
-            {
-              loader: 'vue-loader',
-              options: {}
-            }
-          ]
+          use: [{
+            loader: 'vue-loader',
+            options: {}
+          }]
         },
 
         {
@@ -122,10 +122,11 @@ function createBaseConfig( platform = 'wechat' ) {
         filename: `./static/css/[name].${cssExt}`,
       }),
       new CopyWebpackPlugin([{
-        from: 'src/static', to: 'static'
+        from: 'src/static',
+        to: 'static'
       }])
     ],
-    stats:{
+    stats: {
       env: true,
       colors: true,
       modules: false,

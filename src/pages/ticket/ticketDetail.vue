@@ -25,7 +25,7 @@
           ></div>
           <div class="flex column">
             <span>{{item.title}}</span>
-            <span>{{item.day}}</span>
+            <span class="ticket_day">{{item.day}}</span>
           </div>
         </div>
         <span class="flex center">{{item.num}}</span>
@@ -57,6 +57,11 @@ export default {
     };
   },
   onShow() {
+    const { query } = this.$router.currentRoute;
+    this.active = query.active || "solution";
+    if (this.active === "mail") {
+      this.isActive = !this.isActive;
+    }
     this.getList();
   },
   methods: {
@@ -118,6 +123,9 @@ export default {
     background-color: #ffffff;
     margin-top: 16rpx;
     margin-left: 60rpx;
+    & .ticket_day {
+      color: #a9a9a9;
+    }
   }
 }
 </style>

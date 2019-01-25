@@ -9,10 +9,13 @@ export function promisify(fn, self = null) {
 }
 
 export function checkAuth(user) {
-  if (!user.authAt)
-    return this.$router.push({
-      path: "/pages/auth/index"
+  if (!user.authAt) { //有授权
+    this.$router.push({
+      path: "/pages/join/index"
     });
+    return false;
+  }
+  return true;
 }
 
 

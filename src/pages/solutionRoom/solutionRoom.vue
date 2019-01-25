@@ -78,7 +78,7 @@ export default {
       const { _id: id } = this.mails[index];
       this.$router.push({
         query: { id: id },
-        path: "/pages/solutionRoom/index3"
+        path: "/pages/solutionRoom/solutionReply"
       });
     },
     solutionDetail() {

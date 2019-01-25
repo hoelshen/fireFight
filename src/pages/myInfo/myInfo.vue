@@ -17,10 +17,10 @@
         v-else
       >
         <div class="flex j-around my_info_user-nickName">
-          <div style="margin-left:20rpx;">{{user.aliasName}}</div>
-          <div class="iconfont icon-badge"></div>
+          <div style="margin-left:20rpx;padding-right:10rpx;">{{user.aliasName}}</div>
+          <div class="iconfont icon-badge flex a-center"></div>
         </div>
-        <div class="my_info_user-address">{{user.city}}</div>
+        <div class="my_info_user-address flex wrap">{{user.city}}</div>
       </div>
     </div>
 
@@ -128,11 +128,13 @@
     </session>
 
     <session class="my_share flex center">
-      <button open-type="share">安利Tell给好友
-  </div>
-  </session>
+      <div>
+        <button open-type="share">安利Tell给好友
+        </button>
+      </div>
+    </session>
 
-  <TtabBar></TtabBar>
+    <TtabBar></TtabBar>
   </div>
 </template>
 
@@ -162,15 +164,6 @@ export default {
   mounted() {
     console.log("Page [my] Vue mounted");
   },
-  onLoad: function(options) {
-    // Do some initialize when page load.
-    // wx.hideTabBar({})
-    console.log("Page [my] onLoad");
-  },
-  onReady: function() {
-    // Do something when page ready.
-    console.log("Page [my] onReady");
-  },
   async onShow() {
     await this.$request.getUser();
     const { user } = getApp().globalData;
@@ -178,32 +171,32 @@ export default {
 
     this.user = user;
   },
-  onHide: function() {
-    // Do something when page hide.
-    console.log("Page [my] onHide");
-  },
-  onUnload: function() {
-    // Do something when page close.
-    console.log("Page [my] onUnload");
-  },
   /**
    * for other event handlers, please check https://developers.weixin.qq.com/miniprogram/dev/framework/app-service/page.html
    */
   methods: {
     login() {
-      this.$checkAuth(this.user);
-      this.$router.push({ query: { id: 1 }, path: "/pages/login/index" });
+      const status = this.$checkAuth(this.user);
+      if (status) {
+        this.$router.push({ query: { id: 1 }, path: "/pages/auth/index" });
+      }
     },
     memory() {
-      this.$checkAuth(this.user);
-      this.$router.push({ query: { id: 1 }, path: "/pages/memory/index" });
+      const status = this.$checkAuth(this.user);
+      if (status) {
+        this.$router.push({ query: { id: 1 }, path: "/pages/memory/index" });
+      }
     },
     ticket() {
-      this.$checkAuth(this.user);
-      this.$router.push({ query: { id: 1 }, path: "/pages/ticket/index1" });
+      const status = this.$checkAuth(this.user);
+      if (status) {
+        this.$router.push({
+          query: { id: 1 },
+          path: "/pages/ticket/ticketList"
+        });
+      }
     },
     badge() {
-      this.$checkAuth(this.user);
       wx.showToast({
         title: "入口暂未开放",
         icon: "none",
@@ -213,14 +206,16 @@ export default {
       this.$router.push({ query: { id: 1 }, path: "/pages/badge/index" });
     },
     welfare() {
-      this.$checkAuth(this.user);
-      return this.$router.push({
-        query: { id: 1 },
-        path: "/pages/welfare/index"
-      });
+      const status = this.$checkAuth(this.user);
+      if (status) {
+        this.$router.push({
+          query: { id: 1 },
+          path: "/pages/welfare/index"
+        });
+      }
     },
     joinGroup(e) {
-      console.log("AnswerQuestion: ", e);
+      console.log("joinGroup: ", e);
     },
     AnswerQuestion(e) {
       console.log("AnswerQuestion: ", e);
@@ -272,7 +267,7 @@ export default {
       }
       &-nickName {
         height: 84rpx;
-        font-size: 30rpx;
+        font-size: 60rpx;
         text-align: center;
       }
       &-nickNameImg {
@@ -280,9 +275,8 @@ export default {
         height: 36rpx;
       }
       &-address {
-        width: 146rpx;
         height: 40rpx;
-        font-size: 14rpx;
+        font-size: 28rpx;
         text-align: center;
       }
     }
@@ -306,7 +300,7 @@ export default {
         height: 52rpx;
       }
       &-text {
-        font-size: 38rpx;
+        font-size: 28rpx;
       }
     }
   }
@@ -342,7 +336,7 @@ export default {
         margin: 18rpx 20rpx;
       }
       &-text {
-        font-size: 28rpx;
+        font-size: 34rpx;
         margin-left: 20rpx;
       }
     }

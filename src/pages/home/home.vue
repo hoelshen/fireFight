@@ -82,7 +82,7 @@ export default {
           path: "/pages/detail/index"
         });
       }
-      return this.$router.push({ path: "/pages/solutionRoom/index2" });
+      return this.$router.push({ path: "/pages/solutionRoom/solutionRoom" });
     },
     onMoments() {
       this.$router.push({ path: "/pages/moments/index" });

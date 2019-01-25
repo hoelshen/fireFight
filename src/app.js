@@ -29,18 +29,19 @@ export default {
     pages: [
       "pages/home/index", //首页
       "pages/myInfo/index", //个人中心
-      "pages/mailbox/index", //信箱
+      "pages/mailbox/mailbox", //信箱
+      "pages/mailbox/mailDay", //信箱
       "pages/consultingBox/index", //咨询箱
       "pages/badge/index", //徽章
-      "pages/solutionRoom/index1", //成为解答者
-      "pages/solutionRoom/index2", //解答室
-      "pages/solutionRoom/index3", //信件
+      "pages/solutionRoom/solutionDetail", //成为解答者
+      "pages/solutionRoom/solutionRoom", //解答室
+      "pages/solutionRoom/solutionReply", //信件
       "pages/myStory/index", //我的故事
       "pages/auth/index", //授权
       "pages/detail/index", //详细说明
       "pages/moments/index", //动态
-      "pages/ticket/index1", //票券
-      "pages/ticket/index2", //票券
+      "pages/ticket/ticketDetail", //票券明细
+      "pages/ticket/ticketList", //票券
       "pages/welfare/index", //福利社
       "pages/memory/index", //记忆
       "pages/login/index", //登录
@@ -48,10 +49,10 @@ export default {
     ],
     window: {
       backgroundTextStyle: "light",
-      navigationBarBackgroundColor: "#fff",
+      navigationBarBackgroundColor: "#ffffff",
       navigationBarTitleText: "tell2.0_megalo",
       navigationBarTextStyle: "black",
-      backgroundColor: '#F6F6F8'
+      backgroundColor: '#ffffff'
     },
     navigateToMiniProgramAppIdList: [
       "wxa7053e55658fc6f3", // 晓析心理评测

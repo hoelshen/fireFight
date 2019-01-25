@@ -54,17 +54,15 @@ export default {
           that.$request.uploadFile(tempFilePaths[0]).then(res => {
             const data = JSON.parse(res.data);
             that.userInfo.aliasPortrait = data.data;
-            console.log(data.data);
           });
         },
-        fail(e) {
-          console.log(e);
-        }
+        fail(e) {}
       });
     },
     save() {
       const route = this.$router.currentRoute;
-      console.log("route: ", route);
+      // console.log("route: ", route);
+      console.log("route: ");
       const { aliasName, aliasPortrait } = this.userInfo;
       this.$request
         .put("/user", {
@@ -74,7 +72,7 @@ export default {
         .then(res => {
           console.log(res);
         });
-      this.$router.push({ query: "", path: "/pages/myInfo/index" });
+      this.$router.push({ path: "/pages/myInfo/index" });
     },
     setName(e) {
       this.userInfo.aliasName = e.detail.value;

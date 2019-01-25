@@ -51,7 +51,7 @@ export default {
           duration: 1500,
           mask: false,
           success: result => {
-            this.$router.push({ path: "/pages/solutionRoom/index2" });
+            this.$router.push({ path: "/pages/solutionRoom/solutionRoom" });
           },
           fail: () => {},
           complete: () => {}

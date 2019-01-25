@@ -4,7 +4,6 @@
       <image
         class="circle a-center"
         :src="userInfo.aliasPortrait"
-        alt="选择头像"
         background-size="cover"
       />
     </div>

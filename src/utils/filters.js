@@ -1,30 +1,28 @@
-
-
 const filters = {
-    toUpperCasefunction (value) {
-        return  value + '123'
+    toUpperCasefunction(value) {
+        return value + '123'
     },
-    dateFormatter(value){
+    dateFormatter(value) {
         return value
     },
-    checkEmpty(comments){
+    checkEmpty(comments) {
 
     },
-    checkIllegal(commnet){
+    checkIllegal(commnet) {
 
     },
-    checkComment(comments){
+    checkComment(comments) {
         console.log(comments);
-        if(this.checkEmpty(commnet)){
+        if (this.checkEmpty(commnet)) {
 
         }
-        if(this.checkIllegal(commnet)){
+        if (this.checkIllegal(commnet)) {
 
         }
-        if(comments.length < 35){
+        if (comments.length < 35) {
             console.log('评论次数都不够。')
         }
-    }
+    },
 }
 
 export default filters

@@ -1,23 +1,42 @@
 <template>
   <view class="ticket flex column j-between">
-    <div class="list">
-      <div class="ticketList  flex j-between center">
-        <div class="iconfont icon-gift"></div>
-        <span class="my_contact_item-text">邮票</span>
-        <button
-          class="btnStyle btnWidth  flex center"
-          @click="mailTicket"
-        >{{mailNum}}
-        </button>
+    <div
+      class="list"
+      style="margin-left:0"
+    >
+      <div class="ticketList  flex j-between">
+        <div class="flex center">
+          <div class="iconfont icon-gift"></div>
+          <span class="my_contact_item-text">邮票</span>
+        </div>
+        <div class="flex center">
+          <button
+            class="btnStyle btnWidth  flex center"
+            @click="mailTicket"
+          >{{mailNum}}
+          </button>
+          <div
+            style="margin-left:36rpx"
+            class="iconfont icon-gift"
+          ></div>
+        </div>
       </div>
-      <div class="solutionList flex j-start center">
-        <div class="iconfont icon-gift"></div>
-        <span class="my_contact_item-text">解忧券</span>
-        <button
-          class="btnStyle btnWidth flex center"
-          @click="solutionTicket"
-        >{{solutionNum}}
-        </button>
+      <div class="solutionList flex j-between ">
+        <div class="flex center">
+          <div class="iconfont icon-gift"></div>
+          <span class="my_contact_item-text ">解忧券</span>
+        </div>
+        <div class="flex center">
+          <button
+            class="btnStyle btnWidth flex center "
+            @click="solutionTicket"
+          >{{solutionNum}}
+          </button>
+          <div
+            style="margin-left:36rpx"
+            class="iconfont icon-gift"
+          ></div>
+        </div>
       </div>
     </div>
 
@@ -45,8 +64,21 @@ export default {
       this.mailNum = res.data.mailNum;
       this.solutionNum = res.data.solutionNum;
     },
-    mailTicket() {},
-    solutionTicket() {}
+    mailTicket() {
+      this.$router.push({
+        query: { active: "mail" },
+        path: "/pages/ticket/ticketDetail"
+      });
+    },
+    solutionTicket() {
+      this.$router.push({
+        query: { active: "solution" },
+        path: "/pages/ticket/ticketDetail"
+      });
+    },
+    ticketDetail() {
+      this.$router.push({ path: "/pages/ticket/ticketDetail" });
+    }
   },
   onShow() {
     this.getList();
@@ -72,13 +104,15 @@ export default {
   height: 92rpx;
   margin: 30rpx auto;
 }
+.my_contact_item-text {
+  margin-left: 20rpx;
+}
 .btnStyle {
   background-color: #ffffff;
   border: 1px solid #ff4d6b;
   border-radius: 23px;
 }
 .btnWidth {
-  //   width: 126rpx;
   height: 56rpx;
 }
 </style>

@@ -111,7 +111,7 @@ export default {
       const { user } = getApp().globalData;
       if (!user.authAt) return this.$router.push({ path: "/pages/auth/index" });
       console.log("user: ", user);
-      return this.$router.push({ path: "pages/solutionRoom/index2" });
+      return this.$router.push({ path: "pages/solutionRoom/solutionRoom" });
     },
     onEnsure() {},
     async bade() {

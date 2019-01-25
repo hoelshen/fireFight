@@ -33,9 +33,8 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 17,
-			"list": [
-				{
+			"current": 14,
+			"list": [{
 					"id": -1,
 					"name": "授权登录",
 					"pathName": "pages/login/index",
@@ -74,13 +73,13 @@
 				{
 					"id": -1,
 					"name": "信箱",
-					"pathName": "pages/mailbox/index",
+					"pathName": "pages/mailbox/mailbox",
 					"query": ""
 				},
 				{
 					"id": 7,
 					"name": "解答室说明",
-					"pathName": "pages/solutionRoom/index1",
+					"pathName": "pages/solutionRoom/solutionDetail",
 					"query": "active='solutionLimit’"
 				},
 				{
@@ -92,7 +91,7 @@
 				{
 					"id": -1,
 					"name": "解答室",
-					"pathName": "pages/solutionRoom/index2",
+					"pathName": "pages/solutionRoom/solutionRoom",
 					"query": ""
 				},
 				{
@@ -110,7 +109,7 @@
 				{
 					"id": 12,
 					"name": "解答室——咨询信",
-					"pathName": "pages/solutionRoom/index3",
+					"pathName": "pages/solutionRoom/solutionReply",
 					"query": "id=5c458a3a0a868a16f8377223"
 				},
 				{
@@ -122,7 +121,7 @@
 				{
 					"id": 14,
 					"name": "票券列表",
-					"pathName": "pages/ticket/index2",
+					"pathName": "pages/ticket/ticketList",
 					"query": ""
 				},
 				{
@@ -134,7 +133,7 @@
 				{
 					"id": 16,
 					"name": "票券明细",
-					"pathName": "pages/ticket/index1",
+					"pathName": "pages/ticket/ticketDetail",
 					"query": ""
 				},
 				{
