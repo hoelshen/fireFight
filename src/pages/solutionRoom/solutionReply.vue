@@ -109,12 +109,7 @@ export default {
 .borderColor {
   border-bottom: 1px dashed #ff4d6b; //粉色虚线边框
 }
-.mail_title {
-}
-.mail_content {
-}
-.mail_reply {
-}
+
 .reply_button {
   margin-top: 16rpx;
   border-radius: 23px;

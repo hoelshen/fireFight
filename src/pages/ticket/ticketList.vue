@@ -60,9 +60,8 @@ export default {
   },
   methods: {
     async getList() {
-      let res = await this.$request.get("/ticketList");
-      this.mailNum = res.data.mailNum;
-      this.solutionNum = res.data.solutionNum;
+      const { user } = getApp().globalData;
+      console.log("user: ", user);
     },
     mailTicket() {
       this.$router.push({

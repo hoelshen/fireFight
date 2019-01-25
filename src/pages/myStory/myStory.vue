@@ -1,28 +1,36 @@
 <template>
-  <view class="app">
-    <div class="appDiv flex wrap j-start">
-      <div class="textAreafloat appDiv" v-if="isDisplay" @click="hidenMethod" :class="[isDisplay ? 'block' : 'none']">
+  <view class="app flex column j-between">
+    <div class="appDiv flex column ">
+      <div
+        class="textAreafloat appDiv"
+        v-if="isDisplay"
+        @click="hidenMethod"
+      >
         <div>1.请尽量具体叙述你的故事，便于解答者理解和代入，从而给出具体的解答</div>
         <div>2.关键的人物、地点等信息建议使用化名</div>
-        <div> 3.落款署名尽量不要使用笔名或微信昵称</div>
+        <div>3.落款署名尽量不要使用笔名或微信昵称</div>
       </div>
-      <textarea class="textArea" maxlength="50" :value="content" @input="bindTextAreaBlur" />
-
-    </div>
-    <div class="flex j-between">
-      <div class="flex j-start">
+      <textarea
+        class="textArea"
+        v-else
+        focus
+        maxlength="50"
+        :value="content"
+        @input="bindTextAreaBlur"
+      />
+      <div class="flex j-between textName">
+        <span>署名:</span>
+        <input class="aliasNameInput" type="this" @input="bindKeyInput" :value="aliasName">
+        <div class="refreshBtn" @click="refresh"></div>
+      </div>
+      <div class="flex j-end textDay" >
         <span>{{day}}</span>
         <span>{{weather}}</span>
       </div>
-      <div class="flex j-end">
-        <span>署名:</span>
-        <input class="aliasNameInput" type="this" @input="bindKeyInput" :value="aliasName">
-        <button @click="refresh">刷新</button>
       </div>
-    </div>
 
-    <div class="flex column">
-      <button @click="onPush">提交咨询</button>
+    <div class="flex column textAdd">
+      <button class="addMystoryButton" @click="onPush">提交咨询</button>
       <p class="text-center">需要使用1张解忧券</p>
     </div>
 
@@ -60,9 +68,21 @@ export default {
       }
       let res = await this.$request.post("/mail/story", mail);
       if (res.success) {
-        this.$router.push({
-          query: { active: "consultative" },
-          path: "/pages/detail/index"
+        wx.showModal({
+          content:
+            "我们会在每日22:30收集咨询箱中的信关注服务号，被解答时立即收到通知",
+          showCancel: false,
+          confirmText: "好的",
+          confirmColor: "#ff4d6b",
+          success: result => {
+            if (result.confirm) {
+              this.$router.push({
+                path: "/pages/home/index"
+              });
+            }
+          },
+          fail: () => {},
+          complete: () => {}
         });
       }
     },
@@ -75,8 +95,6 @@ export default {
     hidenMethod() {
       this.hidenText = false;
       this.isDisplay = false;
-      console.log("isDisplay: ", this.isDisplay);
-      console.log("hidenText: ", this.hidenText);
     },
     refresh(e) {
       console.log("e", e);
@@ -98,26 +116,35 @@ export default {
 <style lang="less">
 .appDiv {
   width: 750rpx;
-  height: 375rpx;
+  min-height: 750rpx;
 }
 .textArea {
-  min-height: 200px;
-  height: 375rpx;
+  background-color: #979797;
+  opacity: 0.2;
+  min-height: 400rpx;
   margin: 18rpx 60rpx;
+}
+.textName {
+  margin: 18rpx 60rpx;
+}
+.textDay {
+  margin: 18rpx 60rpx;
+}
+.textAdd {
+  margin: 18rpx 60rpx;
+  &button {
+    margin-bottom: 12rpx;
+  }
 }
 .textAreafloat {
   min-height: 200px;
   width: 630rpx;
   height: 375rpx;
-  z-index: 99;
-  position: absolute;
   margin: 18rpx 60rpx;
 }
 .play {
   position: relative;
   top: 50%;
-  // height: 50px;
-  // margin-top: -25px;
   display: flex;
   width: 750rpx;
   height: 375rpx;
@@ -134,9 +161,23 @@ export default {
     -webkit-transform: rotate(-90deg);
   }
 }
-.textContent {
-  word-break: normal;
-  word-wrap: break-word;
-  white-space: pre-wrap;
+.addMystoryButton {
+  border-radius: 23px;
+  margin-bottom: 24rpx;
+  width: 316rpx;
+  height: 92rpx;
+  border: 1 solid #a9a9a9;
+  color: #ffffff;
+  background-color: #ff4d6b;
+}
+.text-ontent {
+  margin: auto;
+  margin-top: 24rpx;
+  color: #a9a9a9;
+}
+.refreshBtn {
+  width: 44rpx;
+  height: 44rpx;
+  background: url(../../static/cdn/refresh.png) no-repeat;
 }
 </style>
