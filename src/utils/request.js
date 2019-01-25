@@ -27,9 +27,9 @@ function getBaseURL(env) {
   }
 }
 
-function showError(msg) {
+function showError(message, status, request) {
   wx.showToast({
-    title: msg,
+    title: message,
     icon: "none",
     duration: 2000
   });
@@ -184,7 +184,8 @@ fly.interceptors.response.use(
       // 本地环境：服务器正在重启
       return showError("服务器抽风啦，请重试");
     }
-    showError(err.response.data.message);
+    showError(err.response.data.message, err.status, err.request);
+
   }
 );
 
