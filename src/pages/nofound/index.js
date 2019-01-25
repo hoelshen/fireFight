@@ -1,4 +1,4 @@
-import App from './nofound'
+import App from './noFound'
 import Vue from 'vue'
 
 const app = new Vue(App)

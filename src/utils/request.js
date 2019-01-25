@@ -15,13 +15,13 @@ fly.config.headers["Content-Type"] = "application/json; charset=utf-8";
 function getBaseURL(env) {
   switch (env) {
     case "local":
-      return "http://192.168.118.149:10701";
+      return "http://localhost:10701";
     case "mock":
       return "http://www.amusingcode.com:8001/mock/24/tell_v2";
     case "test":
       return "https://www.amusingcode.com/teller-v2";
     default:
-      return "https://api.tellers.cn/flag";
+      return "https://api.tellers.cn/teller-v2";
   }
 }
 
@@ -142,12 +142,16 @@ fly.interceptors.response.use(
   },
   err => {
     if (err.status == 502 || err.status == 404) {
-      // 生产环境：服务器正在重启
-      return showError("服务器抽风啦，请重试");
+      showError("服务器抽风啦，请重试"); // 生产环境：服务器正在重启
+      return wx.reLaunch({
+        url: "/pages/noFound/index"
+      });
     }
     if (!err.response) {
-      // 本地环境：服务器正在重启
-      return showError("服务器抽风啦，请重试");
+      showError("服务器抽风啦，请重试"); // 本地环境：服务器正在重启
+      return wx.reLaunch({
+        url: "/pages/noFound/index"
+      });
     }
     showError(err.response.data.message);
   }

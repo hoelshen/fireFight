@@ -1,5 +1,5 @@
 <template>
-  <div class="nofound flex column">
+  <div class="noFound flex column">
 
     <div class="tips flex center column">
       <div class="desc">邮差迷路了，正在重新导航...</div>
@@ -53,7 +53,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-.nofound {
+.noFound {
   height: 100vh;
   background: #81cbe2;
   color: #fff;
