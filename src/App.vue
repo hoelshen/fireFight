@@ -6,19 +6,21 @@ export default {
     this.globalData.options = opts;
     this.$request.login();
   },
-  onShow: function(options) {
-   
+  onPageNotFound(res) {
+    wx.reLaunch({
+      url: "/pages/home/index"
+    });
   },
-  onHide: function() {},
   onError: function(msg) {
     console.log("App onError");
     console.log(msg);
   },
   globalData() {
     return {
-      options: {},
-      user: {},
-      sUser: {}
+      options: {}, // 启动参数
+      user: {}, // 用户信息
+      mail:{}, // 待发送邮件
+      mys: {} // 活动主题
     };
   }
 };

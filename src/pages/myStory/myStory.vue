@@ -1,44 +1,38 @@
 <template>
   <view class="app">
     <div class="appDiv flex wrap j-start">
-      <div
-        class="textAreafloat appDiv"
-        v-if="isDisplay"
-        @click="hidenMethod"
-        :class="[isDisplay ? 'block' : 'none']"
-      >
+      <div class="textAreafloat appDiv" v-if="isDisplay" @click="hidenMethod" :class="[isDisplay ? 'block' : 'none']">
         <div>1.请尽量具体叙述你的故事，便于解答者理解和代入，从而给出具体的解答</div>
         <div>2.关键的人物、地点等信息建议使用化名</div>
         <div> 3.落款署名尽量不要使用笔名或微信昵称</div>
       </div>
-      <textarea
-        class="textArea"
-        maxlength="50"
-        :value="content"
-        @input="bindTextAreaBlur"
-      />
+      <textarea class="textArea" maxlength="50" :value="content" @input="bindTextAreaBlur" />
 
+    </div>
+    <div class="flex j-between">
+      <div class="flex j-start">
+        <span>{{day}}</span>
+        <span>{{weather}}</span>
       </div>
-        <div class="flex j-between">
-            <div class="flex j-start">
-                <span>{{day}}</span>
-                <span>{{weather}}</span>
-            </div>
-            <div class="flex j-end">
-                <span>署名:</span>
-                <input class="aliasNameInput" type="this"  @input="bindKeyInput" :value="aliasName">
-                <button @click="refresh">刷新</button>
-            </div>
-        </div>
+      <div class="flex j-end">
+        <span>署名:</span>
+        <input class="aliasNameInput" type="this" @input="bindKeyInput" :value="aliasName">
+        <button @click="refresh">刷新</button>
+      </div>
+    </div>
 
-        <div class="flex column">
-            <button @click="onPush">提交咨询</button>
-            <p class="text-center">需要使用1张解忧券</p>
-        </div>
+    <div class="flex column">
+      <button @click="onPush">提交咨询</button>
+      <p class="text-center">需要使用1张解忧券</p>
+    </div>
 
-    </view>
+  </view>
 </template>
 <script>
+var WORDS =
+  "自杀|迫害|家暴|不想活|不活了|生无可恋|抑郁症|十分压抑|非常压抑|没有希望|死了算了|跳楼|自尽";
+const SENSITIVE_REG = new RegExp(WORDS, "i");
+
 export default {
   data() {
     const day = this.$day().format("YYYY/MM/DD"); ///.format('YYYY-MM-DD') // 展示
@@ -52,22 +46,25 @@ export default {
     };
   },
   methods: {
-    onPush() {
-      console.log("this.content", this.content);
-      this.$request
-        .post("/mail/story", {
-          content: this.content,
-          weather: this.weather,
-          aliasName: this.aliasName
-        })
-        .then(res => {
-          console.log("res", res);
-        })
-        .catch(() => {});
-      this.$router.push({
-        query: { active: "consultative" },
-        path: "/pages/detail/index"
-      });
+    async onPush() {
+      const mail = {
+        content: this.content,
+        weather: this.weather,
+        aliasName: this.aliasName
+      };
+      if (this.content.match(SENSITIVE_REG)) {
+        getApp().globalData.mail = mail; // 敏感词检测
+        return wx.navigateTo({
+          url: "/pages/help/index"
+        });
+      }
+      let res = await this.$request.post("/mail/story", mail);
+      if (res.success) {
+        this.$router.push({
+          query: { active: "consultative" },
+          path: "/pages/detail/index"
+        });
+      }
     },
     bindTextAreaBlur(e) {
       this.content = e.detail.value;

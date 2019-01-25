@@ -33,9 +33,8 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 14,
-			"list": [
-				{
+			"current": 18,
+			"list": [{
 					"id": -1,
 					"name": "授权登录",
 					"pathName": "pages/login/index",
@@ -141,6 +140,12 @@
 					"id": -1,
 					"name": "福利社",
 					"pathName": "pages/welfare/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "情感援助",
+					"pathName": "pages/help/index",
 					"query": ""
 				}
 			]

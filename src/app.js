@@ -45,7 +45,8 @@ export default {
       "pages/welfare/index", //福利社
       "pages/memory/index", //记忆
       "pages/login/index", //登录
-      "pages/nofound/index", //404
+      "pages/help/index", //情感援助
+      "pages/noFound/index", //404
     ],
     window: {
       backgroundTextStyle: "light",
