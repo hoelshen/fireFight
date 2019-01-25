@@ -258,6 +258,17 @@ export default {
 </script>
 
 <style lang="less" scoped>
+button {
+  margin-top: 30rpx;
+  width: 200rpx;
+  height: 80rpx;
+  color: #fff;
+  font-size: 30rpx;
+  &.active {
+    background: darken(#ffc75d, 10%);
+  }
+}
+
 .page {
   min-height: 100vh;
   background: #fff;
@@ -345,10 +356,9 @@ export default {
   padding: 60rpx 40rpx;
   font-size: 32rpx;
   button {
+    background: #353535;
     width: 516rpx;
     height: 100rpx;
-    background: #353535;
-          color: #fff;
     font-size: 32rpx;
     &.active {
       background: lighten(#353535, 5%);

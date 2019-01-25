@@ -3,6 +3,7 @@
 
     <div class="tips flex center column">
       <div class="desc">邮差迷路了，正在重新导航...</div>
+      <img src="/static/svgs/nofound.svg" alt="">
     </div>
     <div class="btns flex column center box">
       <button class="flex center" :class="isDisable ? 'disable' :''" @tap="toBack">返回首页</button>
@@ -61,10 +62,10 @@ export default {
     font-size: 44rpx;
     margin: 200rpx 0;
   }
-  .desc{
+  .desc {
     margin-bottom: 80rpx;
   }
-  img{
+  img {
     width: 750rpx;
     height: 420rpx;
   }
@@ -80,6 +81,7 @@ export default {
       color: #fff;
       font-size: 28rpx;
       border-radius: 16rpx;
+      background:#FFC75D;
       &.disable {
         background: #dbdbdb;
       }
