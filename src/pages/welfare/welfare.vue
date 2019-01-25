@@ -12,25 +12,49 @@
         class="navigatabar_item flex center"
       >我要邮票</div>
     </session>
-    <session class="list">
-      <div
-        class="list_item flex  j-between "
-        v-for="(item,index) in list"
-        :key="index"
-      >
-        <div class="flex j-between center">
-          <div
-            class="iconfont icon-gift"
-            style="margin-right:20rpx;"
-          ></div>
-          <div class="flex column">
-            <span>{{item.title}}</span>
-            <span>{{item.day}}</span>
+    <session
+      class="list"
+      v-if="active === 'solution'"
+    >
+      <div class="list_item flex  j-between ">
+        <div class="flex column j-between">
+          <div class="flex">
+            <span class="list_item_span">邮票兑换解忧券</span>
+            <div
+              class="iconfont icon-gift"
+              style="margin-left:20rpx;"
+            >+1</div>
           </div>
+          <span>用户可以使用10张邮票兑换1张解忧券</span>
         </div>
-        <span class="flex center">{{item.num}}</span>
+        <button
+          @click="mailExchange"
+          class="flex center"
+        >兑换</button>
       </div>
     </session>
+    <session
+      class="list"
+      v-if="active === 'solution'"
+    >
+      <div class="list_item flex  j-between ">
+        <div class="flex column j-between ">
+          <div class="flex">
+            <span>关注服务号得解忧券</span>
+            <div
+              class="iconfont icon-gift"
+              style="margin-right:20rpx;"
+            ></div>
+          </div>
+          <span>进入客服会话后发送「服务号」，按提示进行操作。关注服务号后即可领取解忧券。</span>
+        </div class="exchange">
+        <button
+          @click="helpExchange"
+          class="flex center "
+        >兑换</button>
+      </div>
+    </session>
+
   </view>
 
 </template>
@@ -63,13 +87,15 @@ export default {
     toggleSolution() {
       this.active = "solution";
       this.isActive = !this.isActive;
-      this.getList();
+      // this.getList();
     },
     toggleMail() {
       this.active = "mail";
       this.isActive = !this.isActive;
-      this.getList();
+      // this.getList();
     },
+    helpExchange() {},
+    mailExchange() {},
     async getList() {
       let res;
       if (this.active === "solution") {
@@ -119,6 +145,21 @@ export default {
     margin-top: 16rpx;
     margin-left: 60rpx;
   }
+}
+.list_item_span {
+  word-break: normal;
+  width: auto;
+  display: block;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+.exchange {
+  margin-top: 16rpx;
+  border-radius: 23px;
+  width: 182rpx;
+  height: 92rpx;
+  border: 1px solid #ff4d6b;
 }
 </style>
 

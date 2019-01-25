@@ -14,7 +14,7 @@
 	"compileType": "miniprogram",
 	"appid": "wx0af73175e644dbfc",
 	"projectname": "tell2.0_megalo",
-	"libVersion": "2.5.0",
+	"libVersion": "2.5.1",
 	"condition": {
 		"search": {
 			"current": -1,
@@ -33,9 +33,8 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 19,
-			"list": [
-				{
+			"current": 18,
+			"list": [{
 					"id": -1,
 					"name": "授权登录",
 					"pathName": "pages/login/index",

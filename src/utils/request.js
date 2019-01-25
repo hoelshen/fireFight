@@ -27,9 +27,9 @@ function getBaseURL(env) {
   }
 }
 
-function showError(msg) {
+function showError(message, status, request) {
   wx.showToast({
-    title: msg,
+    title: message,
     icon: "none",
     duration: 2000
   });
@@ -188,7 +188,8 @@ fly.interceptors.response.use(
         url: "/pages/noFound/index"
       });
     }
-    showError(err.response.data.message);
+    showError(err.response.data.message, err.status, err.request);
+
   }
 );
 
