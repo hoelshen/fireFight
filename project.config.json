@@ -147,6 +147,12 @@
 					"name": "情感援助",
 					"pathName": "pages/help/index",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "MYS首页",
+					"pathName": "pages/stronger-home/index",
+					"query": ""
 				}
 			]
 		}
