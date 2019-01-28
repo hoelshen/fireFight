@@ -85,8 +85,8 @@ export default {
     },
     solutionDetail() {
       this.$router.push({
-        query: { active: "solver" },
-        path: "/pages/detail/index"
+        query: { page: "Solver-Manual" },
+        path: "/pages/webview/index"
       });
     }
   },

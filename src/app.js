@@ -49,7 +49,9 @@ export default {
       "pages/stronger-home/index", // MYS首页
       "pages/stronger-mail/index", //MYS故事
       "pages/stronger-write/index", //MYS写故事
-      "pages/noFound/index", //404
+      "pages/noFound/index", //404,
+      "pages/webview/index", //内嵌网页
+
     ],
     window: {
       backgroundTextStyle: "light",
