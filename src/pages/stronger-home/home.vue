@@ -16,52 +16,108 @@
     </div>
 
     <div class="tabs flex j-around box relative">
-      <div class="tab flex j-start grow" @tap="onTabChange('everyone')" :class="tab == 'everyone'?'active':''">
+      <div
+        class="tab flex j-start grow"
+        @tap="onTabChange('everyone')"
+        :class="tab == 'everyone'?'active':''"
+      >
         大家的故事
       </div>
 
-      <div class="tab flex j-start grow" @tap="onTabChange('friends')" :class="tab == 'friends'?'active':''">
+      <div
+        class="tab flex j-start grow"
+        @tap="onTabChange('friends')"
+        :class="tab == 'friends'?'active':''"
+      >
         来自可能认识的人
       </div>
     </div>
 
-    <div class="tips flex a-center j-start" v-if="tab=='friends'">
+    <div
+      class="tips flex a-center j-start"
+      v-if="tab=='friends'"
+    >
       立于阳光之下，才可环视四周。
     </div>
 
-    <div class="tips-more" v-if="tab=='friends'">
+    <div
+      class="tips-more"
+      v-if="tab=='friends'"
+    >
       MYS 不提倡朋友之间窥私，因此以下内容只对分享过故事的用户开放。
     </div>
 
-    <div class="mails grow" v-if="tab=='everyone'">
+    <div
+      class="mails grow"
+      v-if="tab=='everyone'"
+    >
 
-      <div v-for="mail in everyoneMails" :key="mail._id">
+      <div
+        v-for="mail in everyoneMails"
+        :key="mail._id"
+      >
         <MailCard :mail="mail"></MailCard>
       </div>
 
-      <img class="tell-card" src="https://cdn.tellers.cn/stronger/tell_card.svg" alt="" v-if="everyoneMails.length > 0" @tap="toHome">
+      <img
+        class="tell-card"
+        src="https://cdn.tellers.cn/stronger/tell_card.svg"
+        alt=""
+        v-if="everyoneMails.length > 0"
+        @tap="toHome"
+      >
 
       <div class="more flex column a-center">
-        <button class="change" hover-class="active" @tap="refresh">换一批</button>
-        <div class="desc" v-if="countdownMinute==0">当前可以立即刷新</div>
-        <div class="desc" v-else>{{countdownMinute}}分钟后可以刷新</div>
+        <button
+          class="change"
+          hover-class="active"
+          @tap="refresh"
+        >换一批</button>
+        <div
+          class="desc"
+          v-if="countdownMinute==0"
+        >当前可以立即刷新</div>
+        <div
+          class="desc"
+          v-else
+        >{{countdownMinute}}分钟后可以刷新</div>
       </div>
     </div>
 
-    <div class="mails grow" v-if="tab=='friends'">
-      <div v-for="mail in friendsMails" :key="mail._id">
-        <MailCard :mail="mail" :lock="!isMonmentOpened"></MailCard>
+    <div
+      class="mails grow"
+      v-if="tab=='friends'"
+    >
+      <div
+        v-for="mail in friendsMails"
+        :key="mail._id"
+      >
+        <MailCard
+          :mail="mail"
+          :lock="!isMonmentOpened"
+        ></MailCard>
       </div>
     </div>
 
-    <button class="btns flex center" hover-class="active" @tap="toMyStory" v-if="isStoryWrote">我的故事</button>
-    <button class="btns flex center" open-type="getUserInfo" hover-class="active" @getuserinfo="onGetUserInfo" v-else>写我的故事</button>
+    <button
+      class="btns flex center"
+      hover-class="active"
+      @tap="toMyStory"
+      v-if="isStoryWrote"
+    >我的故事</button>
+    <button
+      class="btns flex center"
+      open-type="getUserInfo"
+      hover-class="active"
+      @getuserinfo="onGetUserInfo"
+      v-else
+    >写我的故事</button>
   </view>
 </template>
 
 <script>
 import MailCard from "@/components/story.vue";
-import sRequest from '@/utils/stronger-request'
+import sRequest from "@/utils/stronger-request";
 
 export default {
   mpType: "page",
@@ -94,7 +150,9 @@ export default {
     };
   },
   async onLoad() {
-    let loginRes = await sRequest.login(getApp().globalData.options.query.refer);
+    let loginRes = await sRequest.login(
+      getApp().globalData.options.query.refer
+    );
     let userInfo = getApp().globalData.mys;
     this.isStoryWrote = userInfo.isStoryWrote;
     this.isMonmentOpened = userInfo.isMonmentOpened;
@@ -148,7 +206,7 @@ export default {
       if (!detail.userInfo) {
         return wx.hideLoading();
       }
-      sRequest.post("/setPenName", detail).then(
+      sRequest.post("/auth", detail).then(
         function(authRes) {
           wx.hideLoading();
           this.toWrite();
@@ -209,7 +267,6 @@ export default {
   background: #fafafa;
   overflow-x: hidden;
   padding-bottom: 100rpx;
-  
 }
 
 .intros {
