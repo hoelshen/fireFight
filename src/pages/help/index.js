@@ -6,10 +6,10 @@ app.$mount()
 
 export default {
   config: {
-    navigationBarBackgroundColor: '#FE5C6B',
-    navigationBarTextStyle: 'white',
+    navigationBarBackgroundColor: '#fffefb',
+    navigationBarTextStyle: 'black',
     navigationBarTitleText: '愿阳光温暖你',
     backgroundColor: '#FFF7EE',
-    disableScroll:true
+    disableScroll: true
   }
 };

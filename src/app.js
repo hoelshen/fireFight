@@ -55,11 +55,11 @@ export default {
 
     ],
     window: {
-      backgroundTextStyle: "light",
-      navigationBarBackgroundColor: "#ffffff",
+      backgroundTextStyle: "black",
+      navigationBarBackgroundColor: '#fffefb',
       navigationBarTitleText: "tell2.0_megalo",
       navigationBarTextStyle: "black",
-      backgroundColor: '#ffffff'
+      backgroundColor: '#fffefb'
     },
     navigateToMiniProgramAppIdList: [
       "wxa7053e55658fc6f3", // 晓析心理评测

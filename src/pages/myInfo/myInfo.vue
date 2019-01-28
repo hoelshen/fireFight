@@ -251,7 +251,7 @@ export default {
   width: 750rpx;
   min-height: 100vh;
   font-family: "PingFang SC";
-  background-color: #f6f6f8;
+  background-color: #fffefb;
   padding-top: 32rpx;
   padding-bottom: 124rpx;
   .my_info {

@@ -126,8 +126,7 @@ export default {
 .textArea {
   width: 630rpx;
   min-height: 750rpx;
-  background-color: #979797;
-  opacity: 0.2;
+  background-color: rgba(169, 169, 169, 0.05);
   color: black;
 }
 .textName {

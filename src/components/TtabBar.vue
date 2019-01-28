@@ -63,19 +63,28 @@ export default {
   },
   methods: {
     myInfo(e) {
-      console.log("mine: ", e);
-      this.$router.push("pages/myInfo/index");
+      const path = this.$router.currentRoute.path;
+      if (path === "/pages/myInfo/index") {
+        return false;
+      } else {
+        return this.$router.push("pages/myInfo/index");
+      }
     },
     home(e) {
-      console.log("mine: ", e);
-      this.$router.push("pages/home/index");
+      const path = this.$router.currentRoute.path;
+      if (path === "/pages/home/index") {
+        return false;
+      } else {
+        return this.$router.push("pages/home/index");
+      }
     },
     mail(e) {
-      console.log("mine: ", e);
-      this.$router.push("pages/mail/mailbox");
-    },
-    sjh() {
-      console.log("sjh: ", sjh);
+      const path = this.$router.currentRoute.path;
+      if (path === "/pages/mail/mailbox") {
+        return false;
+      } else {
+        return this.$router.push("pages/mail/mailbox");
+      }
     }
   }
 };
@@ -89,7 +98,7 @@ export default {
   height: 124rpx;
   width: 100%;
   color: #2a2a2a;
-  background: #fff;
+  background: #ffffff;
   padding: 32rpx 86rpx;
   z-index: 10;
   .mail {
