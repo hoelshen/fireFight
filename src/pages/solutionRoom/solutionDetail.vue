@@ -1,20 +1,27 @@
 <template>
-  <view class="app">
-    <div>
+  <view class="app flex column j-between">
+    <div class="soDetail">
       <div class="title">选择你最愿意看到的话题</div>
-      <div class="title">以后你也可以随时修改，并在次日生效</div>
-
       <div
-        class=" tag box"
+        class="tag box"
         hover-class="active"
         v-for="(item,index) in titles"
         :key="index"
         @click="select(index)"
       >{{item.name}}</div>
+    </div>
+    <div class="foot">
       <button
-        class="title flex center"
+        v-if="!isFlag"
+        class="titleButton flex center addButton"
         @click="add"
       >提交申请</button>
+      <button
+        v-else
+        class="titleButton flex center addButton"
+        @click="add"
+      >修改</button>
+      <span class="titleButtonSpan">你收到的咨询会在一定数量上接近该话题以后你也可以随时修改，并在次日生效</span>
     </div>
   </view>
 
@@ -25,7 +32,8 @@ export default {
     return {
       titles: [],
       title: {},
-      isFocus: true
+      isFocus: true,
+      isFlag: false
     };
   },
   methods: {
@@ -63,13 +71,33 @@ export default {
     const {
       currentRoute: { query }
     } = this.$router;
+    const { user } = getApp().globalData;
+    console.log("user: ", user);
+    if (user.becomeAnswererAt) {
+      console.log("becomeAnswererAt: ", user.becomeAnswererAt);
+      this.isFlag = true;
+    }
     this.active = query.active;
     this.tiltes = this.tag();
   }
 };
 </script>
 <style lang="less" scoped>
+.soDetail {
+  margin: 20rpx 60rpx 0 60rpx;
+}
 .title {
-  margin: 20px;
+  margin: 40rpx 40rpx 40rpx 0;
+  font-size: 34rpx;
+}
+.foot {
+  margin: 0 60rpx 60rpx 60rpx;
+  & button {
+    margin-bottom: 40rpx;
+  }
+}
+.titleButtonSpan {
+  color: #a9a9a9;
+  font-size: 22rpx;
 }
 </style>

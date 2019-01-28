@@ -2,7 +2,7 @@
 	"debug": false,
 	"prettier_cli_path": "",
 	"node_path": "",
-	"auto_format_on_save": false,
+	"auto_format_on_save": true,
 	"auto_format_on_save_excludes": [],
 	"auto_format_on_save_requires_prettier_config": false,
 	"allow_inline_formatting": false,

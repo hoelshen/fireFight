@@ -16,6 +16,16 @@ button {
 button::after {
   border: none;
 }
+.addButton {
+  margin-top: 16rpx;
+  border-radius: 23px;
+  width: 316rpx;
+  height: 92rpx;
+  color: #ffffff;
+  border: 1 solid #a9a9a9;
+  background-color: #ff4d6b;
+}
+
 input {
   outline: none;
   border: none;
@@ -81,15 +91,19 @@ input {
   line-height: 100rpx;
   text-align: center;
   border-radius: 4rpx;
-  color: #172b4d;
+  color: #979797;
   background: transparent;
-  border: 2rpx rgba(0, 20, 65, 0.3) solid;
+  background-color: rgba(169, 169, 169, 0.05);
+  border: 2rpx rgba(151, 151, 151, 1) solid;
   margin-right: 30rpx;
   margin-bottom: 40rpx;
   padding: 0 26rpx;
   font-size: 28rpx;
   &.active {
-    border: 2rpx #172b4d solid;
+    border: 2rpx #ff4d6b solid;
+  }
+  &.focus {
+    border: 2rpx #ff4d6b solid;
   }
 }
 
@@ -97,12 +111,6 @@ input {
 .text-center {
   text-align: center;
 }
-//子元素图片剧中
-//align-items: center
-
-//view文字垂直居中
-// height: 58rpx;
-//line-height: 58rpx;
 
 //小程序主题色
 .themeColor {

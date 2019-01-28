@@ -77,6 +77,8 @@ export default {
 };
 </script>
 <style lang="less">
+@import url(../../styles/mail.less);
+
 .mailbox_title {
   width: 266rpx;
   height: 92rpx;

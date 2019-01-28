@@ -47,11 +47,14 @@
             ></div>
           </div>
           <span>进入客服会话后发送「服务号」，按提示进行操作。关注服务号后即可领取解忧券。</span>
-        </div class="exchange">
-        <button
-          @click="helpExchange"
-          class="flex center "
-        >兑换</button>
+        </div>
+        <div class="exchange">
+          <button
+            @click="helpExchange"
+            class="flex center "
+          >兑换
+          </button>
+        </div>
       </div>
     </session>
 

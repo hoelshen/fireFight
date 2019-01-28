@@ -266,6 +266,7 @@ export default {
         height: 216rpx;
         width: 216rpx;
         margin: 20px auto;
+        box-shadow: 0 0 36rpx 0 rgba(255, 77, 107, 0.19);
       }
       &-nickName {
         height: 84rpx;
