@@ -169,8 +169,6 @@ export default {
   async onShow() {
     await this.$request.getUser();
     const { user } = getApp().globalData;
-    console.log("user: ", user);
-
     this.user = user;
   },
   /**

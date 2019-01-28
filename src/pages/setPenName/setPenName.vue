@@ -75,14 +75,21 @@ export default {
           });
         this.$router.push({ path: "/pages/myInfo/index" });
       }
+      if (!aliasName) {
+        wx.showToast({
+          title: "请设置笔名",
+          icon: "none",
+          duration: 2000
+        });
+      }
     },
     setName(e) {
       this.userInfo.aliasName = e.detail.value;
     }
   },
-  onShow() {
+  async onShow() {
+    await this.$request.getUser();
     const { user } = getApp().globalData;
-    console.log("user: ", user);
     this.userInfo.aliasPortrait = user.aliasPortrait;
   }
 };
