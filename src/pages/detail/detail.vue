@@ -109,7 +109,7 @@ export default {
     },
     onSoluter() {
       const { user } = getApp().globalData;
-      if (!user.authAt) return this.$router.push({ path: "/pages/auth/index" });
+      if (!user.authAt) return this.$router.push({ path: "/pages/setPenName/index" });
       console.log("user: ", user);
       return this.$router.push({ path: "pages/solutionRoom/solutionRoom" });
     },

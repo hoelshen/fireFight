@@ -56,7 +56,7 @@
 				{
 					"id": -1,
 					"name": "设置笔名",
-					"pathName": "pages/auth/index",
+					"pathName": "pages/setPenName/index",
 					"query": ""
 				},
 				{
