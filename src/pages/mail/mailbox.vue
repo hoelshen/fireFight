@@ -5,37 +5,19 @@
         {{num}}封信正在路上
       </button>
     </div>
-    <div>
-      <session class="list">
-        <div class="list_item flex column j-between" v-for="(item,index) in list" @click="show(index)" :key="index">
-          <div class="list_item-day flex center">{{ item.createdAt }}</div>
-          <div class="list_item-sendName flex wrap j-between">
-            <div class="flex column j-between">
-              <div class="list_item-receiverName">
-                <span class="list_item-receiverNameSpan">{{item.lastMail || ""}}</span>
-                <span>收</span>
-              </div>
-              <div class="list_item-content ">
-                <text class="mailText">测试字数非常多多度哦是的</text>
-              </div>
-            </div>
-            <div class="flex">
-              <img class="mail-svg" src="/static/svgs/mail.svg" alt="">
-            </div>
-          </div>
-
-          <div class="list_item-sendName flex  j-between">
-            <span>{{item.isRead ? "已" : "未"}}读</span>
-            <span>{{item.targetUser._id}}</span>
-          </div>
-        </div>
-      </session>
-    </div>
+    <Tlist
+      v-if="list"
+      :list="list"
+    ></Tlist>
   </view>
 
 </template>
 <script>
+import Tlist from "@/components/Tlist";
 export default {
+  components: {
+    Tlist
+  },
   data() {
     return {
       num: 0,
@@ -50,36 +32,21 @@ export default {
     dayFormat(value) {
       return this.$day(value).format("YYYY/MM/DD");
     },
-    async getList() {
-      const res = await this.$request.get("/dialog");
-      this.list = res.data;
-      this.list.forEach(element => {
-        if (element.createdAt) {
-          element.createdAt = this.dayFormat(element.createdAt);
-        }
-      });
+    openMail() {
+      this.$router.push({ path: "/pages/mail/mailDay" });
     },
     async getCount() {
       const res = await this.$request.get("/dialog/way/count");
       this.num = res.data;
     },
-    openMail() {
-      this.$router.push({ path: "/pages/mail/mailDay" });
-    },
-    show(index) {
-      const id = this.list[index]._id;
-      this.$router.push({
-        query: { id: id },
-        path: "/pages/mail/mailDetail"
-      });
-      console.log("index: ", index);
+    async getList() {
+      const res = await this.$request.get("/dialog");
+      this.list = res.data;
     }
   }
 };
 </script>
 <style lang="less">
-@import url(../../styles/mail.less);
-
 .mailbox_title {
   width: 266rpx;
   height: 92rpx;
@@ -97,10 +64,5 @@ export default {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-.list_item-day {
-  margin-top: 5rpx;
-  color: #a9a9a9;
-  margin-bottom: 20rpx;
 }
 </style>

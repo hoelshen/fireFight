@@ -66,7 +66,6 @@ export default {
       Object.keys(this.mail).forEach(element => {
         if (element.createdAt) {
           console.log("element.createdAt: ", element.createdAt);
-          // element.createdAt = this.dayFormat(element.createdAt);
         }
       });
     },
