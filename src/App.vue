@@ -27,7 +27,6 @@ export default {
 </script>
 
 <style lang="less">
-@import url(./styles/mail.less);
 @import url(./styles/common.less);
 @import url(./styles/iconfont.css);
 </style>

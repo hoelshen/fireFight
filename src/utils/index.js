@@ -11,7 +11,7 @@ export function promisify(fn, self = null) {
 export function checkAuth(user) {
   if (!user.authAt) { //有授权
     this.$router.push({
-      path: "/pages/join/index"
+      path: "/pages/setPenName/index"
     });
     return false;
   }

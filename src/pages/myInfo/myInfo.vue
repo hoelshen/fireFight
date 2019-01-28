@@ -178,7 +178,7 @@ export default {
     login() {
       const status = this.$checkAuth(this.user);
       if (status) {
-        this.$router.push({ query: { id: 1 }, path: "/pages/auth/index" });
+        this.$router.push({ query: { id: 1 }, path: "/pages/setPenName/index" });
       }
     },
     memory() {
@@ -317,18 +317,6 @@ export default {
         width: 630rpx;
         height: 108rpx;
         align-items: center;
-        &:after {
-          content: "";
-          width: 16rpx;
-          height: 16rpx;
-          border-left: 1rpx solid #666;
-          border-bottom: 1rpx solid #666;
-          transform: rotate(225deg);
-          -webkit-transform: rotate(225deg);
-          position: absolute;
-          left: 580rpx;
-          top: 54rpx;
-        }
       }
       &-img {
         height: 36rpx;

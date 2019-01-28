@@ -2,7 +2,7 @@
   <view class="app">
     <session class="solutionRoomName">
       <div class="solutionRoomName-name">
-        <p class="solutionRoomName-day">晚上好</p>
+        <p class="solutionRoomName-day">{{days}}</p>
         <p class="solutionRoomName-aliasName">{{aliasName}}</p>
       </div>
       <div clss="solutionRoomName_question flex j-between">
@@ -57,7 +57,9 @@
 <script>
 export default {
   data() {
+    const days = this.$day().timeQual();
     return {
+      days: days,
       aliasName: "",
       mails: [],
       isFocus: true
@@ -96,6 +98,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+@import url(../../styles/mail.less);
 .solutionRoomName {
   width: 390rpx;
   height: 204rpx;

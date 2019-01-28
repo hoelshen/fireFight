@@ -158,7 +158,7 @@ export default {
         return wx.hideLoading();
       }
 
-      sRequest.post("/auth", detail).then(
+      sRequest.post("/setPenName", detail).then(
         function(authRes) {
           this.hung();
         }.bind(this)

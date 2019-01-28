@@ -41,7 +41,7 @@ export default {
         mask: true
       });
       this.$request
-        .post("/auth", {
+        .post("/setPenName", {
           iv,
           userInfo,
           encryptedData
@@ -49,7 +49,7 @@ export default {
         .then(
           function(authRes) {
             wx.hideLoading();
-            this.$router.push({ path: "/pages/auth/index" });
+            this.$router.push({ path: "/pages/setPenName/index" });
           }.bind(this)
         )
         .catch(err => {

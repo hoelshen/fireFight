@@ -148,7 +148,7 @@ export default {
       if (!detail.userInfo) {
         return wx.hideLoading();
       }
-      sRequest.post("/auth", detail).then(
+      sRequest.post("/setPenName", detail).then(
         function(authRes) {
           wx.hideLoading();
           this.toWrite();
