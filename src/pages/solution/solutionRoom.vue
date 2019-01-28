@@ -33,7 +33,7 @@
           <div class="flex">
             <img
               class="mail-svg"
-              src="/static/svgs/mail.svg"
+              src="/static/svgs/stamp.svg"
               alt=""
             >
           </div>

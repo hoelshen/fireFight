@@ -88,7 +88,7 @@ export default {
       this.isActive = true;
     },
     bindTextAreaBlur(e) {
-      this.content = e.detail.value;
+      this.reply.content = e.detail.value;
     }
   },
   async onShow() {
