@@ -1,9 +1,14 @@
+import dayjs from 'dayjs' // load on demand
+import 'dayjs/locale/zh-cn' // 按需加载
+
+dayjs.locale('zh-cn')
+
 const filters = {
     toUpperCasefunction(value) {
         return value + '123'
     },
-    dateFormatter(value) {
-        return value
+    dayFormat(value) {
+        return this.$day(value).format("YYYY/MM/DD");
     },
     checkEmpty(comments) {
 
@@ -12,7 +17,6 @@ const filters = {
 
     },
     checkComment(comments) {
-        console.log(comments);
         if (this.checkEmpty(commnet)) {
 
         }

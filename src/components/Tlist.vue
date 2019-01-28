@@ -6,7 +6,7 @@
       @click="show(index)"
       :key="index"
     >
-      <div class="list_item-day flex center">{{ item.createdAt }}</div>
+      <div class="list_item-day flex center">{{ item.createdAt | filters.dayFormat }}</div>
       <div v-if="item.toUser._id === id">
         <div class="list_item-sendName flex wrap j-between">
           <div class="flex column j-between">
@@ -21,7 +21,7 @@
           <div class="flex">
             <img
               class="mail-svg"
-              src="/static/svgs/mail.svg"
+              src="/static/svgs/stamp.svg"
               alt=""
             >
           </div>

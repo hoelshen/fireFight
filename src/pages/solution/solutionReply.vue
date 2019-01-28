@@ -96,6 +96,15 @@ export default {
     } = this.$router;
     this.id = query.id;
     this.getContent(this.id);
+
+    this.$request
+      .get("/weather")
+      .then(res => {
+        this.reply.weather = res.data;
+      })
+      .catch(err => {
+        console.log("err", err);
+      });
   }
 };
 </script>

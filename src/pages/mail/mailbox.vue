@@ -1,6 +1,9 @@
 <template>
   <view>
-    <div class="mailbox_title">
+    <div
+      class="mailbox_title"
+      v-if="num"
+    >
       <button @click="openMail">
         {{num}}封信正在路上
       </button>
@@ -29,9 +32,6 @@ export default {
     this.getCount();
   },
   methods: {
-    dayFormat(value) {
-      return this.$day(value).format("YYYY/MM/DD");
-    },
     openMail() {
       this.$router.push({ path: "/pages/mail/mailDay" });
     },

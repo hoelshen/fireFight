@@ -49,8 +49,8 @@ export default {
       id: "",
       mail: {},
       reply: {
-        content: "test",
-        weather: "晴"
+        content: "",
+        weather: ""
       },
       isReply: false,
       isActive: false
@@ -61,16 +61,10 @@ export default {
       let res = await this.$request.get(`/dialog/detail/${id}`);
       this.mail = res.data;
       console.log("this.mail: ", this.mail);
-      Object.keys(this.mail).forEach(element => {
-        if (element.createdAt) {
-          console.log("element.createdAt: ", element.createdAt);
-          // element.createdAt = this.dayFormat(element.createdAt);
-        }
-      });
     },
     replyMail() {
       this.$request
-        .post(`/mail/story/${this.id}`, {
+        .put(`/dialog/${this.id}`, {
           content: this.reply.content,
           weather: this.reply.weather
         })
@@ -78,15 +72,12 @@ export default {
           console.log("res", res);
         });
     },
-    dayFormat(value) {
-      return this.$day(value).format("YYYY/MM/DD");
-    },
     showReply() {
       this.isReply = true;
       this.isActive = true;
     },
     bindTextAreaBlur(e) {
-      this.content = e.detail.value;
+      this.reply.content = e.detail.value;
     }
   },
   async onShow() {
@@ -95,6 +86,15 @@ export default {
     } = this.$router;
     this.id = query.id;
     this.getContent(this.id);
+
+    this.$request
+      .get("/weather")
+      .then(res => {
+        this.reply.weather = res.data;
+      })
+      .catch(err => {
+        console.log("err", err);
+      });
   }
 };
 </script>
