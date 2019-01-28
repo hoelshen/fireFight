@@ -2,7 +2,7 @@
   <view class="app flex column j-between">
     <div class="appDiv flex column ">
       <div
-        class="textAreafloat appDiv"
+        class="textAreafloat flex column j-start"
         v-if="isDisplay"
         @click="hidenMethod"
       >
@@ -18,10 +18,14 @@
         :value="content"
         @input="bindTextAreaBlur"
       />
-      <div class="flex j-between textName">
-        <span>署名:</span>
-        <input class="aliasNameInput" type="this" @input="bindKeyInput" :value="aliasName">
-        <div class="refreshBtn" @click="refresh"></div>
+      <div class="flex column j-between textName">
+        <div>
+          <span>署名:</span>
+        </div>
+        <div>
+          <input class="aliasNameInput" type="this" @input="bindKeyInput" :value="aliasName">
+          <div class="refreshBtn" @click="refresh"></div>
+        </div>
       </div>
       <div class="flex j-end textDay" >
         <span>{{day}}</span>
@@ -115,24 +119,24 @@ export default {
 </script>
 <style lang="less">
 .appDiv {
-  width: 750rpx;
+  width: 630rpx;
   min-height: 750rpx;
+  margin: 100rpx 60rpx;
 }
 .textArea {
+  width: 630rpx;
+  min-height: 750rpx;
   background-color: #979797;
   opacity: 0.2;
-  min-height: 400rpx;
-  margin: 18rpx 60rpx;
   color: black;
 }
 .textName {
-  margin: 18rpx 60rpx;
 }
 .textDay {
   margin: 18rpx 60rpx;
 }
 .textAdd {
-  margin: 18rpx 60rpx;
+  margin: 60rpx 60rpx;
   &button {
     margin-bottom: 12rpx;
   }
@@ -141,7 +145,8 @@ export default {
   min-height: 200px;
   width: 630rpx;
   height: 375rpx;
-  margin: 18rpx 60rpx;
+  background-color: rgba(169, 169, 169, 0.05);
+  color: rgba(169, 169, 169, 1);
 }
 .play {
   position: relative;
@@ -164,7 +169,7 @@ export default {
 }
 .addMystoryButton {
   border-radius: 23px;
-  margin-bottom: 24rpx;
+  margin-bottom: 12rpx;
   width: 316rpx;
   height: 92rpx;
   border: 1 solid #a9a9a9;
@@ -175,6 +180,10 @@ export default {
   margin: auto;
   margin-top: 24rpx;
   color: #a9a9a9;
+}
+.text-center {
+  color: #a9a9a9;
+  font-size: 22rpx;
 }
 .refreshBtn {
   width: 44rpx;
