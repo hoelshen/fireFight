@@ -98,7 +98,7 @@ export default {
   height: 124rpx;
   width: 100%;
   color: #2a2a2a;
-  background: #fff;
+  background: #ffffff;
   padding: 32rpx 86rpx;
   z-index: 10;
   .mail {
