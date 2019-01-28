@@ -1,44 +1,94 @@
 <template>
   <div class="page">
-    <div class="s-mask flex center column" v-if="showMask" @tap="hideMask">
+    <div
+      class="s-mask flex center column"
+      v-if="showMask"
+      @tap="hideMask"
+    >
       <div class="m-layer box">
-        <img class="up" :src="shareBanner" alt="">
+        <img
+          class="up"
+          :src="shareBanner"
+          alt=""
+        >
         <div class="down flex">
           <div class="text">
             {{mail.content}}
           </div>
-          <img class="qr" :src="qrcodeImgUrl" alt="">
+          <img
+            class="qr"
+            :src="qrcodeImgUrl"
+            alt=""
+          >
         </div>
       </div>
 
       <div class="m-btns">
-        <button class="flex center" hover-class="active" @tap.stop="savePhoto">保存到相册</button>
+        <button
+          class="flex center"
+          hover-class="active"
+          @tap.stop="savePhoto"
+        >保存到相册</button>
         <div class="desc">保存到相册可以手动发朋友圈</div>
       </div>
     </div>
 
-    <div class="p-container" :class="showMask?'lock':''">
-      <div class="tips box  flex a-center j-between" v-if="showMsg && newAddedHug">
+    <div
+      class="p-container"
+      :class="showMask?'lock':''"
+    >
+      <div
+        class="tips box  flex a-center j-between"
+        v-if="showMsg && newAddedHug"
+      >
         <div class="text">
           新收到 {{newAddedHug}} 个拥抱
         </div>
-        <img class="close" src="https://cdn.tellers.cn/stronger/btn_close.svg" alt="" @tap="closeTips">
+        <img
+          class="close"
+          src="https://cdn.tellers.cn/stronger/btn_close.svg"
+          alt=""
+          @tap="closeTips"
+        >
       </div>
 
-      <div class="share flex a-center j-between" v-if="!showMask">
+      <div
+        class="share flex a-center j-between"
+        v-if="!showMask"
+      >
         <div class="text">分享故事，让更多人看到</div>
         <div class="s-btns flex">
-          <button class="btn flex column center box" hover-class="active" @tap="showShareMask">
-            <img class="moment" src="https://cdn.tellers.cn/stronger/btn_share_moment.svg" style="width:20rpx;height:20rpx;"> 发到朋友圈
+          <button
+            class="btn flex column center box"
+            hover-class="active"
+            @tap="showShareMask"
+          >
+            <img
+              class="moment"
+              src="https://cdn.tellers.cn/stronger/btn_share_moment.svg"
+              style="width:20rpx;height:20rpx;"
+            > 发到朋友圈
           </button>
-          <button class="btn flex column center box" hover-class="active" open-type="share">
-            <img class="chat" src="https://cdn.tellers.cn/stronger/btn_chat.svg" style="width:27.5rpx;height:20rpx;"> 发到聊天
+          <button
+            class="btn flex column center box"
+            hover-class="active"
+            open-type="share"
+          >
+            <img
+              class="chat"
+              src="https://cdn.tellers.cn/stronger/btn_chat.svg"
+              style="width:27.5rpx;height:20rpx;"
+            > 发到聊天
           </button>
         </div>
       </div>
 
       <div class="user flex a-center">
-        <img :src="mail.aliasPortrait" alt="" class="left">
+        <img
+          :src="mail.aliasPortrait"
+          alt=""
+          class="left"
+        >
         <div class="right flex j-center column">
           <div class="name">
             {{mail.aliasName}}
@@ -51,24 +101,62 @@
 
       <div class="content">{{mail.content}} </div>
 
-      <div class="btns flex center" v-if="!creatorFlag">
-        <button class="flex center" hover-class="active" :disabled="true" v-if="hugFlag" @tap="hung">您已拥抱</button>
-        <button class="flex center" open-type="getUserInfo" hover-class="active" @getuserinfo="onGetUserInfo" v-else-if="!isAuth">给个拥抱</button>
-        <button class="flex center" hover-class="active" @tap="hung" v-else>给个拥抱</button>
+      <div
+        class="btns flex center"
+        v-if="!creatorFlag"
+      >
+        <button
+          class="flex center"
+          hover-class="active"
+          :disabled="true"
+          v-if="hugFlag"
+          @tap="hung"
+        >您已拥抱</button>
+        <button
+          class="flex center"
+          open-type="getUserInfo"
+          hover-class="active"
+          @getuserinfo="onGetUserInfo"
+          v-else-if="!isAuth"
+        >给个拥抱</button>
+        <button
+          class="flex center"
+          hover-class="active"
+          @tap="hung"
+          v-else
+        >给个拥抱</button>
       </div>
 
       <div class="hungs">
         <div class="title bold">
-          <img src="https://cdn.tellers.cn/stronger/icon_hungs.svg" alt="" class="icon"> 得到
+          <img
+            src="https://cdn.tellers.cn/stronger/icon_hungs.svg"
+            alt=""
+            class="icon"
+          > 得到
           <span class="em">{{mail.hugCount}}</span> 个拥抱
         </div>
 
-        <div class="users" v-if="mail.hugs">
-          <img class="avator" :src="hug.aliasPortrait" alt="" v-for="hug in mail.hugs" :key="hug._id">
+        <div
+          class="users"
+          v-if="mail.hugs"
+        >
+          <img
+            class="avator"
+            :src="hug.aliasPortrait"
+            alt=""
+            v-for="hug in mail.hugs"
+            :key="hug._id"
+          >
         </div>
       </div>
 
-      <button class="back-btn flex center" hover-class="active" v-if="showBackBtn" @tap="toIndex">
+      <button
+        class="back-btn flex center"
+        hover-class="active"
+        v-if="showBackBtn"
+        @tap="toIndex"
+      >
         前往感恩节主题馆
       </button>
 
@@ -158,7 +246,7 @@ export default {
         return wx.hideLoading();
       }
 
-      sRequest.post("/setPenName", detail).then(
+      sRequest.post("/auth", detail).then(
         function(authRes) {
           this.hung();
         }.bind(this)

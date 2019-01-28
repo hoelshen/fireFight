@@ -5,7 +5,7 @@
       <img
         class="my_info_user-avatarUrl"
         :src="user.aliasPortrait"
-        mode="aspectFit"
+        mode="scaleToFill"
         @click="login"
       >
       <button
@@ -265,7 +265,6 @@ export default {
       &-avatarUrl {
         display: block;
         border-radius: 50%;
-        border-style: solid;
         height: 216rpx;
         width: 216rpx;
         margin: 20px auto;
