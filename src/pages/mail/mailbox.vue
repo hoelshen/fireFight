@@ -7,12 +7,7 @@
     </div>
     <div>
       <session class="list">
-        <div
-          class="list_item flex column j-between"
-          v-for="(item,index) in list"
-          @click="show(index)"
-          :key="index"
-        >
+        <div class="list_item flex column j-between" v-for="(item,index) in list" @click="show(index)" :key="index">
           <div class="list_item-day flex center">{{ item.createdAt }}</div>
           <div class="list_item-sendName flex wrap j-between">
             <div class="flex column j-between">
@@ -25,11 +20,7 @@
               </div>
             </div>
             <div class="flex">
-              <img
-                class="mail-svg"
-                src="/static/svgs/mail.svg"
-                alt=""
-              >
+              <img class="mail-svg" src="/static/svgs/mail.svg" alt="">
             </div>
           </div>
 
@@ -47,12 +38,13 @@
 export default {
   data() {
     return {
-      num: 1,
+      num: 0,
       list: []
     };
   },
   onShow() {
     this.getList();
+    this.getCount();
   },
   methods: {
     dayFormat(value) {
@@ -66,6 +58,10 @@ export default {
           element.createdAt = this.dayFormat(element.createdAt);
         }
       });
+    },
+    async getCount() {
+      const res = await this.$request.get("/dialog/way/count");
+      this.num = res.data;
     },
     openMail() {
       this.$router.push({ path: "/pages/mail/mailDay" });

@@ -1,11 +1,8 @@
 <template>
   <view>
-    <div
-      class="list"
-      v-for="item,index in list"
-      :key="index"
-    >
-      <div class="mailDay flex center">来自<span class="mailDayName">{{item.name}}</span>的信于12:52分到达</div>
+    <div class="list" v-for="item in list" :key="item._id">
+      <div class="mailDay flex center">来自
+        <span class="mailDayName">{{item.fromUser.aliasName}}</span>的信于{{item.sentAt | dayFormat}}分到达</div>
     </div>
   </view>
 </template>
@@ -13,20 +10,23 @@
 export default {
   data() {
     return {
-      list: [
-        {
-          name: "sjh",
-          id: 1
-        },
-        {
-          name: "shj",
-          id: 2
-        }
-      ]
+      list: []
     };
   },
-  onShow() {},
-  methods: {}
+  onShow() {
+    this.getList();
+  },
+  filters: {
+    dayFormat: function(value) {
+      return "全局过滤器";
+    }
+  },
+  methods: {
+    async getList() {
+      const res = await this.$request.get("/dialog/way/list");
+      this.list = res.data;
+    }
+  }
 };
 </script>
 <style lang="less">
