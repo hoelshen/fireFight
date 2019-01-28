@@ -55,7 +55,7 @@ export default {
 
     ],
     window: {
-      backgroundTextStyle: "black",
+      backgroundTextStyle: "light",
       navigationBarBackgroundColor: '#fffefb',
       navigationBarTitleText: "tell2.0_megalo",
       navigationBarTextStyle: "black",

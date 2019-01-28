@@ -4,7 +4,7 @@
     <div class="my_info flex column">
       <img
         class="my_info_user-avatarUrl"
-        :src="user.aliasPortrait"
+        :src="user.aliasPortrait || 'https://cdn.tellers.cn/tell_v2/static/default-avatar.svg'"
         mode="scaleToFill"
         @click="login"
       >
@@ -169,6 +169,7 @@ export default {
   async onShow() {
     await this.$request.getUser();
     const { user } = getApp().globalData;
+    console.log(user)
     this.user = user;
   },
   /**
