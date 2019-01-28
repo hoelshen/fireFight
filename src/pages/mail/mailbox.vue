@@ -68,9 +68,14 @@ export default {
       });
     },
     openMail() {
-      this.$router.push({ path: "/pages/mailbox/mailDay" });
+      this.$router.push({ path: "/pages/mail/mailDay" });
     },
     show(index) {
+      const id = this.list[index]._id;
+      this.$router.push({
+        query: { id: id },
+        path: "/pages/mail/mailDetail"
+      });
       console.log("index: ", index);
     }
   }

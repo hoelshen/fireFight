@@ -72,7 +72,7 @@ export default {
     },
     mail(e) {
       console.log("mine: ", e);
-      this.$router.push("pages/mailbox/mailbox");
+      this.$router.push("pages/mail/mailbox");
     },
     sjh() {
       console.log("sjh: ", sjh);

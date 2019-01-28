@@ -112,7 +112,7 @@ export default {
       if (!user.authAt)
         return this.$router.push({ path: "/pages/setPenName/index" });
 
-      return this.$router.push({ path: "pages/solutionRoom/solutionDetail" });
+      return this.$router.push({ path: "pages/solution/solutionDetail" });
     },
     onEnsure() {},
     async bade() {

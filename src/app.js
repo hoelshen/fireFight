@@ -29,13 +29,14 @@ export default {
     pages: [
       "pages/home/index", //首页
       "pages/myInfo/index", //个人中心
-      "pages/mailbox/mailbox", //信箱
-      "pages/mailbox/mailDay", //信箱
+      "pages/mail/mailbox", //信箱
+      "pages/mail/mailDay", //正在路上的信
+      "pages/mail/mailDetail", //回信
       "pages/consultingBox/index", //咨询箱
       "pages/badge/index", //徽章
-      "pages/solutionRoom/solutionDetail", //成为解答者
-      "pages/solutionRoom/solutionRoom", //解答室
-      "pages/solutionRoom/solutionReply", //信件
+      "pages/solution/solutionDetail", //成为解答者
+      "pages/solution/solutionRoom", //解答室
+      "pages/solution/solutionReply", //信件
       "pages/myStory/index", //我的故事
       "pages/setPenName/index", //设置笔名
       "pages/detail/index", //详细说明
