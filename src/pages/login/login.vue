@@ -41,7 +41,7 @@ export default {
         mask: true
       });
       this.$request
-        .post("/setPenName", {
+        .post("/auth", {
           iv,
           userInfo,
           encryptedData

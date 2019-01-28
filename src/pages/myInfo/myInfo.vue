@@ -6,7 +6,7 @@
         class="my_info_user-avatarUrl"
         :src="user.aliasPortrait"
         mode="aspectFit"
-        @touchstart="login"
+        @click="login"
       >
       <button
         @click="login"
@@ -148,7 +148,9 @@ export default {
     return {
       logo: "",
       date: new Date(),
-      user: {}
+      user: {
+        aliasPortrait: ""
+      }
     };
   },
   beforeCreate() {
@@ -178,7 +180,10 @@ export default {
     login() {
       const status = this.$checkAuth(this.user);
       if (status) {
-        this.$router.push({ query: { id: 1 }, path: "/pages/setPenName/index" });
+        this.$router.push({
+          query: { id: 1 },
+          path: "/pages/setPenName/index"
+        });
       }
     },
     memory() {
