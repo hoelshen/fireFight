@@ -3,30 +3,22 @@ import 'dayjs/locale/zh-cn' // 按需加载
 
 dayjs.locale('zh-cn')
 
-const filters = {
-    toUpperCasefunction(value) {
-        return value + '123'
-    },
-    dayFormat(value) {
-        return this.$day(value).format("YYYY/MM/DD");
-    },
-    checkEmpty(comments) {
-
-    },
-    checkIllegal(commnet) {
-
-    },
-    checkComment(comments) {
-        if (this.checkEmpty(commnet)) {
-
-        }
-        if (this.checkIllegal(commnet)) {
-
-        }
-        if (comments.length < 35) {
-            console.log('评论次数都不够。')
-        }
-    },
+exports.dayFormat = (value) => {
+    const day = dayjs(value).format("YYYY/MM/DD");
+    return day
 }
 
-export default filters
+exports.checkComment = (value) => {
+    if (value.length < 35) {
+        wx.showToast({
+            title: '',
+            duration: 1500,
+            mask: false,
+            success: (result) => {
+                console.log(result)
+            },
+            fail: () => {},
+            complete: () => {}
+        });
+    }
+}

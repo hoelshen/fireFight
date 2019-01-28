@@ -6,7 +6,7 @@
       @click="show(index)"
       :key="index"
     >
-      <div class="list_item-day flex center">{{ item.createdAt | filters.dayFormat }}</div>
+      <span class="list_item-day flex center">{{ item.createdAt | dayFormat }}</span>
       <div v-if="item.toUser._id === id">
         <div class="list_item-sendName flex wrap j-between">
           <div class="flex column j-between">
@@ -99,9 +99,10 @@ export default {
 <style lang="less" scoped>
 @import url(../styles/mail.less);
 .list_item-day {
-  margin-top: 5rpx;
   color: #a9a9a9;
   margin-bottom: 20rpx;
+  background-color: #fffefb;
+  padding-bottom: 20rpx;
 }
 </style>
 

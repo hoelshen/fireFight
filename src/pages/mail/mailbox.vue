@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view class="app">
     <div
       class="mailbox_title"
       v-if="num"

@@ -1,19 +1,21 @@
 <template>
-  <view class="app">
+  <view class="app list">
     <div
-      class="mail box"
+      class="mail box flex column j-between list_item"
       :class="{borderColor:isActive}"
+      v-for="item in list"
+      :key="item._id"
     >
-      <div class="mail_title">
-        <span>{{targetUser}}</span>
+      <div class="mail_title list_item-sendName flex wrap j-between">
+        <span class="list_item-receiverNameSpan">{{item.creator}}</span>
         <span>收</span>
       </div>
       <div class="mail_content">
-        {{mail.content}}
+        {{item.content}}
       </div>
-      <div class="mail_reply">
-        <span>{{mail.aliasName}}</span>
-        <span>{{mail.createdAt}} {{mail.weather}}</span>
+      <div class="mail_reply flex j-end">
+        <span>{{item.aliasName}}</span>
+        <span>{{item.createdAt | dayFormat}} {{item.weather}}</span>
       </div>
     </div>
     <div
@@ -47,6 +49,7 @@ export default {
   data() {
     return {
       id: "",
+      list: [],
       mail: {},
       reply: {
         content: "",
@@ -60,7 +63,8 @@ export default {
     async getContent(id) {
       let res = await this.$request.get(`/dialog/detail/${id}`);
       this.mail = res.data;
-      console.log("this.mail: ", this.mail);
+      this.list = this.mail.mailList;
+      console.log("this.mail: ", this.list);
     },
     replyMail() {
       this.$request
@@ -99,9 +103,10 @@ export default {
 };
 </script>
 <style lang="less">
+@import url(../../styles/mail.less);
 .mail {
   width: 630rpx;
-  height: 892rpx;
+  height: 620rpx;
   margin: 81rpx 60rpx 36rpx 60rpx;
 }
 .borderColor {

@@ -105,7 +105,6 @@ export default {
     }
   },
   onShow() {
-    console.log("this.content", this.content);
     this.$request
       .get("/weather")
       .then(res => {

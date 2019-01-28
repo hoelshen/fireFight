@@ -1,6 +1,10 @@
 <template>
   <view>
-    <div class="list" v-for="item in list" :key="item._id">
+    <div
+      class="list"
+      v-for="item in list"
+      :key="item._id"
+    >
       <div class="mailDay flex center">来自
         <span class="mailDayName">{{item.fromUser.aliasName}}</span>的信于{{item.sentAt | dayFormat}}分到达</div>
     </div>
@@ -15,11 +19,6 @@ export default {
   },
   onShow() {
     this.getList();
-  },
-  filters: {
-    dayFormat: function(value) {
-      return "全局过滤器";
-    }
   },
   methods: {
     async getList() {
