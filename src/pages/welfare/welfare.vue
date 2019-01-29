@@ -41,7 +41,7 @@
           <span class="welfare_content">进入客服会话后发送「服务号」，按提示进行操作。关注服务号后即可领取解忧券。</span>
         </div>
         <div class="exchange flex center">
-          <button @click="follow" class="flex center ">去关注
+          <button open-type="contact" class="flex center ">去关注
           </button>
         </div>
       </div>
@@ -70,7 +70,7 @@
           <span class="welfare_content">用户可在此跳转到「安利 Tell 给好友」页面。</span>
         </div>
         <div class="exchange flex center">
-          <button @click="share" class="flex center ">去安利
+          <button open-type="share" class="flex center ">去安利
           </button>
         </div>
       </div>
@@ -84,8 +84,8 @@
           <span class="welfare_content">进入客服会话后发送「订阅号」，按提示进行操作。关注订阅号后即可领取邮票。</span>
         </div>
         <div class="exchange flex center">
-          <button @click="follow" class="flex center ">去关注
-          </button>
+          <button open-type="contact" class="flex center ">去关注 </button>
+
         </div>
       </div>
     </session>
@@ -100,13 +100,31 @@ export default {
       active: "solution"
     };
   },
+  onShareAppMessage(res) {
+    return {
+      title: "现实中的解忧杂货店",
+      imageUrl: "https://cdn.tellers.cn/tell_v2/static/share_default.jpg",
+      path: "/pages/home/index"
+    };
+  },
   methods: {
     toggle(tab) {
       this.active = tab;
     },
-    async exchange() {},
-    follow() {},
     reply() {},
+    async exchange() {
+      wx.showLoading({
+        title: "",
+        mask: true
+      });
+      let res = await this.$request.post("/task/exchange");
+      if (res.success) {
+        wx.hideLoading();
+        wx.showToast({ title: "兑换成功" });
+      } else {
+        wx.showToast({ title: res.message ,icon: "none" });
+      }
+    },
     async pay() {
       wx.showLoading({
         title: "",
@@ -123,7 +141,7 @@ export default {
           paySign: order.paySign,
           success(res) {
             wx.hideLoading();
-            wx.showToast({ title: "恭喜你获得了1张解忧券" });
+            wx.showToast({ title: "兑换成功" });
           },
           fail(res) {
             wx.hideLoading();

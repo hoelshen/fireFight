@@ -256,8 +256,8 @@ export default {
       console.log(res.target);
     }
     const obj = {
-      title: "安利Tell给好友",
-      imageUrl: "../../static/cdn/shareTell.png",
+      title: "现实中的解忧杂货店",
+      imageUrl: "https://cdn.tellers.cn/tell_v2/static/share_default.jpg",
       path: "/pages/home/index",
       success: function(res) {
         //转发成功

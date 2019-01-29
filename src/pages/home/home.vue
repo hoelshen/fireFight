@@ -1,38 +1,20 @@
 <template>
   <view class="app">
     <session class="swiper-session">
-      <swiper
-        indicator-dots="true"
-        autoplay="true"
-        interval="5000"
-        duration="1000"
-      >
-        <block
-          v-for="item in imgUrls"
-          :key="item"
-          class="swiper-session_item"
-        >
+      <swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000">
+        <block v-for="item in imgUrls" :key="item" class="swiper-session_item">
           <swiper-item>
-            <image
-              :src="item.imgUrl"
-              class="slide-image"
-            />
+            <image :src="item.imgUrl" class="slide-image" />
           </swiper-item>
         </block>
       </swiper>
     </session>
     <div class="home_function flex center">
       <button @click="onConsultingBox">
-        <image
-          class="home_left"
-          src="/static/svgs/home_left.svg"
-        />
+        <image class="home_left" src="/static/svgs/home_left.svg" />
       </button>
       <button @click="onSolutionRoom">
-        <image
-          class="home_right"
-          src="/static/svgs/home_right.svg"
-        />
+        <image class="home_right" src="/static/svgs/home_right.svg" />
       </button>
     </div>
     <!-- <div>
@@ -61,6 +43,13 @@ export default {
   },
   onShow() {
     this.getBanners();
+  },
+  onShareAppMessage(res) {
+    return {
+      title: "现实中的解忧杂货店",
+      imageUrl: "https://cdn.tellers.cn/tell_v2/static/share_default.jpg",
+      path: "/pages/home/index"
+    };
   },
   methods: {
     async getBanners() {
