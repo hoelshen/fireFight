@@ -19,14 +19,14 @@
         @input="bindTextAreaBlur"
       />
       <div class="flex column j-between textName">
-        <div>
-          <span>署名:</span>
+        <div class="flex j-end">
+          <span class="textNameSpan">署名:</span>
         </div>
-        <div class="flex j-between a-center">
+        <div class="flex j-end a-center">
           <input class="aliasNameInput" type="this" @input="bindKeyInput" :value="aliasName">
           <div class="refreshBtn" @click="refresh">
             <image
-            class="iconfont "
+            class="iconfont"
             src="/static/svgs/refresh.svg"
           />
           </div>
@@ -132,10 +132,11 @@ export default {
   background-color: rgba(169, 169, 169, 0.05);
   color: black;
 }
-.textName {
+.textNameSpan {
+  margin: 40rpx 200rpx 12rpx;
 }
 .textDay {
-  margin: 18rpx 60rpx;
+  margin: 18rpx 0rpx;
 }
 .textAdd {
   margin: 60rpx 60rpx;
@@ -146,7 +147,7 @@ export default {
 .textAreafloat {
   min-height: 200px;
   width: 630rpx;
-  height: 375rpx;
+  height: 640rpx;
   background-color: rgba(169, 169, 169, 0.05);
   color: rgba(169, 169, 169, 1);
 }
@@ -158,7 +159,7 @@ export default {
   height: 375rpx;
 }
 .aliasNameInput {
-  width: 486rpx;
+  width: 196rpx;
   height: 84rpx;
   border: 1px solid;
 }
@@ -177,13 +178,12 @@ export default {
   color: #a9a9a9;
 }
 .text-center {
-  color: #a9a9a9;
-  font-size: 22rpx;
+  color: #bdbdc0;
+  font-size: 28rpx;
 }
 .refreshBtn {
   width: 44rpx;
   height: 44rpx;
-  margin-right: 20rpx;
-  // background: url("../../static/svgs/refresh.svg") no-repeat;
+  margin-left: 20rpx;
 }
 </style>

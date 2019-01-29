@@ -6,7 +6,7 @@
       :key="item._id"
     >
       <div class="mailDay flex center">来自
-        <span class="mailDayName">{{item.fromUser.aliasName}}</span>的信于{{item.sentAt | dayFormat}}分到达</div>
+        <span class="mailDayName">{{item.fromUser.aliasName}}</span>的信于{{item.sentAt | momentFormat}}时到达</div>
     </div>
   </view>
 </template>

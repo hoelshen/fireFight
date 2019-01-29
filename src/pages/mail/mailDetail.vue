@@ -41,14 +41,16 @@
         :value="reply.content"
         @input="bindTextAreaBlur"
       />
-      <div class="reply_weather_love flex wrap j-start">
-        <button class="flex j-start a-center">
+      <div class="reply_weather_love flex j-bwtween">
+        <div class="reply_weather_love_button">
+        <button class="flex center">
            <span class="flex center">感谢</span>
            <img
               class="reply_weather_name iconfont"
               src="/static/svgs/love.svg"
             />    
         </button>
+        </div>
       </div>
       <div class="reply_weather flex column ">
         <div class="flex wrap j-end">
@@ -229,7 +231,8 @@ export default {
 }
 .replay_text {
   color: #a9a9a9;
-  transform: 0.8333;
+  font-size: 24rpx;
+  margin-top: 24rpx;
 }
 .replay_content {
   margin: 81rpx 60rpx 36rpx 60rpx;

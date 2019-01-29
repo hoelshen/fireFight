@@ -8,6 +8,10 @@ exports.dayFormat = (value) => {
     return day
 }
 
+exports.momentFormat = (value) => {
+    const moment = dayjs(value).hour() + 6;
+    return moment
+}
 exports.checkComment = (value) => {
     if (value.length < 35) {
         wx.showToast({
