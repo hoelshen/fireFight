@@ -12,7 +12,7 @@
       >
         <image
           class="mail"
-          src="/static/svgs/mail_tab.svg"
+          src="/static/svgs/mail.svg"
         />
       </button>
     </form>
@@ -27,7 +27,7 @@
       >
         <image
           class="home"
-          src="/static/svgs/home_tab.svg"
+          src="/static/svgs/tell.svg"
         />
       </button>
     </form>
@@ -42,7 +42,7 @@
       >
         <image
           class="mine"
-          src="/static/svgs/mine_tab.svg"
+          src="/static/svgs/myinfo.svg"
         />
       </button>
     </form>
@@ -102,16 +102,16 @@ export default {
   padding: 32rpx 86rpx;
   z-index: 10;
   .mail {
-    width: 45rpx;
-    height: 30rpx;
+    width: 60rpx;
+    height: 60rpx;
   }
   .home {
-    width: 48rpx;
-    height: 44rpx;
+    width: 60rpx;
+    height: 60rpx;
   }
   .mine {
-    width: 32rpx;
-    height: 40rpx;
+    width: 60rpx;
+    height: 60rpx;
   }
 }
 </style>

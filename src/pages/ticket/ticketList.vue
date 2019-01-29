@@ -6,43 +6,51 @@
     >
       <div class="ticketList  flex j-between">
         <div class="flex center">
-          <div class="iconfont icon-gift"></div>
+          <image
+            class="iconfont"
+            src="/static/svgs/solutionNum.svg"
+          />
           <span class="my_contact_item-text">邮票</span>
         </div>
         <div class="flex center">
           <button
             class="btnStyle btnWidth  flex center"
             @click="mailTicket"
-          >{{mailNum}}
+          >{{stampCount}}
           </button>
-          <div
+          <image
             style="margin-left:36rpx"
-            class="iconfont icon-gift"
-          ></div>
+            class="iconfont"
+            src="/static/svgs/arrow.svg"
+          />
         </div>
       </div>
       <div class="solutionList flex j-between ">
         <div class="flex center">
-          <div class="iconfont icon-gift"></div>
+          <image
+            class="iconfont"
+            src="/static/svgs/mailNum.svg"
+          />
           <span class="my_contact_item-text ">解忧券</span>
         </div>
         <div class="flex center">
           <button
             class="btnStyle btnWidth flex center "
             @click="solutionTicket"
-          >{{solutionNum}}
+          >{{ticketCount}}
           </button>
-          <div
+          <image
             style="margin-left:36rpx"
-            class="iconfont icon-gift"
-          ></div>
+            class="iconfont"
+            src="/static/svgs/arrow.svg"
+          />
         </div>
       </div>
     </div>
 
     <div class="ticketDetail">
       <button
-        class="btnStyle"
+        class="addButton"
         @click="ticketDetail"
       >票券明细</button>
     </div>
@@ -54,14 +62,15 @@ export default {
   data() {
     return {
       list: {},
-      mailNum: 12,
-      solutionNum: 1
+      stampCount: 1,
+      ticketCount: 1
     };
   },
   methods: {
     async getList() {
       const { user } = getApp().globalData;
-      console.log("user: ", user);
+      this.stampCount = user.stampCount;
+      this.ticketCount = user.ticketCount;
     },
     mailTicket() {
       this.$router.push({

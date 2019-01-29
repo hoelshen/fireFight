@@ -19,16 +19,17 @@
         :key="index"
       >
         <div class="flex j-between center">
-          <div
-            class="iconfont icon-gift"
+          <image
             style="margin-right:20rpx;"
-          ></div>
+            class="iconfont"
+            :src="`/static/svgs/${item.type}.svg`"
+          />
           <div class="flex column">
-            <span>{{item.title}}</span>
-            <span class="ticket_day">{{item.day}}</span>
+            <span>{{item.message}}</span>
+            <span class="ticket_day">{{item.createdAt}}</span>
           </div>
         </div>
-        <span class="flex center">{{item.num}}</span>
+        <span class="flex center">{{item.count}}</span>
       </div>
     </session>
   </view>
@@ -44,14 +45,14 @@ export default {
       isActive: true,
       list: [
         {
-          title: "烦恼咨询",
-          day: "2019/1/19",
-          num: 2
+          message: "烦恼咨询",
+          createdAt: "2019/1/19",
+          count: 2
         },
         {
-          title: "连续签到5天奖励",
-          day: "2019/1/19",
-          num: 9
+          message: "连续签到5天奖励",
+          createdAt: "2019/1/19",
+          count: 9
         }
       ]
     };
@@ -78,13 +79,18 @@ export default {
     async getList() {
       let res;
       if (this.active === "solution") {
-        // res = await this.$request.get("/mail/mine/outbox"); //解忧券
+        res = await this.$request.get("/record/ticket"); //解忧券
+        // console.log("res: ", res);
       }
       if (this.active === "mail") {
-        // res = await this.$request.get("/mail/mine/inbox"); //邮票
+        res = await this.$request.get("/record/stamp"); //邮票
+        // console.log("res: ", res);
       }
       // this.list = res.data;
     }
+  },
+  computed: {
+    tickType() {}
   }
 };
 </script>

@@ -34,7 +34,10 @@
           class="my_function_item-button flex column center"
           form-type="submit"
         >
-          <div class="iconfont icon-memery"></div>
+          <image
+            class="iconfont "
+            src="/static/svgs/moment.svg"
+          />
           <span class="my_function_item-text">记忆</span>
         </button>
       </form>
@@ -48,7 +51,10 @@
           class="my_function_item-button flex column center"
           form-type="submit"
         >
-          <div class="iconfont icon-ticket"></div>
+          <image
+            class="iconfont "
+            src="/static/svgs/ticket.svg"
+          />
           <span class="my_function_item-text">票券</span>
         </button>
       </form>
@@ -62,7 +68,10 @@
           class="my_function_item-button flex column center"
           form-type="submit"
         >
-          <div class="iconfont icon-badge"></div>
+          <image
+            class="iconfont "
+            src="/static/svgs/welfare.svg"
+          />
           <span class="my_function_item-text">福利社</span>
         </button>
       </form>
@@ -83,47 +92,64 @@
           <span class="my_contact_item-text">福利社</span>
         </button>
       </form> -->
-
-      <form
-        class="my_contact-item flex "
-        @submit="joinGroup"
-        report-submit="true"
-      >
-        <button
-          class="my_contact_item-button flex wrap j-start "
-          form-type="submit"
-          open-type="contact"
-          send-message-img
-          :session-from="{
+      <div class="flex wrap j-between center">
+        <form
+          class="my_contact-item flex wrap j-between"
+          @submit="joinGroup"
+          report-submit="true"
+        >
+          <button
+            class="my_contact_item-button flex wrap j-start "
+            form-type="submit"
+            open-type="contact"
+            send-message-img
+            :session-from="{
           'nickName':user.aliasName, 
           'avatarUrl':user.aliasPortrait
           }"
-          @contact="joinGroup"
-        >
-          <div class="iconfont icon-group"></div>
-          <span class="my_contact_item-text">加入群聊</span>
-        </button>
-      </form>
+            @contact="joinGroup"
+          >
+            <image
+              class="iconfont flex"
+              src="/static/svgs/joinGroup.svg"
+            />
+            <span class="my_contact_item-text">加入群聊</span>
+          </button>
+        </form>
+        <image
+          class="iconfont flex center"
+          src="/static/svgs/arrow.svg"
+        />
+      </div>
 
-      <form
-        class="my_contact-item flex  "
-        @submit="AnswerQuestion"
-        report-submit="true"
-      >
-        <button
-          class="my_contact_item-button flex wrap j-start "
-          form-type="submit"
-          open-type="contact"
-          :session-from="{
+      <div class="flex wrap j-between center">
+        <form
+          class="my_contact-item flex  "
+          @submit="AnswerQuestion"
+          report-submit="true"
+        >
+          <button
+            class="my_contact_item-button flex wrap j-start "
+            form-type="submit"
+            open-type="contact"
+            :session-from="{
           'nickName':user.aliasName, 
           'avatarUrl':user.aliasPortrait
           }"
-          @contact="AnswerQuestion"
-        >
-          <div class="iconfont icon-feedback"></div>
-          <span class="my_contact_item-text">问题与反馈</span>
-        </button>
-      </form>
+            @contact="AnswerQuestion"
+          >
+            <image
+              class="iconfont "
+              src="/static/svgs/question.svg"
+            />
+            <span class="my_contact_item-text">问题与反馈</span>
+          </button>
+        </form>
+        <image
+          class="iconfont flex center"
+          src="/static/svgs/arrow.svg"
+        />
+      </div>
 
     </session>
 
@@ -169,7 +195,6 @@ export default {
   async onShow() {
     await this.$request.getUser();
     const { user } = getApp().globalData;
-    console.log(user);
     this.user = user;
   },
   /**
@@ -299,9 +324,8 @@ export default {
         width: 210rpx;
       }
       .iconfont {
-        font-size: 36rpx;
-        width: 52rpx;
-        height: 52rpx;
+        width: 44rpx;
+        height: 44rpx;
       }
       &-text {
         font-size: 28rpx;
@@ -318,7 +342,7 @@ export default {
       height: 108rpx;
       background-color: #ffffff;
       &-button {
-        width: 630rpx;
+        width: 586rpx;
         height: 108rpx;
         align-items: center;
       }
@@ -342,8 +366,5 @@ export default {
       width: 316rpx;
     }
   }
-  // .button-hover {
-  //   background-color: #fff1f3;
-  // }
 }
 </style>

@@ -33,7 +33,7 @@
           <div class="flex">
             <img
               class="mail-svg"
-              src="/static/svgs/mail.svg"
+              src="/static/svgs/stamp.svg"
               alt=""
             >
           </div>
@@ -90,6 +90,7 @@ export default {
 };
 </script>
 <style lang="less" scope>
+@import url(../../styles/mail.less);
 .navigatabar {
   width: 630rpx;
   height: 92rpx;
@@ -109,7 +110,7 @@ export default {
     border-color: #ffffff;
 
     &.borderColor {
-      border-color: #ffffff #ffffff #FFC86D #ffffff;
+      border-color: #ffffff #ffffff #ffc86d #ffffff;
     }
   }
 }

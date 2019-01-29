@@ -10,7 +10,7 @@
 	"max_file_size_limit": -1,
 	"additional_cli_args": {},
 	"prettier_options": {
-		"printWidth": 80,
+		"printWidth": 120,
 		"singleQuote": true,
 		"trailingComma": "none",
 		"bracketSpacing": true,

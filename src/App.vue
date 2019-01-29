@@ -28,5 +28,4 @@ export default {
 
 <style lang="less">
 @import url(./styles/common.less);
-@import url(./styles/iconfont.css);
 </style>

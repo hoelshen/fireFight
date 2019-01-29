@@ -22,7 +22,7 @@
         <div>
           <span>署名:</span>
         </div>
-        <div>
+        <div class="flex j-between a-center">
           <input class="aliasNameInput" type="this" @input="bindKeyInput" :value="aliasName">
           <div class="refreshBtn" @click="refresh"></div>
         </div>
@@ -100,19 +100,18 @@ export default {
       this.hidenText = false;
       this.isDisplay = false;
     },
-    refresh(e) {
-      console.log("e", e);
+    async refresh() {
+      let name = await this.$request.get("/name");
+      this.aliasName = name.data;
+    },
+    async getWeather() {
+      let res = await this.$request.get("/weather");
+      this.weather = res.data;
     }
   },
   onShow() {
-    this.$request
-      .get("/weather")
-      .then(res => {
-        this.weather = res.data;
-      })
-      .catch(err => {
-        console.log("err", err);
-      });
+    this.getWeather();
+    this.refresh();
   }
 };
 </script>
@@ -154,16 +153,9 @@ export default {
   height: 375rpx;
 }
 .aliasNameInput {
+  width: 486rpx;
+  height: 84rpx;
   border: 1px solid;
-  ::after {
-    content: "";
-    display: block;
-    width: 14px;
-    height: 1px;
-    background: #95835e;
-    transform: rotate(-90deg);
-    -webkit-transform: rotate(-90deg);
-  }
 }
 .addMystoryButton {
   border-radius: 23px;
@@ -172,7 +164,7 @@ export default {
   height: 92rpx;
   border: 1 solid #a9a9a9;
   color: #ffffff;
-  background-color: #FFC86D;
+  background-color: #ffc86d;
 }
 .text-ontent {
   margin: auto;
@@ -186,5 +178,7 @@ export default {
 .refreshBtn {
   width: 44rpx;
   height: 44rpx;
+  margin-right: 20rpx;
+  // background: url("../../static/svgs/refresh.svg") no-repeat;
 }
 </style>
