@@ -11,27 +11,23 @@
       <button @click="returnHome">好的</button>
     </div>
 
-    <div v-if="active === 'solver'">
-      <text>每个人的心声，都不该被无视。解答烦恼也是让自己保持思考，保持善良</text>
-      <div>当人们仰望星空</div>
-      <div>你的解答可能会被自己的笔友</div>
-    </div>
-
-    <div
-      class=" solverDetailStyle flex column center"
-      v-if="active === 'solverDetail'"
-    >
+    <div class="solverDetailStyle flex column center" v-if="active === 'solverDetail'">
       <div class="flex center column grow">
         <p>需要先成为解答者，才能查阅这里的信件</p>
         <p>你可以阅读手册来了解相关约定</p>
-        <button @click="onDetail">解答者手册</button>
+        <button class="flex center solverDetailStyleBtn" @click="onDetail">
+          <span class="solverDetailStyleBtnSpan">解答者手册</span>
+          <image class="iconfont" src="/static/svgs/left_arrow.svg">
+        </button>
       </div>
 
       <div class="flex j-end solverDetailBtn column">
-        <button @click="onSoluter">申请成为解答者</button>
-        <button @click="onEnsure">并同意遵守《解答者手册》的约定</button>
+        <button class="addButton" @click="onSoluter">申请成为解答者</button>
+        <div class="flex center solverDetailcheck">
+          <checkbox :value="checked" @click="ensure"/>
+          <span class="flex solverDetailspan">同意并遵守《解答者手册》的约定</span>
+        </div>
       </div>
-
     </div>
 
     <div v-if="active === 'solutionLimit'">
@@ -40,36 +36,26 @@
         <view class="tr bg-w">
           <view class="th">持有徽章</view>
           <view class="th">每日收取</view>
-          <view class="th ">每日可解答</view>
+          <view class="th">每日可解答</view>
         </view>
-        <block
-          v-for="(item,index) in listData"
-          :key="index"
-        >
-          <view
-            class="tr bg-g"
-            v-if="index % 2 == 0"
-          >
+        <block v-for="(item,index) in listData" :key="index">
+          <view class="tr bg-g" v-if="index % 2 == 0">
             <view class="td">
               <!-- <img
                 :src="item.imgUrl"
                 alt=""
-              > -->
+              >-->
               <span>{{item.name}}</span>
             </view>
             <view class="td">{{item.mailboxLimit}}</view>
             <view class="td">{{item.replyLimit}}</view>
           </view>
 
-          <view
-            class="tr"
-            v-else
-          >
+          <view class="tr" v-else>
             <view class="td">{{item.name}}</view>
             <view class="td">{{item.mailboxLimit}}</view>
             <view class="td">{{item.replyLimit}}</view>
           </view>
-
         </block>
       </view>
     </div>
@@ -82,19 +68,19 @@ export default {
   data() {
     return {
       active: "description",
-      listData: []
+      listData: [],
+      checked: false
     };
   },
   onShow(opts) {
     const {
       currentRoute: { query }
     } = this.$router;
-    console.log("query: ", query);
+    // console.log("query: ", query);
     this.active = query.active;
     const navigationBar = {
       description: "烦恼咨询服务说明",
       consultative: "已提交咨询",
-      solver: "解答室手册",
       solverDetail: "解答者手册",
       solutionLimit: "每日解答上限说明"
     };
@@ -118,12 +104,17 @@ export default {
     },
     onSoluter() {
       const { user } = getApp().globalData;
-      if (!user.authAt)
-        return this.$router.push({ path: "/pages/setPenName/index" });
+      console.log("this.checked: ", this.checked);
+      if (this.checked) {
+        if (!user.authAt)
+          return this.$router.push({ path: "/pages/setPenName/index" });
 
-      return this.$router.push({ path: "pages/solution/solutionDetail" });
+        return this.$router.push({ path: "pages/solution/solutionDetail" });
+      }
     },
-    onEnsure() {},
+    ensure() {
+      this.checked = !this.checked;
+    },
     async bade() {
       const bade = await this.$request.get("/badge");
       this.listData = bade.data;
@@ -140,6 +131,19 @@ export default {
       margin-top: 24rpx;
     }
   }
+}
+.solverDetailcheck {
+  margin-top: 24rpx;
+}
+.solverDetailspan {
+  color: #a9a9a9;
+  font-size: 28rpx;
+}
+.solverDetailStyleBtn {
+  margin-top: 60rpx;
+}
+.solverDetailStyleBtnSpan {
+  margin-right: 20rpx;
 }
 
 .solutionLimit {

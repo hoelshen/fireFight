@@ -1,17 +1,11 @@
 <template>
-    <view>
-        动态
-    </view>
-
-
+  <view>动态</view>
 </template>
 
 <script>
 export default {
-    data(){
-        return{
-
-        }
-    }
-}
+  data() {
+    return {};
+  }
+};
 </script>

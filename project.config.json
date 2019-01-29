@@ -170,10 +170,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 22,
 					"name": "解答室-说明",
 					"pathName": "pages/detail/index",
-					"query": "active=\"solverDetail\""
+					"query": "active=solverDetail"
 				}
 			]
 		}

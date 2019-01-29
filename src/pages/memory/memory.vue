@@ -1,10 +1,10 @@
 <template>
   <view class="app">
-    <session class="navigatabar flex ">
+    <session class="navigatabar flex">
       <div
         @click="toggleQuestion"
         :class="{borderColor:isActive}"
-        class="navigatabar_item  flex center"
+        class="navigatabar_item flex center"
       >我的咨询</div>
       <div
         @click="toggleAnswer"
@@ -26,16 +26,12 @@
               <span class="list_item-receiverNameSpan">{{item.aliasName}}</span>
               <span>收</span>
             </div>
-            <div class="list_item-content ">
+            <div class="list_item-content">
               <span>{{item.content}}</span>
             </div>
           </div>
           <div class="flex">
-            <img
-              class="mail-svg"
-              src="/static/svgs/stamp.svg"
-              alt=""
-            >
+            <img class="mail-svg" src="/static/svgs/stamp.svg" alt>
           </div>
         </div>
 
@@ -44,9 +40,7 @@
         </div>
       </div>
     </session>
-
   </view>
-
 </template>
 <script>
 export default {
