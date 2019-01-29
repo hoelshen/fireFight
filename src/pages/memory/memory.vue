@@ -109,7 +109,7 @@ export default {
     border-color: #ffffff;
 
     &.borderColor {
-      border-color: #ffffff #ffffff #ff4d6b #ffffff;
+      border-color: #ffffff #ffffff #FFC86D #ffffff;
     }
   }
 }

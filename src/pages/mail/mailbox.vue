@@ -54,7 +54,7 @@ export default {
   margin: auto;
   padding-top: 40rpx;
   & button {
-    border: 1px solid #ff4d6b;
+    border: 1px solid #ffc86d;
     border-radius: 23px;
     font-size: 28rpx;
   }

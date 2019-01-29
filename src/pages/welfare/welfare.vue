@@ -132,7 +132,7 @@ export default {
     border-color: #ffffff;
 
     &.borderColor {
-      border-color: #ffffff #ffffff #ff4d6b #ffffff;
+      border-color: #ffffff #ffffff #ffc86d #ffffff;
     }
   }
 }
@@ -162,7 +162,7 @@ export default {
   border-radius: 23px;
   width: 182rpx;
   height: 92rpx;
-  border: 1px solid #ff4d6b;
+  border: 1px solid #FFC86D;
 }
 </style>
 

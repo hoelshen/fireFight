@@ -131,7 +131,7 @@ export default {
     height: 92rpx;
     margin: 30rpx auto;
     & button {
-      background-color: #ff4d6b;
+      background-color: #ffc86d;
       color: #ffffff;
       border-radius: 23px;
     }

@@ -169,7 +169,7 @@ export default {
   async onShow() {
     await this.$request.getUser();
     const { user } = getApp().globalData;
-    console.log(user)
+    console.log(user);
     this.user = user;
   },
   /**
@@ -336,7 +336,7 @@ export default {
   .my_share {
     & button {
       border-style: solid;
-      border-color: #ff4d6b;
+      border-color: #ffc86d;
       border-radius: 23px;
       height: 92rpx;
       width: 316rpx;

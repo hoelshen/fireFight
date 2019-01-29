@@ -77,7 +77,7 @@ export default {
             "我们会在每日22:30收集咨询箱中的信关注服务号，被解答时立即收到通知",
           showCancel: false,
           confirmText: "好的",
-          confirmColor: "#ff4d6b",
+          confirmColor: "#FFC86D",
           success: result => {
             if (result.confirm) {
               this.$router.push({
@@ -172,7 +172,7 @@ export default {
   height: 92rpx;
   border: 1 solid #a9a9a9;
   color: #ffffff;
-  background-color: #ff4d6b;
+  background-color: #FFC86D;
 }
 .text-ontent {
   margin: auto;

@@ -45,7 +45,7 @@ export default {
         content: "向Tell烦恼研究中心发起咨询服务，需要消耗解忧券",
         showCancel: false,
         confirmText: "好的",
-        confirmColor: "#ff4d6b",
+        confirmColor: "#FFC86D",
         success: result => {
           if (result.confirm) {
           }
@@ -81,7 +81,7 @@ export default {
     height: 80rpx;
   }
   &_content {
-    color: #ff4d6b;
+    color: #FFC86D;
     margin-bottom: 30rpx;
   }
 }
@@ -91,13 +91,13 @@ export default {
   border-radius: 23px;
   width: 316rpx;
   height: 92rpx;
-  border: 1px solid #ff4d6b;
+  border: 1px solid #FFC86D;
 }
 .foot {
   margin-bottom: 60rpx;
   color: #a9a9a9;
   &_div {
-    color: #ff4d6b;
+    color: #FFC86D;
     margin-left: 10rpx;
   }
 }

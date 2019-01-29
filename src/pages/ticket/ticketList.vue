@@ -108,7 +108,7 @@ export default {
 }
 .btnStyle {
   background-color: #ffffff;
-  border: 1px solid #ff4d6b;
+  border: 1px solid #ffc86d;
   border-radius: 23px;
 }
 .btnWidth {

@@ -115,7 +115,7 @@ export default {
   margin: 81rpx 60rpx 36rpx 60rpx;
 }
 .borderColor {
-  border-bottom: 1px dashed #ff4d6b; //粉色虚线边框
+  border-bottom: 1px dashed #ffc86d; //粉色虚线边框
 }
 
 .reply_button {
@@ -125,7 +125,7 @@ export default {
   height: 92rpx;
   color: #ffffff;
   border: 1 solid #a9a9a9;
-  background-color: #ff4d6b;
+  background-color: #FFC86D;
 }
 .replay_text {
   color: #a9a9a9;
