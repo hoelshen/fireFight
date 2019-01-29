@@ -173,8 +173,7 @@
 					"id": 22,
 					"name": "解答室-说明",
 					"pathName": "pages/detail/index",
-					"query": "active=solverDetail",
-					"scene": null
+					"query": "active=solverDetail"
 				}
 			]
 		}
