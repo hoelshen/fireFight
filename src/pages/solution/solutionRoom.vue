@@ -23,11 +23,11 @@
         <div class="list_item-sendName flex wrap j-between">
           <div class="flex column j-between">
             <div class="list_item-receiverName">
-              <span class="list_item-receiverNameSpan">{{item.aliasName}}</span>
+              <span class="list_item-receiverNameSpan">{{item.mail.aliasName}}</span>
               <span>收</span>
             </div>
             <div class="list_item-content ">
-              <span>{{item.content}}</span>
+              <span>{{item.mail.content}}</span>
             </div>
           </div>
           <div class="flex">
@@ -40,7 +40,7 @@
         </div>
 
         <div class="list_item-sendName flex j-end">
-          <span>{{item.creator}}</span>
+          <span>{{item.mail.creator}}</span>
         </div>
       </div>
     </session>
@@ -60,7 +60,7 @@ export default {
     const days = this.$day().timeQual();
     return {
       days: days,
-      aliasName: "",
+      aliasName: "阿司匹林",
       mails: [],
       isFocus: true
     };
@@ -68,7 +68,7 @@ export default {
   methods: {
     async getStory() {
       let res = await this.$request.get("/mail/story");
-      this.mails = res.data;
+      this.mails = res.data.list;
     },
     onSolutionLimit() {
       this.$router.push({
@@ -77,13 +77,14 @@ export default {
       });
     },
     show(index) {
-      const { _id: id } = this.mails[index];
+      const { _id: id } = this.mails[index].mail;
       this.$router.push({
         query: { id: id },
         path: "/pages/solution/solutionReply"
       });
     },
     solutionDetail() {
+      console.log("solutionDetail: ");
       this.$router.push({
         query: { page: "Solver-Manual" },
         path: "/pages/webview/index"

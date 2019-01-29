@@ -1,9 +1,6 @@
 <template>
   <view class="app">
-    <div
-      class="mail box"
-      :class="{borderColor:isActive}"
-    >
+    <div class="mail box">
       <div class="mail_title">
         <span>Tell烦恼咨询中心</span>
         <span>收</span>
@@ -26,6 +23,10 @@
         :value="reply.content"
         @input="bindTextAreaBlur"
       />
+      <div class="reply_weather flex column j-end">
+        <div class="flex j-end">{{days}}</div>
+        <div class="flex j-end">{{reply.weather}}晴</div>
+      </div>
       <button
         class="reply_button"
         @click="replyMail"
@@ -47,12 +48,14 @@
 <script>
 export default {
   data() {
+    const days = this.$day().format("YYYY/MM/DD");
     return {
       id: "",
+      days: days,
       mail: {},
       reply: {
-        content: "test",
-        weather: "晴"
+        content: "",
+        weather: ""
       },
       isReply: false,
       isActive: false
@@ -62,12 +65,6 @@ export default {
     async getContent(id) {
       let res = await this.$request.get(`/mail/detail/${id}`);
       this.mail = res.data;
-      console.log("this.mail: ", this.mail);
-      Object.keys(this.mail).forEach(element => {
-        if (element.createdAt) {
-          console.log("element.createdAt: ", element.createdAt);
-        }
-      });
     },
     replyMail() {
       this.$request
@@ -88,6 +85,10 @@ export default {
     },
     bindTextAreaBlur(e) {
       this.reply.content = e.detail.value;
+    },
+    async getWeather() {
+      let res = this.$request.get("/weather");
+      this.reply.weather = res.data;
     }
   },
   async onShow() {
@@ -96,15 +97,6 @@ export default {
     } = this.$router;
     this.id = query.id;
     this.getContent(this.id);
-
-    this.$request
-      .get("/weather")
-      .then(res => {
-        this.reply.weather = res.data;
-      })
-      .catch(err => {
-        console.log("err", err);
-      });
   }
 };
 </script>
@@ -122,7 +114,10 @@ export default {
   width: 630rpx;
   height: 375rpx;
   background-color: rgba(169, 169, 169, 0.05);
-  color: rgba(169, 169, 169, 1);
+  color: #4d495b;
+}
+.reply_weather {
+  height: 200rpx;
 }
 .reply_button {
   margin-top: 16rpx;
