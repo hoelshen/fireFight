@@ -1,49 +1,21 @@
 <template>
   <div class="bar box flex a-center j-between">
-    <!-- TODO:封装一层Button -->
-    <form
-      class="flex"
-      @submit="mail"
-      report-submit="true"
-    >
-      <button
-        class=" flex column center"
-        form-type="submit"
-      >
-        <image
-          class="mail"
-          src="/static/svgs/mail.svg"
-        />
+    <form @submit="mail" report-submit="true">
+      <button class="flex center" form-type="submit" hover-class="active">
+        <image class="icon" v-if="tab == 'mail'" src="/static/svgs/mail-active.svg" />
+        <image class="icon" v-else src="/static/svgs/mail.svg" />
       </button>
     </form>
-    <form
-      class=" flex"
-      @submit="home"
-      report-submit="true"
-    >
-      <button
-        class=" flex column center"
-        form-type="submit"
-      >
-        <image
-          class="home"
-          src="/static/svgs/tell.svg"
-        />
+    <form @submit="home" report-submit="true">
+      <button class="flex  center" form-type="submit" hover-class="active">
+        <image class="icon" v-if="tab == 'home'" src="/static/svgs/tell-active.svg" />
+        <image class="icon" v-else src="/static/svgs/tell.svg" />
       </button>
     </form>
-    <form
-      class="flex"
-      @submit="myInfo"
-      report-submit="true"
-    >
-      <button
-        class="flex column center"
-        form-type="submit"
-      >
-        <image
-          class="mine"
-          src="/static/svgs/myinfo.svg"
-        />
+    <form @submit="myInfo" report-submit="true">
+      <button class="flex  center" form-type="submit" hover-class="active">
+        <image class="icon" v-if="tab == 'mine'" src="/static/svgs/myinfo-active.svg" />
+        <image class="icon" v-else src="/static/svgs/myinfo.svg" />
       </button>
     </form>
   </div>
@@ -53,17 +25,24 @@
 export default {
   name: "TtabBar",
   props: {
-    showBack: {
-      type: Boolean,
-      default: true
+    active: {
+      type: String,
+      default: "home"
     }
   },
+  created() {
+    this.tab = this.active;
+  },
   data() {
-    return {};
+    return {
+      tab: "home"
+    };
   },
   methods: {
     myInfo(e) {
+      this.tab = "mine";
       const path = this.$router.currentRoute.path;
+      this.$request.saveFormid(e.detail.formId);
       if (path === "/pages/myInfo/index") {
         return false;
       } else {
@@ -71,7 +50,9 @@ export default {
       }
     },
     home(e) {
+      this.tab = "home";
       const path = this.$router.currentRoute.path;
+      this.$request.saveFormid(e.detail.formId);
       if (path === "/pages/home/index") {
         return false;
       } else {
@@ -79,7 +60,9 @@ export default {
       }
     },
     mail(e) {
+      this.tab = "mail";
       const path = this.$router.currentRoute.path;
+      this.$request.saveFormid(e.detail.formId);
       if (path === "/pages/mail/mailbox") {
         return false;
       } else {
@@ -101,17 +84,12 @@ export default {
   background: #ffffff;
   padding: 32rpx 86rpx;
   z-index: 10;
-  .mail {
+  .icon {
     width: 60rpx;
     height: 60rpx;
   }
-  .home {
-    width: 60rpx;
-    height: 60rpx;
-  }
-  .mine {
-    width: 60rpx;
-    height: 60rpx;
+  .active {
+    background: #ffffff;
   }
 }
 </style>

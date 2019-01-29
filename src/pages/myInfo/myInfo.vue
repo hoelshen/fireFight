@@ -160,7 +160,7 @@
       </div>
     </session>
 
-    <TtabBar></TtabBar>
+    <TtabBar active="mine"></TtabBar>
   </div>
 </template>
 
