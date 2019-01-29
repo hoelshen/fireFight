@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view class="app">
     <div v-if="active === 'description'">
       <div>致咨询者</div>
       <div>向Tell烦恼研究中心发起咨询服务，需要消耗解忧券</div>
@@ -17,12 +17,21 @@
       <div>你的解答可能会被自己的笔友</div>
     </div>
 
-    <div v-if="active === 'solverDetail'">
-      <div>需要先成为解答者，才能查阅这里的信件</div>
-      <div>你可以阅读手册来了解相关约定</div>
-      <button @click="onDetail">解答者手册</button>
-      <button @click="onSoluter">申请成为解答者</button>
-      <button @click="onEnsure">已阅读并同意遵守《解答者手册》的约定</button>
+    <div
+      class=" solverDetailStyle flex column center"
+      v-if="active === 'solverDetail'"
+    >
+      <div class="flex center column grow">
+        <p>需要先成为解答者，才能查阅这里的信件</p>
+        <p>你可以阅读手册来了解相关约定</p>
+        <button @click="onDetail">解答者手册</button>
+      </div>
+
+      <div class="flex j-end solverDetailBtn column">
+        <button @click="onSoluter">申请成为解答者</button>
+        <button @click="onEnsure">并同意遵守《解答者手册》的约定</button>
+      </div>
+
     </div>
 
     <div v-if="active === 'solutionLimit'">
@@ -103,8 +112,8 @@ export default {
     },
     onDetail() {
       this.$router.push({
-        query: { active: "solver" },
-        path: "/pages/detail/index"
+        query: { page: "Solver-Manual" },
+        path: "/pages/webview/index"
       });
     },
     onSoluter() {
@@ -123,6 +132,16 @@ export default {
 };
 </script>
 <style lang="less">
+.solverDetailStyle {
+  height: 100vh;
+  .solverDetailBtn {
+    margin-bottom: 60rpx;
+    button {
+      margin-top: 24rpx;
+    }
+  }
+}
+
 .solutionLimit {
   &_title {
     width: 670rpx;

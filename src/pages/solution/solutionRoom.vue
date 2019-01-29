@@ -84,7 +84,6 @@ export default {
       });
     },
     solutionDetail() {
-      console.log("solutionDetail: ");
       this.$router.push({
         query: { page: "Solver-Manual" },
         path: "/pages/webview/index"

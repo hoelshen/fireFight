@@ -1,173 +1,181 @@
 {
-  "description": "项目配置文件。",
-  "setting": {
-    "urlCheck": false,
-    "es6": false,
-    "postcss": true,
-    "minified": false,
-    "newFeature": true,
-    "nodeModules": false,
-    "autoAudits": false
-  },
-  "miniprogramRoot": "dist-wechat/",
-  "cloudfunctionRoot": "server/cloudFunctions/",
-  "compileType": "miniprogram",
-  "appid": "wx0af73175e644dbfc",
-  "projectname": "tell2.0_megalo",
-  "libVersion": "2.5.1",
-  "condition": {
-    "search": {
-      "current": -1,
-      "list": []
-    },
-    "conversation": {
-      "current": -1,
-      "list": []
-    },
-    "plugin": {
-      "current": -1,
-      "list": []
-    },
-    "game": {
-      "currentL": -1,
-      "list": []
-    },
-    "miniprogram": {
-      "current": 21,
-      "list": [{
-          "id": -1,
-          "name": "授权登录",
-          "pathName": "pages/login/index",
-          "query": ""
-        },
-        {
-          "id": -1,
-          "name": "个人中心",
-          "pathName": "pages/myInfo/index",
-          "query": ""
-        },
-        {
-          "id": -1,
-          "name": "主页",
-          "pathName": "pages/home/index",
-          "query": ""
-        },
-        {
-          "id": -1,
-          "name": "设置笔名",
-          "pathName": "pages/setPenName/index",
-          "query": ""
-        },
-        {
-          "id": 4,
-          "name": "讲诉我的故事",
-          "pathName": "pages/myStory/index",
-          "query": ""
-        },
-        {
-          "id": -1,
-          "name": "咨询箱",
-          "pathName": "pages/consultingBox/index",
-          "query": ""
-        },
-        {
-          "id": -1,
-          "name": "信箱",
-          "pathName": "pages/mail/mailbox",
-          "query": ""
-        },
-        {
-          "id": 7,
-          "name": "解答室说明",
-          "pathName": "pages/solution/solutionDetail",
-          "query": "active='solutionLimit’"
-        },
-        {
-          "id": -1,
-          "name": "记忆",
-          "pathName": "pages/memory/index",
-          "query": ""
-        },
-        {
-          "id": -1,
-          "name": "解答室",
-          "pathName": "pages/solution/solution",
-          "query": ""
-        },
-        {
-          "id": 10,
-          "name": "徽章页面",
-          "pathName": "pages/badge/index",
-          "query": "active=\"\""
-        },
-        {
-          "id": 11,
-          "name": "详情页面-每日解答上限说明",
-          "pathName": "pages/detail/index",
-          "query": "active=solutionLimit"
-        },
-        {
-          "id": 12,
-          "name": "解答室——咨询信",
-          "pathName": "pages/solution/solutionReply",
-          "query": "id=5c458a3a0a868a16f8377223"
-        },
-        {
-          "id": -1,
-          "name": "主页",
-          "pathName": "pages/home/index",
-          "query": ""
-        },
-        {
-          "id": 14,
-          "name": "票券列表",
-          "pathName": "pages/ticket/ticketList",
-          "query": ""
-        },
-        {
-          "id": -1,
-          "name": "我的",
-          "pathName": "pages/myInfo/index",
-          "query": ""
-        },
-        {
-          "id": 16,
-          "name": "票券明细",
-          "pathName": "pages/ticket/ticketDetail",
-          "query": ""
-        },
-        {
-          "id": -1,
-          "name": "福利社",
-          "pathName": "pages/welfare/index",
-          "query": ""
-        },
-        {
-          "id": -1,
-          "name": "情感援助",
-          "pathName": "pages/help/index",
-          "query": ""
-        },
-        {
-          "id": -1,
-          "name": "MYS首页",
-          "pathName": "pages/stronger-home/index",
-          "query": ""
-        },
-        {
-          "id": -1,
-          "name": "邮差迷路",
-          "pathName": "pages/noFound/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "内嵌网页",
-          "pathName": "pages/webview/index",
-          "scene": null
-        }
-      ]
-    }
-  }
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": false,
+		"es6": false,
+		"postcss": true,
+		"minified": false,
+		"newFeature": true,
+		"nodeModules": false,
+		"autoAudits": false
+	},
+	"miniprogramRoot": "dist-wechat/",
+	"cloudfunctionRoot": "server/cloudFunctions/",
+	"compileType": "miniprogram",
+	"appid": "wx0af73175e644dbfc",
+	"projectname": "tell2.0_megalo",
+	"libVersion": "2.5.1",
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 22,
+			"list": [
+				{
+					"id": -1,
+					"name": "授权登录",
+					"pathName": "pages/login/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "个人中心",
+					"pathName": "pages/myInfo/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "主页",
+					"pathName": "pages/home/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "设置笔名",
+					"pathName": "pages/setPenName/index",
+					"query": ""
+				},
+				{
+					"id": 4,
+					"name": "讲诉我的故事",
+					"pathName": "pages/myStory/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "咨询箱",
+					"pathName": "pages/consultingBox/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "信箱",
+					"pathName": "pages/mail/mailbox",
+					"query": ""
+				},
+				{
+					"id": 7,
+					"name": "解答室说明",
+					"pathName": "pages/solution/solutionDetail",
+					"query": "active='solutionLimit’"
+				},
+				{
+					"id": -1,
+					"name": "记忆",
+					"pathName": "pages/memory/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "解答室",
+					"pathName": "pages/solution/solution",
+					"query": ""
+				},
+				{
+					"id": 10,
+					"name": "徽章页面",
+					"pathName": "pages/badge/index",
+					"query": "active=\"\""
+				},
+				{
+					"id": 11,
+					"name": "详情页面-每日解答上限说明",
+					"pathName": "pages/detail/index",
+					"query": "active=solutionLimit"
+				},
+				{
+					"id": 12,
+					"name": "解答室——咨询信",
+					"pathName": "pages/solution/solutionReply",
+					"query": "id=5c458a3a0a868a16f8377223"
+				},
+				{
+					"id": -1,
+					"name": "主页",
+					"pathName": "pages/home/index",
+					"query": ""
+				},
+				{
+					"id": 14,
+					"name": "票券列表",
+					"pathName": "pages/ticket/ticketList",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的",
+					"pathName": "pages/myInfo/index",
+					"query": ""
+				},
+				{
+					"id": 16,
+					"name": "票券明细",
+					"pathName": "pages/ticket/ticketDetail",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "福利社",
+					"pathName": "pages/welfare/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "情感援助",
+					"pathName": "pages/help/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "MYS首页",
+					"pathName": "pages/stronger-home/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "邮差迷路",
+					"pathName": "pages/noFound/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "内嵌网页",
+					"pathName": "pages/webview/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "解答室-说明",
+					"pathName": "pages/detail/index",
+					"query": "active=\"solverDetail\""
+				}
+			]
+		}
+	}
 }
