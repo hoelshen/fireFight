@@ -17,7 +17,7 @@
       </div>
     </div>
     <div
-      class="replay_content"
+      class="replay_content borderColor"
       v-if="isReply"
     >
       <textarea
@@ -115,9 +115,15 @@ export default {
   margin: 81rpx 60rpx 36rpx 60rpx;
 }
 .borderColor {
-  border-bottom: 1px dashed #ffc86d; //粉色虚线边框
+  border-top: 1px dashed #ffc86d; //粉色虚线边框
 }
-
+.textArea {
+  min-height: 200px;
+  width: 630rpx;
+  height: 375rpx;
+  background-color: rgba(169, 169, 169, 0.05);
+  color: rgba(169, 169, 169, 1);
+}
 .reply_button {
   margin-top: 16rpx;
   border-radius: 23px;
@@ -125,7 +131,7 @@ export default {
   height: 92rpx;
   color: #ffffff;
   border: 1 solid #a9a9a9;
-  background-color: #FFC86D;
+  background-color: #ffc86d;
 }
 .replay_text {
   color: #a9a9a9;

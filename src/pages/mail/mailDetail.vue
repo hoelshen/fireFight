@@ -6,20 +6,32 @@
       v-for="item in list"
       :key="item._id"
     >
-      <div class="mail_title list_item-sendName flex wrap j-between">
-        <span class="list_item-receiverNameSpan">{{item.creator}}</span>
-        <span>收</span>
+      <div class="mail_title list_item-sendName flex  j-start">
+        <span class="list_item-receiverNameSpan mail-sendName">{{item.creator}}</span>
+        <span class="flex center mail-sendName">收</span>
       </div>
-      <div class="mail_content">
+      <div
+        class="mail_content"
+        style="margin-left:40rpx"
+      >
         {{item.content}}
       </div>
-      <div class="mail_reply flex j-end">
-        <span>{{item.aliasName}}</span>
-        <span>{{item.createdAt | dayFormat}} {{item.weather}}</span>
+      <div class="mail_reply flex column j-end">
+        <div class="flex wrap j-end">
+          <!-- <img
+            class="mail_reply_img"
+            :src="item. || 'https://cdn.tellers.cn/tell_v2/static/default-avatar.svg'"
+            mode="scaleToFill"
+            @click="login"
+          > -->
+          <span class="mail_reply_aliasName">{{item.aliasName}}</span>
+        </div>
+
+        <span class="flex wrap j-end mail_reply_weather">{{item.createdAt | dayFormat}} {{item.weather}}</span>
       </div>
     </div>
     <div
-      class="replay_content"
+      class="replay_content borderColor"
       v-if="isReply"
     >
       <textarea
@@ -33,12 +45,12 @@
         @click="replyMail"
       >发送</button>
     </div>
-    <div class="flex column center" v-if="!isReply">
+    <div class="flex column center showReply_button" v-if="!isReply">
       <button
         class="reply_button"
         @click="showReply"
       >回信</button>
-      <span class="replay_text">今天还可以回复1次</span>
+      <span class="replay_text">需要使用1张邮票</span>
     </div>
   </view>
 </template>
@@ -55,6 +67,7 @@ export default {
         content: "",
         weather: ""
       },
+      stampCount: 0,
       isReply: false,
       isActive: false
     };
@@ -64,7 +77,6 @@ export default {
       let res = await this.$request.get(`/dialog/detail/${id}`);
       this.mail = res.data;
       this.list = this.mail.mailList;
-      console.log("this.mail: ", this.list);
     },
     replyMail() {
       this.$request
@@ -77,11 +89,22 @@ export default {
         });
     },
     showReply() {
+      // if (this.stampCount === 0) {
+      //   return wx.showToast({
+      //     title: "邮票不足",
+      //     icon: "none",
+      //     duration: 2000
+      //   });
+      // }
       this.isReply = true;
       this.isActive = true;
     },
     bindTextAreaBlur(e) {
       this.reply.content = e.detail.value;
+    },
+    getWeather() {
+      let res = this.$request.get("/weather");
+      this.reply.weather = res.data;
     }
   },
   async onShow() {
@@ -91,14 +114,8 @@ export default {
     this.id = query.id;
     this.getContent(this.id);
 
-    this.$request
-      .get("/weather")
-      .then(res => {
-        this.reply.weather = res.data;
-      })
-      .catch(err => {
-        console.log("err", err);
-      });
+    this.getWeather();
+    const { user } = getApp().globalData;
   }
 };
 </script>
@@ -110,9 +127,42 @@ export default {
   margin: 81rpx 60rpx 36rpx 60rpx;
 }
 .borderColor {
-  border-bottom: 1px dashed #FFC86D; //粉色虚线边框
+  border-top: 1px dashed #ffc86d; //黄色虚线边框
 }
-
+.mail_title {
+  margin-top: 60rpx;
+}
+.mail-sendName {
+  margin-top: 20rpx;
+  color: #4d495b;
+  font-size: 34rpx;
+}
+.mail_reply {
+  margin-bottom: 60rpx;
+  margin-right: 40rpx;
+}
+.mail_reply_img {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 11;
+}
+.mail_reply_aliasName {
+  color: #4d495b;
+  font-size: 34rpx;
+  font-weight: 600;
+}
+.mail_reply_weather {
+  margin-top: 24rpx;
+  color: #bdbdc0;
+  font-size: 28rpx;
+}
+.textArea {
+  min-height: 200px;
+  width: 630rpx;
+  height: 375rpx;
+  background-color: rgba(169, 169, 169, 0.05);
+  color: rgba(169, 169, 169, 1);
+}
 .reply_button {
   margin-top: 16rpx;
   border-radius: 23px;
@@ -120,7 +170,7 @@ export default {
   height: 92rpx;
   color: #ffffff;
   border: 1 solid #a9a9a9;
-  background-color: #FFC86D;
+  background-color: #ffc86d;
 }
 .replay_text {
   color: #a9a9a9;
@@ -128,6 +178,9 @@ export default {
 }
 .replay_content {
   margin: 81rpx 60rpx 36rpx 60rpx;
+}
+.showReply_button {
+  margin-bottom: 60rpx;
 }
 </style>
 

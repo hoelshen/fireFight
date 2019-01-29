@@ -24,7 +24,12 @@
         </div>
         <div class="flex j-between a-center">
           <input class="aliasNameInput" type="this" @input="bindKeyInput" :value="aliasName">
-          <div class="refreshBtn" @click="refresh"></div>
+          <div class="refreshBtn" @click="refresh">
+            <image
+            class="iconfont "
+            src="/static/svgs/refresh.svg"
+          />
+          </div>
         </div>
       </div>
       <div class="flex j-end textDay" >
