@@ -14,48 +14,22 @@
     </session>
 
     <session class="list">
-      <div
-        class="list_item flex column j-between"
-        v-for="(item,index) in mails"
-        @click="show(index)"
-        :key="index"
-      >
-        <div class="list_item-sendName flex wrap j-between">
-          <div class="flex column j-between">
-            <div class="list_item-receiverName">
-              <span class="list_item-receiverNameSpan">{{item.mail.aliasName}}</span>
-              <span>收</span>
-            </div>
-            <div class="list_item-content ">
-              <span>{{item.mail.content}}</span>
-            </div>
-          </div>
-          <div class="flex">
-            <img
-              class="mail-svg"
-              src="/static/svgs/stamp.svg"
-              alt=""
-            >
-          </div>
-        </div>
-
-        <div class="list_item-sendName flex j-end">
-          <span>{{item.mail.creator}}</span>
-        </div>
-      </div>
+      <Envelope :isRead="item.isRead" :mail="item.mail" v-for="(item,index) in mails" :key="index">
+      </Envelope>
     </session>
 
     <session class="solutionDetail flex center">
-      <div
-        class="solutionDetailButton flex center"
-        @click="solutionDetail"
-      >解答者手册</div>
+      <div class="solutionDetailButton flex center" @click="solutionDetail">解答者手册</div>
     </session>
   </view>
 
 </template>
 <script>
+import Envelope from "@/components/Envelope";
 export default {
+  components: {
+    Envelope
+  },
   data() {
     const days = this.$day().timeQual();
     return {
@@ -76,13 +50,6 @@ export default {
         path: "/pages/detail/index"
       });
     },
-    show(index) {
-      const { _id: id } = this.mails[index].mail;
-      this.$router.push({
-        query: { id: id },
-        path: "/pages/solution/solutionReply"
-      });
-    },
     solutionDetail() {
       this.$router.push({
         query: { page: "Solver-Manual" },
@@ -98,7 +65,6 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@import url(../../styles/mail.less);
 .solutionRoomName {
   width: 390rpx;
   height: 204rpx;

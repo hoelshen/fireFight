@@ -29,12 +29,9 @@
 </template>
 <script>
 import TtabBar from "@/components/TtabBar";
-import Tbutton from "@/components/Tbutton";
-
 export default {
   components: {
-    TtabBar,
-    Tbutton
+    TtabBar
   },
   data() {
     return {
