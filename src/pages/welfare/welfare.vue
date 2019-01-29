@@ -20,22 +20,26 @@
         <div class="flex column j-between">
           <div class="flex">
             <span class="list_item_span">邮票兑换解忧券</span>
-            <div
-              class="iconfont icon-gift"
+            <image
+              class="iconfont "
               style="margin-left:20rpx;"
-            >+1</div>
+              src="/static/svgs/welfare.svg"
+            />×1
           </div>
-          <span>用户可以使用10张邮票兑换1张解忧券</span>
+          <span class="welfare_content">用户可以使用10张邮票兑换1张解忧券</span>
         </div>
-        <button
-          @click="mailExchange"
-          class="flex center"
-        >兑换</button>
+        <div class="exchange">
+          <button
+            @click="mailExchange"
+            class="flex center"
+          >兑换</button>
+        </div>
+
       </div>
     </session>
     <session
       class="list"
-      v-if="active === 'solution'"
+      v-if="active === 'mail'"
     >
       <div class="list_item flex  j-between ">
         <div class="flex column j-between ">
@@ -46,7 +50,7 @@
               style="margin-right:20rpx;"
             ></div>
           </div>
-          <span>进入客服会话后发送「服务号」，按提示进行操作。关注服务号后即可领取解忧券。</span>
+          <span class="welfare_content">进入客服会话后发送「服务号」，按提示进行操作。关注服务号后即可领取解忧券。</span>
         </div>
         <div class="exchange">
           <button
@@ -132,6 +136,7 @@ export default {
     border-color: #ffffff;
 
     &.borderColor {
+      color: #ffc86d;
       border-color: #ffffff #ffffff #ffc86d #ffffff;
     }
   }
@@ -158,11 +163,17 @@ export default {
   overflow: hidden;
 }
 .exchange {
-  margin-top: 16rpx;
-  border-radius: 23px;
-  width: 182rpx;
-  height: 92rpx;
-  border: 1px solid #FFC86D;
+  & button {
+    border-style: solid;
+    border-color: #ffc86d;
+    border-radius: 23px;
+    height: 92rpx;
+    width: 182rpx;
+  }
+}
+.welfare_content {
+  color: #bdbdc0;
+  font-size: 22rpx;
 }
 </style>
 

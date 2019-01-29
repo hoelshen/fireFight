@@ -29,7 +29,7 @@
             <span class="ticket_day">{{item.createdAt}}</span>
           </div>
         </div>
-        <span class="flex center">{{item.count}}</span>
+        <span class="flex center">{{(item.count > 0) ? '+' : '-' }} {{ item.count }}</span>
       </div>
     </session>
   </view>
@@ -45,11 +45,13 @@ export default {
       isActive: true,
       list: [
         {
+          type: "check",
           message: "烦恼咨询",
           createdAt: "2019/1/19",
           count: 2
         },
         {
+          type: "check",
           message: "连续签到5天奖励",
           createdAt: "2019/1/19",
           count: 9
