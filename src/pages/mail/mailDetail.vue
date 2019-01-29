@@ -6,7 +6,7 @@
       :key="item._id"
     >
       <div class="mail_title list_item-sendName flex  j-start">
-        <span class="list_item-receiverNameSpan mail-sendName">{{item.creator}}</span>
+        <span class="list_item-receiverNameSpan mail-sendName">{{item.targetUser}}</span>
         <span class="flex center mail-sendName">收</span>
       </div>
       <div
@@ -73,6 +73,7 @@
     </div>
     <div class="flex column center showReply_button" v-if="!isReply">
       <button
+        :disabled="fromUserId === user._id"
         class="reply_button"
         @click="showReply"
       >回信</button>
@@ -97,6 +98,8 @@ export default {
         content: "",
         weather: ""
       },
+      user: {},
+      fromUserId: "",
       stampCount: 0,
       isReply: false,
       isActive: false
@@ -106,6 +109,7 @@ export default {
     async getContent(id) {
       let res = await this.$request.get(`/dialog/detail/${id}`);
       this.mail = res.data;
+      this.fromUserId = res.data.fromUser;
       this.list = this.mail.mailList;
     },
     replyMail() {
@@ -146,6 +150,7 @@ export default {
 
     this.getWeather();
     const { user } = getApp().globalData;
+    this.user = user;
     this.reply.aliasName = user.aliasName;
     this.reply.aliasPortrait = user.aliasPortrait;
   }
