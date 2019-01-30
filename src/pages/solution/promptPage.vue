@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     sure() {
-      this.$router.push({
+      this.$router.reLaunch({
         query: { active: "home" },
         path: "/pages/home/index"
       });

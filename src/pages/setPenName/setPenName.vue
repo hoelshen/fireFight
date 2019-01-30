@@ -78,7 +78,7 @@ export default {
           .then(res => {
             console.log(res);
           });
-        this.$router.push({
+        this.$router.reLaunch({
           query: { active: "mine" },
           path: "/pages/home/index"
         });

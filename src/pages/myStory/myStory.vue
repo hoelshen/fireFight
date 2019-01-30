@@ -86,7 +86,7 @@ export default {
           confirmColor: "#FFC86D",
           success: result => {
             if (result.confirm) {
-              this.$router.push({
+              this.$router.reLaunch({
                 path: "/pages/home/index"
               });
             }

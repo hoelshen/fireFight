@@ -95,7 +95,7 @@ export default {
       this.$router.go(-1);
     },
     returnHome() {
-      this.$router.push("/pages/home/index");
+      this.$router.reLaunch("/pages/home/index");
     },
     onDetail() {
       this.$router.push({
