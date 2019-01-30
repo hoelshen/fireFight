@@ -2,40 +2,35 @@
   <div class="app">
     <!-- TODO:还需要调适配，以适应短屏 -->
     <div class="my_info flex column">
-      <img
-        class="my_info_user-avatarUrl"
-        :src="user.aliasPortrait || 'https://cdn.tellers.cn/tell_v2/static/default-avatar.svg'"
-        mode="scaleToFill"
-        @click="login"
-      >
+      <img class="my_info_user-avatarUrl" :src="user.aliasPortrait || 'https://cdn.tellers.cn/tell_v2/static/default-avatar.svg'" mode="scaleToFill" @click="login">
       <button @click="login" v-if="!user.aliasPortrait">点击登录</button>
       <div class="flex column center" v-else>
         <div class="flex j-around my_info_user-nickName">
           <div style="margin-left:20rpx;padding-right:10rpx;">{{user.aliasName}}</div>
           <div class="iconfont icon-badge flex a-center"></div>
         </div>
-        <div class="my_info_user-address flex wrap">{{}}</div>
+        <div class="my_info_user-address flex wrap">{{user.aliasAddress}}</div>
       </div>
     </div>
 
     <session class="my_function flex">
       <form class="my_function_item flex" @submit="memory" report-submit="true">
         <button class="my_function_item-button flex column center" form-type="submit">
-          <image class="iconfont" src="/static/svgs/moment.svg"/>
+          <image class="iconfont" src="/static/svgs/moment.svg" />
           <span class="my_function_item-text">记忆</span>
         </button>
       </form>
 
       <form class="my_function_item flex" @submit="ticket" report-submit="true">
         <button class="my_function_item-button flex column center" form-type="submit">
-          <image class="iconfont" src="/static/svgs/ticket.svg"/>
+          <image class="iconfont" src="/static/svgs/ticket.svg" />
           <span class="my_function_item-text">票券</span>
         </button>
       </form>
 
       <form class="my_function_item flex" @submit="welfare" report-submit="true">
         <button class="my_function_item-button flex column center" form-type="submit">
-          <image class="iconfont" src="/static/svgs/welfare.svg"/>
+          <image class="iconfont" src="/static/svgs/welfare.svg" />
           <span class="my_function_item-text">福利社</span>
         </button>
       </form>
@@ -57,48 +52,34 @@
       </form>-->
       <div class="flex wrap j-between center">
         <form class="my_contact-item flex wrap j-between" @submit="joinGroup" report-submit="true">
-          <button
-            class="my_contact_item-button flex wrap j-start"
-            form-type="submit"
-            open-type="contact"
-            send-message-img
-            :session-from="{
+          <button class="my_contact_item-button flex wrap j-start" form-type="submit" open-type="contact" send-message-img :session-from="{
           'nickName':user.aliasName, 
           'avatarUrl':user.aliasPortrait
-          }"
-            @contact="joinGroup"
-          >
-            <image class="iconfont flex" src="/static/svgs/joinGroup.svg"/>
+          }" @contact="joinGroup">
+            <image class="iconfont flex" src="/static/svgs/joinGroup.svg" />
             <span class="my_contact_item-text">加入群聊</span>
           </button>
         </form>
-        <image class="iconfont flex center" src="/static/svgs/arrow.svg"/>
+        <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
       </div>
 
       <div class="flex wrap j-between center">
         <form class="my_contact-item flex" @submit="AnswerQuestion" report-submit="true">
-          <button
-            class="my_contact_item-button flex wrap j-start"
-            form-type="submit"
-            open-type="contact"
-            :session-from="{
+          <button class="my_contact_item-button flex wrap j-start" form-type="submit" open-type="contact" :session-from="{
           'nickName':user.aliasName, 
           'avatarUrl':user.aliasPortrait
-          }"
-            @contact="AnswerQuestion"
-          >
-            <image class="iconfont" src="/static/svgs/question.svg"/>
+          }" @contact="AnswerQuestion">
+            <image class="iconfont" src="/static/svgs/question.svg" />
             <span class="my_contact_item-text">问题与反馈</span>
           </button>
         </form>
-        <image class="iconfont flex center" src="/static/svgs/arrow.svg"/>
+        <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
       </div>
     </session>
 
     <session class="my_share flex center">
-      <div>
-        <button open-type="share">安利Tell给好友</button>
-      </div>
+      <button class="flex center" hover-class="active" open-type="share">安利Tell给好友</button>
+
     </session>
 
     <TtabBar active="mine"></TtabBar>
@@ -214,8 +195,6 @@ export default {
 
 <style lang="less" scoped>
 .app {
-  width: 750rpx;
-  min-height: 100vh;
   font-family: "PingFang SC";
   background-color: #fffefb;
   padding-top: 32rpx;
@@ -226,6 +205,7 @@ export default {
     margin: 0 60rpx;
     border-radius: 2px;
     background-color: #ffffff;
+    box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
     &_user {
       &-avatarUrl {
         display: block;
@@ -256,6 +236,7 @@ export default {
     height: 172rpx;
     margin: 32rpx 60rpx;
     background-color: #ffffff;
+    box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
     &_item {
       height: 172rpx;
       width: 210rpx;
@@ -278,6 +259,7 @@ export default {
     height: 216rpx;
     margin: 32rpx 60rpx;
     background-color: #ffffff;
+    box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
     &_item {
       width: 630rpx;
       height: 108rpx;
@@ -295,16 +277,20 @@ export default {
       &-text {
         font-size: 34rpx;
         margin-left: 20rpx;
+        font-size: 28rpx;
       }
     }
   }
   .my_share {
     & button {
-      border-style: solid;
-      border-color: #ffc86d;
-      border-radius: 23px;
+      border: 2rpx #ffc86d solid;
+      border-radius: 46px;
       height: 92rpx;
       width: 316rpx;
+      font-size: 28rpx;
+      &.active {
+        background: #fff;
+      }
     }
   }
 }

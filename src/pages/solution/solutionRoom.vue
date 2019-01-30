@@ -6,7 +6,7 @@
         <p class="solutionRoomName-aliasName">{{aliasName}}</p>
       </div>
       <div clss="solutionRoomName_question flex j-between">
-        <span class="solutionRoomName_question_mail">你今天还可以解答{{mails.length}}个咨询</span>
+        <span class="solutionRoomName_question_mail">你今天还可以解答{{replyCount}}个咨询</span>
         <!-- <button @click="onSolutionLimit">
           <div class="iconfont icon-memery"></div>
         </button> -->
@@ -34,7 +34,8 @@ export default {
     const days = this.$day().timeQual();
     return {
       days: days,
-      aliasName: "阿司匹林",
+      aliasName: "",
+      replyCount: 1,
       mails: [],
       isFocus: true
     };
@@ -43,6 +44,7 @@ export default {
     async getStory() {
       let res = await this.$request.get("/mail/story");
       this.mails = res.data.list;
+      this.replyCount = res.data.lastRepliedAt ? 0 : 1;
     },
     onSolutionLimit() {
       this.$router.push({
@@ -66,8 +68,6 @@ export default {
 </script>
 <style lang="less" scoped>
 .solutionRoomName {
-  width: 390rpx;
-  height: 204rpx;
   display: block;
   border: 1px solid #ffffff;
   margin: 20rpx 60rpx;
@@ -77,6 +77,10 @@ export default {
       width: 44rpx;
     }
   }
+}
+
+.solutionDetail{
+  padding-bottom: 60rpx;
 }
 
 .solutionDetailButton {
