@@ -1,11 +1,11 @@
 page {
-  font-family: Helvetica, Tahoma, "Microsoft YaHei", "PingFang SC", sans-serif;
+  font-family: Helvetica, Tahoma, 'Microsoft YaHei', 'PingFang SC', sans-serif;
   font-size: 28rpx;
 }
 .app {
   width: 750rpx;
   min-height: 100vh;
-  font-family: "PingFang SC";
+  font-family: 'PingFang SC';
   border: 1px solid #ffffff;
   background-color: #fffefb;
 }
@@ -16,6 +16,11 @@ button {
 button::after {
   border: none;
 }
+
+.button-hover {
+  background: #ffc86d;
+}
+
 .addButton {
   margin-top: 16rpx;
   border-radius: 23px;
@@ -31,7 +36,9 @@ input {
   border: none;
   list-style: none;
 }
-
+.shadow {
+  box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
+}
 .flex {
   display: flex;
   &.j-center {
