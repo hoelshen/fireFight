@@ -1,30 +1,21 @@
 <template>
   <view class="app flex column j-between">
-    <div class="flex consultingBox column center">
-      <span class="consultingBox_title">咨询箱</span>
-
-      <span class="consultingBox_detail">
-        烦恼咨询服务每次需使用1张解忧券
-        若3日未收到解答则退还解忧券
-      </span>
-      <span
-        class="consultingBox_content"
-        @click="onDetail"
-      >详细说明</span>
-      <div>
-        <button
-          class="myStoryButton"
-          @click="onMyStory"
-        >讲述我的故事</button>
+    <div class="flex consultingBox column center shadow">
+      <div class="conDiv column flex center grow">
+        <span class="consultingBox_title">咨询箱</span>
+        
+        <span class="consultingBox_detail">
+          烦恼咨询服务每次需使用1张解忧券
+          若 3 日未收到解答则退还解忧券
+        </span>
+        <span class="consultingBox_content" @click="onDetail">查看详细说明</span>
       </div>
+      <button class="myStoryButton" @click="onMyStory">讲述我的故事</button>
     </div>
 
     <div class="foot flex center">
       当前持有{{tickets}}张解忧券
-      <div
-        class="foot_div"
-        @click="returnWelfare"
-      >获取更多</div>
+      <div class="foot_div" @click="returnWelfare">获取更多</div>
     </div>
   </view>
 </template>
@@ -67,37 +58,43 @@ export default {
 <style lang="less">
 .consultingBox {
   width: 630rpx;
-  height: 722rpx;
-  background-image: "../../static/cdn/consultingBox.png";
+  min-height: 726rpx;
   margin: auto;
-  margin-top: 103rpx;
+  margin-top: 40rpx;
+  border-top-left-radius: 365rpx;
+  border-top-right-radius: 182px;
   &_title {
     font-size: 60rpx;
     margin-bottom: 30rpx;
+    font-weight: 600;
   }
   &_detail {
     margin-bottom: 20rpx;
     width: 450rpx;
-    height: 80rpx;
+    line-height: 52rpx;
   }
   &_content {
-    color: #FFC86D;
+    color: #ffc86d;
     margin-bottom: 30rpx;
   }
 }
-
+.conDiv {
+  margin-top: 206rpx;
+}
 .myStoryButton {
   margin-top: 16rpx;
+  margin-bottom: 60rpx;
   border-radius: 23px;
-  width: 316rpx;
-  height: 92rpx;
-  border: 1px solid #FFC86D;
+  font-size: 28rpx;
+  border: 1px solid #ffc86d;
+  line-height: 92rpx;
+  text-align: center;
 }
 .foot {
   margin-bottom: 60rpx;
   color: #a9a9a9;
   &_div {
-    color: #FFC86D;
+    color: #ffc86d;
     margin-left: 10rpx;
   }
 }
