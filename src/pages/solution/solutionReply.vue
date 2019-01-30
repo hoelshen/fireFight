@@ -24,10 +24,10 @@
           <div class="flex j-end">{{reply.weather}}</div>
         </div>
       </div>
-      <button class="reply_button" @click="replyMail">发送</button>
+      <button class="reply_button  flex center" @click="replyMail">发送</button>
     </div>
     <div class="flex column center showReply_button" v-if="!isReply">
-      <button :disabled="fromUserId === user._id" class="reply_button" @click="showReply">回信</button>
+      <button :disabled="fromUserId === user._id" class="reply_button flex center" @click="showReply">回信</button>
       <span class="replay_text">今天还可以回复1次</span>
     </div>
   </view>

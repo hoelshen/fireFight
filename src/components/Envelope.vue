@@ -31,6 +31,9 @@ export default {
     isRead: {
       type: Boolean,
       default: false
+    },
+    dialogId: {
+      type: String
     }
   },
   data() {
@@ -38,10 +41,17 @@ export default {
   },
   methods: {
     toMail() {
-      this.$router.push({
-        query: { id: this.mail._id },
-        path: "/pages/solution/solutionReply"
-      });
+      if (this.dialogId) {
+        this.$router.push({
+          query: { id: this.dialogId },
+          path: "/pages/mail/mailDetail"
+        });
+      } else {
+        this.$router.push({
+          query: { id: this.mail._id },
+          path: "/pages/solution/solutionReply"
+        });
+      }
     }
   }
 };

@@ -1,11 +1,6 @@
 <template>
   <session class="list">
-    <div
-      class="list_item flex column j-between"
-      v-for="(item,index) in list"
-      @click="show(index)"
-      :key="index"
-    >
+    <div class="list_item flex column j-between" v-for="(item,index) in list" @click="show(index)" :key="index">
       <span class="list_item-day flex center">{{ item.createdAt | dayFormat }}</span>
       <div v-if="item.toUser._id === id">
         <div class="list_item-sendName flex wrap j-between">
@@ -19,11 +14,7 @@
             </div>
           </div>
           <div class="flex">
-            <img
-              class="mail-svg"
-              src="/static/svgs/stamp.svg"
-              alt=""
-            >
+            <img class="mail-svg" src="/static/svgs/stamp.svg" alt="">
           </div>
         </div>
         <div class="list_item-sendName flex  j-between">
@@ -43,11 +34,7 @@
             </div>
           </div>
           <div class="flex">
-            <img
-              class="mail-svg"
-              src="/static/svgs/mail.svg"
-              alt=""
-            >
+            <img class="mail-svg" src="/static/svgs/mail.svg" alt="">
           </div>
         </div>
         <div class="list_item-sendName flex  j-between">

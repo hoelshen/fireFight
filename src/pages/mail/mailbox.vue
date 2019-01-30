@@ -1,30 +1,30 @@
 <template>
   <view class="app">
-    <div
-      class="mailbox_title"
-      v-if="num"
-    >
+    <div class="mailbox_title" v-if="num">
       <button @click="openMail">
-        {{num}}封信正在路上
+        {{num}} 封信正在邮寄的路上
       </button>
     </div>
-    <Tlist
-      v-if="list"
-      :list="list"
-    ></Tlist>
+    <div class="list" v-for="item in list" :key="item._id">
+      <Envelope :mail="item.toMail" :isRead="item.isRead" :dialogId="item._id" v-if="userId == item.toUser._id">
+      </Envelope>
+      <Envelope :mail="item.fromMail" :isRead="item.isRead" :dialogId="item._id" v-else>
+      </Envelope>
+    </div>
   </view>
 
 </template>
 <script>
-import Tlist from "@/components/Tlist";
+import Envelope from "@/components/Envelope";
 export default {
   components: {
-    Tlist
+    Envelope
   },
   data() {
     return {
       num: 0,
-      list: []
+      list: [],
+      userId:"5c4e69293c870d5c223edd52"
     };
   },
   onShow() {
@@ -48,11 +48,10 @@ export default {
 </script>
 <style lang="less">
 .mailbox_title {
-  width: 266rpx;
   height: 92rpx;
-  border-radius: 23px;
+  border-radius: 46px;
   margin: auto;
-  padding-top: 40rpx;
+  padding: 0 40rpx;
   & button {
     border: 1px solid #ffc86d;
     border-radius: 23px;
