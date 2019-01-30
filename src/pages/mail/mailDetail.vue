@@ -29,7 +29,7 @@
     </div>
     <div class="flex column center showReply_button" v-if="!isReply">
       <button :disabled="fromUserId === user._id" class="reply_button" @click="showReply">回信</button>
-      <span class="replay_text">需要使用1张邮票</span>
+      <span class="replay_text">需要使用 1 张邮票</span>
     </div>
   </view>
 </template>
@@ -115,52 +115,6 @@ export default {
   width: 630rpx;
   height: 620rpx;
   margin: 81rpx 60rpx 36rpx 60rpx;
-}
-.mail_title {
-  margin-top: 60rpx;
-}
-.mail-sendName {
-  margin-top: 20rpx;
-  color: #4d495b;
-  font-size: 34rpx;
-}
-.mail_reply {
-  margin-bottom: 60rpx;
-  margin-right: 40rpx;
-}
-.penName {
-  background: rgba(189, 189, 192, 0.05);
-  font-size: 24rpx;
-  margin-bottom: 52rpx;
-}
-.mail_reply_img {
-  width: 44rpx;
-  height: 44rpx;
-  border-radius: 11;
-}
-.mail_reply_aliasName {
-  color: #4d495b;
-  font-size: 34rpx;
-  font-weight: 600;
-}
-.mail_reply_weather {
-  margin-top: 24rpx;
-  color: #bdbdc0;
-  font-size: 28rpx;
-  margin-bottom: 26rpx;
-}
-.reply_weather {
-  margin-top: 42rpx;
-  margin-bottom: 26rpx;
-}
-.reply_weather_weather {
-  color: #bdbdc0;
-  font-size: 22rpx;
-  margin-top: 26rpx;
-  margin-bottom: 40rpx;
-  & view {
-    margin-right: 10rpx;
-  }
 }
 .reply_weather_love {
   color: #ffc86d;

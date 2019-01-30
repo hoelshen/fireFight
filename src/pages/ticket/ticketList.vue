@@ -1,58 +1,32 @@
 <template>
   <view class="ticket flex column j-between">
-    <div
-      class="list"
-      style="margin-left:0"
-    >
-      <div class="ticketList  flex j-between">
+    <div class="list" style="margin-left:0">
+      <div class="ticketList  flex j-between" @tap="ticketDetail('ticket')">
         <div class="flex center">
-          <image
-            class="iconfont"
-            src="/static/svgs/solutionNum.svg"
-          />
+          <image class="iconfont" src="/static/svgs/solutionNum.svg" />
           <span class="my_contact_item-text">邮票</span>
         </div>
         <div class="flex center">
-          <button
-            class="btnStyle btnWidth  flex center"
-            @click="mailTicket"
-          >{{stampCount}}
+          <button class="btnStyle btnWidth  flex center" @click="mailTicket">{{stampCount}}
           </button>
-          <image
-            style="margin-left:36rpx"
-            class="iconfont"
-            src="/static/svgs/arrow.svg"
-          />
+          <image style="margin-left:36rpx" class="iconfont" src="/static/svgs/arrow.svg" />
         </div>
       </div>
-      <div class="solutionList flex j-between ">
+      <div class="solutionList flex j-between " @tap="ticketDetail('stamp')">
         <div class="flex center">
-          <image
-            class="iconfont"
-            src="/static/svgs/mailNum.svg"
-          />
+          <image class="iconfont" src="/static/svgs/mailNum.svg" />
           <span class="my_contact_item-text ">解忧券</span>
         </div>
         <div class="flex center">
-          <button
-            class="btnStyle btnWidth flex center "
-            @click="solutionTicket"
-          >{{ticketCount}}
+          <button class="btnStyle btnWidth flex center " @click="solutionTicket">{{ticketCount}}
           </button>
-          <image
-            style="margin-left:36rpx"
-            class="iconfont"
-            src="/static/svgs/arrow.svg"
-          />
+          <image style="margin-left:36rpx" class="iconfont" src="/static/svgs/arrow.svg" />
         </div>
       </div>
     </div>
 
     <div class="ticketDetail">
-      <button
-        class="addButton"
-        @click="ticketDetail"
-      >票券明细</button>
+      <button class="addButton flex center" @click="ticketDetail">票券明细</button>
     </div>
   </view>
 
@@ -67,24 +41,12 @@ export default {
     };
   },
   methods: {
-    async getList() {
+    getList() {
       const { user } = getApp().globalData;
       this.stampCount = user.stampCount;
       this.ticketCount = user.ticketCount;
     },
-    mailTicket() {
-      this.$router.push({
-        query: { active: "mail" },
-        path: "/pages/ticket/ticketDetail"
-      });
-    },
-    solutionTicket() {
-      this.$router.push({
-        query: { active: "solution" },
-        path: "/pages/ticket/ticketDetail"
-      });
-    },
-    ticketDetail() {
+    ticketDetail(tab = "ticket") {
       this.$router.push({ path: "/pages/ticket/ticketDetail" });
     }
   },
@@ -98,6 +60,7 @@ export default {
   width: 630rpx;
   min-height: 100vh;
   margin: auto;
+  color: #4d495b;
 }
 .ticketList {
   width: 630rpx;
@@ -108,9 +71,7 @@ export default {
   height: 132rpx;
 }
 .ticketDetail {
-  width: 316rpx;
-  height: 92rpx;
-  margin: 30rpx auto;
+  margin: 60rpx auto;
 }
 .my_contact_item-text {
   margin-left: 20rpx;
@@ -119,9 +80,17 @@ export default {
   background-color: #ffffff;
   border: 1px solid #ffc86d;
   border-radius: 23px;
+  font-size: 28rpx;
 }
 .btnWidth {
   height: 56rpx;
+}
+.iconfont {
+  width: 32rpx;
+  height: 32rpx;
+}
+.addButton {
+  font-size: 28rpx;
 }
 </style>
 
