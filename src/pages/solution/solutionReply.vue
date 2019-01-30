@@ -4,7 +4,7 @@
     <div class="replay_content borderColor" v-if="isReply">
       <div class="penName">回信将不再匿名，若对方再次回复，你们将成为笔友</div>
       <div class="flex">{{mail._id}}收</div>
-      <textarea class="textArea" maxlength="50" :value="reply.content" @input="bindTextAreaBlur"/>
+      <textarea class="textArea" maxlength="50" :value="reply.content" @input="bindTextAreaBlur" />
       <div class="reply_weather_love flex j-bwtween">
         <div class="reply_weather_love_button">
           <button class="flex center">
@@ -54,6 +54,7 @@ export default {
       fromUserId: "",
       mailCount: 0,
       isReply: false,
+      myReply: null,
       isActive: false
     };
   },
@@ -92,12 +93,14 @@ export default {
     async getWeather() {
       let res = await this.$request.get("/weather");
       this.reply.weather = res.data;
+    },
+    async getMyReply() {
+      let res = await this.$request.get(`/mail/detail/${this.id}/reply`);
+      this.myReply = res.data;
     }
   },
   async onShow() {
-    const {
-      currentRoute: { query }
-    } = this.$router;
+    const { currentRoute: { query } } = this.$router;
     this.id = query.id;
     const { user } = getApp().globalData;
     this.user = user;
@@ -106,6 +109,7 @@ export default {
     this.reply.aliasPortrait = user.aliasPortrait;
     this.getContent(this.id);
     this.getWeather();
+    this.getMyReply();
   }
 };
 </script>
