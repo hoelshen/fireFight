@@ -16,9 +16,8 @@ button {
 button::after {
   border: none;
 }
-
 .button-hover {
-  background: #ffc86d;
+  background-color: transparent;
 }
 
 .addButton {
@@ -29,6 +28,10 @@ button::after {
   color: #ffffff;
   border: 1 solid #a9a9a9;
   background-color: #ffc86d;
+  &-hover {
+    background-color: transparent;
+    border: 1rpx solid #ffc86d;
+  }
 }
 
 input {

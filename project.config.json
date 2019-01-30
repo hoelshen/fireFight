@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 23,
+			"current": 24,
 			"list": [
 				{
 					"id": -1,
@@ -180,6 +180,13 @@
 					"name": "回复咨询",
 					"pathName": "pages/solution/solutionReply",
 					"query": "id=5c50453d04d7bd5a26f575f4",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "回信完成提示页",
+					"pathName": "pages/solution/promptPage",
+					"query": "",
 					"scene": null
 				}
 			]

@@ -14,7 +14,7 @@
     </div>
 
     <div class="foot flex center">
-      当前持有{{tickets}}张解忧券
+      当前持有 {{tickets}} 张解忧券
       <div class="foot_div" @click="returnWelfare">获取更多</div>
     </div>
   </view>
@@ -76,8 +76,10 @@ export default {
   &_content {
     color: #ffc86d;
     margin-bottom: 30rpx;
+    font-weight: 600;
   }
 }
+
 .conDiv {
   margin-top: 206rpx;
 }
@@ -89,6 +91,8 @@ export default {
   border: 1px solid #ffc86d;
   line-height: 92rpx;
   text-align: center;
+  padding: 0 74rpx;
+  font-weight: 600;
 }
 .foot {
   margin-bottom: 60rpx;
@@ -96,6 +100,7 @@ export default {
   &_div {
     color: #ffc86d;
     margin-left: 10rpx;
+    font-weight: 600;
   }
 }
 </style>
