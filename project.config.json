@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 24,
+			"current": 22,
 			"list": [
 				{
 					"id": -1,
@@ -41,7 +41,6 @@
 					"pathName": "pages/login/index",
 					"query": ""
 				},
-				
 				{
 					"id": -1,
 					"name": "主页",
@@ -172,10 +171,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 22,
 					"name": "回信完成提示页",
 					"pathName": "pages/solution/promptPage",
-					"query": "",
+					"query": "targetUser=sjh&active=mail",
 					"scene": null
 				}
 			]

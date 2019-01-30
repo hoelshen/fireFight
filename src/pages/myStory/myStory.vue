@@ -22,7 +22,7 @@
           <span class="textNameSpan">署名:</span>
           <input class="aliasNameInput" type="this" @input="bindKeyInput" :value="aliasName">
           <div class="refreshBtn" @click="refresh">
-            <image class="iconfont" src="/static/svgs/refresh.svg">
+            <image class="iconfont" src="/static/svgs/refresh.svg"></image>
           </div>
         </div>
       </div>

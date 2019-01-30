@@ -1,42 +1,51 @@
 <template>
   <view class="page flex column">
-
     <!-- 首页 -->
     <div class="pannel grow" v-if="tab == 'home'">
       <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
         <block v-for="item in banners" :key="item">
           <swiper-item>
-            <image :src="item.imgUrl" class="img" />
+            <image :src="item.imgUrl" class="img">
+              </image>
           </swiper-item>
         </block>
       </swiper>
       <div class="entries flex center">
-        <image class="left" @click="toConsulting" src="/static/svgs/home_left.svg" />
-        <image class="right" @click="toSolution" src="/static/svgs/home_right.svg" />
+        <image class="left" @click="toConsulting" src="/static/svgs/home_left.svg">
+              </image>
+
+        <image class="right" @click="toSolution" src="/static/svgs/home_right.svg">
+              </image>
+
       </div>
     </div>
 
     <!-- 信箱 -->
     <div class="pannel grow" v-else-if="tab == 'mail'">
       <div class="mailbox_title" v-if="wayCount">
-        <button @click="openMail">
-          {{wayCount}} 封信正在邮寄的路上
-        </button>
+        <button @click="openMail">{{wayCount}} 封信正在邮寄的路上</button>
       </div>
       <div class="list" v-for="item in dialogs" :key="item._id">
-        <Envelope :mail="item.toMail" :isRead="item.isRead" v-if="item.fromSystem">
-        </Envelope>
-        <Envelope :mail="item.toMail" :isRead="item.isRead" :dialogId="item._id" v-else-if="userId == item.toUser._id">
-        </Envelope>
-        <Envelope :mail="item.fromMail" :isRead="item.isRead" :dialogId="item._id" v-else>
-        </Envelope>
+        <Envelope :mail="item.toMail" :isRead="item.isRead" v-if="item.fromSystem"></Envelope>
+        <Envelope
+          :mail="item.toMail"
+          :isRead="item.isRead"
+          :dialogId="item._id"
+          v-else-if="userId == item.toUser._id"
+        ></Envelope>
+        <Envelope :mail="item.fromMail" :isRead="item.isRead" :dialogId="item._id" v-else></Envelope>
       </div>
     </div>
 
     <!-- 我的 -->
     <div class="pannel grow" v-else>
       <div class="my_info flex column">
-        <img class="my_info_user-avatarUrl" :src="user.aliasPortrait || 'https://cdn.tellers.cn/tell_v2/static/default-avatar.svg'" mode="scaleToFill" @click="login">
+        <img
+          class="my_info_user-avatarUrl"
+          :src="user.aliasPortrait || 'https://cdn.tellers.cn/tell_v2/static/default-avatar.svg'"
+          mode="scaleToFill"
+          @click="login"
+        >
         <button @click="login" v-if="!user.aliasPortrait">点击登录</button>
         <div class="flex column center" v-else>
           <div class="flex j-around my_info_user-nickName">
@@ -48,38 +57,63 @@
 
       <session class="my_function flex">
         <button @tap="memory" class="my_function_item-button flex column center">
-          <image class="iconfont" src="/static/svgs/moment.svg" />
+          <image class="iconfont" src="/static/svgs/moment.svg">
+              </image>
+
           <span class="my_function_item-text">记忆</span>
         </button>
-
+        
         <button @click="ticket" class="my_function_item-button flex column center">
-          <image class="iconfont" src="/static/svgs/ticket.svg" />
+          <image class="iconfont" src="/static/svgs/ticket.svg">
+              </image>
+
           <span class="my_function_item-text">票券</span>
         </button>
-
+        
         <button @click="welfare" class="my_function_item-button flex column center">
-          <image class="iconfont" src="/static/svgs/welfare.svg" />
+          <image class="iconfont" src="/static/svgs/welfare.svg">
+              </image>
+
           <span class="my_function_item-text">福利社</span>
         </button>
       </session>
 
       <session class="my_contact flex column">
-        <button class="my_contact_item-button flex wrap center grow" open-type="contact" send-message-img :session-from="{
+        <button
+          class="my_contact_item-button flex wrap center grow"
+          open-type="contact"
+          send-message-img
+          :session-from="{
           'nickName':user.aliasName, 
           'avatarUrl':user.aliasPortrait
-          }" @contact="joinGroup">
-          <image class="iconfont" src="/static/svgs/joinGroup.svg" />
-          <span class="my_contact_item-text grow">加入群聊</span>
-          <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
-        </button>
+          }"
+          @contact="joinGroup"
+        >
+          <image class="iconfont" src="/static/svgs/joinGroup.svg">
+              </image>
 
-        <button class="my_contact_item-button flex wrap center grow" open-type="contact" :session-from="{
+          <span class="my_contact_item-text grow">加入群聊</span>
+          <image class="iconfont flex center" src="/static/svgs/arrow.svg">
+              </image>
+
+        </button>
+        
+        <button
+          class="my_contact_item-button flex wrap center grow"
+          open-type="contact"
+          :session-from="{
           'nickName':user.aliasName, 
           'avatarUrl':user.aliasPortrait
-          }" @contact="AnswerQuestion">
-          <image class="iconfont" src="/static/svgs/question.svg" />
+          }"
+          @contact="AnswerQuestion"
+        >
+          <image class="iconfont" src="/static/svgs/question.svg">
+              </image>
+
           <span class="my_contact_item-text grow">问题与反馈</span>
-          <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
+          <image class="iconfont flex center" src="/static/svgs/arrow.svg">
+              </image>
+
         </button>
       </session>
     </div>
@@ -172,6 +206,15 @@ export default {
         this.$router.push({
           query: { id: 1 },
           path: "/pages/welfare/index"
+        });
+      }
+    },
+    login() {
+      const status = this.$checkAuth(this.user);
+      if (status) {
+        this.$router.push({
+          query: { id: 1 },
+          path: "/pages/setPenName/index"
         });
       }
     }

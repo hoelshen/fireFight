@@ -17,14 +17,15 @@
         <p>你可以阅读手册来了解相关约定</p>
         <button class="flex center solverDetailStyleBtn" @click="onDetail">
           <span class="solverDetailStyleBtnSpan">解答者手册</span>
-          <image class="iconfont" src="/static/svgs/left_arrow.svg"/>
+          <image class="iconfont" src="/static/svgs/left_arrow.svg">
+          </image>
         </button>
       </div>
 
       <div class="flex j-end solverDetailBtn column">
         <button class="darkButton" @click="onSoluter">申请成为解答者</button>
         <div class="flex center solverDetailcheck">
-          <checkbox :value="checked" @click="ensure" />
+          <checkbox :value="checked" @click="ensure"/>
           <span class="flex solverDetailspan">同意并遵守《解答者手册》的约定</span>
         </div>
       </div>
@@ -73,7 +74,9 @@ export default {
     };
   },
   onShow(opts) {
-    const { currentRoute: { query } } = this.$router;
+    const {
+      currentRoute: { query }
+    } = this.$router;
     // console.log("query: ", query);
     this.active = query.active;
     const navigationBar = {
@@ -108,6 +111,12 @@ export default {
           return this.$router.push({ path: "/pages/setPenName/index" });
 
         return this.$router.push({ path: "pages/solution/solutionDetail" });
+      } else {
+        wx.showToast({
+          title: "请点击确定",
+          icon: "none",
+          duration: 2000
+        });
       }
     },
     ensure() {

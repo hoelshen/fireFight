@@ -2,15 +2,24 @@
   <div class="app">
     <div class="prompt flex column center">
       <div class="promptDiv flex column center grow">
-        <button class="promptBtn" open-typ="contact">
+        <div class="flex column targer" v-if="active === 'solution'">
+          <div>
+            您已解答
+            <span class="promptSpn">{{targetUser}}</span>的咨询
+          </div>
+          <span>若被对方感谢，还将获得 1 张邮票</span>
+        </div>
+        <div class="flex column targer" v-if="active === 'mail'">
+          <span>此回信将于 6 小时后</span>
+          <div>
+            送到
+            <span class="promptSpn">{{targetUser}}</span>的信箱
+          </div>
+        </div>
+        <button class="promptBtn flex column center shadow" open-type="contact">
           <span>关注服务</span>
           <span>被感谢时立即收到通知</span>
         </button>
-        <div class="flex column targer">
-          <span calss="promptSpn">您已解答{{targetUser}}的咨询</span>
-          
-          <span>若被对方感谢，还将获得 1 张邮票</span>
-        </div>
       </div>
       <button class="darkButton" @click="sure">好的</button>
     </div>
@@ -22,12 +31,16 @@
 export default {
   data() {
     return {
-      targetUser: ""
+      targetUser: "",
+      active: ""
     };
   },
   methods: {
     sure() {
-      this.$router.push("/pages/home/index");
+      this.$router.push({
+        query: { active: "home" },
+        path: "/pages/home/index"
+      });
     }
   },
   onShow() {
@@ -35,6 +48,9 @@ export default {
       currentRoute: { query }
     } = this.$router;
     this.targetUser = query.targetUser;
+    this.active = query.active;
+    console.log("query: ", query);
+    console.log("this.active: ", this.active);
   }
 };
 </script>
@@ -50,14 +66,17 @@ export default {
 }
 .target {
   padding-top: 60rpx;
+  font-size: 34rpx;
 }
 .promptBtn {
+  margin-top: 60rpx;
   font-weight: 600;
-  padding: 60rpx 73rpx;
+  padding: 60rpx 143rpx;
 }
 .promptSpn {
   font-weight: 600;
   line-height: 52rpx;
+  margin: 0 10rpx;
 }
 </style>
 

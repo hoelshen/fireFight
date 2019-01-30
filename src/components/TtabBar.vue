@@ -2,20 +2,24 @@
   <div class="bar box flex a-center j-between shadow">
     <form @submit="mail" report-submit="true">
       <button class="flex center" form-type="submit" hover-class="active">
-        <image class="icon" v-if="tab == 'mail'" src="/static/svgs/mail-active.svg" />
-        <image class="icon" v-else src="/static/svgs/mail.svg" />
+        <image class="icon" v-if="tab == 'mail'" src="/static/svgs/mail-active.svg">
+        </image>
+        <image class="icon" v-else src="/static/svgs/mail.svg">
+        </image>
       </button>
     </form>
     <form @submit="home" report-submit="true">
-      <button class="flex  center" form-type="submit" hover-class="active">
-        <image class="icon" v-if="tab == 'home'" src="/static/svgs/tell-active.svg" />
-        <image class="icon" v-else src="/static/svgs/tell.svg" />
+      <button class="flex center" form-type="submit" hover-class="active">
+        <image class="icon" v-if="tab == 'home'" src="/static/svgs/tell-active.svg">
+        </image>
+        <image class="icon" v-else src="/static/svgs/tell.svg">
+        </image>
       </button>
     </form>
     <form @submit="myInfo" report-submit="true">
-      <button class="flex  center" form-type="submit" hover-class="active">
-        <image class="icon" v-if="tab == 'mine'" src="/static/svgs/myinfo-active.svg" />
-        <image class="icon" v-else src="/static/svgs/myinfo.svg" />
+      <button class="flex center" form-type="submit" hover-class="active">
+        <image class="icon" v-if="tab == 'mine'" src="/static/svgs/myinfo-active.svg"></image>
+        <image class="icon" v-else src="/static/svgs/myinfo.svg"></image>
       </button>
     </form>
   </div>

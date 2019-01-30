@@ -7,7 +7,7 @@
       <textarea class="textArea" maxlength="50" :value="reply.content" @input="bindTextAreaBlur"/>
       <div class="reply_weather_love flex j-bwtween">
         <div class="reply_weather_love_button">
-          <button class="lightButton flex center">
+          <button class="lightButton flex center" @click="likeBtn">
             <span class="flex center">感谢</span>
             <img class="reply_weather_name iconfont" src="/static/svgs/love.svg">
           </button>
@@ -83,6 +83,11 @@ export default {
           });
         });
       }
+    },
+    likeBtn(){
+      this.$request.put(`/mail/reply/${this.id}`).then((res)=>{
+        console.log("res")
+      })
     }
   },
   async created() {

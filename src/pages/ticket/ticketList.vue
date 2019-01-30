@@ -4,6 +4,7 @@
       <div class="ticketList flex j-between" @tap="ticketDetail('ticket')">
         <div class="flex center">
           <image class="iconfont" src="/static/svgs/solutionNum.svg">
+          </image>
           <span class="my_contact_item-text">邮票</span>
         </div>
         <div class="flex center">
@@ -14,6 +15,7 @@
       <div class="solutionList flex j-between" @tap="ticketDetail('stamp')">
         <div class="flex center">
           <image class="iconfont" src="/static/svgs/mailNum.svg">
+          </image>
           <span class="my_contact_item-text">解忧券</span>
         </div>
         <div class="flex center">
