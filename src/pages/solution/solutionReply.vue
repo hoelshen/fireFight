@@ -1,46 +1,57 @@
 <template>
   <view class="app">
-    <div class="mail box">
+    <div class="mail box flex column j-between list_item">
       <div class="mail_title">
-        <span>Tell烦恼咨询中心</span>
+        <span>{{mail.creator}}</span>
         <span>收</span>
       </div>
-      <div class="mail_content">
-        {{mail.content}}
-      </div>
-      <div class="mail_reply">
-        <span>{{mail.aliasName}}</span>
-        <span>{{mail.createdAt}} {{mail.weather}}</span>
+      <div class="mail_content" style="margin-left:40rpx">{{mail.content}}</div>
+      <div class="mail_reply flex column j-end">
+        <div class="flex wrap j-end">
+          <!-- <img
+            class="mail_reply_img"
+            :src="item. || 'https://cdn.tellers.cn/tell_v2/static/default-avatar.svg'"
+            mode="scaleToFill"
+            @click="login"
+          >-->
+          <span class="mail_reply_aliasName">{{mail.aliasName}}</span>
+        </div>
+
+        <span
+          class="flex wrap j-end mail_reply_weather"
+        >{{mail.createdAt | dayFormat}} {{mail.weather}}</span>
       </div>
     </div>
-    <div
-      class="replay_content borderColor"
-      v-if="isReply"
-    >
-      <textarea
-        class="textArea"
-        maxlength="50"
-        :value="reply.content"
-        @input="bindTextAreaBlur"
-      />
-      <div class="reply_weather flex column j-end">
-        <div class="flex j-end">{{days}}</div>
-        <div class="flex j-end">{{reply.weather}}晴</div>
+
+    <div class="replay_content borderColor" v-if="isReply">
+      <div class="penName">回信将不再匿名，若对方再次回复，你们将成为笔友</div>
+      <div class="flex">{{mail._id}}收</div>
+      <textarea class="textArea" maxlength="50" :value="reply.content" @input="bindTextAreaBlur"/>
+      <div class="reply_weather_love flex j-bwtween">
+        <div class="reply_weather_love_button">
+          <button class="flex center">
+            <span class="flex center">感谢</span>
+            <img class="reply_weather_name iconfont" src="/static/svgs/love.svg">
+          </button>
+        </div>
       </div>
-      <button
-        class="reply_button"
-        @click="replyMail"
-      >发送</button>
+      <div class="reply_weather flex column">
+        <div class="flex wrap j-end">
+          <img class="reply_weather_name" :src="reply.aliasPortrait">
+          <span>{{reply.aliasName}}</span>
+        </div>
+
+        <div class="reply_weather_weather flex wrap j-end">
+          <div class="flex j-end">{{days | dayFormat}}</div>
+          <div class="flex j-end">{{reply.weather}}</div>
+        </div>
+      </div>
+      <button class="reply_button" @click="replyMail">发送</button>
     </div>
-    <div class="flex column center" v-if="!isReply">
-      <button
-        class="reply_button"
-        @click="showReply"
-      >回信</button>
+    <div class="flex column center showReply_button" v-if="!isReply">
+      <button :disabled="fromUserId === user._id" class="reply_button" @click="showReply">回信</button>
       <span class="replay_text">今天还可以回复1次</span>
     </div>
-
-
   </view>
 </template>
 
@@ -57,6 +68,9 @@ export default {
         content: "",
         weather: ""
       },
+      user: {},
+      fromUserId: "",
+      mailCount: 0,
       isReply: false,
       isActive: false
     };
@@ -76,10 +90,14 @@ export default {
           console.log("res", res);
         });
     },
-    dayFormat(value) {
-      return this.$day(value).format("YYYY/MM/DD");
-    },
     showReply() {
+      if (this.mailCount === 0) {
+        return wx.showToast({
+          title: "邮票不足",
+          icon: "none",
+          duration: 2000
+        });
+      }
       this.isReply = true;
       this.isActive = true;
     },
@@ -87,7 +105,7 @@ export default {
       this.reply.content = e.detail.value;
     },
     async getWeather() {
-      let res = this.$request.get("/weather");
+      let res = await this.$request.get("/weather");
       this.reply.weather = res.data;
     }
   },
@@ -96,7 +114,13 @@ export default {
       currentRoute: { query }
     } = this.$router;
     this.id = query.id;
+    const { user } = getApp().globalData;
+    this.user = user;
+    this.mailCount = user.mailCount;
+    this.reply.aliasName = user.aliasName;
+    this.reply.aliasPortrait = user.aliasPortrait;
     this.getContent(this.id);
+    this.getWeather();
   }
 };
 </script>
@@ -106,8 +130,59 @@ export default {
   height: 892rpx;
   margin: 81rpx 60rpx 36rpx 60rpx;
 }
-.borderColor {
-  border-top: 1px dashed #ffc86d; //粉色虚线边框
+.mail_title {
+  margin-top: 60rpx;
+}
+.mail-sendName {
+  margin-top: 20rpx;
+  color: #4d495b;
+  font-size: 34rpx;
+}
+.mail_reply {
+  margin-bottom: 60rpx;
+  margin-right: 40rpx;
+}
+.penName {
+  background: rgba(189, 189, 192, 0.05);
+  // color: #bdbdc0;
+  font-size: 24rpx;
+  margin-bottom: 52rpx;
+}
+.mail_reply_img {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 11;
+}
+.mail_reply_aliasName {
+  color: #4d495b;
+  font-size: 34rpx;
+  font-weight: 600;
+}
+.mail_reply_weather {
+  margin-top: 24rpx;
+  color: #bdbdc0;
+  font-size: 28rpx;
+  margin-bottom: 26rpx;
+}
+.reply_weather {
+  margin-top: 42rpx;
+  margin-bottom: 26rpx;
+}
+.reply_weather_weather {
+  color: #bdbdc0;
+  font-size: 22rpx;
+  margin-top: 26rpx;
+  margin-bottom: 40rpx;
+  & view {
+    margin-right: 10rpx;
+  }
+}
+.reply_weather_love {
+  color: #ffc86d;
+  font-size: 28rpx;
+  & label {
+    margin-right: 20rpx;
+  }
 }
 .textArea {
   min-height: 200px;
@@ -115,9 +190,7 @@ export default {
   height: 375rpx;
   background-color: rgba(169, 169, 169, 0.05);
   color: #4d495b;
-}
-.reply_weather {
-  height: 200rpx;
+  font-size: 28rpx;
 }
 .reply_button {
   margin-top: 16rpx;
@@ -130,10 +203,19 @@ export default {
 }
 .replay_text {
   color: #a9a9a9;
-  transform: 0.8333;
+  font-size: 24rpx;
+  margin-top: 24rpx;
 }
 .replay_content {
   margin: 81rpx 60rpx 36rpx 60rpx;
 }
+.showReply_button {
+  margin-bottom: 60rpx;
+}
+.reply_weather_name {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+}
 </style>
-

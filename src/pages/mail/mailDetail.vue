@@ -1,20 +1,11 @@
 <template>
   <view class="app list">
-    <div
-      class="mail box flex column j-between list_item"
-      v-for="item in list"
-      :key="item._id"
-    >
-      <div class="mail_title list_item-sendName flex  j-start">
+    <div class="mail box flex column j-between list_item" v-for="item in list" :key="item._id">
+      <div class="mail_title list_item-sendName flex j-start">
         <span class="list_item-receiverNameSpan mail-sendName">{{item.targetUser}}</span>
         <span class="flex center mail-sendName">收</span>
       </div>
-      <div
-        class="mail_content"
-        style="margin-left:40rpx"
-      >
-        {{item.content}}
-      </div>
+      <div class="mail_content" style="margin-left:40rpx">{{item.content}}</div>
       <div class="mail_reply flex column j-end">
         <div class="flex wrap j-end">
           <!-- <img
@@ -22,61 +13,42 @@
             :src="item. || 'https://cdn.tellers.cn/tell_v2/static/default-avatar.svg'"
             mode="scaleToFill"
             @click="login"
-          > -->
+          >-->
           <span class="mail_reply_aliasName">{{item.aliasName}}</span>
         </div>
 
-        <span class="flex wrap j-end mail_reply_weather">{{item.createdAt | dayFormat}} {{item.weather}}</span>
+        <span
+          class="flex wrap j-end mail_reply_weather"
+        >{{item.createdAt | dayFormat}} {{item.weather}}</span>
       </div>
     </div>
-    <div
-      class="replay_content borderColor"
-      v-if="isReply"
-    >
+    <div class="replay_content borderColor" v-if="isReply">
       <div class="penName">回信将不再匿名，若对方再次回复，你们将成为笔友</div>
       <div class="flex">{{mail._id}}收</div>
-      <textarea
-        class="textArea"
-        maxlength="50"
-        :value="reply.content"
-        @input="bindTextAreaBlur"
-      />
+      <textarea class="textArea" maxlength="50" :value="reply.content" @input="bindTextAreaBlur"/>
       <div class="reply_weather_love flex j-bwtween">
         <div class="reply_weather_love_button">
-        <button class="flex center">
-           <span class="flex center">感谢</span>
-           <img
-              class="reply_weather_name iconfont"
-              src="/static/svgs/love.svg"
-            />    
-        </button>
+          <button class="flex center">
+            <span class="flex center">感谢</span>
+            <img class="reply_weather_name iconfont" src="/static/svgs/love.svg">
+          </button>
         </div>
       </div>
-      <div class="reply_weather flex column ">
+      <div class="reply_weather flex column">
         <div class="flex wrap j-end">
-            <img
-              class="reply_weather_name"
-              :src="reply.aliasPortrait"
-            >
+          <img class="reply_weather_name" :src="reply.aliasPortrait">
           <span>{{reply.aliasName}}</span>
         </div>
 
         <div class="reply_weather_weather flex wrap j-end">
-            <div class="flex j-end">{{days}}</div>
-            <div class="flex j-end">{{reply.weather}}</div>
+          <div class="flex j-end">{{days}}</div>
+          <div class="flex j-end">{{reply.weather}}</div>
         </div>
       </div>
-      <button
-        class="reply_button"
-        @click="replyMail"
-      >发送</button>
+      <button class="reply_button" @click="replyMail">发送</button>
     </div>
     <div class="flex column center showReply_button" v-if="!isReply">
-      <button
-        :disabled="fromUserId === user._id"
-        class="reply_button"
-        @click="showReply"
-      >回信</button>
+      <button :disabled="fromUserId === user._id" class="reply_button" @click="showReply">回信</button>
       <span class="replay_text">需要使用1张邮票</span>
     </div>
   </view>
@@ -123,13 +95,13 @@ export default {
         });
     },
     showReply() {
-      // if (this.stampCount === 0) {
-      //   return wx.showToast({
-      //     title: "邮票不足",
-      //     icon: "none",
-      //     duration: 2000
-      //   });
-      // }
+      if (this.stampCount === 0) {
+        return wx.showToast({
+          title: "邮票不足",
+          icon: "none",
+          duration: 2000
+        });
+      }
       this.isReply = true;
       this.isActive = true;
     },
@@ -141,16 +113,16 @@ export default {
       this.reply.weather = res.data;
     }
   },
-  async onShow() {
+  onShow() {
     const {
       currentRoute: { query }
     } = this.$router;
     this.id = query.id;
     this.getContent(this.id);
-
     this.getWeather();
     const { user } = getApp().globalData;
     this.user = user;
+    this.stampCount = user.stampCount;
     this.reply.aliasName = user.aliasName;
     this.reply.aliasPortrait = user.aliasPortrait;
   }
@@ -177,7 +149,6 @@ export default {
 }
 .penName {
   background: rgba(189, 189, 192, 0.05);
-  // color: #bdbdc0;
   font-size: 24rpx;
   margin-bottom: 52rpx;
 }
