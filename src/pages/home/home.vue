@@ -10,11 +10,7 @@
         </block>
       </swiper>
       <div class="entries flex center">
-<<<<<<< HEAD
         <image class="left" @click="toConsulting" src="/static/svgs/home_left.svg"/>
-=======
-        <image class="left" @click="toConsulting" src="/static/svgs/home_left.svg" />
->>>>>>> f4bbb973e9f6e7e2f4deebd66ff1c7e00e6d3bd8
         <image class="right" @click="toSolution" src="/static/svgs/home_right.svg" />
       </div>
     </div>
@@ -34,16 +30,12 @@
     <!-- 我的 -->
     <div class="pannel grow" v-else>
       <div class="my_info flex column">
-<<<<<<< HEAD
         <img
           class="my_info_user-avatarUrl"
           :src="user.aliasPortrait || 'https://cdn.tellers.cn/tell_v2/static/default-avatar.svg'"
           mode="scaleToFill"
           @click="login"
         />
-=======
-        <image class="my_info_user-avatarUrl" :src="user.aliasPortrait || 'https://cdn.tellers.cn/tell_v2/static/default-avatar.svg'" mode="scaleToFill" @click="login" />
->>>>>>> f4bbb973e9f6e7e2f4deebd66ff1c7e00e6d3bd8
         <button @click="login" v-if="!user.aliasPortrait">点击登录</button>
         <div class="flex column center" v-else>
           <div class="flex j-around my_info_user-nickName">
@@ -74,13 +66,9 @@
         <button class="my_contact_item-button flex wrap center grow" open-type="contact" send-message-img :session-from="{
           'nickName':user.aliasName, 
           'avatarUrl':user.aliasPortrait
-<<<<<<< HEAD
           }"
           @contact="joinGroup"
         >
-=======
-          }" @contact="joinGroup">
->>>>>>> f4bbb973e9f6e7e2f4deebd66ff1c7e00e6d3bd8
           <image class="iconfont" src="/static/svgs/joinGroup.svg" />
 
           <span class="my_contact_item-text grow">加入群聊</span>
@@ -90,13 +78,9 @@
         <button class="my_contact_item-button flex wrap center grow" open-type="contact" :session-from="{
           'nickName':user.aliasName, 
           'avatarUrl':user.aliasPortrait
-<<<<<<< HEAD
           }"
           @contact="AnswerQuestion"
         >
-=======
-          }" @contact="AnswerQuestion">
->>>>>>> f4bbb973e9f6e7e2f4deebd66ff1c7e00e6d3bd8
           <image class="iconfont" src="/static/svgs/question.svg" />
 
           <span class="my_contact_item-text grow">问题与反馈</span>
