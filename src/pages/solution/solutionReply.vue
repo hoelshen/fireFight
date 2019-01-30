@@ -1,33 +1,11 @@
 <template>
   <view class="app box">
     <Mail :mail="mail"></Mail>
-    <div class="replay_content borderColor" v-if="isReply">
-      <div class="penName">回信将不再匿名，若对方再次回复，你们将成为笔友</div>
-      <div class="flex">{{mail._id}}收</div>
-      <textarea class="textArea" maxlength="50" :value="reply.content" @input="bindTextAreaBlur"/>
-      <div class="reply_weather_love flex j-bwtween">
-        <div class="reply_weather_love_button">
-          <button class="flex center">
-            <span class="flex center">感谢</span>
-            <img class="reply_weather_name iconfont" src="/static/svgs/love.svg">
-          </button>
-        </div>
-      </div>
-      <div class="reply_weather flex column">
-        <div class="flex wrap j-end">
-          <img class="reply_weather_name" :src="reply.aliasPortrait">
-          <span>{{reply.aliasName}}</span>
-        </div>
-
-        <div class="reply_weather_weather flex wrap j-end">
-          <div class="flex j-end">{{days | dayFormat}}</div>
-          <div class="flex j-end">{{reply.weather}}</div>
-        </div>
-      </div>
-      <button class="reply_button  flex center" @click="replyMail">发送</button>
-    </div>
-    <div class="flex column center showReply_button" v-if="!isReply">
-      <button :disabled="fromUserId === user._id" class="reply_button flex center" @click="showReply">回信</button>
+    <Mail v-if="reMail" :mail="reMail"></Mail>
+    <div class="penName">回信将不再匿名，若对方再次回复，你们将成为笔友</div>
+    <Reply v-if="isReply" :target="mail.aliasName" :id="id"></Reply>
+    <div class="flex column center showReply_button" v-if="!isReply && !reMail">
+      <button :disabled="fasle" class="reply_button flex center" @click="showReply">回信</button>
       <span class="replay_text">今天还可以回复1次</span>
     </div>
   </view>
@@ -36,21 +14,17 @@
 
 <script>
 import Mail from "@/components/Mail";
+import Reply from "@/components/reply";
 export default {
   components: {
-    Mail
+    Mail,
+    Reply
   },
   data() {
-    const days = this.$day().format("YYYY/MM/DD");
     return {
       id: "",
-      days: days,
       mail: {},
-      reply: {
-        content: "",
-        weather: ""
-      },
-      user: {},
+      reMail: {},
       fromUserId: "",
       mailCount: 0,
       isReply: false,
@@ -60,20 +34,9 @@ export default {
   methods: {
     async getContent(id) {
       let res = await this.$request.get(`/mail/detail/${id}`);
+      let Res = await this.$request.get(`/mail/detail/${id}/reply`);
       this.mail = res.data;
-    },
-    replyMail() {
-      this.$request
-        .post(`/mail/story/${this.id}`, {
-          content: this.reply.content,
-          weather: this.reply.weather
-        })
-        .then(res => {
-          this.$router.push({
-            query: { targetUser: this.mail._id },
-            path: "/pages/solution/promptPage"
-          });
-        });
+      this.reMail = Res.data;
     },
     showReply() {
       if (this.mailCount === 0) {
@@ -85,13 +48,6 @@ export default {
       }
       this.isReply = true;
       this.isActive = true;
-    },
-    bindTextAreaBlur(e) {
-      this.reply.content = e.detail.value;
-    },
-    async getWeather() {
-      let res = await this.$request.get("/weather");
-      this.reply.weather = res.data;
     }
   },
   async onShow() {
@@ -100,12 +56,8 @@ export default {
     } = this.$router;
     this.id = query.id;
     const { user } = getApp().globalData;
-    this.user = user;
     this.mailCount = user.mailCount;
-    this.reply.aliasName = user.aliasName;
-    this.reply.aliasPortrait = user.aliasPortrait;
     this.getContent(this.id);
-    this.getWeather();
   }
 };
 </script>
@@ -113,36 +65,21 @@ export default {
 .app {
   padding: 40rpx 60rpx;
 }
-.reply_weather {
-  margin-top: 42rpx;
-  margin-bottom: 26rpx;
+.showReply_button {
+  margin-bottom: 60rpx;
 }
-.reply_weather_weather {
+.penName {
   color: #bdbdc0;
-  font-size: 22rpx;
-  margin-top: 26rpx;
-  margin-bottom: 40rpx;
-  & view {
-    margin-right: 10rpx;
-  }
+  font-size: 24rpx;
+  margin: 40rpx 0rpx;
 }
-.reply_weather_love {
-  color: #ffc86d;
-  font-size: 28rpx;
-  & label {
-    margin-right: 20rpx;
-  }
-}
-.textArea {
-  min-height: 200px;
-  width: 630rpx;
-  height: 375rpx;
-  background-color: rgba(169, 169, 169, 0.05);
-  color: #4d495b;
-  font-size: 28rpx;
+.replay_text {
+  color: #a9a9a9;
+  font-size: 24rpx;
+  margin-top: 24rpx;
 }
 .reply_button {
-  margin-top: 16rpx;
+  margin-top: 60rpx;
   border-radius: 23px;
   width: 316rpx;
   line-height: 92rpx;
@@ -150,22 +87,5 @@ export default {
   border: 1 solid #a9a9a9;
   background-color: #ffc86d;
   font-size: 28rpx;
-}
-.replay_text {
-  color: #a9a9a9;
-  font-size: 24rpx;
-  margin-top: 24rpx;
-}
-.replay_content {
-  margin: 81rpx 0rpx 36rpx 0rpx;
-}
-.showReply_button {
-  margin-bottom: 60rpx;
-}
-.reply_weather_name {
-  width: 44rpx;
-  height: 44rpx;
-  border-radius: 50%;
-  margin-right: 20rpx;
 }
 </style>

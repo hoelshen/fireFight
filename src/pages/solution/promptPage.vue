@@ -12,7 +12,7 @@
           <span>若被对方感谢，还将获得 1 张邮票</span>
         </div>
       </div>
-      <button class="addButton" @click="sure">好的</button>
+      <button class="darkButton" @click="sure">好的</button>
     </div>
   </div>
 </template>
@@ -42,7 +42,7 @@ export default {
 .prompt {
   height: 100vh;
 }
-.addButton {
+.darkButton {
   margin-bottom: 60rpx;
   text-align: center;
   line-height: 92rpx;

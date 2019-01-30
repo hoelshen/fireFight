@@ -2,10 +2,10 @@
   <view class="app list">
     <Mail :mail="item" v-for="item in list" :key="item._id"></Mail>
 
-    <div class="replay_content borderColor" v-if="isReply">
+    <div class="replay_content" v-if="isReply">
       <div class="penName">回信将不再匿名，若对方再次回复，你们将成为笔友</div>
       <div class="flex">{{mail._id}}收</div>
-      <textarea class="textArea" maxlength="50" :value="reply.content" @input="bindTextAreaBlur" />
+      <textarea class="textArea" maxlength="50" :value="reply.content" @input="bindTextAreaBlur"/>
       <div class="reply_weather_love flex j-bwtween">
         <div class="reply_weather_love_button">
           <button class="flex center">
@@ -98,7 +98,9 @@ export default {
     }
   },
   onShow() {
-    const { currentRoute: { query } } = this.$router;
+    const {
+      currentRoute: { query }
+    } = this.$router;
     this.id = query.id;
     this.getContent(this.id);
     this.getWeather();

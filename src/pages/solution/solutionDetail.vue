@@ -11,20 +11,11 @@
       >{{item.name}}</div>
     </div>
     <div class="foot">
-      <button
-        v-if="!isFlag"
-        class="titleButton flex center addButton"
-        @click="add"
-      >提交申请</button>
-      <button
-        v-else
-        class="titleButton flex center addButton"
-        @click="add"
-      >修改</button>
+      <button v-if="!isFlag" class="titleButton flex center darkButton" @click="add">提交申请</button>
+      <button v-else class="titleButton flex center darkButton" @click="add">修改</button>
       <span class="titleButtonSpan">你收到的咨询会在一定数量上接近该话题以后你也可以随时修改，并在次日生效</span>
     </div>
   </view>
-
 </template>
 <script>
 export default {

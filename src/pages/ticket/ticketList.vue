@@ -50,7 +50,7 @@
 
     <div class="ticketDetail">
       <button
-        class="addButton"
+        class="darkButton"
         @click="ticketDetail"
       >票券明细</button>
     </div>

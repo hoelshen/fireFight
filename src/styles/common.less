@@ -20,14 +20,30 @@ button::after {
   background-color: transparent;
 }
 
-.addButton {
+.darkButton {
   margin-top: 16rpx;
   border-radius: 23px;
-  width: 316rpx;
-  height: 92rpx;
+  line-height: 92rpx;
   color: #ffffff;
+  padding-left: 40rpx;
+  font-size: 28rpx;
+  padding: auto;
   border: 1 solid #a9a9a9;
   background-color: #ffc86d;
+  &-hover {
+    background-color: transparent;
+    border: 1rpx solid #ffc86d;
+  }
+}
+
+.lightButton {
+  margin-top: 16rpx;
+  border-radius: 23px;
+  height: 92rpx;
+  color: #ffc86d;
+  padding-left: 40rpx;
+  border: 1px solid #ffc86d;
+  background-color: #ffffff;
   &-hover {
     background-color: transparent;
     border: 1rpx solid #ffc86d;
@@ -170,8 +186,4 @@ input {
 
 .shadow {
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
-}
-
-.button-hover {
-  background: #fff;
 }
