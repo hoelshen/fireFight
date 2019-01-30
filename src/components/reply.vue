@@ -4,7 +4,7 @@
       <div class="flex target">
         <span class="target">{{target}}</span>收
       </div>
-      <textarea class="textArea" maxlength="50" :value="reply.content" @input="bindTextAreaBlur"/>
+      <textarea class="textArea" maxlength="5000" :value="reply.content" @input="bindTextAreaBlur"/>
       <div class="reply_weather_love flex j-bwtween">
         <div class="reply_weather_love_button">
           <button class="lightButton flex center" @click="likeBtn">
@@ -66,6 +66,13 @@ export default {
       this.reply.weather = res.data;
     },
     replyMail() {
+      if (this.reply.content.length < 50) {
+        return wx.showToast({
+          title: "请输入超过50个字",
+          icon: "none",
+          duration: 2000
+        });
+      }
       const obj = { content: this.reply.content, weather: this.reply.weather };
       if (this.tag === "mail") {
         this.$request.put(`/dialog/${this.id}`, obj).then(() => {

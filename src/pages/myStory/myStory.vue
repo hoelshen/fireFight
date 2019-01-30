@@ -12,7 +12,7 @@
           v-else
           @blur="onBlur"
           :focus="isFocus"
-          maxlength="50"
+          maxlength="5000"
           :value="content"
           @input="bindTextAreaBlur"
         />
@@ -58,6 +58,13 @@ export default {
   },
   methods: {
     async onPush() {
+      if (this.content.length < 50) {
+        return wx.showToast({
+          title: "请输入超过50个字",
+          icon: "none",
+          duration: 2000
+        });
+      }
       const mail = {
         content: this.content,
         weather: this.weather,

@@ -1,13 +1,25 @@
 <template>
   <view class="ticket flex column j-between">
-    <session class="navigatabar flex ">
-      <div @click="toggleticket" :class="{borderColor:isActive}" class="navigatabar_item  flex center">解忧券</div>
-      <div @click="toggleMail" :class="{borderColor:!isActive}" class="navigatabar_item flex center">邮票</div>
+    <session class="navigatabar flex">
+      <div
+        @click="toggleticket"
+        :class="{borderColor:isActive}"
+        class="navigatabar_item flex center"
+      >解忧券</div>
+      <div
+        @click="toggleMail"
+        :class="{borderColor:!isActive}"
+        class="navigatabar_item flex center"
+      >邮票</div>
     </session>
     <session class="list">
-      <div class="list_item flex  j-between " v-for="(item,index) in list" :key="index">
+      <div class="list_item flex j-between" v-for="(item,index) in list" :key="index">
         <div class="flex j-between center">
-          <image style="margin-right:20rpx;" class="iconfont" :src="`/static/svgs/${item.type}.svg`" />
+          <image
+            style="margin-right:20rpx;"
+            class="iconfont"
+            :src="`/static/svgs/${item.type}.svg`"
+          >
           <div class="flex column">
             <span>{{item.message}}</span>
             <span class="ticket_day">{{item.createdAt}}</span>
@@ -17,15 +29,12 @@
       </div>
     </session>
   </view>
-
 </template>
 <script>
 export default {
   data() {
     return {
       active: "ticket",
-      outboxList: [],
-      inboxList: [],
       isActive: true,
       list: []
     };
@@ -57,6 +66,7 @@ export default {
       if (this.active === "stamp") {
         res = await this.$request.get("/record/stamp"); //邮票
       }
+      this.list = res.data;
     }
   },
   computed: {

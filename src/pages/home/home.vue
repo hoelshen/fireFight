@@ -6,17 +6,12 @@
         <block v-for="item in banners" :key="item">
           <swiper-item>
             <image :src="item.imgUrl" class="img">
-              </image>
           </swiper-item>
         </block>
       </swiper>
       <div class="entries flex center">
         <image class="left" @click="toConsulting" src="/static/svgs/home_left.svg">
-              </image>
-
         <image class="right" @click="toSolution" src="/static/svgs/home_right.svg">
-              </image>
-
       </div>
     </div>
 
@@ -58,22 +53,16 @@
       <session class="my_function flex">
         <button @tap="memory" class="my_function_item-button flex column center">
           <image class="iconfont" src="/static/svgs/moment.svg">
-              </image>
-
           <span class="my_function_item-text">记忆</span>
         </button>
         
         <button @click="ticket" class="my_function_item-button flex column center">
           <image class="iconfont" src="/static/svgs/ticket.svg">
-              </image>
-
           <span class="my_function_item-text">票券</span>
         </button>
         
         <button @click="welfare" class="my_function_item-button flex column center">
           <image class="iconfont" src="/static/svgs/welfare.svg">
-              </image>
-
           <span class="my_function_item-text">福利社</span>
         </button>
       </session>
@@ -90,12 +79,9 @@
           @contact="joinGroup"
         >
           <image class="iconfont" src="/static/svgs/joinGroup.svg">
-              </image>
 
           <span class="my_contact_item-text grow">加入群聊</span>
           <image class="iconfont flex center" src="/static/svgs/arrow.svg">
-              </image>
-
         </button>
         
         <button
@@ -108,12 +94,9 @@
           @contact="AnswerQuestion"
         >
           <image class="iconfont" src="/static/svgs/question.svg">
-              </image>
 
           <span class="my_contact_item-text grow">问题与反馈</span>
           <image class="iconfont flex center" src="/static/svgs/arrow.svg">
-              </image>
-
         </button>
       </session>
     </div>
@@ -177,16 +160,18 @@ export default {
     },
     toSolution() {
       const { user } = getApp().globalData;
-      if (!user.becomeAnswererAt) {
-        return this.$router.push({
-          query: { active: "solverDetail" },
-          path: "/pages/detail/index"
-        });
+      const status = this.$checkAuth(user);
+      if (status) {
+        if (!user.becomeAnswererAt) {
+          return this.$router.push({
+            query: { active: "solverDetail" },
+            path: "/pages/detail/index"
+          });
+        }
+        return this.$router.push({ path: "/pages/solution/solutionRoom" });
       }
-      return this.$router.push({ path: "/pages/solution/solutionRoom" });
     },
     memory() {
-      const status = this.$checkAuth(this.user);
       if (status) {
         this.$router.push({ query: { id: 1 }, path: "/pages/memory/index" });
       }
