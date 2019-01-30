@@ -70,7 +70,7 @@ export default {
       if (this.tag === "mail") {
         this.$request.put(`/dialog/${this.id}`, obj).then(() => {
           this.$router.push({
-            query: { tag: this.tag, targetUser: this.target },
+            query: { tag: this.tag, active: "mail", targetUser: this.target },
             path: "/pages/solution/promptPage"
           });
         });
@@ -78,16 +78,20 @@ export default {
       if (this.tag === "solution") {
         this.$request.post(`/mail/story/${this.id}`, obj).then(() => {
           this.$router.push({
-            query: { tag: this.tag, targetUser: this.target },
+            query: {
+              tag: this.tag,
+              active: "solution",
+              targetUser: this.target
+            },
             path: "/pages/solution/promptPage"
           });
         });
       }
     },
-    likeBtn(){
-      this.$request.put(`/mail/reply/${this.id}`).then((res)=>{
-        console.log("res")
-      })
+    likeBtn() {
+      this.$request.put(`/mail/reply/${this.id}`).then(res => {
+        // console.log("res")
+      });
     }
   },
   async created() {

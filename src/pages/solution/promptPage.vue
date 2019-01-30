@@ -49,8 +49,6 @@ export default {
     } = this.$router;
     this.targetUser = query.targetUser;
     this.active = query.active;
-    console.log("query: ", query);
-    console.log("this.active: ", this.active);
   }
 };
 </script>
