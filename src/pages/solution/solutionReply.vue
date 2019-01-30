@@ -1,32 +1,10 @@
 <template>
-  <view class="app">
-    <div class="mail box flex column j-between list_item">
-      <div class="mail_title">
-        <span>{{mail.creator}}</span>
-        <span>收</span>
-      </div>
-      <div class="mail_content" style="margin-left:40rpx">{{mail.content}}</div>
-      <div class="mail_reply flex column j-end">
-        <div class="flex wrap j-end">
-          <!-- <img
-            class="mail_reply_img"
-            :src="item. || 'https://cdn.tellers.cn/tell_v2/static/default-avatar.svg'"
-            mode="scaleToFill"
-            @click="login"
-          >-->
-          <span class="mail_reply_aliasName">{{mail.aliasName}}</span>
-        </div>
-
-        <span
-          class="flex wrap j-end mail_reply_weather"
-        >{{mail.createdAt | dayFormat}} {{mail.weather}}</span>
-      </div>
-    </div>
-
+  <view class="app box">
+    <Mail :mail="mail"></Mail>
     <div class="replay_content borderColor" v-if="isReply">
       <div class="penName">回信将不再匿名，若对方再次回复，你们将成为笔友</div>
       <div class="flex">{{mail._id}}收</div>
-      <textarea class="textArea" maxlength="50" :value="reply.content" @input="bindTextAreaBlur"/>
+      <textarea class="textArea" maxlength="50" :value="reply.content" @input="bindTextAreaBlur" />
       <div class="reply_weather_love flex j-bwtween">
         <div class="reply_weather_love_button">
           <button class="flex center">
@@ -57,7 +35,11 @@
 
 
 <script>
+import Mail from "@/components/Mail";
 export default {
+  components: {
+    Mail
+  },
   data() {
     const days = this.$day().format("YYYY/MM/DD");
     return {
@@ -110,9 +92,7 @@ export default {
     }
   },
   async onShow() {
-    const {
-      currentRoute: { query }
-    } = this.$router;
+    const { currentRoute: { query } } = this.$router;
     this.id = query.id;
     const { user } = getApp().globalData;
     this.user = user;
@@ -125,44 +105,8 @@ export default {
 };
 </script>
 <style lang="less">
-.mail {
-  width: 630rpx;
-  height: 892rpx;
-  margin: 81rpx 60rpx 36rpx 60rpx;
-}
-.mail_title {
-  margin-top: 60rpx;
-}
-.mail-sendName {
-  margin-top: 20rpx;
-  color: #4d495b;
-  font-size: 34rpx;
-}
-.mail_reply {
-  margin-bottom: 60rpx;
-  margin-right: 40rpx;
-}
-.penName {
-  background: rgba(189, 189, 192, 0.05);
-  // color: #bdbdc0;
-  font-size: 24rpx;
-  margin-bottom: 52rpx;
-}
-.mail_reply_img {
-  width: 44rpx;
-  height: 44rpx;
-  border-radius: 11;
-}
-.mail_reply_aliasName {
-  color: #4d495b;
-  font-size: 34rpx;
-  font-weight: 600;
-}
-.mail_reply_weather {
-  margin-top: 24rpx;
-  color: #bdbdc0;
-  font-size: 28rpx;
-  margin-bottom: 26rpx;
+.app{
+  padding: 40rpx 60rpx;;
 }
 .reply_weather {
   margin-top: 42rpx;
@@ -200,6 +144,7 @@ export default {
   color: #ffffff;
   border: 1 solid #a9a9a9;
   background-color: #ffc86d;
+  font-size: 28rpx;
 }
 .replay_text {
   color: #a9a9a9;

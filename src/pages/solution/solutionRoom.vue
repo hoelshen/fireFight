@@ -94,7 +94,7 @@ export default {
   margin-top: 40rpx;
 }
 .solutionRoomName-aliasName {
-  margin-top: 6rpx;
+  margin: 24rpx 0;
   font-size: 60rpx;
 }
 .solutionRoomName_question_mail {
