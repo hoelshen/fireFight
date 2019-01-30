@@ -3,9 +3,9 @@
     <Mail :mail="mail"></Mail>
     <Mail v-if="reMail" :mail="reMail"></Mail>
     <div class="penName">回信将不再匿名，若对方再次回复，你们将成为笔友</div>
-    <Reply v-if="isReply" :target="mail.aliasName" :id="id"></Reply>
+    <Reply v-if="isReply" :target="mail.aliasName" tag="solution" :id="id"></Reply>
     <div class="flex column center showReply_button" v-if="!isReply && !reMail">
-      <button :disabled="fasle" class="reply_button flex center" @click="showReply">回信</button>
+      <button :disabled="reMail" class="reply_button flex center" @click="showReply">回信</button>
       <span class="replay_text">今天还可以回复1次</span>
     </div>
   </view>
@@ -28,6 +28,7 @@ export default {
       fromUserId: "",
       mailCount: 0,
       isReply: false,
+      myReply: null,
       isActive: false
     };
   },

@@ -1,7 +1,9 @@
 <template>
   <div class="replay_content">
     <div class="content">
-      <div class="flex target">{{target}}收</div>
+      <div class="flex target">
+        <span class="target">{{target}}</span>收
+      </div>
       <textarea class="textArea" maxlength="50" :value="reply.content" @input="bindTextAreaBlur"/>
       <div class="reply_weather_love flex j-bwtween">
         <div class="reply_weather_love_button">
@@ -37,6 +39,10 @@ export default {
     id: {
       type: String,
       default: ""
+    },
+    tag: {
+      type: String,
+      default: ""
     }
   },
   data() {
@@ -60,17 +66,23 @@ export default {
       this.reply.weather = res.data;
     },
     replyMail() {
-      this.$request
-        .post(`/mail/story/${this.id}`, {
-          content: this.reply.content,
-          weather: this.reply.weather
-        })
-        .then(res => {
+      const obj = { content: this.reply.content, weather: this.reply.weather };
+      if (this.tag === "mail") {
+        this.$request.put(`/dialog/${this.id}`, obj).then(() => {
           this.$router.push({
-            query: { targetUser: this.mail.aliasName },
+            query: { tag: this.tag, targetUser: this.target },
             path: "/pages/solution/promptPage"
           });
         });
+      }
+      if (this.tag === "solution") {
+        this.$request.post(`/mail/story/${this.id}`, obj).then(() => {
+          this.$router.push({
+            query: { tag: this.tag, targetUser: this.target },
+            path: "/pages/solution/promptPage"
+          });
+        });
+      }
     }
   },
   async created() {
@@ -129,5 +141,8 @@ export default {
 }
 .target {
   padding: 0rpx 20rpx 40rpx 0rpx;
+  & view {
+    margin-right: 10rpx;
+  }
 }
 </style>

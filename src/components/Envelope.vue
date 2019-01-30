@@ -2,12 +2,15 @@
   <div class="list_item flex column j-between" :class="isRead ? 'read' :''" @tap="toMail">
     <div class="list_item-sendName flex wrap j-between">
       <div class="flex column j-between">
-        <div class="list_item-receiverName">
+        <div class="list_item-receiverName" v-if="mail.fromSystem">
+          <span class="list_item-receiverNameSpan">{{mail.targetUserName}}</span>
+        </div>
+        <div class="list_item-receiverName" v-else>
           <span class="list_item-receiverNameSpan">{{mail.targetUserName}}</span>
           <span>收</span>
         </div>
         <div class="list_item-content ">
-          <span>{{mail.content}}</span>
+          <span>{{mail.fromSystem ? mail.title :mail.content}}</span>
         </div>
       </div>
       <div class="flex">

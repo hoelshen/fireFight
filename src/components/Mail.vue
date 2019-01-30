@@ -1,7 +1,7 @@
 <template>
   <div class="mail box flex column j-between list_item shadow">
     <div class="mail_title">
-      {{mail.targetUserName || 'Tell烦恼咨询中心'}} 收
+      {{mail.targetUserName || 'Tell烦恼咨询中心'}} {{mail.fromSystem ? "" :"收"}}
     </div>
     <div class="mail_content">{{mail.content}}</div>
     <div class="mail_reply flex column j-end">

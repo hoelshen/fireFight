@@ -1,29 +1,13 @@
 <template>
   <view class="ticket flex column j-between">
     <session class="navigatabar flex ">
-      <div
-        @click="toggleSolution"
-        :class="{borderColor:isActive}"
-        class="navigatabar_item  flex center"
-      >解忧券</div>
-      <div
-        @click="toggleMail"
-        :class="{borderColor:!isActive}"
-        class="navigatabar_item flex center"
-      >邮票</div>
+      <div @click="toggleticket" :class="{borderColor:isActive}" class="navigatabar_item  flex center">解忧券</div>
+      <div @click="toggleMail" :class="{borderColor:!isActive}" class="navigatabar_item flex center">邮票</div>
     </session>
     <session class="list">
-      <div
-        class="list_item flex  j-between "
-        v-for="(item,index) in list"
-        :key="index"
-      >
+      <div class="list_item flex  j-between " v-for="(item,index) in list" :key="index">
         <div class="flex j-between center">
-          <image
-            style="margin-right:20rpx;"
-            class="iconfont"
-            :src="`/static/svgs/${item.type}.svg`"
-          />
+          <image style="margin-right:20rpx;" class="iconfont" :src="`/static/svgs/${item.type}.svg`" />
           <div class="flex column">
             <span>{{item.message}}</span>
             <span class="ticket_day">{{item.createdAt}}</span>
@@ -39,56 +23,40 @@
 export default {
   data() {
     return {
-      active: "solution",
+      active: "ticket",
       outboxList: [],
       inboxList: [],
       isActive: true,
-      list: [
-        {
-          type: "check",
-          message: "烦恼咨询",
-          createdAt: "2019/1/19",
-          count: 2
-        },
-        {
-          type: "check",
-          message: "连续签到5天奖励",
-          createdAt: "2019/1/19",
-          count: 9
-        }
-      ]
+      list: []
     };
   },
   onShow() {
     const { query } = this.$router.currentRoute;
-    this.active = query.active || "solution";
-    if (this.active === "mail") {
+    this.active = query.active || "ticket";
+    if (this.active === "stamp") {
       this.isActive = !this.isActive;
     }
     this.getList();
   },
   methods: {
-    toggleSolution() {
-      this.active = "solution";
+    toggleticket() {
+      this.active = "ticket";
       this.isActive = !this.isActive;
       this.getList();
     },
     toggleMail() {
-      this.active = "mail";
+      this.active = "stamp";
       this.isActive = !this.isActive;
       this.getList();
     },
     async getList() {
       let res;
-      if (this.active === "solution") {
+      if (this.active === "ticket") {
         res = await this.$request.get("/record/ticket"); //解忧券
-        // console.log("res: ", res);
       }
-      if (this.active === "mail") {
+      if (this.active === "stamp") {
         res = await this.$request.get("/record/stamp"); //邮票
-        // console.log("res: ", res);
       }
-      // this.list = res.data;
     }
   },
   computed: {

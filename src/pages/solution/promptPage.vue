@@ -7,8 +7,8 @@
           <span>被感谢时立即收到通知</span>
         </button>
         <div class="flex column targer">
-          您已解答的咨询
-          <span calss="promptSpn">{{targetUser}}</span>
+          <span calss="promptSpn">您已解答{{targetUser}}的咨询</span>
+          
           <span>若被对方感谢，还将获得 1 张邮票</span>
         </div>
       </div>

@@ -24,7 +24,9 @@
         </button>
       </div>
       <div class="list" v-for="item in dialogs" :key="item._id">
-        <Envelope :mail="item.toMail" :isRead="item.isRead" :dialogId="item._id" v-if="userId == item.toUser._id">
+        <Envelope :mail="item.toMail" :isRead="item.isRead" v-if="item.fromSystem">
+        </Envelope>
+        <Envelope :mail="item.toMail" :isRead="item.isRead" :dialogId="item._id" v-else-if="userId == item.toUser._id">
         </Envelope>
         <Envelope :mail="item.fromMail" :isRead="item.isRead" :dialogId="item._id" v-else>
         </Envelope>
@@ -39,7 +41,6 @@
         <div class="flex column center" v-else>
           <div class="flex j-around my_info_user-nickName">
             <div>{{user.aliasName}}</div>
-            <div class="iconfont icon-badge flex a-center"></div>
           </div>
           <div class="my_info_user-address flex wrap">{{user.aliasAddress}}</div>
         </div>
@@ -149,6 +150,30 @@ export default {
         });
       }
       return this.$router.push({ path: "/pages/solution/solutionRoom" });
+    },
+    memory() {
+      const status = this.$checkAuth(this.user);
+      if (status) {
+        this.$router.push({ query: { id: 1 }, path: "/pages/memory/index" });
+      }
+    },
+    ticket() {
+      const status = this.$checkAuth(this.user);
+      if (status) {
+        this.$router.push({
+          query: { id: 1 },
+          path: "/pages/ticket/ticketList"
+        });
+      }
+    },
+    welfare() {
+      const status = this.$checkAuth(this.user);
+      if (status) {
+        this.$router.push({
+          query: { id: 1 },
+          path: "/pages/welfare/index"
+        });
+      }
     }
   }
 };
@@ -228,6 +253,8 @@ export default {
       height: 40rpx;
       font-size: 28rpx;
       text-align: center;
+      color: #bdbdc0;
+      margin-top: 24rpx;
     }
   }
 }
@@ -265,6 +292,10 @@ export default {
       width: 100%;
       padding: 32rpx 40rpx;
       align-items: center;
+      .iconfont {
+        width: 32rpx;
+        height: 32rpx;
+      }
     }
     &-img {
       height: 36rpx;
