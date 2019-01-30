@@ -1,12 +1,8 @@
 <template>
-  <view>
-    <div
-      class="list"
-      v-for="item in list"
-      :key="item._id"
-    >
+  <view class="page">
+    <div class="list shadow" v-for="item in list" :key="item._id">
       <div class="mailDay flex center">来自
-        <span class="mailDayName">{{item.fromUser.aliasName}}</span>的信于{{item.sentAt | momentFormat}}时到达</div>
+        <span class="mailDayName">{{item.fromUser.aliasName}}</span>的信于 {{item.sentAt | momentFormat}} 时到达</div>
     </div>
   </view>
 </template>
@@ -28,9 +24,16 @@ export default {
   }
 };
 </script>
-<style lang="less">
+<style lang="less" scoped>
+.page{
+  padding: 40rpx 60rpx;
+  background: #fffefb;
+}
+.list{
+  margin-bottom: 40rpx;
+  background: #fff;
+}
 .mailDay {
-  width: 630rpx;
   height: 120rpx;
   margin-top: 10rpx;
   margin-bottom: 10rpx;

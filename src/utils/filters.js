@@ -9,8 +9,8 @@ exports.dayFormat = (value) => {
 }
 
 exports.momentFormat = (value) => {
-    const moment = dayjs(value).hour() + 6;
-    return moment
+    const moment = dayjs(value).add(6,'hours');
+    return moment.format('hh:mm');
 }
 exports.checkComment = (value) => {
     if (value.length < 35) {
