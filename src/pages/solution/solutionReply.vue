@@ -4,7 +4,7 @@
     <div class="replay_content borderColor" v-if="isReply">
       <div class="penName">回信将不再匿名，若对方再次回复，你们将成为笔友</div>
       <div class="flex">{{mail._id}}收</div>
-      <textarea class="textArea" maxlength="50" :value="reply.content" @input="bindTextAreaBlur" />
+      <textarea class="textArea" maxlength="50" :value="reply.content" @input="bindTextAreaBlur"/>
       <div class="reply_weather_love flex j-bwtween">
         <div class="reply_weather_love_button">
           <button class="flex center">
@@ -69,7 +69,10 @@ export default {
           weather: this.reply.weather
         })
         .then(res => {
-          console.log("res", res);
+          this.$router.push({
+            query: { targetUser: this.mail._id },
+            path: "/pages/solution/promptPage"
+          });
         });
     },
     showReply() {
@@ -92,7 +95,9 @@ export default {
     }
   },
   async onShow() {
-    const { currentRoute: { query } } = this.$router;
+    const {
+      currentRoute: { query }
+    } = this.$router;
     this.id = query.id;
     const { user } = getApp().globalData;
     this.user = user;
@@ -105,8 +110,8 @@ export default {
 };
 </script>
 <style lang="less">
-.app{
-  padding: 40rpx 60rpx;;
+.app {
+  padding: 40rpx 60rpx;
 }
 .reply_weather {
   margin-top: 42rpx;
@@ -140,7 +145,7 @@ export default {
   margin-top: 16rpx;
   border-radius: 23px;
   width: 316rpx;
-  height: 92rpx;
+  line-height: 92rpx;
   color: #ffffff;
   border: 1 solid #a9a9a9;
   background-color: #ffc86d;
@@ -152,7 +157,7 @@ export default {
   margin-top: 24rpx;
 }
 .replay_content {
-  margin: 81rpx 60rpx 36rpx 60rpx;
+  margin: 81rpx 0rpx 36rpx 0rpx;
 }
 .showReply_button {
   margin-bottom: 60rpx;
