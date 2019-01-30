@@ -1,45 +1,117 @@
 <template>
-  <view class="app">
-    <session class="swiper-session">
-      <swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000">
-        <block v-for="item in imgUrls" :key="item" class="swiper-session_item">
+  <view class="page flex column">
+
+    <!-- 首页 -->
+    <div class="pannel grow" v-if="tab == 'home'">
+      <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
+        <block v-for="item in banners" :key="item">
           <swiper-item>
-            <image :src="item.imgUrl" class="slide-image" />
+            <image :src="item.imgUrl" class="img" />
           </swiper-item>
         </block>
       </swiper>
-    </session>
-    <div class="home_function flex center">
-      <button @click="onConsultingBox">
-        <image class="home_left" src="/static/svgs/home_left.svg" />
-      </button>
-      <button @click="onSolutionRoom">
-        <image class="home_right" src="/static/svgs/home_right.svg" />
-      </button>
+      <div class="entries flex center">
+        <image class="left" @click="toConsulting" src="/static/svgs/home_left.svg" />
+        <image class="right" @click="toSolution" src="/static/svgs/home_right.svg" />
+      </div>
     </div>
-    <!-- <div>
-      <button
-        class="circle"
-        @click="onMoments"
-      >
-      </button>
-    </div> -->
-    <TtabBar></TtabBar>
+
+    <!-- 信箱 -->
+    <div class="pannel grow" v-else-if="tab == 'mail'">
+      <div class="mailbox_title" v-if="wayCount">
+        <button @click="openMail">
+          {{wayCount}} 封信正在邮寄的路上
+        </button>
+      </div>
+      <div class="list" v-for="item in dialogs" :key="item._id">
+        <Envelope :mail="item.toMail" :isRead="item.isRead" :dialogId="item._id" v-if="userId == item.toUser._id">
+        </Envelope>
+        <Envelope :mail="item.fromMail" :isRead="item.isRead" :dialogId="item._id" v-else>
+        </Envelope>
+      </div>
+    </div>
+
+    <!-- 我的 -->
+    <div class="pannel grow" v-else>
+      <div class="my_info flex column">
+        <img class="my_info_user-avatarUrl" :src="user.aliasPortrait || 'https://cdn.tellers.cn/tell_v2/static/default-avatar.svg'" mode="scaleToFill" @click="login">
+        <button @click="login" v-if="!user.aliasPortrait">点击登录</button>
+        <div class="flex column center" v-else>
+          <div class="flex j-around my_info_user-nickName">
+            <div>{{user.aliasName}}</div>
+            <div class="iconfont icon-badge flex a-center"></div>
+          </div>
+          <div class="my_info_user-address flex wrap">{{user.aliasAddress}}</div>
+        </div>
+      </div>
+
+      <session class="my_function flex">
+        <button @tap="memory" class="my_function_item-button flex column center">
+          <image class="iconfont" src="/static/svgs/moment.svg" />
+          <span class="my_function_item-text">记忆</span>
+        </button>
+
+        <button @click="ticket" class="my_function_item-button flex column center">
+          <image class="iconfont" src="/static/svgs/ticket.svg" />
+          <span class="my_function_item-text">票券</span>
+        </button>
+
+        <button @click="welfare" class="my_function_item-button flex column center">
+          <image class="iconfont" src="/static/svgs/welfare.svg" />
+          <span class="my_function_item-text">福利社</span>
+        </button>
+      </session>
+
+      <session class="my_contact flex column">
+        <button class="my_contact_item-button flex wrap center grow" open-type="contact" send-message-img :session-from="{
+          'nickName':user.aliasName, 
+          'avatarUrl':user.aliasPortrait
+          }" @contact="joinGroup">
+          <image class="iconfont" src="/static/svgs/joinGroup.svg" />
+          <span class="my_contact_item-text grow">加入群聊</span>
+          <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
+        </button>
+
+        <button class="my_contact_item-button flex wrap center grow" open-type="contact" :session-from="{
+          'nickName':user.aliasName, 
+          'avatarUrl':user.aliasPortrait
+          }" @contact="AnswerQuestion">
+          <image class="iconfont" src="/static/svgs/question.svg" />
+          <span class="my_contact_item-text grow">问题与反馈</span>
+          <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
+        </button>
+      </session>
+    </div>
+
+    <HomeBar @change="onTabChange"></HomeBar>
   </view>
 </template>
 <script>
-import TtabBar from "@/components/TtabBar";
+import HomeBar from "@/components/TtabBar";
+import Envelope from "@/components/Envelope";
+
 export default {
   components: {
-    TtabBar
+    HomeBar,
+    Envelope
   },
   data() {
     return {
-      imgUrls: []
+      tab: "home",
+      banners: [],
+      wayCount: 0,
+      dialogs: [],
+      user: {}
     };
   },
+  onLoad(opt) {
+    this.onTabChange(opt.tab);
+  },
   onShow() {
+    this.$request.getUser();
     this.getBanners();
+    this.getWayCount();
+    this.getDialogs();
   },
   onShareAppMessage(res) {
     return {
@@ -49,18 +121,26 @@ export default {
     };
   },
   methods: {
-    async getBanners() {
-      try {
-        let res = await this.$request.get("/banner");
-        this.imgUrls = res.data;
-      } catch (e) {
-        console.log("err", e);
-      }
+    onTabChange(tab = "home") {
+      this.user = getApp().globalData.user;
+      this.tab = tab;
     },
-    onConsultingBox() {
+    async getBanners() {
+      const res = await this.$request.get("/banner");
+      this.banners = res.data;
+    },
+    async getWayCount() {
+      const res = await this.$request.get("/dialog/way/count");
+      this.wayCount = res.data;
+    },
+    async getDialogs() {
+      const res = await this.$request.get("/dialog");
+      this.dialogs = res.data;
+    },
+    toConsulting() {
       this.$router.push({ path: "/pages/consultingBox/index" });
     },
-    onSolutionRoom() {
+    toSolution() {
       const { user } = getApp().globalData;
       if (!user.becomeAnswererAt) {
         return this.$router.push({
@@ -69,61 +149,146 @@ export default {
         });
       }
       return this.$router.push({ path: "/pages/solution/solutionRoom" });
-    },
-    onMoments() {
-      this.$router.push({ path: "/pages/moments/index" });
     }
   }
 };
 </script>
 <style lang="less" scoped>
-.swiper-session {
-  margin: 0 30rpx;
+.page {
+  height: 100vh;
+}
+
+.swiper {
   width: 630rpx;
   height: 160rpx;
-  & swiper {
+  margin: 0 60rpx;
+  .img {
     width: 630rpx;
     height: 160rpx;
-    margin: 0 60rpx;
-    swiper-item {
-      image {
-        width: 630rpx;
-        height: 160rpx;
-      }
+  }
+}
+
+.entries {
+  .left {
+    width: 316rpx;
+    height: 610rpx;
+    padding: 0;
+  }
+  .right {
+    width: 316rpx;
+    height: 610rpx;
+    padding: 0;
+  }
+}
+
+.mailbox_title {
+  height: 92rpx;
+  border-radius: 46px;
+  margin: auto;
+  padding: 0 40rpx;
+  & button {
+    border: 1px solid #ffc86d;
+    border-radius: 23px;
+    font-size: 28rpx;
+  }
+}
+.mailText {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.my_info {
+  width: 630rpx;
+  height: 508rpx;
+  margin: 0 60rpx;
+  border-radius: 2px;
+  background-color: #ffffff;
+  box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
+  &_user {
+    &-avatarUrl {
+      display: block;
+      border-radius: 50%;
+      height: 216rpx;
+      width: 216rpx;
+      margin: 20px auto;
+      box-shadow: 0 0 36rpx 0 rgba(255, 77, 107, 0.19);
+    }
+    &-nickName {
+      height: 84rpx;
+      font-size: 60rpx;
+      text-align: center;
+    }
+    &-nickNameImg {
+      width: 36rpx;
+      height: 36rpx;
+    }
+    &-address {
+      height: 40rpx;
+      font-size: 28rpx;
+      text-align: center;
     }
   }
-  &-item {
+}
+.my_function {
+  width: 630rpx;
+  height: 172rpx;
+  margin: 32rpx 60rpx;
+  background-color: #ffffff;
+  box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
+  &_item {
+    height: 172rpx;
+    width: 210rpx;
+    background-color: #ffffff;
+    &-button {
+      height: 172rpx;
+      width: 210rpx;
+    }
+
+    &-text {
+      font-size: 28rpx;
+    }
+  }
+}
+.my_contact {
+  width: 630rpx;
+  height: 216rpx;
+  margin: 32rpx 60rpx;
+  background-color: #ffffff;
+  box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
+  &_item {
     width: 630rpx;
-    height: 160rpx;
+    height: 108rpx;
+    background-color: #ffffff;
+    &-button {
+      width: 100%;
+      padding: 32rpx 40rpx;
+      align-items: center;
+    }
+    &-img {
+      height: 36rpx;
+      width: 36rpx;
+      margin: 18rpx 20rpx;
+    }
+    &-text {
+      margin-left: 24rpx;
+      font-size: 28rpx;
+      text-align: left;
+    }
   }
 }
-.home_function {
-  button {
-    padding: 0;
-    margin: 0;
+.my_share {
+  & button {
+    border: 2rpx #ffc86d solid;
+    border-radius: 46px;
+    height: 92rpx;
+    width: 316rpx;
+    font-size: 28rpx;
+    &.active {
+      background: #fff;
+    }
   }
-}
-.home_left {
-  width: 316rpx;
-  height: 610rpx;
-  padding: 0;
-}
-.home_right {
-  width: 316rpx;
-  height: 610rpx;
-  padding: 0;
-}
-.circle {
-  width: 100px;
-  height: 100px;
-  z-index: 100;
-  position: absolute;
-  top: 15.5rem;
-  left: 8.2rem;
-  background: #ffffff;
-  -moz-border-radius: 50px;
-  -webkit-border-radius: 50px;
-  border-radius: 50px;
 }
 </style>
 

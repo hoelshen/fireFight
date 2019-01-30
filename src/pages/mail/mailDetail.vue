@@ -1,31 +1,11 @@
 <template>
   <view class="app list">
-    <div class="mail box flex column j-between list_item" v-for="item in list" :key="item._id">
-      <div class="mail_title list_item-sendName flex j-start">
-        <span class="list_item-receiverNameSpan mail-sendName">{{item.targetUser}}</span>
-        <span class="flex center mail-sendName">收</span>
-      </div>
-      <div class="mail_content" style="margin-left:40rpx">{{item.content}}</div>
-      <div class="mail_reply flex column j-end">
-        <div class="flex wrap j-end">
-          <!-- <img
-            class="mail_reply_img"
-            :src="item. || 'https://cdn.tellers.cn/tell_v2/static/default-avatar.svg'"
-            mode="scaleToFill"
-            @click="login"
-          >-->
-          <span class="mail_reply_aliasName">{{item.aliasName}}</span>
-        </div>
+    <Mail :mail="item" v-for="item in list" :key="item._id"></Mail>
 
-        <span
-          class="flex wrap j-end mail_reply_weather"
-        >{{item.createdAt | dayFormat}} {{item.weather}}</span>
-      </div>
-    </div>
     <div class="replay_content borderColor" v-if="isReply">
       <div class="penName">回信将不再匿名，若对方再次回复，你们将成为笔友</div>
       <div class="flex">{{mail._id}}收</div>
-      <textarea class="textArea" maxlength="50" :value="reply.content" @input="bindTextAreaBlur"/>
+      <textarea class="textArea" maxlength="50" :value="reply.content" @input="bindTextAreaBlur" />
       <div class="reply_weather_love flex j-bwtween">
         <div class="reply_weather_love_button">
           <button class="flex center">
@@ -56,7 +36,11 @@
 
 
 <script>
+import Mail from "@/components/Mail";
 export default {
+  components: {
+    Mail
+  },
   data() {
     const days = this.$day().format("YYYY/MM/DD");
     return {
@@ -114,9 +98,7 @@ export default {
     }
   },
   onShow() {
-    const {
-      currentRoute: { query }
-    } = this.$router;
+    const { currentRoute: { query } } = this.$router;
     this.id = query.id;
     this.getContent(this.id);
     this.getWeather();
@@ -129,7 +111,6 @@ export default {
 };
 </script>
 <style lang="less">
-@import url(../../styles/mail.less);
 .mail {
   width: 630rpx;
   height: 620rpx;

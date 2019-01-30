@@ -41,12 +41,7 @@
 					"pathName": "pages/login/index",
 					"query": ""
 				},
-				{
-					"id": -1,
-					"name": "个人中心",
-					"pathName": "pages/myInfo/index",
-					"query": ""
-				},
+				
 				{
 					"id": -1,
 					"name": "主页",
@@ -123,12 +118,6 @@
 					"id": 14,
 					"name": "票券列表",
 					"pathName": "pages/ticket/ticketList",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "我的",
-					"pathName": "pages/myInfo/index",
 					"query": ""
 				},
 				{

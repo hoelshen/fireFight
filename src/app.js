@@ -4,16 +4,14 @@ import VHtmlPlugin from "@megalo/vhtml-plugin";
 import filters from "./utils/filters";
 import megaloRouter from "megalo-router";
 import request from "./utils/request";
-import day from './utils/day'
-import {
-  checkAuth
-} from './utils/index'
+import day from "./utils/day";
+import { checkAuth } from "./utils/index";
 Vue.use(VHtmlPlugin);
 
 Object.keys(filters).forEach(key => Vue.filter(key, filters[key]));
 
 Vue.use(megaloRouter, {
-  mode: "strict", // strict or loose 可配置项，不配置的话默认为strict
+  mode: "strict" // strict or loose 可配置项，不配置的话默认为strict
 });
 
 Vue.prototype.$request = request;
@@ -28,8 +26,6 @@ export default {
     // pages 的首个页面会被编译成首页
     pages: [
       "pages/home/index", //首页
-      "pages/myInfo/index", //个人中心
-      "pages/mail/mailbox", //信箱
       "pages/mail/mailDay", //正在路上的信
       "pages/mail/mailDetail", //回信
       "pages/consultingBox/index", //咨询箱
@@ -52,15 +48,14 @@ export default {
       "pages/stronger-mail/index", //MYS故事
       "pages/stronger-write/index", //MYS写故事
       "pages/noFound/index", //404,
-      "pages/webview/index", //内嵌网页
-
+      "pages/webview/index" //内嵌网页
     ],
     window: {
       backgroundTextStyle: "light",
-      navigationBarBackgroundColor: '#fffefb',
+      navigationBarBackgroundColor: "#fffefb",
       navigationBarTitleText: "tell2.0_megalo",
       navigationBarTextStyle: "black",
-      backgroundColor: '#fffefb'
+      backgroundColor: "#fffefb"
     },
     navigateToMiniProgramAppIdList: [
       "wxa7053e55658fc6f3", // 晓析心理评测
