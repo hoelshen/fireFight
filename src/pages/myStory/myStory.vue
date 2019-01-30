@@ -1,48 +1,41 @@
 <template>
   <view class="app flex column j-between">
-    <div class="appDiv flex column ">
-      <div
-        class="textAreafloat flex column j-start"
-        v-if="isDisplay"
-        @click="hidenMethod"
-      >
-        <div>1.请尽量具体叙述你的故事，便于解答者理解和代入，从而给出具体的解答</div>
-        <div>2.关键的人物、地点等信息建议使用化名</div>
-        <div>3.落款署名尽量不要使用笔名或微信昵称</div>
-      </div>
-      <textarea
-        class="textArea"
-        v-else
-        focus
-        maxlength="50"
-        :value="content"
-        @input="bindTextAreaBlur"
-      />
-      <div class="flex column j-between textName">
-        <div class="flex j-end">
-          <span class="textNameSpan">署名:</span>
+    <div class="appDiv flex column">
+      <div class="text">
+        <div class="textAreafloat flex column j-start" v-if="isDisplay" @click="hidenMethod">
+          <div style="line-height:52rpx">1.请尽量具体叙述你的故事，便于解答者理解和代入，从而给出具体的解答.</div>
+          <div style="line-height:52rpx">2.关键的人物、地点等信息建议使用化名</div>
+          <div style="line-height:52rpx">3.落款署名尽量不要使用笔名或微信昵称</div>
         </div>
+        <textarea
+          class="textArea"
+          v-else
+          @blur="onBlur"
+          :focus="isFocus"
+          maxlength="50"
+          :value="content"
+          @input="bindTextAreaBlur"
+        />
+      </div>
+      <div class="flex column j-between textName">
         <div class="flex j-end a-center">
+          <span class="textNameSpan">署名:</span>
           <input class="aliasNameInput" type="this" @input="bindKeyInput" :value="aliasName">
           <div class="refreshBtn" @click="refresh">
-            <image
-            class="iconfont"
-            src="/static/svgs/refresh.svg"
-          />
+            <image class="iconfont" src="/static/svgs/refresh.svg">
           </div>
         </div>
       </div>
-      <div class="flex j-end textDay" >
+      <div class="flex j-end textDay">
         <span>{{day}}</span>
         <span>{{weather}}</span>
       </div>
-      </div>
-
-    <div class="flex column textAdd">
-      <button class="addMystoryButton" @click="onPush">提交咨询</button>
-      <p class="text-center">需要使用1张解忧券</p>
     </div>
 
+    <div class="flex column textAdd center">
+      <button class="addMystoryButton flex center" @click="onPush">提交咨询</button>
+      <p class="text-center">需要使用1张解忧券</p>
+    </div>
   </view>
 </template>
 <script>
@@ -59,7 +52,8 @@ export default {
       hidenText: true,
       isDisplay: true,
       day: day,
-      aliasName: ""
+      aliasName: "",
+      isFocus: false
     };
   },
   methods: {
@@ -102,6 +96,7 @@ export default {
       this.aliasName = e.detail.value;
     },
     hidenMethod() {
+      this.isFocus = true;
       this.hidenText = false;
       this.isDisplay = false;
     },
@@ -112,6 +107,9 @@ export default {
     async getWeather() {
       let res = await this.$request.get("/weather");
       this.weather = res.data;
+    },
+    onBlur() {
+      this.isDisplay = true;
     }
   },
   onShow() {
@@ -120,35 +118,40 @@ export default {
   }
 };
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .appDiv {
-  width: 630rpx;
   min-height: 750rpx;
-  margin: 100rpx 60rpx;
+  margin: 40rpx 60rpx;
+}
+.text {
+  background-color: rgba(189, 189, 192, 0.05);
+  color: rgba(189, 189, 192, 1);
 }
 .textArea {
-  width: 630rpx;
   min-height: 750rpx;
-  background-color: rgba(169, 169, 169, 0.05);
+  background-color: #ffffff;
   color: black;
 }
 .textNameSpan {
-  margin: 40rpx 200rpx 12rpx;
+  margin-right: 20rpx;
 }
+.textName {
+  margin-top: 60rpx;
+  margin-bottom: 24rpx;
+}
+
 .textDay {
-  margin: 18rpx 0rpx;
+  margin-top: 24rpx 0rpx;
 }
 .textAdd {
-  margin: 60rpx 60rpx;
+  margin-bottom: 60rpx;
   &button {
     margin-bottom: 12rpx;
   }
 }
 .textAreafloat {
-  min-height: 200px;
-  width: 630rpx;
-  height: 640rpx;
-  background-color: rgba(169, 169, 169, 0.05);
+  min-height: 640rpx;
+  margin: 40rpx;
   color: rgba(169, 169, 169, 1);
 }
 .play {
@@ -165,11 +168,12 @@ export default {
 }
 .addMystoryButton {
   border-radius: 23px;
-  margin-bottom: 12rpx;
-  width: 316rpx;
+  margin-bottom: 24rpx;
   height: 92rpx;
   border: 1 solid #a9a9a9;
   color: #ffffff;
+  padding: 26rpx 102rpx;
+  text-align: center;
   background-color: #ffc86d;
 }
 .text-ontent {

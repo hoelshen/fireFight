@@ -106,6 +106,7 @@ export default {
 }
 .reply_weather_love {
   color: #ffc86d;
+  margin-top: 14rpx;
   font-size: 28rpx;
   & label {
     margin-right: 20rpx;
