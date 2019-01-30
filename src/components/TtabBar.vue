@@ -1,5 +1,5 @@
 <template>
-  <div class="bar box flex a-center j-between">
+  <div class="bar box flex a-center j-between shadow">
     <form @submit="mail" report-submit="true">
       <button class="flex center" form-type="submit" hover-class="active">
         <image class="icon" v-if="tab == 'mail'" src="/static/svgs/mail-active.svg" />
@@ -41,33 +41,18 @@ export default {
   methods: {
     myInfo(e) {
       this.tab = "mine";
-      const path = this.$router.currentRoute.path;
+      this.$emit("change", this.tab);
       this.$request.saveFormid(e.detail.formId);
-      if (path === "/pages/myInfo/index") {
-        return false;
-      } else {
-        return this.$router.push("pages/myInfo/index");
-      }
     },
     home(e) {
       this.tab = "home";
-      const path = this.$router.currentRoute.path;
+      this.$emit("change", this.tab);
       this.$request.saveFormid(e.detail.formId);
-      if (path === "/pages/home/index") {
-        return false;
-      } else {
-        return this.$router.push("pages/home/index");
-      }
     },
     mail(e) {
       this.tab = "mail";
-      const path = this.$router.currentRoute.path;
+      this.$emit("change", this.tab);
       this.$request.saveFormid(e.detail.formId);
-      if (path === "/pages/mail/mailbox") {
-        return false;
-      } else {
-        return this.$router.push("pages/mail/mailbox");
-      }
     }
   }
 };
@@ -75,15 +60,12 @@ export default {
 
 <style lang="less">
 .bar {
-  position: fixed;
-  left: 0;
-  bottom: 0;
+  flex-shrink: 0;
   height: 124rpx;
   width: 100%;
   color: #2a2a2a;
   background: #ffffff;
   padding: 32rpx 86rpx;
-  z-index: 10;
   .icon {
     width: 60rpx;
     height: 60rpx;
