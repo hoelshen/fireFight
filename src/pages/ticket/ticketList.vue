@@ -3,24 +3,22 @@
     <div class="list" style="margin-left:0">
       <div class="ticketList flex j-between" @tap="ticketDetail('ticket')">
         <div class="flex center">
-          <image class="iconfont" src="/static/svgs/solutionNum.svg">
-          </image>
+          <image class="iconfont" src="/static/svgs/solutionNum.svg"/>
           <span class="my_contact_item-text">邮票</span>
         </div>
         <div class="flex center">
           <button class="btnStyle btnWidth flex center" @click="mailTicket">{{stampCount}}</button>
-          <image style="margin-left:36rpx" class="iconfont" src="/static/svgs/arrow.svg">
+          <image style="margin-left:36rpx" class="iconfont" src="/static/svgs/arrow.svg"/>
         </div>
       </div>
       <div class="solutionList flex j-between" @tap="ticketDetail('stamp')">
         <div class="flex center">
-          <image class="iconfont" src="/static/svgs/mailNum.svg">
-          </image>
+          <image class="iconfont" src="/static/svgs/mailNum.svg"/>
           <span class="my_contact_item-text">解忧券</span>
         </div>
         <div class="flex center">
           <button class="btnStyle btnWidth flex center" @click="solutionTicket">{{ticketCount}}</button>
-          <image style="margin-left:36rpx" class="iconfont" src="/static/svgs/arrow.svg">
+          <image style="margin-left:36rpx" class="iconfont" src="/static/svgs/arrow.svg"/>
         </div>
       </div>
     </div>
