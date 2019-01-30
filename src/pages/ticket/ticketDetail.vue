@@ -10,10 +10,10 @@
           <image style="margin-right:20rpx;" class="iconfont" :src="`/static/svgs/stamp-icon.svg`" />
           <div class="flex column">
             <span>{{item.message}}</span>
-            <span class="ticket_day">{{item.createdAt}}</span>
+            <span class="ticket_day">{{item.createdAt | dayFormat}}</span>
           </div>
         </div>
-        <span class="flex center">{{(item.count > 0) ? '+' : '-' }} {{ item.count }}</span>
+        <span class="flex center">{{(item.count > 0) ? '+' : ' ' }} {{ item.count }}</span>
       </div>
     </session>
   </view>
