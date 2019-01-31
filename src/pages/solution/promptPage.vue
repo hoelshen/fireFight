@@ -16,6 +16,10 @@
             <span class="promptSpn">{{targetUser}}</span>的信箱
           </div>
         </div>
+        <div class="flex column targer" v-if="active === 'story'">
+          <span>我们会在每日 22:30 </span>
+          <span>收集咨询箱中的信</span>
+        </div>        
         <button class="promptBtn flex column center shadow" open-type="contact">
           <span>关注服务</span>
           <span>被感谢时立即收到通知</span>
@@ -49,6 +53,14 @@ export default {
     } = this.$router;
     this.targetUser = query.targetUser;
     this.active = query.active;
+    const navigationBar = {
+      solution: "已解答",
+      story: "已提交咨询",
+      mail: "已回信",
+    };
+    wx.setNavigationBarTitle({
+      title: navigationBar[this.active]
+    });
   }
 };
 </script>

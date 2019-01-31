@@ -60,9 +60,15 @@ export default {
     async onPush() {
       if (this.content.length < 50) {
         return wx.showToast({
-          title: "请输入超过50个字",
+          title: "认真的讲诉更容易获得解答，多谢几句吧",
           icon: "none",
           duration: 2000
+        });
+      }
+      if (this.content.length > 5000) {
+        return wx.showToast({
+          icon: "none",
+          title: "请控制在5000字以内"
         });
       }
       const mail = {
@@ -78,21 +84,12 @@ export default {
       }
       let res = await this.$request.post("/mail/story", mail);
       if (res.success) {
-        wx.showModal({
-          content:
-            "我们会在每日22:30收集咨询箱中的信关注服务号，被解答时立即收到通知",
-          showCancel: false,
-          confirmText: "好的",
-          confirmColor: "#FFC86D",
-          success: result => {
-            if (result.confirm) {
-              this.$router.reLaunch({
-                path: "/pages/home/index"
-              });
-            }
+        this.$router.push({
+          query: {
+            active: "story",
+            targetUser: this.target
           },
-          fail: () => {},
-          complete: () => {}
+          path: "/pages/solution/promptPage"
         });
       }
     },

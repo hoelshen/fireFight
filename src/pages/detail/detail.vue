@@ -77,11 +77,8 @@ export default {
     const {
       currentRoute: { query }
     } = this.$router;
-    // console.log("query: ", query);
     this.active = query.active;
     const navigationBar = {
-      description: "烦恼咨询服务说明",
-      consultative: "已提交咨询",
       solverDetail: "解答者手册",
       solutionLimit: "每日解答上限说明"
     };

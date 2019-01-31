@@ -1,4 +1,4 @@
-import App from './mailDetail'
+import App from './detail'
 import Vue from 'vue'
 
 const app = new Vue(App)
@@ -9,8 +9,7 @@ export default {
     config: {
         navigationBarBackgroundColor: '#fffefb',
         navigationBarTextStyle: 'black',
-        navigationBarTitleText: '信件',
-        backgroundColor: '#81CBE2',
-        "disableScroll": true
+        navigationBarTitleText: '咨询箱',
+        backgroundColor: '#81CBE2'
     }
-};
+}

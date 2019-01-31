@@ -28,7 +28,7 @@ export default {
       "pages/home/index", //首页
       "pages/mail/mailDay", //正在路上的信
       "pages/mail/mailDetail", //回信
-      "pages/consultingBox/index", //咨询箱
+      "pages/consultingBox/consultingBox", //咨询箱
       "pages/badge/index", //徽章
       "pages/solution/solutionDetail", //成为解答者
       "pages/solution/solutionRoom", //解答室

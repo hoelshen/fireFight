@@ -71,7 +71,7 @@ export default {
 <style lang="less" scoped>
 .mail {
   width: 630rpx;
-  height: 620rpx;
+  min-height: 620rpx;
   margin: 81rpx 60rpx 36rpx 60rpx;
 }
 
