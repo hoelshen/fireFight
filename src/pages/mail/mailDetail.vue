@@ -39,9 +39,8 @@ export default {
     async getContent(id) {
       let res = await this.$request.get(`/dialog/detail/${id}`);
       this.mail = res.data;
-      this.target = res.data.fromUser;
-      console.log("target: ", this.target);
-      this.fromUserId = res.data.fromUser._id;
+      this.target = res.data.fromUser || {};
+      this.fromUserId = this.target._id;
       this.list = this.mail.mailList;
     },
     showReply() {
@@ -70,8 +69,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .mail {
-  width: 630rpx;
-  height: 620rpx;
+  min-height: 620rpx;
   margin: 81rpx 60rpx 36rpx 60rpx;
 }
 
