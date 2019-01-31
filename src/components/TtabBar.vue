@@ -44,16 +44,20 @@ export default {
   },
   methods: {
     myInfo(e) {
+      wx.setNavigationBarTitle({ title: "我的" });
       this.tab = "mine";
       this.$emit("change", this.tab);
       this.$request.saveFormid(e.detail.formId);
     },
     home(e) {
+      wx.setNavigationBarTitle({ title: "Tell" });
       this.tab = "home";
       this.$emit("change", this.tab);
+
       this.$request.saveFormid(e.detail.formId);
     },
     mail(e) {
+      wx.setNavigationBarTitle({ title: "信箱" });
       this.tab = "mail";
       this.$emit("change", this.tab);
       this.$request.saveFormid(e.detail.formId);
