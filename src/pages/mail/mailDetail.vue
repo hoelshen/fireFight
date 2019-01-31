@@ -38,9 +38,8 @@ export default {
     async getContent(id) {
       let res = await this.$request.get(`/dialog/detail/${id}`);
       this.mail = res.data;
-      this.target = res.data.fromUser;
-      console.log("target: ", this.target);
-      this.fromUserId = res.data.fromUser._id;
+      this.target = res.data.fromUser || {};
+      this.fromUserId = this.target._id;
       this.list = this.mail.mailList;
     },
     showReply() {
