@@ -29,7 +29,6 @@ export default {
       "pages/mail/mailDay", //正在路上的信
       "pages/mail/mailDetail", //回信
       "pages/consultingBox/consultingBox", //咨询箱
-      "pages/badge/index", //徽章
       "pages/solution/solutionDetail", //成为解答者
       "pages/solution/solutionRoom", //解答室
       "pages/solution/solutionReply", //信件
@@ -37,7 +36,6 @@ export default {
       "pages/myStory/index", //我的故事
       "pages/setPenName/index", //设置笔名
       "pages/detail/index", //详细说明
-      "pages/moments/index", //动态
       "pages/ticket/ticketDetail", //票券明细
       "pages/ticket/ticketList", //票券
       "pages/welfare/index", //福利社
@@ -48,13 +46,13 @@ export default {
       "pages/stronger-mail/index", //MYS故事
       "pages/stronger-write/index", //MYS写故事
       "pages/noFound/index", //404,
-      "pages/faq/index", //404,
+      "pages/faq/index", //FAQ,
       "pages/webview/index" //内嵌网页
     ],
     window: {
       backgroundTextStyle: "light",
       navigationBarBackgroundColor: "#fffefb",
-      navigationBarTitleText: "tell2.0_megalo",
+      navigationBarTitleText: "Tell",
       navigationBarTextStyle: "black",
       backgroundColor: "#fffefb"
     },

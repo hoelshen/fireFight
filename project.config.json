@@ -7,14 +7,14 @@
 		"minified": false,
 		"newFeature": true,
 		"nodeModules": false,
-		"autoAudits": false
+		"autoAudits": true
 	},
 	"miniprogramRoot": "dist-wechat/",
 	"cloudfunctionRoot": "server/cloudFunctions/",
 	"compileType": "miniprogram",
 	"appid": "wx0af73175e644dbfc",
 	"projectname": "tell2.0_megalo",
-	"libVersion": "2.5.1",
+	"libVersion": "2.5.2",
 	"condition": {
 		"search": {
 			"current": -1,
