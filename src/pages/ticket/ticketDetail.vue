@@ -4,7 +4,7 @@
       <div @click="toggleticket" :class="{borderColor:isActive}" class="navigatabar_item flex center">解忧券</div>
       <div @click="toggleMail" :class="{borderColor:!isActive}" class="navigatabar_item flex center">邮票</div>
     </session>
-    <session class="list">
+    <session class="list" v-if="list.length > 0">
       <div class="list_item flex j-between" v-for="(item,index) in list" :key="index">
         <div class="flex j-between center">
           <image style="margin-right:20rpx;" class="iconfont" :src="`/static/svgs/stamp-icon.svg`" />
@@ -16,6 +16,9 @@
         <span class="flex center">{{(item.count > 0) ? '+' : ' ' }} {{ item.count }}</span>
       </div>
     </session>
+    <div v-if="list.length === 0" class=" noMail flex center">
+          您写过的信将出现在这里
+    </div>
   </view>
 </template>
 <script>
@@ -101,6 +104,10 @@ export default {
       color: #a9a9a9;
     }
   }
+}
+.noMail{
+  height: 400rpx;
+  margin: 80rpx
 }
 </style>
 
