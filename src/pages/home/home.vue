@@ -91,6 +91,10 @@
           <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
         </button>
       </session>
+      
+      <session class="my_share flex center">
+        <button class="flex center" hover-class="active" open-type="share">安利Tell给好友</button>
+      </session>
     </div>
 
     <HomeBar @change="onTabChange"></HomeBar>
