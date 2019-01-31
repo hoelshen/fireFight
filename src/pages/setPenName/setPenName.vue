@@ -78,7 +78,7 @@ export default {
           });
       }
       if (!aliasName) {
-        wx.showToast({ title: "请设置笔名" });
+        wx.showToast({ title: "请设置笔名", icon: 'none' });
       }
     },
     setName(e) {
