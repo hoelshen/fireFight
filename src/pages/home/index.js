@@ -10,7 +10,7 @@ export default {
     navigationBarBackgroundColor: '#fffefb',
     navigationBarTextStyle: 'black',
     navigationBarTitleText: 'Tell',
-    backgroundColor: '#81CBE2',
+    backgroundColor: '#FFFEFB',
     disableScroll: true
   }
 }

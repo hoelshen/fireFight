@@ -10,6 +10,6 @@ export default {
     navigationBarBackgroundColor: '#fffefb',
     navigationBarTextStyle: 'black',
     navigationBarTitleText: '解答室',
-    backgroundColor: '#81CBE2'
+    backgroundColor: '#FFFEFB'
   }
 };

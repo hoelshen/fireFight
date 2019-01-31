@@ -39,7 +39,7 @@
         <button @click="login" v-if="!user.aliasPortrait">点击登录</button>
         <div class="flex column center" v-else>
           <div class="flex j-around my_info_user-nickName">
-            <div>{{user.aliasName}}</div>
+            <div @click="login">{{user.aliasName}}</div>
           </div>
           <div class="my_info_user-address flex wrap">{{user.aliasAddress}}</div>
         </div>
@@ -211,6 +211,7 @@ export default {
   .img {
     width: 630rpx;
     height: 160rpx;
+    border-radius: 4rpx;
   }
 }
 
@@ -258,12 +259,12 @@ export default {
       height: 216rpx;
       width: 216rpx;
       margin: 20px auto;
-      box-shadow: 0 0 36rpx 0 rgba(255, 77, 107, 0.19);
     }
     &-nickName {
       height: 84rpx;
       font-size: 60rpx;
       text-align: center;
+      color:#4D495B;
     }
     &-nickNameImg {
       width: 36rpx;
@@ -291,6 +292,8 @@ export default {
     &-button {
       height: 172rpx;
       width: 210rpx;
+      color:#4D495B;
+      font-weight: 600;
     }
 
     &-text {
@@ -312,6 +315,8 @@ export default {
       width: 100%;
       padding: 32rpx 40rpx;
       align-items: center;
+      color:#4D495B;
+      font-weight: 600;
       .iconfont {
         width: 32rpx;
         height: 32rpx;

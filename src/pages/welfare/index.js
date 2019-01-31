@@ -10,6 +10,6 @@ export default {
     navigationBarBackgroundColor: '#fffefb',
     navigationBarTextStyle: 'black',
     navigationBarTitleText: '福利社',
-    backgroundColor: '#81CBE2'
+    backgroundColor: '#FFFEFB'
   }
 }

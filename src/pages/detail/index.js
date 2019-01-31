@@ -9,6 +9,6 @@ export default {
     navigationBarBackgroundColor: '#fffefb',
     navigationBarTextStyle: 'black',
     navigationBarTitleText: '烦恼咨询服务说明',
-    backgroundColor: '#81CBE2'
+    backgroundColor: '#FFFEFB'
   }
 }

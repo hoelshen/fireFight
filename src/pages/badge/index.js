@@ -9,6 +9,6 @@ export default {
     navigationBarBackgroundColor: '#fffefb',
     navigationBarTextStyle: 'black',
     navigationBarTitleText: '徽章',
-    backgroundColor: '#81CBE2'
+    backgroundColor: '#FFFEFB'
   }
 }

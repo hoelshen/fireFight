@@ -10,6 +10,6 @@ export default {
     navigationBarBackgroundColor: '#fffefb',
     navigationBarTextStyle: 'black',
     navigationBarTitleText: '咨询箱',
-    backgroundColor: '#81CBE2'
+    backgroundColor: '#FFFEFB'
   }
 }

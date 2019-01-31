@@ -2,7 +2,6 @@
   <view class="app box">
     <Mail :mail="mail"></Mail>
     <Mail v-if="reMail" :mail="reMail"></Mail>
-    <div class="penName">回信将不再匿名，若对方再次回复，你们将成为笔友</div>
     <Reply v-if="isReply" :target="mail.aliasName" tag="solution" :id="id"></Reply>
     <div class="flex column center showReply_button" v-if="!isReply && !reMail">
       <button :disabled="reMail" class="reply_button flex center" @click="showReply">回信</button>
@@ -67,12 +66,8 @@ export default {
   padding: 40rpx 60rpx;
 }
 .showReply_button {
+  color:#ffffff;
   margin-bottom: 60rpx;
-}
-.penName {
-  color: #bdbdc0;
-  font-size: 24rpx;
-  margin: 40rpx 0rpx;
 }
 .replay_text {
   color: #a9a9a9;

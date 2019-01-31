@@ -70,6 +70,7 @@ export default {
   white-space: pre-wrap;
   word-wrap: break-word;
   text-align: justify;
+  letter-spacing:2rpx;
 }
 .mail-sendName {
   color: #4d495b;
@@ -106,7 +107,7 @@ export default {
 }
 .mail_reply_aliasName {
   color: #4d495b;
-  font-size: 34rpx;
+  font-size: 28rpx;
   font-weight: bold;
 }
 .mail_reply_weather {

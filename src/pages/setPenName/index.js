@@ -10,6 +10,6 @@ export default {
     navigationBarBackgroundColor: '#fffefb',
     navigationBarTextStyle: 'black',
     navigationBarTitleText: '设置笔名和头像',
-    backgroundColor: '#81CBE2'
+    backgroundColor: '#FFFEFB'
   }
 }
