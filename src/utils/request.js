@@ -1,7 +1,5 @@
 import flyio from "flyio/dist/npm/wx";
-import {
-  promisify
-} from "@/utils/index";
+import { promisify } from "@/utils/index";
 
 const environment = "test"; // 配置环境
 
@@ -33,37 +31,26 @@ function showError(message, status, request) {
     icon: "none",
     duration: 2000
   });
-  //上传到小程序云数据库
-  try {
-    // 只有不在开发工具上触发的才上报
-    const systemInfo = wx.getSystemInfoSync();
-    let userInfo = store.state.userInfo;
-    let lauchOpts = store.state.launchOpts;
-    const time = new Date().getTime();
-    // 只有不在开发工具上触发的才上报
-    if (systemInfo.platform !== 'devtools') {
-      wx.getNetworkType({
-        success: res => {
-          wx.cloud.callFunction({
-            name: 'errorHandler',
-            data: {
-              userInfo: userInfo,
-              systemInfo: systemInfo,
-              lauchOpts: lauchOpts,
-              status: status,
-              requestName: request.url,
-              method: request.method,
-              networkType: res.networkType,
-              errorTime: time,
-              error: typeof message === 'object' ? JSON.stringify(message) : String(message)
-            }
-          });
-        }
-      });
+  snedToCloud(message, status, request);
+}
+
+function snedToCloud() {
+  const systemInfo = wx.getSystemInfoSync();
+  const lauchOpts = getApp().globalData.options;
+  const userId = getApp().globalData.user._id;
+  wx.cloud.callFunction({
+    name: "errorHandler",
+    data: {
+      systemInfo: systemInfo,
+      lauchOpts: lauchOpts,
+      requestName: request.url,
+      method: request.method,
+      status,
+      userId,
+      message,
+      createdAt: new Date()
     }
-  } catch (err) {
-    console.log('err', err)
-  }
+  });
 }
 
 function normalizeUserCookie(cookiesArray) {
@@ -92,15 +79,13 @@ async function login() {
 
 async function getUser() {
   await fly.get("/user").then(res => {
-    const {
-      user
-    } = res.data;
+    const { user } = res.data;
     return (getApp().globalData.user = user);
   });
 }
 
 function uploadFile(path) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function(resolve, reject) {
     wx.uploadFile({
       url: getBaseURL(environment) + "/file",
       filePath: path,
@@ -109,10 +94,10 @@ function uploadFile(path) {
         Cookie: cookies,
         "x-csrf-token": token
       },
-      success: function (res) {
+      success: function(res) {
         typeof resolve == "function" && resolve(res);
       },
-      fail: function (err) {
+      fail: function(err) {
         typeof reject == "function" && reject(err);
       }
     });
@@ -135,8 +120,8 @@ async function logLogin() {
 }
 
 async function waitingLogin() {
-  return new Promise(function (resolve, reject) {
-    var hash = setInterval(function () {
+  return new Promise(function(resolve, reject) {
+    var hash = setInterval(function() {
       if (tryCount >= 50) {
         clearInterval(hash);
         reject("登陆超时"); // 10秒超时时间
@@ -152,7 +137,7 @@ async function waitingLogin() {
   });
 }
 
-fly.interceptors.request.use(async function (request) {
+fly.interceptors.request.use(async function(request) {
   if (/login\?code=/.test(request.url)) {
     return request;
   }
@@ -189,7 +174,6 @@ fly.interceptors.response.use(
       });
     }
     showError(err.response.data.message, err.status, err.request);
-
   }
 );
 
@@ -197,4 +181,5 @@ fly.login = login;
 fly.saveFormid = saveFormid;
 fly.uploadFile = uploadFile;
 fly.getUser = getUser;
+
 export default fly;

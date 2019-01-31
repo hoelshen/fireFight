@@ -24,7 +24,6 @@ function getBaseURL(env) {
 }
 
 function showError(msg) {
-  // TODO 使用新增能力：云开发
   wx.showToast({
     title: msg,
     icon: "none",

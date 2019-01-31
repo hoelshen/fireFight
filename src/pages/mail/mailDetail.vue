@@ -12,7 +12,7 @@
 
 <script>
 import Mail from "@/components/Mail";
-import Reply from "@/components/reply";
+import Reply from "@/components/Reply";
 
 export default {
   components: {

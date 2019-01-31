@@ -10,36 +10,29 @@
         </block>
       </swiper>
       <div class="entries flex center">
-        <image class="left" @click="toConsulting" src="/static/svgs/home_left.svg"/>
+        <image class="left" @click="toConsulting" src="/static/svgs/home_left.svg" />
         <image class="right" @click="toSolution" src="/static/svgs/home_right.svg" />
       </div>
     </div>
 
     <!-- 信箱 -->
     <div class="pannel grow" v-else-if="tab == 'mail'">
-      <scroll-view scroll-y  :style='`height: ${scrolHeight}rpx`'>
-          <div class="mailbox_title flex center" v-if="wayCount">
-            <button class="flex center" @click="openMail">{{wayCount}} 封信正在邮寄的路上</button>
-          </div>
-          <div class="list" v-for="item in dialogs" :key="item._id">
-            <Envelope :mail="item.toMail" :isRead="item.isRead" :dialogId="item._id" v-if="item.fromSystem"></Envelope>
-            <Envelope :mail="item.toMail" :isRead="item.isRead" :dialogId="item._id" v-else-if="userId == item.toUser._id"></Envelope>
-            <Envelope :mail="item.fromMail" :isRead="item.isRead" :dialogId="item._id" v-else></Envelope>
-          </div>
+      <scroll-view scroll-y :style='`height: ${scrolHeight}px`'>
+        <div class="mailbox_title flex center" v-if="wayCount">
+          <button class="flex center" @click="openMail">{{wayCount}} 封信正在邮寄的路上</button>
+        </div>
+        <div class="list" v-for="item in dialogs" :key="item._id">
+          <Envelope :mail="item.toMail" :isRead="item.isRead" :dialogId="item._id" v-if="item.fromSystem"></Envelope>
+          <Envelope :mail="item.toMail" :isRead="item.isRead" :dialogId="item._id" v-else-if="userId == item.toUser._id"></Envelope>
+          <Envelope :mail="item.fromMail" :isRead="item.isRead" :dialogId="item._id" v-else></Envelope>
+        </div>
       </scroll-view>
     </div>
-
-
 
     <!-- 我的 -->
     <div class="pannel grow" v-else>
       <div class="my_info flex column">
-        <img
-          class="my_info_user-avatarUrl"
-          :src="user.aliasPortrait || 'https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg'"
-          mode="scaleToFill"
-          @click="login"
-        />
+        <img class="my_info_user-avatarUrl" :src="user.aliasPortrait || 'https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg'" mode="scaleToFill" @click="login" />
         <button @click="login" v-if="!user.aliasPortrait">点击登录</button>
         <div class="flex column center" v-else>
           <div class="flex j-around my_info_user-nickName">
@@ -70,43 +63,35 @@
         <button class="my_contact_item-button flex wrap center grow" open-type="contact" send-message-img :session-from="{
           'nickName':user.aliasName, 
           'avatarUrl':user.aliasPortrait
-          }"
-          @contact="joinGroup"
-        >
+          }" @contact="joinGroup">
           <image class="iconfont" src="/static/svgs/joinGroup.svg" />
 
           <span class="my_contact_item-text grow">加入群聊</span>
           <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
         </button>
 
-        <button class="my_contact_item-button flex wrap center grow" open-type="contact" :session-from="{
-          'nickName':user.aliasName, 
-          'avatarUrl':user.aliasPortrait
-          }"
-          @contact="AnswerQuestion"
-        >
+        <button class="my_contact_item-button flex wrap center grow" @tap="toFaq">
           <image class="iconfont" src="/static/svgs/question.svg" />
-
           <span class="my_contact_item-text grow">问题与反馈</span>
           <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
         </button>
       </session>
-      
+
       <session class="my_share flex center">
         <button class="flex center" hover-class="active" open-type="share">安利Tell给好友</button>
       </session>
     </div>
 
-    <HomeBar @change="onTabChange"></HomeBar>
+    <HomeTabbar @change="onTabChange"></HomeTabbar>
   </view>
 </template>
 <script>
-import HomeBar from "@/components/TtabBar";
+import HomeTabbar from "@/components/HomeTabbar";
 import Envelope from "@/components/Envelope";
 
 export default {
   components: {
-    HomeBar,
+    HomeTabbar,
     Envelope
   },
   data() {
@@ -116,7 +101,7 @@ export default {
       wayCount: 0,
       dialogs: [],
       user: {},
-      scrolHeight: 1069
+      scrolHeight: 541
     };
   },
   onLoad(opt) {
@@ -206,14 +191,24 @@ export default {
         });
       }
     },
-    getScroll(){
-      const query = wx.createSelectorQuery()
-      const res = query.select('.bar').boundingClientRect().exec(function (res) {
-        let searchHeight = res[0].height
-        let windowHeight = wx.getSystemInfoSync().windowHeight
-        let scrolHeight = (windowHeight - searchHeight) * 2
-        this.scrolHeight = scrolHeight;
-      }.bind(this));
+    toFaq() {
+      this.$router.push({
+        path: "/pages/faq/index"
+      });
+    },
+    getScroll() {
+      const query = wx.createSelectorQuery();
+      const res = query
+        .select(".bar")
+        .boundingClientRect()
+        .exec(
+          function(res) {
+            let barHeight = res[0].height;
+            let systemInfo = wx.getSystemInfoSync();
+            this.scrolHeight =
+              systemInfo.windowHeight - systemInfo.statusBarHeight - barHeight;
+          }.bind(this)
+        );
     }
   }
 };
@@ -250,7 +245,7 @@ export default {
 .mailbox_title {
   margin: 40rpx auto;
   & button {
-    height: 92rpx;;
+    height: 92rpx;
     padding: 0 40rpx;
     border: 1px solid #ffc86d;
     border-radius: 46px;
@@ -284,7 +279,7 @@ export default {
       height: 84rpx;
       font-size: 60rpx;
       text-align: center;
-      color:#4D495B;
+      color: #4d495b;
     }
     &-nickNameImg {
       width: 36rpx;
@@ -312,7 +307,7 @@ export default {
     &-button {
       height: 172rpx;
       width: 210rpx;
-      color:#4D495B;
+      color: #4d495b;
       font-weight: 600;
     }
 
@@ -335,7 +330,7 @@ export default {
       width: 100%;
       padding: 32rpx 40rpx;
       align-items: center;
-      color:#4D495B;
+      color: #4d495b;
       font-weight: 600;
       .iconfont {
         width: 32rpx;
