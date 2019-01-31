@@ -2,13 +2,13 @@
   <view class="app flex column j-between">
     <div class="soDetail">
       <div class="title">选择你最愿意看到的话题</div>
-      <div
-        class="tag box"
-        hover-class="active"
-        v-for="(item,index) in titles"
-        :key="index"
-        @click="select(index)"
-      >{{item.name}}</div>
+      <div class="tag box" hover-class="active" 
+          :class="activeIndex == index ?'lightColor' :''"
+          v-for="(item,index) in titles" 
+          :key="index" @click="select(index)"
+      >
+      {{item.name}}
+      </div>
     </div>
     <div class="foot">
       <button v-if="!isFlag" class="titleButton flex center darkButton" @click="add">提交申请</button>
@@ -23,7 +23,9 @@ export default {
     return {
       titles: [],
       title: {},
-      isFlag: false
+      isFlag: false,
+      activeIndex:-1,
+      islightColor: false
     };
   },
   methods: {
@@ -39,6 +41,8 @@ export default {
     },
     select(index) {
       this.title = this.titles[index];
+      this.activeIndex =index;
+      //this.islightColor = true;
     },
     add() {
       this.$request.put("/tag", { _id: this.title._id }).then(res => {
@@ -61,7 +65,6 @@ export default {
       currentRoute: { query }
     } = this.$router;
     const { user } = getApp().globalData;
-    console.log("user: ", user);
     if (user.becomeAnswererAt) {
       console.log("becomeAnswererAt: ", user.becomeAnswererAt);
       this.isFlag = true;
@@ -84,6 +87,9 @@ export default {
   & button {
     margin-bottom: 40rpx;
   }
+}
+.lightColor{
+  border: 2rpx #ffc86d solid;
 }
 .titleButtonSpan {
   color: #a9a9a9;
