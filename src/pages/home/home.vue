@@ -147,7 +147,7 @@ export default {
       this.dialogs = res.data;
     },
     toConsulting() {
-      this.$router.push({ path: "/pages/consultingBox/index" });
+      this.$router.push({ path: "/pages/consultingBox/consultingBox" });
     },
     toSolution() {
       const { user } = getApp().globalData;

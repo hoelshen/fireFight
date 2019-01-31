@@ -1,16 +1,5 @@
 <template>
   <view class="app">
-    <div v-if="active === 'description'">
-      <div>致咨询者</div>
-      <div>向Tell烦恼研究中心发起咨询服务，需要消耗解忧券</div>
-      <div @click="returnBack">好的</div>
-    </div>
-    <div v-if="active === 'consultative'">
-      <div>我们会在每日22:30手机咨询箱中的信</div>
-      <div>这封信将于18小时后送到解答室</div>
-      <button @click="returnHome">好的</button>
-    </div>
-
     <div class="solverDetailStyle flex column center" v-if="active === 'solverDetail'">
       <div class="flex center column grow">
         <p>需要先成为解答者，才能查阅这里的信件</p>
@@ -68,7 +57,7 @@ export default {
   name: "Tdetail",
   data() {
     return {
-      active: "description",
+      active: "solverDetail",
       listData: [],
       checked: false
     };
@@ -77,11 +66,8 @@ export default {
     const {
       currentRoute: { query }
     } = this.$router;
-    // console.log("query: ", query);
     this.active = query.active;
     const navigationBar = {
-      description: "烦恼咨询服务说明",
-      consultative: "已提交咨询",
       solverDetail: "解答者手册",
       solutionLimit: "每日解答上限说明"
     };
@@ -91,12 +77,6 @@ export default {
     this.bade();
   },
   methods: {
-    returnBack() {
-      this.$router.go(-1);
-    },
-    returnHome() {
-      this.$router.reLaunch("/pages/home/index");
-    },
     onDetail() {
       this.$router.push({
         query: { page: "Solver-Manual" },

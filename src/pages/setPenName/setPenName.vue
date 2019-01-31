@@ -47,7 +47,6 @@ export default {
         sizeType: ["compressed"],
         sourceType: ["album", "camera"],
         success(res) {
-          // tempFilePath可以作为img标签的src属性显示图片
           const tempFilePaths = res.tempFilePaths;
           that.$request.uploadFile(tempFilePaths[0]).then(res => {
             const data = JSON.parse(res.data);
@@ -59,16 +58,11 @@ export default {
     },
     save() {
       const route = this.$router.currentRoute;
-      // console.log("route: ", route);
 
       const { aliasName, aliasPortrait } = this.userInfo;
       if (aliasName) {
         if(aliasName.length < 2) {
-            return  wx.showToast({
-                      title: "请设置大于2个字符的笔名",
-                      icon: "none",
-                      duration: 2000
-                    });
+          return  wx.showToast({ title: "请设置大于2个字符的笔名" });
         }
         this.$request
           .put("/user", {
@@ -77,18 +71,14 @@ export default {
           })
           .then(res => {
             console.log(res);
+            this.$router.reLaunch({
+              query: { active: "mine" },
+              path: "/pages/home/index"
+            });            
           });
-        this.$router.reLaunch({
-          query: { active: "mine" },
-          path: "/pages/home/index"
-        });
       }
       if (!aliasName) {
-        wx.showToast({
-          title: "请设置笔名",
-          icon: "none",
-          duration: 2000
-        });
+        wx.showToast({ title: "请设置笔名" });
       }
     },
     setName(e) {

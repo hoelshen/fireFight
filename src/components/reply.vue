@@ -9,7 +9,9 @@
         <div class="reply_weather_love_button">
           <button class="lightButton flex center" @click="likeBtn">
             <span class="flex center">感谢</span>
-            <img class="reply_weather_name iconfont" src="/static/svgs/love.svg">
+            <img class="reply_weather_name iconfont" v-if="like" src="/static/svgs/love-active.svg">
+            <image class="reply_weather_name iconfont" v-else src="/static/svgs/love.svg"></image>
+
           </button>
         </div>
       </div>
@@ -54,7 +56,8 @@ export default {
         weather: "",
         aliasPortrait: "",
         aliasName: ""
-      }
+      },
+      like:false
     };
   },
   methods: {
@@ -68,11 +71,19 @@ export default {
     replyMail() {
       if (this.reply.content.length < 50) {
         return wx.showToast({
-          title: "请输入超过50个字",
+          title: "认真的讲诉更容易获得解答，多谢几句吧",
           icon: "none",
           duration: 2000
         });
       }
+      if (this.reply.content.length > 5000) {
+        return wx.showToast({
+          icon: "none",
+          title: "请控制在5000字以内"
+        });
+      }
+      this.$request.put(`/mail/reply/${this.id}`).then(res => {
+      });
       const obj = { content: this.reply.content, weather: this.reply.weather };
       if (this.tag === "mail") {
         this.$request.put(`/dialog/${this.id}`, obj).then(() => {
@@ -96,9 +107,8 @@ export default {
       }
     },
     likeBtn() {
-      this.$request.put(`/mail/reply/${this.id}`).then(res => {
-        // console.log("res")
-      });
+      if(this.like) return;
+      this.like= true
     }
   },
   async created() {
@@ -106,6 +116,9 @@ export default {
     this.reply.aliasName = user.aliasName;
     this.reply.aliasPortrait = user.aliasPortrait;
     this.getWeather();
+  },
+  onHide(){
+    this.reply.content = '';
   }
 };
 </script>

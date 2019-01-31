@@ -62,7 +62,7 @@
 				{
 					"id": -1,
 					"name": "咨询箱",
-					"pathName": "pages/consultingBox/index",
+					"pathName": "pages/consultingBox/consultingBox",
 					"query": ""
 				},
 				{
@@ -174,7 +174,7 @@
 					"id": 22,
 					"name": "回信完成提示页",
 					"pathName": "pages/solution/promptPage",
-					"query": "targetUser=sjh&active=mail",
+					"query": "targetUser=&active=story",
 					"scene": null
 				}
 			]
