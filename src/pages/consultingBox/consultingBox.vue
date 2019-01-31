@@ -31,18 +31,9 @@ export default {
       this.$router.push({ path: "/pages/myStory/index" });
     },
     onDetail() {
-      wx.showModal({
-        title: "致咨询者",
-        content: "向Tell烦恼研究中心发起咨询服务，需要消耗解忧券",
-        showCancel: false,
-        confirmText: "好的",
-        confirmColor: "#FFC86D",
-        success: result => {
-          if (result.confirm) {
-          }
-        },
-        fail: () => {},
-        complete: () => {}
+      this.$router.push({
+        query: { page: "Trouble-Consultaion-Service-Description" },
+        path: "/pages/webview/index"
       });
     },
     returnWelfare() {
