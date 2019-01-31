@@ -36,7 +36,7 @@
       <div class="my_info flex column">
         <img
           class="my_info_user-avatarUrl"
-          :src="user.aliasPortrait || 'https://cdn.tellers.cn/tell_v2/static/default-avatar.svg'"
+          :src="user.aliasPortrait || 'https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg'"
           mode="scaleToFill"
           @click="login"
         />
