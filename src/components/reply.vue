@@ -5,17 +5,6 @@
         <span class="target">{{target}}</span>收
       </div>
       <textarea class="textArea" maxlength="5000" :value="reply.content" @input="bindTextAreaBlur"/>
-      <div class="reply_weather_love flex j-bwtween">
-        <div class="reply_weather_love_button">
-          <button class="lightButton flex center" @click="likeBtn">
-            <span class="flex center">感谢</span>
-            <img class="reply_weather_name iconfont" v-if="like" src="/static/svgs/love-active.svg">
-            <image class="reply_weather_name iconfont" v-else src="/static/svgs/love.svg"></image>
-
-          </button>
-        </div>
-      </div>
-
       <div class="reply_weather flex column">
         <div class="flex wrap j-end">
           <img class="reply_weather_name" :src="reply.aliasPortrait">
@@ -57,7 +46,6 @@ export default {
         aliasPortrait: "",
         aliasName: ""
       },
-      like:false
     };
   },
   methods: {
@@ -82,8 +70,6 @@ export default {
           title: "请控制在5000字以内"
         });
       }
-      this.$request.put(`/mail/reply/${this.id}`).then(res => {
-      });
       const obj = { content: this.reply.content, weather: this.reply.weather };
       if (this.tag === "mail") {
         this.$request.put(`/dialog/${this.id}`, obj).then(() => {
@@ -105,10 +91,6 @@ export default {
           });
         });
       }
-    },
-    likeBtn() {
-      if(this.like) return;
-      this.like= true
     }
   },
   async created() {
@@ -128,27 +110,19 @@ export default {
   margin-bottom: 26rpx;
 }
 .reply_weather_weather {
-  color: #bdbdc0;
-  font-size: 22rpx;
+  font-size: 28rpx;
   margin-top: 26rpx;
   margin-bottom: 40rpx;
 }
-.reply_weather_love {
-  color: #ffc86d;
-  margin-top: 14rpx;
-  font-size: 28rpx;
-  & label {
-    margin-right: 20rpx;
-  }
-}
 .textArea {
-  min-height: 200px;
+  min-height: 400rpx;
+  padding: 40rpx;
   background-color: #ffffff;
   border: 2rpx solid #bdbdc0;
   width: 100%;
-  height: 100%;
   color: #4d495b;
   font-size: 28rpx;
+  box-sizing: border-box;
 }
 
 .replay_content {

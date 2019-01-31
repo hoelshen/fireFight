@@ -113,7 +113,9 @@ export default {
       this.weather = res.data;
     },
     onBlur() {
-      this.isDisplay = true;
+      if(this.content.length === 0){
+        this.isDisplay = true;
+      }
     }
   },
   onShow() {
@@ -135,6 +137,12 @@ export default {
   min-height: 750rpx;
   background-color: #ffffff;
   color: black;
+  color: #4d495b;
+  padding: 40rpx;
+  border: 2rpx solid #bdbdc0;
+  width: 100%;
+  font-size: 28rpx;
+  box-sizing: border-box;
 }
 .textNameSpan {
   margin-right: 20rpx;
@@ -143,7 +151,6 @@ export default {
   margin-top: 60rpx;
   margin-bottom: 24rpx;
 }
-
 .textDay {
   margin-top: 24rpx 0rpx;
 }
@@ -154,7 +161,7 @@ export default {
   }
 }
 .textAreafloat {
-  min-height: 640rpx;
+  min-height: 750rpx;
   margin: 40rpx;
   color: rgba(169, 169, 169, 1);
 }

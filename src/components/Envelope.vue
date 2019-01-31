@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="list_item-sendName flex j-between">
-      <span>{{isRead ? '已读' :''}}</span>
+      <span>{{isReplied ? '已回复' : (isRead ? '已读' : '未读')}}</span>
       <span>{{mail.aliasName}}</span>
     </div>
   </div>
@@ -32,6 +32,10 @@ export default {
       requred: true
     },
     isRead: {
+      type: Boolean,
+      default: false
+    },
+    isReplied: {
       type: Boolean,
       default: false
     },

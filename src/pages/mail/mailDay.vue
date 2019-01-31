@@ -1,7 +1,7 @@
 <template>
   <view class="page">
     <div class="list shadow" v-for="item in list" :key="item._id">
-      <div class="mailDay flex center">来自
+      <div class="mailDay flex center" @click="showToast(index)">来自
         <span class="mailDayName">{{item.fromUser.aliasName}}</span>的信于 {{item.sentAt | momentFormat}} 时到达</div>
     </div>
   </view>
@@ -20,9 +20,19 @@ export default {
     async getList() {
       const res = await this.$request.get("/dialog/way/list");
       this.list = res.data;
+    },
+    showToast(){
+      // const moments = this.$day()
+      // wx.showToast({
+      //   title: `到达时间`,
+      //   icon: 'none',
+      //   image: '',
+      //   duration: 1500,
+      //   mask: false,
+      // })
     }
   }
-};
+}
 </script>
 <style lang="less" scoped>
 .page{

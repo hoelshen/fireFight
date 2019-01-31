@@ -23,7 +23,6 @@ export default {
     return {
       titles: [],
       title: {},
-      isFocus: true,
       isFlag: false
     };
   },
@@ -40,7 +39,6 @@ export default {
     },
     select(index) {
       this.title = this.titles[index];
-      this.isFocus = false;
     },
     add() {
       this.$request.put("/tag", { _id: this.title._id }).then(res => {

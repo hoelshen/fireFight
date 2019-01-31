@@ -7,14 +7,11 @@
       </div>
       <div clss="solutionRoomName_question flex j-between">
         <span class="solutionRoomName_question_mail">你今天还可以解答{{replyCount}}个咨询</span>
-        <!-- <button @click="onSolutionLimit">
-          <div class="iconfont icon-memery"></div>
-        </button> -->
       </div>
     </session>
 
     <session class="list">
-      <Envelope :isRead="item.isRead" :mail="item.mail" v-for="(item,index) in mails" :key="index">
+      <Envelope :isRead="item.isRead" :isReplied= "item.isReplied" :mail="item.mail" v-for="(item,index) in mails" :key="index">
       </Envelope>
     </session>
 
@@ -37,7 +34,6 @@ export default {
       aliasName: "",
       replyCount: 1,
       mails: [],
-      isFocus: true
     };
   },
   methods: {

@@ -1,7 +1,6 @@
 <template>
   <view class="app list">
     <Mail :mail="item" v-for="item in list" :key="item._id"></Mail>
-    <div class="penName">回信将不再匿名，若对方再次回复，你们将成为笔友</div>
     <Reply v-if="isReply" :target="target.aliasName" tag="mail" :id="id"></Reply>
     <div class="flex column center showReply_button" v-if="!isReply">
       <button :disabled="fromUserId === userId" class="reply_button" @click="showReply">回信</button>
@@ -72,12 +71,6 @@ export default {
 .mail {
   width: 630rpx;
   min-height: 620rpx;
-  margin: 81rpx 60rpx 36rpx 60rpx;
-}
-
-.penName {
-  color: #bdbdc0;
-  font-size: 24rpx;
   margin: 81rpx 60rpx 36rpx 60rpx;
 }
 

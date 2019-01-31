@@ -4,14 +4,20 @@
       {{mail.targetUserName || 'Tell烦恼咨询中心'}} {{mail.fromSystem ? "" :"收"}}
     </div>
     <div class="mail_content">{{mail.content}}</div>
+
+    <div class="reply_weather_love flex j-bwtween" v-if="mail.type==='REPLY'">
+      <div class="reply_weather_love_button" >
+        <button class="lightButton flex center" @click="likeBtn(mail)">
+          <span class="flex center">感谢</span>
+          <img class="reply_weather_name iconfont" v-if="mail.like" src="/static/svgs/love-active.svg">
+          <image class="reply_weather_name iconfont" v-else src="/static/svgs/love.svg"/>
+        </button>
+      </div>
+    </div>
     <div class="mail_reply flex column j-end">
       <div class="flex wrap j-end">
-        <!-- <img
-            class="mail_reply_img"
-            :src="item. || 'https://cdn.tellers.cn/tell_v2/static/default-avatar.svg'"
-            mode="scaleToFill"
-            @click="login"
-          >-->
+
+        <img class="mail_weather_name" :src="mail.aliasPortrait">
         <span class="mail_reply_aliasName">{{mail.aliasName}}</span>
       </div>
 
@@ -29,10 +35,18 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+    };
   },
   methods: {
-    toMail() {}
+    toMail() {},
+    likeBtn(mail) {
+      console.log('index: ', mail);
+      if(mail.like) return;
+      this.mail.like = true
+      this.$request.put(`/mail/reply/${this.mail._id}`).then(res => {
+      });
+    }
   }
 };
 </script>
@@ -65,6 +79,25 @@ export default {
   background: rgba(189, 189, 192, 0.05);
   font-size: 24rpx;
   margin-bottom: 52rpx;
+}
+.reply_weather_love {
+  color: #ffc86d;
+  font-size: 28rpx;
+  margin-bottom: 40rpx;
+  & label {
+    margin-right: 20rpx;
+  }
+}
+.lightButton{
+  height: 56rpx;
+  padding: 8rpx 40rpx;
+  margin-top: 0;
+}
+.mail_weather_name {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
 }
 .mail_reply_img {
   width: 44rpx;
