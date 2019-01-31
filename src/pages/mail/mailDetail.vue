@@ -67,6 +67,9 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.app {
+  padding: 40rpx 0rpx;
+}
 .mail {
   width: 630rpx;
   min-height: 620rpx;

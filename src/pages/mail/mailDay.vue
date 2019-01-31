@@ -37,11 +37,12 @@ export default {
 <style lang="less" scoped>
 .page{
   padding: 40rpx 60rpx;
-  background: #fffefb;
+  background-color: #fffefb;
+  height:100vh;
 }
 .list{
   margin-bottom: 40rpx;
-  background: #fff;
+  background-color: #fff;
 }
 .mailDay {
   height: 120rpx;

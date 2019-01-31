@@ -11,5 +11,6 @@ export default {
         navigationBarTextStyle: 'black',
         navigationBarTitleText: '信件',
         backgroundColor: '#FFFEFB',
+        disableScroll: false
     }
 };

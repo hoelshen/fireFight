@@ -17,7 +17,9 @@
         </div>
       </div>
     </div>
-    <button class="reply_button flex center" @click="replyMail">发送</button>
+    <div class="flex center reply_div">
+        <button class="reply_button flex center" @click="replyMail">发送</button>
+    </div>
   </div>
 </template>
 <script>
@@ -148,5 +150,8 @@ export default {
   & view {
     margin-right: 10rpx;
   }
+}
+.reply_div{
+  background-color:#FFFEFB;
 }
 </style>

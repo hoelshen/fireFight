@@ -17,15 +17,19 @@
 
     <!-- 信箱 -->
     <div class="pannel grow" v-else-if="tab == 'mail'">
-      <div class="mailbox_title flex center" v-if="wayCount">
-        <button class="flex center" @click="openMail">{{wayCount}} 封信正在邮寄的路上</button>
-      </div>
-      <div class="list" v-for="item in dialogs" :key="item._id">
-        <Envelope :mail="item.toMail" :isRead="item.isRead" :dialogId="item._id" v-if="item.fromSystem"></Envelope>
-        <Envelope :mail="item.toMail" :isRead="item.isRead" :dialogId="item._id" v-else-if="userId == item.toUser._id"></Envelope>
-        <Envelope :mail="item.fromMail" :isRead="item.isRead" :dialogId="item._id" v-else></Envelope>
-      </div>
+      <scroll-view scroll-y  :style='`height: ${scrolHeight}rpx`'>
+          <div class="mailbox_title flex center" v-if="wayCount">
+            <button class="flex center" @click="openMail">{{wayCount}} 封信正在邮寄的路上</button>
+          </div>
+          <div class="list" v-for="item in dialogs" :key="item._id">
+            <Envelope :mail="item.toMail" :isRead="item.isRead" :dialogId="item._id" v-if="item.fromSystem"></Envelope>
+            <Envelope :mail="item.toMail" :isRead="item.isRead" :dialogId="item._id" v-else-if="userId == item.toUser._id"></Envelope>
+            <Envelope :mail="item.fromMail" :isRead="item.isRead" :dialogId="item._id" v-else></Envelope>
+          </div>
+      </scroll-view>
     </div>
+
+
 
     <!-- 我的 -->
     <div class="pannel grow" v-else>
@@ -107,7 +111,8 @@ export default {
       banners: [],
       wayCount: 0,
       dialogs: [],
-      user: {}
+      user: {},
+      scrolHeight: 1069
     };
   },
   onLoad(opt) {
@@ -118,6 +123,7 @@ export default {
     this.getBanners();
     this.getWayCount();
     this.getDialogs();
+    this.getScroll();
   },
   onShareAppMessage(res) {
     return {
@@ -195,6 +201,15 @@ export default {
           path: "/pages/setPenName/index"
         });
       }
+    },
+    getScroll(){
+      const query = wx.createSelectorQuery()
+      const res = query.select('.bar').boundingClientRect().exec(function (res) {
+        let searchHeight = res[0].height
+        let windowHeight = wx.getSystemInfoSync().windowHeight
+        let scrolHeight = (windowHeight - searchHeight) * 2
+        this.scrolHeight = scrolHeight;
+      }.bind(this));
     }
   }
 };
@@ -261,6 +276,7 @@ export default {
       margin: 20px auto;
     }
     &-nickName {
+      font-weight: 600;
       height: 84rpx;
       font-size: 60rpx;
       text-align: center;
