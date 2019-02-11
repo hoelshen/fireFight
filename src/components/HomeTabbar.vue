@@ -1,5 +1,5 @@
 <template>
-  <div class="bar box flex a-center j-between shadow">
+  <div class="bar box flex a-center j-between shadow" :class=" isIpx ? 'fix-iphonex-icon' : '' ">
     <form @submit="mail" report-submit="true">
       <button class="flex center" form-type="submit" hover-class="active">
         <image class="icon" v-if="tab == 'mail'" src="/static/svgs/mail-active.svg">
@@ -39,8 +39,15 @@ export default {
   },
   data() {
     return {
-      tab: "home"
+      tab: "home" ,
+      isIpx: false
     };
+  },
+  onShow(){
+    const model = wx.getSystemInfoSync().model;
+    if(model.includes('iPhone X')){
+      this.isIpx = true;
+    }
   },
   methods: {
     myInfo(e) {
@@ -81,5 +88,8 @@ export default {
   .active {
     background: #ffffff;
   }
+}
+.fix-iphonex-icon {
+  height: 192rpx;
 }
 </style>
