@@ -113,17 +113,28 @@ export default {
     },
     reply() {},
     async exchange() {
-      wx.showLoading({
-        title: "",
-        mask: true
-      });
       let res = await this.$request.post("/task/exchange");
-      if (res.success) {
-        wx.hideLoading();
-        wx.showToast({ title: "兑换成功" });
-      } else {
-        wx.showToast({ title: res.message ,icon: "none" });
-      }
+      wx.showModal({
+        title: '提示',
+        content: '确定要兑换？',
+        showCancel: true,
+        cancelText: '取消',
+        cancelColor: '#000000',
+        confirmText: '确定',
+        confirmColor: '#3CC51F',
+        success: (result) => {
+          if(result.confirm){
+              if (res.success) {
+                wx.hideLoading();
+                wx.showToast({ title: "兑换成功" });
+              } else {
+                wx.showToast({ title: res.message ,icon: "none" });
+              }
+          }
+        },
+        fail: ()=>{},
+        complete: ()=>{}
+      });
     },
     async pay() {
       wx.showLoading({
