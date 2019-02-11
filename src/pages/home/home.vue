@@ -107,6 +107,8 @@ export default {
   onLoad(opt) {
     this.onTabChange(opt.tab);
   },
+  onLaunch(){
+  },
   onShow() {
     this.$request.getUser();
     this.getBanners();
@@ -197,18 +199,27 @@ export default {
       });
     },
     getScroll() {
-      const query = wx.createSelectorQuery();
-      const res = query
-        .select(".bar")
-        .boundingClientRect()
-        .exec(
-          function(res) {
-            let barHeight = res[0].height;
-            let systemInfo = wx.getSystemInfoSync();
-            this.scrolHeight =
-              systemInfo.windowHeight - systemInfo.statusBarHeight - barHeight;
-          }.bind(this)
-        );
+      const version  = wx.getSystemInfoSync().SDKVersion
+      if (this.$compareVersion(version, '1.4.0') >= 0) {
+        const query = wx.createSelectorQuery();
+        const res = query
+          .select(".bar")
+          .boundingClientRect()
+          .exec(
+            function(res) {
+              let barHeight = res[0].height;
+              let systemInfo = wx.getSystemInfoSync();
+              this.scrolHeight =
+                systemInfo.windowHeight - systemInfo.statusBarHeight - barHeight;
+            }.bind(this)
+          );
+      } else {
+        // 如果希望用户在最新版本的客户端上体验您的小程序，可以这样子提示
+        wx.showModal({
+          title: '提示',
+          content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
+        })
+      }
     }
   }
 };
