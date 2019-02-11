@@ -67,6 +67,7 @@
           <image class="iconfont" src="/static/svgs/joinGroup.svg" />
 
           <span class="my_contact_item-text grow">加入群聊</span>
+          <image class="group flex center" src="/static/svgs/group.svg" />
           <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
         </button>
 
@@ -358,6 +359,11 @@ export default {
       font-size: 28rpx;
       text-align: left;
     }
+  }
+  .group{
+    width: 72rpx;
+    height: 72rpx;
+    margin-right: 20rpx;
   }
 }
 .my_share {
