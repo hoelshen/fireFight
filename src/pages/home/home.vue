@@ -67,7 +67,7 @@
           <image class="iconfont" src="/static/svgs/joinGroup.svg" />
 
           <span class="my_contact_item-text grow">加入群聊</span>
-          <image class="group flex center" src="/static/svgs/group.svg" />
+          <image class="group flex center" src="/static/svgs/group.png" />
           <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
         </button>
 

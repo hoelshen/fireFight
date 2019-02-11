@@ -85,10 +85,12 @@ export default {
       this.userInfo.aliasName = e.detail.value;
     }
   },
-  async onShow() {
-    await this.$request.getUser();
+  onShow() {
+   this.$request.getUser().then(()=>{
     const { user } = getApp().globalData;
     this.userInfo.aliasPortrait = user.aliasPortrait;
+    this.userInfo.aliasName = user.nickName;
+   });
   }
 };
 </script>
