@@ -2,6 +2,7 @@
   <view class="page flex column">
     <!-- 首页 -->
     <div class="pannel grow" v-if="tab == 'home'">
+      <scroll-view class="entries" scroll-y :style='`height: ${scrolHeight}px`'>
       <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
         <block v-for="item in banners" :key="item">
           <swiper-item>
@@ -9,10 +10,10 @@
           </swiper-item>
         </block>
       </swiper>
-      <div class="entries flex center">
-        <image class="left" @click="toConsulting" src="/static/svgs/home_left.svg" />
-        <image class="right" @click="toSolution" src="/static/svgs/home_right.svg" />
-      </div>
+        <image class="home flex center" src="/static/svgs/homeBg.jpg"></image>
+        <div class="left" @click="toConsulting"/>
+        <div class="right" @click="toSolution"/>
+      </scroll-view>
     </div>
 
     <!-- 信箱 -->
@@ -22,65 +23,67 @@
           <button class="flex center" @click="openMail">{{wayCount}} 封信正在邮寄的路上</button>
         </div>
         <div class="list" v-for="item in dialogs" :key="item._id">
-          <Envelope :mail="item.toMail" :isRead="item.isRead" :dialogId="item._id" v-if="item.fromSystem"></Envelope>
-          <Envelope :mail="item.toMail" :isRead="item.isRead" :dialogId="item._id" v-else-if="userId == item.toUser._id"></Envelope>
-          <Envelope :mail="item.fromMail" :isRead="item.isRead" :dialogId="item._id" v-else></Envelope>
+          <Envelope station="dialogId" :mail="item.toMail" :isRead="item.isRead" :dialogId="item._id" v-if="item.fromSystem"></Envelope>
+          <Envelope station="dialogId" :mail="item.toMail" :isRead="item.isRead" :dialogId="item._id" v-else-if="userId == item.toUser._id"></Envelope>
+          <Envelope station="dialogId" :mail="item.fromMail" :isRead="item.isRead" :dialogId="item._id" v-else></Envelope>
         </div>
       </scroll-view>
     </div>
 
     <!-- 我的 -->
     <div class="pannel grow" v-else>
-      <div class="my_info flex column">
-        <img class="my_info_user-avatarUrl" :src="user.aliasPortrait || 'https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg'" mode="scaleToFill" @click="login" />
-        <button @click="login" v-if="!user.aliasPortrait">点击登录</button>
-        <div class="flex column center" v-else>
-          <div class="flex j-around my_info_user-nickName">
-            <div @click="login">{{user.aliasName}}</div>
+      <scroll-view scroll-y :style='`height: ${scrolHeight}px`'>
+        <div class="my_info flex column">
+          <img class="my_info_user-avatarUrl" :src="user.aliasPortrait || 'https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg'" mode="scaleToFill" @click="login" />
+          <button @click="login" v-if="!user.aliasPortrait">点击登录</button>
+          <div class="flex column center" v-else>
+            <div class="flex j-around my_info_user-nickName">
+              <div @click="login">{{user.aliasName}}</div>
+            </div>
+            <div class="my_info_user-address flex wrap">{{user.aliasAddress}}</div>
           </div>
-          <div class="my_info_user-address flex wrap">{{user.aliasAddress}}</div>
         </div>
-      </div>
 
-      <session class="my_function flex">
-        <button @tap="memory" class="my_function_item-button flex column center">
-          <image class="iconfont" src="/static/svgs/moment.svg" />
-          <span class="my_function_item-text">记忆</span>
-        </button>
+        <session class="my_function flex">
+          <button @tap="memory" class="my_function_item-button flex column center">
+            <image class="iconfont" src="/static/svgs/moment.svg" />
+            <span class="my_function_item-text">记忆</span>
+          </button>
 
-        <button @click="ticket" class="my_function_item-button flex column center">
-          <image class="iconfont" src="/static/svgs/ticket.svg" />
-          <span class="my_function_item-text">票券</span>
-        </button>
+          <button @click="ticket" class="my_function_item-button flex column center">
+            <image class="iconfont" src="/static/svgs/ticket.svg" />
+            <span class="my_function_item-text">票券</span>
+          </button>
 
-        <button @click="welfare" class="my_function_item-button flex column center">
-          <image class="iconfont" src="/static/svgs/welfare.svg" />
-          <span class="my_function_item-text">福利社</span>
-        </button>
-      </session>
+          <button @click="welfare" class="my_function_item-button flex column center">
+            <image class="iconfont" src="/static/svgs/welfare.svg" />
+            <span class="my_function_item-text">福利社</span>
+          </button>
+        </session>
 
-      <session class="my_contact flex column">
-        <button class="my_contact_item-button flex wrap center grow" open-type="contact" send-message-img :session-from="{
-          'nickName':user.aliasName, 
-          'avatarUrl':user.aliasPortrait
-          }" @contact="joinGroup">
-          <image class="iconfont" src="/static/svgs/joinGroup.svg" />
+        <session class="my_contact flex column">
+          <button class="my_contact_item-button flex wrap center grow" open-type="contact" send-message-img :session-from="{
+            'nickName':user.aliasName, 
+            'avatarUrl':user.aliasPortrait
+            }" @contact="joinGroup">
+            <image class="iconfont" src="/static/svgs/joinGroup.svg" />
 
-          <span class="my_contact_item-text grow">加入群聊</span>
-          <image class="group flex center" src="/static/svgs/group.png" />
-          <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
-        </button>
+            <span class="my_contact_item-text grow">加入群聊</span>
+            <image class="group flex center" src="/static/svgs/group.png" />
+            <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
+          </button>
 
-        <button class="my_contact_item-button flex wrap center grow" @tap="toFaq">
-          <image class="iconfont" src="/static/svgs/question.svg" />
-          <span class="my_contact_item-text grow">问题与反馈</span>
-          <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
-        </button>
-      </session>
+          <button class="my_contact_item-button flex wrap center grow" @tap="toFaq">
+            <image class="iconfont" src="/static/svgs/question.svg" />
+            <span class="my_contact_item-text grow">问题与反馈</span>
+            <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
+          </button>
+        </session>
 
-      <session class="my_share flex center">
-        <button class="flex center" hover-class="active" open-type="share">安利Tell给好友</button>
-      </session>
+        <session class="my_share flex center">
+          <button class="flex center" hover-class="active" open-type="share">安利Tell给好友</button>
+        </session>
+      </scroll-view>
     </div>
 
     <HomeTabbar @change="onTabChange"></HomeTabbar>
@@ -164,7 +167,7 @@ export default {
       const { user } = getApp().globalData;
       const status = this.$checkAuth(user);
       if (status) {
-        this.$router.push({ query: { id: 1 }, path: "/pages/memory/index" });
+        this.$router.push({ query: { id: 1 }, path: "/pages/memory/memory" });
       }
     },
     ticket() {
@@ -211,7 +214,7 @@ export default {
               let barHeight = res[0].height;
               let systemInfo = wx.getSystemInfoSync();
               this.scrolHeight =
-                systemInfo.windowHeight - systemInfo.statusBarHeight - barHeight;
+                systemInfo.windowHeight  - barHeight;
             }.bind(this)
           );
       } else {
@@ -242,15 +245,33 @@ export default {
 }
 
 .entries {
+  position:relative;
+  .home{
+    width: 630rpx;
+    height: 906rpx;
+    margin: 10rpx 60rpx 0 60rpx;
+    position:absolute;
+    left:0;
+    top:160rpx;
+  }
   .left {
-    width: 316rpx;
-    height: 610rpx;
+    width: 315rpx;
+    height: 906rpx;
     padding: 0;
+    z-index: 99;
+    position:absolute;
+    left:0;
+    top:160rpx;
+    padding-left:60rpx;
   }
   .right {
-    width: 316rpx;
-    height: 610rpx;
+    width: 315rpx;
+    height: 906rpx;
     padding: 0;
+    z-index: 99;
+    position:absolute;
+    left:375rpx;
+    top:160rpx
   }
 }
 

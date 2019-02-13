@@ -20,7 +20,7 @@ export default {
   methods: {
     async getContent(id) {
       let res = await this.$request.get(`/mail/detail/${id}/link`);
-      this.list = res.data;
+      this.list = res.data || [];
     },
   },
   async onShow() {

@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 22,
+			"current": 5,
 			"list": [
 				{
 					"id": -1,
@@ -66,10 +66,11 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 5,
 					"name": "信箱",
-					"pathName": "pages/mail/mailbox",
-					"query": ""
+					"pathName": "pages/home/index",
+					"query": "tab=mail",
+					"scene": null
 				},
 				{
 					"id": 7,
@@ -78,10 +79,11 @@
 					"query": "active='solutionLimit’"
 				},
 				{
-					"id": -1,
+					"id": 7,
 					"name": "记忆",
-					"pathName": "pages/memory/index",
-					"query": ""
+					"pathName": "pages/memory/memory",
+					"query": "",
+					"scene": null
 				},
 				{
 					"id": -1,
