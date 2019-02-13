@@ -11,7 +11,7 @@
     </session>
 
     <session class="list">
-      <Envelope :isRead="item.isRead" :isReplied= "item.isReplied" :mail="item.mail" v-for="(item,index) in mails" :key="index">
+      <Envelope station="solution" :isRead="item.isRead" :isReplied= "item.isReplied" :mail="item.mail" v-for="(item,index) in mails" :key="index">
       </Envelope>
     </session>
 

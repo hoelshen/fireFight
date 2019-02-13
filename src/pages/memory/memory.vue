@@ -5,7 +5,7 @@
       <div @click="toggleAnswer" :class="{borderColor:!isActive}" class="navigatabar_item flex center">我的解答</div>
     </session>
     <session class="list">
-      <Envelope :mail="item" v-for="(item,index) in list" :key="index">
+      <Envelope station="memory" :mail="item" v-for="(item,index) in list" :key="index">
       </Envelope>
     </session>
   </view>

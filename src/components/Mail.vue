@@ -34,14 +34,8 @@ export default {
       requred: true
     }
   },
-  data() {
-    return {
-    };
-  },
   methods: {
-    toMail() {},
     likeBtn(mail) {
-      console.log('index: ', mail);
       if(mail.like) return;
       this.mail.like = true
       this.$request.put(`/mail/reply/${this.mail._id}`).then(res => {

@@ -42,7 +42,8 @@ export default {
       "pages/ticket/ticketDetail", //票券明细
       "pages/ticket/ticketList", //票券
       "pages/welfare/index", //福利社
-      "pages/memory/index", //记忆
+      "pages/memory/memory", //记忆
+      "pages/memory/detail", //记忆
       "pages/login/index", //授权
       "pages/help/index", //情感援助
       "pages/stronger-home/index", // MYS首页

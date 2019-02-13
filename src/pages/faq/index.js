@@ -8,7 +8,7 @@ export default {
   config: {
     navigationBarBackgroundColor: '#fbfbfd',
     navigationBarTextStyle: 'black',
-    navigationBarTitleText: '常见问题和反馈',
+    navigationBarTitleText: '问题与反馈',
     backgroundColor: '#fbfbfd'  
   }
 };

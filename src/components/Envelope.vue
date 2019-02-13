@@ -39,6 +39,9 @@ export default {
       type: Boolean,
       default: false
     },
+    station:{
+      type: String,
+    },
     dialogId: {
       type: String
     }
@@ -48,16 +51,23 @@ export default {
   },
   methods: {
     toMail() {
-      if (this.dialogId) {
+      if (this.station === 'dialogId') {
         this.$router.push({
           query: { id: this.dialogId },
           path: "/pages/mail/mailDetail"
         });
-      } else {
+      } 
+      if (this.station === 'solution') {
         this.$router.push({
           query: { id: this.mail._id },
           path: "/pages/solution/solutionReply"
         });
+      } 
+      if(this.station === 'memory') {
+        this.$router.push({
+          query:{id: this.mail._id},
+          path: "/pages/memory/detail"
+        })
       }
     }
   }
