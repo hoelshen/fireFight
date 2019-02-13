@@ -1,6 +1,8 @@
 <template>
   <view class="app box">
     <Mail :mail="item" v-for="item in list" :key="item._id"></Mail>
+    <Mail :mail="currentMail" v-if="currentMail"></Mail>
+    <Mail :mail="replyMail" v-if="replyMail"> </Mail>
   </view>
 </template>
 
@@ -14,21 +16,31 @@ export default {
   },
   data() {
     return {
-      list: [],
+      currentMail: null,
+      replyMail: null,
+      list: []
     };
   },
   methods: {
-    async getContent(id) {
+    async getCurrentMail(id) {
+      let res = await this.$request.get(`/mail/detail/${id}`);
+      this.currentMail = res.data;
+    },
+    // async getReplyMail(id) {
+    //   let res = await this.$request.get(`/mail/detail/${id}/reply`);
+    //   this.replyMail = res.data;
+    // },
+    async getTargetLink(id) {
       let res = await this.$request.get(`/mail/detail/${id}/link`);
       this.list = res.data || [];
-    },
+    }
   },
-  async onShow() {
-    const {
-      currentRoute: { query }
-    } = this.$router;
+  onShow() {
+    const { currentRoute: { query } } = this.$router;
     this.id = query.id;
-    this.getContent(this.id);
+    this.getCurrentMail(this.id);
+    this.getTargetLink(this.id);
+    //this.getReplyMail(this.id);
   }
 };
 </script>
@@ -37,7 +49,7 @@ export default {
   padding: 40rpx 60rpx;
 }
 .showReply_button {
-  color:#ffffff;
+  color: #ffffff;
   margin-bottom: 60rpx;
 }
 .replay_text {
