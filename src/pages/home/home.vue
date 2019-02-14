@@ -284,7 +284,7 @@ export default {
 .my_info {
   width: 630rpx;
   height: 508rpx;
-  margin: 0 60rpx;
+  margin: 40rpx 60rpx 0;
   border-radius: 2px;
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
@@ -383,6 +383,7 @@ export default {
     height: 92rpx;
     width: 316rpx;
     font-size: 28rpx;
+    margin: 40rpx 24rpx;
     &.active {
       background: #fff;
     }

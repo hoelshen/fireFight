@@ -91,5 +91,6 @@ export default {
 }
 .fix-iphonex-icon {
   height: 192rpx;
+  padding:32rpx 86rpx 120rpx;
 }
 </style>

@@ -1,24 +1,24 @@
 <template>
   <view class="ticket flex column j-between">
     <div class="list" style="margin-left:0">
-      <div class="ticketList flex j-between" @tap="ticketDetail('ticket')">
+      <div class="ticketList flex j-between" @tap="welfareDetail('mail')">
         <div class="flex center">
           <image class="iconfont" src="/static/svgs/solutionNum.svg"/>
           <span class="my_contact_item-text">邮票</span>
         </div>
         <div class="flex center">
           <button class="btnStyle btnWidth flex center" @click="mailTicket">{{stampCount}}</button>
-          <image style="margin-left:36rpx" class="iconfont" src="/static/svgs/arrow.svg"/>
+          <image style="margin-left:40rpx" class="iconfont" src="/static/svgs/arrow.svg"/>
         </div>
       </div>
-      <div class="solutionList flex j-between" @tap="ticketDetail('stamp')">
+      <div class="solutionList flex j-between" @tap="welfareDetail('solution')">
         <div class="flex center">
           <image class="iconfont" src="/static/svgs/mailNum.svg"/>
           <span class="my_contact_item-text">解忧券</span>
         </div>
         <div class="flex center">
           <button class="btnStyle btnWidth flex center" @click="solutionTicket">{{ticketCount}}</button>
-          <image style="margin-left:36rpx" class="iconfont" src="/static/svgs/arrow.svg"/>
+          <image style="margin-left:40rpx" class="iconfont" src="/static/svgs/arrow.svg"/>
         </div>
       </div>
     </div>
@@ -45,6 +45,9 @@ export default {
     },
     ticketDetail(tab = "ticket") {
       this.$router.push({ path: "/pages/ticket/ticketDetail" });
+    },
+    welfareDetail(active){
+      this.$router.push({ query: { active: active },path: "/pages/welfare/index" });
     }
   },
   onShow() {
@@ -74,9 +77,8 @@ export default {
   margin-left: 20rpx;
 }
 .btnStyle {
-  background-color: #ffffff;
-  border: 1px solid #ffc86d;
-  border-radius: 23px;
+  background-color: #FFFEFB;
+  color: #BDBDC0;
   font-size: 28rpx;
 }
 .btnWidth {
@@ -88,6 +90,10 @@ export default {
 }
 .addButton {
   font-size: 28rpx;
+}
+.darkButton{
+  padding: 26rpx 102rpx;
+  line-height:46rpx;
 }
 </style>
 

@@ -17,7 +17,7 @@
       </div>
     </session>
     <div v-if="list.length === 0" class=" noMail flex center">
-          您写过的信将出现在这里
+          暂无明细
     </div>
   </view>
 </template>

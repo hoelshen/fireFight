@@ -28,7 +28,11 @@ export default {
   },
   methods: {
     onMyStory() {
-      this.$router.push({ path: "/pages/myStory/index" });
+      const { user } = getApp().globalData;
+      const status = this.$checkAuth(user);
+      if(status){
+        this.$router.push({ path: "/pages/myStory/index" });
+      }
     },
     onDetail() {
       this.$router.push({

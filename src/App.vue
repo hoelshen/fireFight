@@ -6,7 +6,7 @@ export default {
     this.globalData.options = opts;
     this.$request.login();
   },
-  onShow() {
+  async onShow() {
     if (!wx.createSelectorQuery) {
       wx.showModal({
         title: "提示",
@@ -14,6 +14,8 @@ export default {
           "当前微信版本过低，可能影响使用体验，请升级到最新微信版本后重试。"
       });
     }
+    let res = await this.$request.get('/image/default');
+    getApp().globalData.imagUrl = res.data
   },
   onPageNotFound(res) {
     wx.reLaunch({
@@ -28,7 +30,8 @@ export default {
       options: {}, // 启动参数
       user: {}, // 用户信息
       mail: {}, // 待发送邮件
-      mys: {} // 活动主题
+      mys: {}, // 活动主题
+      imagUrl: ""
     };
   }
 };

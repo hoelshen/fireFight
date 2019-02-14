@@ -18,7 +18,6 @@
         </div>
         <div class="flex column targer" v-if="active === 'story'">
           <span>我们会在每日 22:30 收集咨询箱中的信</span>
-          <span>这封信将于 6 小时后到达解答室</span>
         </div>        
         <button class="promptBtn flex column center shadow" open-type="contact">
           <span>关注服务</span>

@@ -161,7 +161,14 @@ export default {
         });
       }
     }
-  }
+  },
+  onShow(){
+    const {
+      currentRoute: { query }
+    } = this.$router;
+    this.active = query.active;
+    console.log('this.active: ', this.active);
+  }  
 };
 </script>
 <style lang="less" scope>
