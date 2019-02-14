@@ -1,22 +1,14 @@
 <template>
   <view class="app flex column j-start ">
     <div class="userInfo flex column  center">
-      <image
-        class="circle a-center"
-        src="https://cdn.tellers.cn/tell_v2/static/tell-logo-400x400.png"
-        background-size="cover"
-      />
+      <image class="circle a-center" src="https://cdn.tellers.cn/tell_v2/static/tell-logo-400x400.png" background-size="cover" />
     </div>
     <div class="text">
       <p style="">请同意授权</p>
       <p style="color:#A9A9A9">· 以便Tell为你提供更好的服务</p>
     </div>
     <div class="button">
-      <button
-        open-type="getUserInfo"
-        lang="zh_CN"
-        @getuserinfo="onGotUserInfo"
-      >
+      <button open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">
         微信授权
       </button>
     </div>
@@ -76,6 +68,15 @@ export default {
     let { user } = getApp().globalData;
     this.userInfo = user;
     console.log("this.userInfo: ", this.userInfo);
+  },
+  onShareAppMessage(res) {
+    let { title, imageUrl, path, user } = getApp().globalData;
+    path = user._id ? `${path}&refer=${user._id}` : path;
+    return {
+      title,
+      imageUrl,
+      path
+    };
   }
 };
 </script>

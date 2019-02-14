@@ -63,6 +63,15 @@ export default {
     const { user } = getApp().globalData;
     this.userId = user._id;
     this.stampCount = user.stampCount;
+  },
+  onShareAppMessage(res) {
+    let { title, imageUrl, path, user } = getApp().globalData;
+    path = user._id ? `${path}&refer=${user._id}` : path;
+    return {
+      title,
+      imageUrl,
+      path
+    };
   }
 };
 </script>

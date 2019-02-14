@@ -26,6 +26,15 @@ export default {
     wx.setNavigationBarTitle({
       title: URL_MAP[page].title
     });
+  },
+  onShareAppMessage(res) {
+    let { title, imageUrl, path, user } = getApp().globalData;
+    path = user._id ? `${path}&refer=${user._id}` : path;
+    return {
+      title,
+      imageUrl,
+      path
+    };
   }
 };
 </script>

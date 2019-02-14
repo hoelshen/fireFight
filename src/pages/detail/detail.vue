@@ -14,7 +14,7 @@
       <div class="flex j-end solverDetailBtn column">
         <button class="darkButton" @click="onSoluter">申请成为解答者</button>
         <div class="flex center solverDetailcheck">
-          <checkbox :value="checked" @click="ensure"/>
+          <checkbox :value="checked" @click="ensure" />
           <span class="flex solverDetailspan">同意并遵守《解答者手册》的约定</span>
         </div>
       </div>
@@ -63,9 +63,7 @@ export default {
     };
   },
   onShow(opts) {
-    const {
-      currentRoute: { query }
-    } = this.$router;
+    const { currentRoute: { query } } = this.$router;
     this.active = query.active;
     const navigationBar = {
       solverDetail: "解答者手册",
@@ -105,6 +103,15 @@ export default {
     async bade() {
       const bade = await this.$request.get("/badge");
       this.listData = bade.data;
+    },
+    onShareAppMessage(res) {
+      let { title, imageUrl, path, user } = getApp().globalData;
+      path = user._id ? `${path}&refer=${user._id}` : path;
+      return {
+        title,
+        imageUrl,
+        path
+      };
     }
   }
 };

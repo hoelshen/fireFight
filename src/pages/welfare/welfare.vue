@@ -101,10 +101,12 @@ export default {
     };
   },
   onShareAppMessage(res) {
+    let { title, imageUrl, path, user } = getApp().globalData;
+    path = user._id ? `${path}&refer=${user._id}` : path;
     return {
-      title: "现实中的解忧杂货店",
-      imageUrl: "https://cdn.tellers.cn/tell_v2/static/share_default.jpg",
-      path: "/pages/home/index"
+      title,
+      imageUrl,
+      path
     };
   },
   methods: {

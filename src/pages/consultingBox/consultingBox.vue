@@ -3,10 +3,9 @@
     <div class="flex consultingBox column center shadow">
       <div class="conDiv column flex center grow">
         <span class="consultingBox_title">咨询箱</span>
-        
+
         <span class="consultingBox_detail">
-          烦恼咨询服务每次需使用1张解忧券
-          若 3 日未收到解答则退还解忧券
+          烦恼咨询服务每次需使用1张解忧券 若 3 日未收到解答则退还解忧券
         </span>
         <span class="consultingBox_content" @click="onDetail">查看详细说明</span>
       </div>
@@ -30,7 +29,7 @@ export default {
     onMyStory() {
       const { user } = getApp().globalData;
       const status = this.$checkAuth(user);
-      if(status){
+      if (status) {
         this.$router.push({ path: "/pages/myStory/index" });
       }
     },
@@ -47,6 +46,15 @@ export default {
   onShow() {
     const { user } = getApp().globalData;
     this.tickets = user.ticketCount;
+  },
+  onShareAppMessage(res) {
+    let { title, imageUrl, path, user } = getApp().globalData;
+    path = user._id ? `${path}&refer=${user._id}` : path;
+    return {
+      title,
+      imageUrl,
+      path
+    };
   }
 };
 </script>
