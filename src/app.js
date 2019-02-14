@@ -7,7 +7,6 @@ import request from "./utils/request";
 import day from "./utils/day";
 import {
   checkAuth,
-  compareVersion
 } from "./utils/index";
 Vue.use(VHtmlPlugin);
 
@@ -20,7 +19,7 @@ Vue.use(megaloRouter, {
 Vue.prototype.$request = request;
 Vue.prototype.$day = day;
 Vue.prototype.$checkAuth = checkAuth;
-Vue.prototype.$compareVersion = compareVersion;
+//Vue.prototype.$compareVersion = compareVersion;
 const app = new Vue(App);
 app.$mount();
 

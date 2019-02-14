@@ -2,7 +2,7 @@
   <view class="app box">
     <Mail :mail="item" v-for="item in list" :key="item._id"></Mail>
     <Mail :mail="currentMail" v-if="currentMail"></Mail>
-    <Mail :mail="replyMail" v-if="replyMail"> </Mail>
+    <!-- <Mail :mail="replyMail" v-if="replyMail"> </Mail> -->
   </view>
 </template>
 

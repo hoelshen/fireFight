@@ -3,16 +3,16 @@
     <!-- 首页 -->
     <div class="pannel grow" v-if="tab == 'home'">
       <scroll-view class="entries" scroll-y :style='`height: ${scrolHeight}px`'>
-      <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
-        <block v-for="item in banners" :key="item">
-          <swiper-item>
-            <image :src="item.imgUrl" class="img" />
-          </swiper-item>
-        </block>
-      </swiper>
+        <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
+          <block v-for="item in banners" :key="item">
+            <swiper-item>
+              <image :src="item.imgUrl" class="img" />
+            </swiper-item>
+          </block>
+        </swiper>
         <image class="home flex center" src="/static/svgs/homeBg.jpg"></image>
-        <div class="left" @click="toConsulting"/>
-        <div class="right" @click="toSolution"/>
+        <div class="left" @click="toConsulting" />
+        <div class="right" @click="toSolution" />
       </scroll-view>
     </div>
 
@@ -111,8 +111,7 @@ export default {
   onLoad(opt) {
     this.onTabChange(opt.tab);
   },
-  onLaunch(){
-  },
+  onLaunch() {},
   onShow() {
     this.$request.getUser();
     this.getBanners();
@@ -203,27 +202,17 @@ export default {
       });
     },
     getScroll() {
-      const version  = wx.getSystemInfoSync().SDKVersion
-      if (this.$compareVersion(version, '1.4.0') >= 0) {
-        const query = wx.createSelectorQuery();
-        const res = query
-          .select(".bar")
-          .boundingClientRect()
-          .exec(
-            function(res) {
-              let barHeight = res[0].height;
-              let systemInfo = wx.getSystemInfoSync();
-              this.scrolHeight =
-                systemInfo.windowHeight  - barHeight;
-            }.bind(this)
-          );
-      } else {
-        // 如果希望用户在最新版本的客户端上体验您的小程序，可以这样子提示
-        wx.showModal({
-          title: '提示',
-          content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
-        })
-      }
+      const query = wx.createSelectorQuery();
+      const res = query
+        .select(".bar")
+        .boundingClientRect()
+        .exec(
+          function(res) {
+            let barHeight = res[0].height;
+            let systemInfo = wx.getSystemInfoSync();
+            this.scrolHeight = systemInfo.windowHeight - barHeight;
+          }.bind(this)
+        );
     }
   }
 };
@@ -245,33 +234,33 @@ export default {
 }
 
 .entries {
-  position:relative;
-  .home{
+  position: relative;
+  .home {
     width: 630rpx;
     height: 906rpx;
     margin: 10rpx 60rpx 0 60rpx;
-    position:absolute;
-    left:0;
-    top:160rpx;
+    position: absolute;
+    left: 0;
+    top: 160rpx;
   }
   .left {
     width: 315rpx;
     height: 906rpx;
     padding: 0;
     z-index: 99;
-    position:absolute;
-    left:0;
-    top:160rpx;
-    padding-left:60rpx;
+    position: absolute;
+    left: 0;
+    top: 160rpx;
+    padding-left: 60rpx;
   }
   .right {
     width: 315rpx;
     height: 906rpx;
     padding: 0;
     z-index: 99;
-    position:absolute;
-    left:375rpx;
-    top:160rpx
+    position: absolute;
+    left: 375rpx;
+    top: 160rpx;
   }
 }
 
@@ -381,7 +370,7 @@ export default {
       text-align: left;
     }
   }
-  .group{
+  .group {
     width: 72rpx;
     height: 72rpx;
     margin-right: 20rpx;
