@@ -72,7 +72,14 @@ function getToken(cookiesArray) {
 
 async function login() {
   let wxRes = await promisify(wx.login, wx)();
-  let logRes = await fly.get(`/login?code=${wxRes.code}`);
+  let loginUrl = `/login?code=${wxRes.code}`;
+  let query = getApp().globalData.options.query;
+  if (query.scene) {
+    loginUrl += `&scene=${query.scene}`;
+  } else if (query.refer) {
+    loginUrl += `&refer=${query.refer}`;
+  }
+  let logRes = await fly.get(loginUrl);
   logLogin(); // 上报登陆信息
   return (getApp().globalData.user = logRes.data);
 }

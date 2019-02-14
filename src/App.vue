@@ -5,8 +5,9 @@ export default {
   onLaunch(opts) {
     this.globalData.options = opts;
     this.$request.login();
+    this.globalData.path = opts.query.scene ? this.globalData.path + `&scene=${opts.scene}` : this.globalData.path;
   },
-  async onShow() {
+  onShow() {
     if (!wx.createSelectorQuery) {
       wx.showModal({
         title: "提示",
@@ -14,8 +15,9 @@ export default {
           "当前微信版本过低，可能影响使用体验，请升级到最新微信版本后重试。"
       });
     }
-    let res = await this.$request.get('/image/default');
-    getApp().globalData.imagUrl = res.data
+    this.$request.get("/image/default").then(res => {
+      this.globalData.imageUrl = res.data;
+    });
   },
   onPageNotFound(res) {
     wx.reLaunch({
@@ -31,7 +33,9 @@ export default {
       user: {}, // 用户信息
       mail: {}, // 待发送邮件
       mys: {}, // 活动主题
-      imagUrl: ""
+      title: "送你一张解忧券",
+      imageUrl: "https://cdn.tellers.cn/tell_v2/static/share_default.jpg", // 默认分享图
+      path: "/pages/home/index"
     };
   }
 };
