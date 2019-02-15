@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 22,
 			"list": [
 				{
 					"id": -1,
@@ -166,17 +166,17 @@
 					"query": "active=solverDetail"
 				},
 				{
-					"id": -1,
+					"id": 21,
 					"name": "回复咨询",
 					"pathName": "pages/solution/solutionReply",
-					"query": "id=5c50453d04d7bd5a26f575f4",
+					"query": "",
 					"scene": null
 				},
 				{
 					"id": 22,
 					"name": "回信完成提示页",
 					"pathName": "pages/solution/promptPage",
-					"query": "targetUser=&active=story",
+					"query": "targetUser=&active=solution",
 					"scene": null
 				}
 			]

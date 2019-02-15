@@ -18,10 +18,13 @@
         </div>
         <div class="flex column targer" v-if="active === 'story'">
           <span>我们会在每日 22:30 收集咨询箱中的信</span>
-        </div>        
-        <button class="promptBtn flex column center shadow" open-type="contact">
+        </div>
+        <image class="home flex center" src="/static/svgs/focusServer.jpg">
+        </image>
+        <button class="promptBtn flex column center" open-type="contact">
           <span>关注服务</span>
           <span>被感谢时立即收到通知</span>
+          <image class="iconfont" src="/static/svgs/leftArrow.svg" />
         </button>
       </div>
       <button class="darkButton" @click="sure">好的</button>
@@ -82,14 +85,26 @@ export default {
   line-height: 92rpx;
   padding: 0 130rpx;
 }
-.target {
+.promptDiv{
+  position: relative;
+}
+.targer {
   padding-top: 60rpx;
   font-size: 34rpx;
 }
+.home{
+  margin-top:94rpx;
+  width:630rpx;
+  height:308rpx;
+}
 .promptBtn {
-  margin-top: 60rpx;
-  font-weight: 600;
-  padding: 60rpx 143rpx;
+  margin-top:112rpx;
+  font-weight:600;
+  position:absolute;
+  background-color:transparent;
+  label{
+    line-height: 52rpx
+  }
 }
 .promptSpn {
   font-weight: 600;
