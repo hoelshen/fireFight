@@ -191,19 +191,20 @@ export default {
 .exchange {
   margin-left: 40rpx;
   & button {
-    box-sizing: border-box;
-    border: #ffc86d 2rpx solid;
-    border-radius: 46rpx;
-    height: 92rpx;
-    width: 182rpx;
-    font-size: 28rpx;
-    color: #2b2b2b;
+    box-sizing:border-box;
+    border:#ffc86d 2rpx solid;
+    border-radius:32rpx;
+    height:64rpx;
+    width:168rpx;
+    font-size:28rpx;
+    color:#2b2b2b;
+    font-weight:600;
   }
 }
 .welfare_content {
   margin-top: 12rpx;
   color: #bdbdc0;
-  font-size: 22rpx;
+  font-size: 24rpx;
 }
 
 .iconfont {

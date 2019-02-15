@@ -19,8 +19,8 @@
       </div>
       <div class="flex column j-between textName">
         <div class="flex j-end a-center">
-          <span class="textNameSpan">署名:</span>
-          <input class="aliasNameInput" type="this" @input="bindKeyInput" :value="aliasName">
+          <span class="textNameSpan">署名</span>
+          <input class="aliasNameInput" @input="bindKeyInput" :value="aliasName">
           <div class="refreshBtn" @click="refresh">
             <image class="iconfont" src="/static/svgs/refresh.svg"></image>
           </div>
@@ -135,11 +135,12 @@ export default {
 </script>
 <style lang="less" scoped>
 .appDiv {
-  min-height: 750rpx;
   margin: 40rpx 60rpx;
+  min-height:1042rpx;
 }
 .text {
-  background-color: rgba(189, 189, 192, 0.05);
+  background-color: #ffffff;
+  min-height:830rpx;
   color: rgba(189, 189, 192, 1);
 }
 .textArea {
@@ -148,7 +149,6 @@ export default {
   color: black;
   color: #4d495b;
   padding: 40rpx;
-  border: 2rpx solid #bdbdc0;
   width: 100%;
   font-size: 28rpx;
   box-sizing: border-box;
@@ -173,6 +173,7 @@ export default {
   min-height: 750rpx;
   margin: 40rpx;
   color: rgba(169, 169, 169, 1);
+  background-color: #ffffff;
 }
 .play {
   position: relative;
@@ -182,9 +183,9 @@ export default {
   height: 375rpx;
 }
 .aliasNameInput {
-  width: 196rpx;
+  width: 252rpx;
   height: 84rpx;
-  border: 1px solid;
+  background-color: rgba(189, 189, 192, .15);
 }
 .addMystoryButton {
   border-radius: 23px;
