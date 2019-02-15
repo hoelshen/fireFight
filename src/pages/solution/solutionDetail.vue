@@ -66,7 +66,6 @@ export default {
     } = this.$router;
     const { user } = getApp().globalData;
     if (user.becomeAnswererAt) {
-      console.log("becomeAnswererAt: ", user.becomeAnswererAt);
       this.isFlag = true;
     }
     this.active = query.active;

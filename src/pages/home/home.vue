@@ -112,10 +112,6 @@ export default {
   },
   onLaunch() {},
   onShow() {
-    this.$request.getUser();
-    this.getBanners();
-    this.getWayCount();
-    this.getDialogs();
     this.getScroll();
   },
   onShareAppMessage(res) {
@@ -129,8 +125,18 @@ export default {
   },
   methods: {
     onTabChange(tab = "home") {
-      this.user = getApp().globalData.user;
       this.tab = tab;
+      if(this.tab === 'home'){
+        this.getBanners();
+      }
+      if(this.tab === 'mail'){
+        this.getWayCount();
+        this.getDialogs();
+      }
+      if(this.tab==='mine'){
+        this.$request.getUser();
+      }
+      this.user = getApp().globalData.user;
     },
     openMail() {
       this.$router.push({ path: "/pages/mail/mailDay" });

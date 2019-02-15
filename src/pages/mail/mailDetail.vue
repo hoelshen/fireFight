@@ -21,14 +21,12 @@ export default {
     Reply
   },
   data() {
-    const days = this.$day().format("YYYY/MM/DD");
     return {
       id: "",
       userId: "",
       list: [],
       replyMail: null,
       target: {},
-      days: days,
       stampCount: 0,
       isReply: false,
       isDisabled: true,
