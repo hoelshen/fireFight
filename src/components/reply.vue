@@ -59,14 +59,14 @@ export default {
       this.reply.weather = res.data;
     },
     replyMail() {
-      if (this.reply.content.length < 50) {
+      if (this.reply.content.length < 30) {
         return wx.showToast({
           title: "认真的讲诉更容易获得解答，多谢几句吧",
           icon: "none",
           duration: 2000
         });
       }
-      if (this.reply.content.length > 5000) {
+      if (this.reply.content.length > 3000) {
         return wx.showToast({
           icon: "none",
           title: "请控制在5000字以内"

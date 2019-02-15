@@ -24,8 +24,8 @@
         </div>
         <div class="list" v-for="item in dialogs" :key="item._id">
           <Envelope station="dialogId" :mail="item.toMail" :isRead="item.isRead" :dialogId="item._id" v-if="item.fromSystem"></Envelope>
-          <Envelope station="dialogId" :mail="item.toMail" :isRead="item.isRead" :dialogId="item._id" v-else-if="userId == item.toUser._id"></Envelope>
-          <Envelope station="dialogId" :mail="item.fromMail" :isRead="item.isRead" :dialogId="item._id" v-else></Envelope>
+          <Envelope station="dialogId" :mail="item.toMail" :isRead="item.isRead" :dialogId="item._id" v-else-if="user._id == item.toUser._id"></Envelope>
+          <Envelope station="dialogId" :mail="item.fromMail" :isRead="true" :isReplied="true" :dialogId="item._id" v-else></Envelope>
         </div>
       </scroll-view>
     </div>

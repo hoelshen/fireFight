@@ -40,7 +40,6 @@ export default {
     };
   },
   created() {
-    console.log(this.mail);
     this.user = getApp().globalData.user;
   },
   methods: {
