@@ -10,7 +10,7 @@
           <span>若被对方感谢，还将获得 1 张邮票</span>
         </div>
         <div class="flex column targer" v-if="active === 'mail'">
-          <span>此回信将于 6 小时后</span>
+          <span>此回信将于 6 小时左右后</span>
           <div>
             送到
             <span class="promptSpn">{{targetUser}}</span>的信箱

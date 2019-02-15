@@ -1,6 +1,7 @@
 <template>
   <view class="app list">
     <Mail :mail="item" v-for="item in list" :key="item._id"></Mail>
+    <Mail :mail="replyMail" v-if="replyMail"></Mail>
     <Reply v-if="isReply" :target="target" tag="mail" :id="id"></Reply>
     <div class="flex column center showReply_button" v-if="!isReply && !isFromSystem">
       <button :disabled="isDisabled" class="reply_button" @click="showReply"> 回信</button>
@@ -25,6 +26,7 @@ export default {
       id: "",
       userId: "",
       list: [],
+      replyMail: null,
       target: {},
       days: days,
       stampCount: 0,
@@ -41,8 +43,18 @@ export default {
       let lastMail = mailList[mailList.length - 1];
       this.list = mailList;
       this.target = lastMail.aliasName;
-      this.isDisabled = dialog.fromUser._id === this.userId ? true : false;
       this.isFromSystem = dialog.fromSystem;
+      this.getReplyMail(dialog, lastMail._id);
+    },
+    getReplyMail(dialog, lastMailId) {
+      this.$request.get(`/mail/detail/${lastMailId}/reply`).then(res => {
+        if (res.data) {
+          this.replyMail = res.data;
+          this.isDisabled = true;
+        } else {
+          this.isDisabled = dialog.fromUser === this.userId ? true : false;
+        }
+      });
     },
     showReply() {
       if (this.stampCount === 0) {
