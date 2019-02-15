@@ -36,6 +36,11 @@ export default {
   },
   created() {
     this.tab = this.active;
+    const model = wx.getSystemInfoSync().model;
+    if(model.includes('iPhone X')){
+      let isIpx = true;
+      this.isIpx = isIpx;
+    }
   },
   data() {
     return {
@@ -43,12 +48,7 @@ export default {
       isIpx: false
     };
   },
-  onShow(){
-    const model = wx.getSystemInfoSync().model;
-    if(model.includes('iPhone X')){
-      this.isIpx = true;
-    }
-  },
+
   methods: {
     myInfo(e) {
       wx.setNavigationBarTitle({ title: "我的" });
@@ -90,7 +90,7 @@ export default {
   }
 }
 .fix-iphonex-icon {
-  height: 192rpx;
-  padding:32rpx 86rpx 120rpx;
+  height: 142rpx;
+  padding:32rpx 86rpx 80rpx;
 }
 </style>
