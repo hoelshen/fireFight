@@ -40,7 +40,11 @@ export default {
       });
     },
     returnWelfare() {
-      this.$router.push({ path: "/pages/welfare/index" });
+      const { user } = getApp().globalData;
+      const status = this.$checkAuth(user);
+      if(status){
+        this.$router.push({ path: "/pages/welfare/index" });
+      }
     }
   },
   onShow() {

@@ -1,25 +1,28 @@
 <template>
   <view class="app flex column j-start">
-    <div class="photo-circle flex wrap j-start center">
-      <div class="circle" @click="takePhoto">
-        <image
-          class="userinfo-avatar"
-          :src="userInfo.aliasPortrait"
-          alt="选择头像"
-          background-size="cover"
-        >
-        </image>
-      </div>
-      <div class="userinfo-name">
-        <input
-          type="text"
-          :value="userInfo.aliasName"
-          @input="setName"
-          placeholder="设置笔名"
-          maxlength="10"
-          focus
-        >
-        <span class="userinfo-text">你可以随时点击头像和笔名来修改它们</span>
+    <div class="container flex grow">
+      <div class="photo-circle flex wrap j-start center">
+        <div class="circle" @click="takePhoto">
+          <image
+            class="userinfo-avatar"
+            :src="userInfo.aliasPortrait"
+            alt="选择头像"
+            background-size="cover"
+          >
+          </image>
+        </div>
+        <div class="userinfo-name">
+          <div class="set">设置笔名</div>
+          <input
+            type="text"
+            :value="userInfo.aliasName"
+            @input="setName"
+            placeholder="设置笔名"
+            maxlength="10"
+            focus
+          >
+          <span class="userinfo-text">你可以随时点击头像和笔名来修改它们</span>
+        </div>
       </div>
     </div>
     <div class="saveButton">
@@ -105,40 +108,48 @@ export default {
 </script>
 <style lang="less" scoped>
 .app {
-  padding-top: 20px;
   margin: auto;
   width: 630rpx;
   height: 381rpx;
-  .photo-circle {
-    height: 548rpx;
-    width: 630rpx;
-  }
-  .circle {
-    width: 216rpx;
-    height: 216rpx;
-  }
-  .userinfo-avatar {
-    width: 216rpx;
-    height: 216rpx;
-    border-radius: 50%;
-  }
-  .userinfo-name {
-    input {
-      margin-top: 20rpx;
-      border-bottom: 1px #989898 solid;
-    }
-  }
-  .userinfo-text {
-    margin-top: 20rpx;
-    padding-right: 10rpx;
-    display: block;
-    color: #a9a9a9;
-    transform: scale(0.8);
+  .container{
+      .photo-circle {
+        height: 548rpx;
+        width: 630rpx;
+        margin-top: 40rpx;
+      }
+      .circle {
+        width: 216rpx;
+        height: 216rpx;
+      }
+      .userinfo-avatar {
+        width: 216rpx;
+        height: 216rpx;
+        border-radius: 50%;
+      }
+      .userinfo-name {
+        .set{
+          color: #4D495B
+        }
+        input {
+          margin-top: 12rpx;
+          border-radius: 2rpx;
+          height: 84rpx;
+          width: 550rpx;
+          background-color: rgba(189, 189, 192, .15);
+        }
+      }
+      .userinfo-text {
+        margin-top: 40rpx;
+        display: block;
+        color: #a9a9a9;
+        font-size: 28rpx;
+      }
   }
   .saveButton {
     width: 316rpx;
     height: 92rpx;
-    margin: 30rpx auto;
+    margin: auto;
+    margin-bottom: 60rpx;
     & button {
       background-color: #ffc86d;
       color: #ffffff;

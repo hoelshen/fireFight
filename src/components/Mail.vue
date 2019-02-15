@@ -50,7 +50,8 @@ export default {
           icon: "none"
         });
       }
-      this.mail.like = true;
+      mail.like = true;
+      this.mail = {...mail};
       this.$request.put(`/mail/reply/${this.mail._id}`).then(res => {});
       wx.showToast({
         title: "已感谢，对方会获得解忧券",
