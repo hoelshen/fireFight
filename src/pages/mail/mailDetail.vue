@@ -2,7 +2,7 @@
   <view class="app list">
     <Mail :mail="item" v-for="item in list" :key="item._id"></Mail>
     <Reply v-if="isReply" :target="target.aliasName" tag="mail" :id="id"></Reply>
-    <div class="flex column center showReply_button" v-if="!isReply">
+    <div class="flex column center showReply_button" v-if="!isReply && !isFromSystem">
       <button :disabled="fromUserId === userId" class="reply_button" @click="showReply">回信</button>
       <span class="replay_text">需要使用 1 张邮票</span>
     </div>
@@ -25,22 +25,23 @@ export default {
       id: "",
       userId: "",
       list: [],
-      mail: {},
       target: {},
       days: days,
       fromUserId: "",
       stampCount: 0,
       isReply: false,
-      isActive: false
+      isActive: false,
+      isFromSystem:false,
     };
   },
   methods: {
     async getContent(id) {
       let res = await this.$request.get(`/dialog/detail/${id}`);
-      this.mail = res.data;
-      this.target = res.data.fromUser || {};
+      let dialog  = res.data;
+      this.target = dialog.fromUser || {};
       this.fromUserId = this.target._id;
-      this.list = this.mail.mailList;
+      this.list = dialog.mailList;
+      this.isFromSystem = dialog.fromSystem;
     },
     showReply() {
       if (this.stampCount === 0) {

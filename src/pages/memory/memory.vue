@@ -7,7 +7,11 @@
     <session class="list">
       <Envelope station="memory" :mail="item" v-for="(item,index) in list" :key="index">
       </Envelope>
+      <div v-if="list.length === 0" class="noMail flex center">
+        暂无记忆
+      </div>
     </session>
+
   </view>
 </template>
 <script>
@@ -80,6 +84,10 @@ export default {
       border-color: #ffffff #ffffff #ffc86d #ffffff;
     }
   }
+}
+.noMail{
+  height: 400rpx;
+  margin: 80rpx
 }
 </style>
 

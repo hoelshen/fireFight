@@ -34,7 +34,10 @@ function showError(message, status, request) {
   snedToCloud(message, status, request);
 }
 
-function snedToCloud() {
+function snedToCloud(message, status, request) {
+  if (!request){
+    return false;
+  }
   const systemInfo = wx.getSystemInfoSync();
   const lauchOpts = getApp().globalData.options;
   const userId = getApp().globalData.user._id;
@@ -131,6 +134,9 @@ async function waitingLogin() {
     var hash = setInterval(function() {
       if (tryCount >= 50) {
         clearInterval(hash);
+        wx.reLaunch({
+          url: "/pages/noFound/index"
+        });
         reject("登陆超时"); // 10秒超时时间
       }
       if (cookies.length > 0) {

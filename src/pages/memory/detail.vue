@@ -1,8 +1,14 @@
 <template>
   <view class="app box">
-    <Mail :mail="item" v-for="item in list" :key="item._id"></Mail>
-    <Mail :mail="currentMail" v-if="currentMail"></Mail>
-    <!-- <Mail :mail="replyMail" v-if="replyMail"> </Mail> -->
+    <div class="new" v-if="mailList">
+      <Mail :mail="newMail" v-for="newMail in mailList" :key="newMail._id"></Mail>
+    </div>
+
+    <div class="old" v-else>
+      <Mail :mail="oldMail" v-for="oldMail in list" :key="oldMail._id"></Mail>
+      <Mail :mail="currentMail" v-if="currentMail"></Mail>
+    </div>
+
   </view>
 </template>
 
@@ -17,19 +23,28 @@ export default {
   data() {
     return {
       currentMail: null,
-      replyMail: null,
+      mailList: null,
       list: []
     };
   },
   methods: {
     async getCurrentMail(id) {
       let res = await this.$request.get(`/mail/detail/${id}`);
-      this.currentMail = res.data;
+      let mail = res.data;
+      if (mail.type == "STORY") {
+        this.currentMail = mail;
+      } else if (mail.targetDialog) {
+        this.getTargetDialog(mail.targetDialog);
+      } else if (mail.targetLink) {
+        this.currentMail = mail;
+        this.getTargetLink(id);
+      }
     },
-    // async getReplyMail(id) {
-    //   let res = await this.$request.get(`/mail/detail/${id}/reply`);
-    //   this.replyMail = res.data;
-    // },
+    async getTargetDialog(id) {
+      let res = await this.$request.get(`/dialog/detail/${id}`);
+      this.mailList = res.data.mailList;
+      console.log(this.mailList);
+    },
     async getTargetLink(id) {
       let res = await this.$request.get(`/mail/detail/${id}/link`);
       this.list = res.data || [];
@@ -37,10 +52,7 @@ export default {
   },
   onShow() {
     const { currentRoute: { query } } = this.$router;
-    this.id = query.id;
-    this.getCurrentMail(this.id);
-    this.getTargetLink(this.id);
-    //this.getReplyMail(this.id);
+    this.getCurrentMail(query.id);
   },
   onShareAppMessage(res) {
     let { title, imageUrl, path, user } = getApp().globalData;

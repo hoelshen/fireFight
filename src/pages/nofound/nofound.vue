@@ -42,6 +42,12 @@ export default {
       });
     }
   },
+  onLoad() {
+    wx.setNavigationBarColor({
+      frontColor: "#ffffff",
+      backgroundColor: "#81cbe2"
+    });
+  },
   onUnload() {
     this.time = 9;
     this.hash = null;
@@ -81,7 +87,7 @@ export default {
       color: #fff;
       font-size: 28rpx;
       border-radius: 16rpx;
-      background:#FFC75D;
+      background: #ffc75d;
       &.disable {
         background: #dbdbdb;
       }

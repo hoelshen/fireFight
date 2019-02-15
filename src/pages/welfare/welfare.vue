@@ -168,8 +168,7 @@ export default {
     const {
       currentRoute: { query }
     } = this.$router;
-    this.active = query.active;
-    console.log('this.active: ', this.active);
+    this.active = query.active || 'solution';
   }  
 };
 </script>

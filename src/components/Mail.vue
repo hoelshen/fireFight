@@ -5,12 +5,12 @@
     </div>
     <div class="mail_content">{{mail.content}}</div>
 
-    <div class="reply_weather_love flex j-bwtween" v-if="mail.type==='REPLY'">
-      <div class="reply_weather_love_button" >
+    <div class="reply_weather_love flex j-bwtween" v-if="mail.type==='REPLY' && user._id == mail.targetUser">
+      <div class="reply_weather_love_button">
         <button class="lightButton flex center" @click="likeBtn(mail)">
           <span class="flex center">感谢</span>
           <img class="reply_weather_name iconfont" v-if="mail.like" src="/static/svgs/love-active.svg">
-          <image class="reply_weather_name iconfont" v-else src="/static/svgs/love.svg"/>
+          <img class="reply_weather_name iconfont" v-else src="/static/svgs/love.svg" />
         </button>
       </div>
     </div>
@@ -34,11 +34,28 @@ export default {
       requred: true
     }
   },
+  data() {
+    return {
+      user: {}
+    };
+  },
+  created() {
+    console.log(this.mail);
+    this.user = getApp().globalData.user;
+  },
   methods: {
     likeBtn(mail) {
-      if(mail.like) return;
-      this.mail.like = true
-      this.$request.put(`/mail/reply/${this.mail._id}`).then(res => {
+      if (mail.like) {
+        return wx.showToast({
+          title: "不能重复感谢喔",
+          icon: "none"
+        });
+      }
+      this.mail.like = true;
+      this.$request.put(`/mail/reply/${this.mail._id}`).then(res => {});
+      wx.showToast({
+        title: "已感谢，对方会获得解忧券",
+        icon: "none"
       });
     }
   }
@@ -64,7 +81,7 @@ export default {
   white-space: pre-wrap;
   word-wrap: break-word;
   text-align: justify;
-  letter-spacing:2rpx;
+  letter-spacing: 2rpx;
 }
 .mail-sendName {
   color: #4d495b;
@@ -83,7 +100,7 @@ export default {
     margin-right: 20rpx;
   }
 }
-.lightButton{
+.lightButton {
   height: 56rpx;
   padding: 8rpx 40rpx;
   margin-top: 0;

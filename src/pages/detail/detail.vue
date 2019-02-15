@@ -14,7 +14,7 @@
       <div class="flex j-end solverDetailBtn column">
         <button class="darkButton" @click="onSoluter">申请成为解答者</button>
         <div class="flex center solverDetailcheck">
-          <checkbox :value="checked" @click="ensure" />
+          <checkbox :checked="checked" @click="ensure" />
           <span class="flex solverDetailspan">同意并遵守《解答者手册》的约定</span>
         </div>
       </div>
@@ -59,7 +59,7 @@ export default {
     return {
       active: "solverDetail",
       listData: [],
-      checked: false
+      checked: true
     };
   },
   onShow(opts) {
@@ -91,7 +91,7 @@ export default {
         return this.$router.push({ path: "pages/solution/solutionDetail" });
       } else {
         wx.showToast({
-          title: "请点击确定",
+          title: "请同意并遵守《解答者手册》的约定",
           icon: "none",
           duration: 2000
         });
