@@ -7,13 +7,13 @@
     <session class="list" v-if="list.length > 0">
       <div class="list_item flex j-between" v-for="(item,index) in list" :key="index">
         <div class="flex j-between center">
-          <image style="margin-right:20rpx;" class="iconfont" :src="`/static/svgs/stamp-icon.svg`" />
+          <image class="iconfont ifImage" :src="`/static/svgs/stamp-icon.svg`" />
           <div class="flex column">
-            <span>{{item.message}}</span>
+            <span class="message">{{item.message}}</span>
             <span class="ticket_day">{{item.createdAt | dayFormat}}</span>
           </div>
         </div>
-        <span class="flex center">{{(item.count > 0) ? '+' : ' ' }} {{ item.count }}</span>
+        <span class="count flex center">{{(item.count > 0) ? '+' : ' ' }} {{ item.count }}</span>
       </div>
     </session>
     <div v-if="list.length === 0" class=" noMail flex center">
@@ -75,31 +75,7 @@ export default {
 };
 </script>
 <style lang="less" scope>
-.navigatabar {
-  width: 630rpx;
-  height: 92rpx;
-  margin: 20rpx 60rpx 20rpx 60rpx;
-  border-radius: 2px;
-  border: 1px solid #ffffff;
-  box-sizing: border-box;
-  background-color: #ffffff;
-  align-items: flex-end;
-  justify-content: space-around;
-
-  &_item {
-    width: 162rpx;
-    height: 66rpx;
-    align-items: flex-end;
-    border-style: solid;
-    border-color: #ffffff;
-
-    &.borderColor {
-      border-color: #ffffff #ffffff #ffc86d #ffffff;
-    }
-  }
-}
 .list {
-  margin-left: 20rpx;
   border: 1px solid #ffffff;
   width: 100%;
   height: auto;
@@ -109,14 +85,28 @@ export default {
     background-color: #ffffff;
     margin-top: 16rpx;
     margin-left: 60rpx;
+    & .message{
+      font-size: 34rpx;
+    }
     & .ticket_day {
       color: #a9a9a9;
+      font-size:22rpx;
+      margin-top:12rpx;
     }
   }
+}
+.ifImage{
+  margin-right:20rpx;
+  top:-16rpx;
+  position:relative;
 }
 .noMail{
   height: 400rpx;
   margin: 80rpx
+}
+.count{
+  font-size: 34rpx;
+  font-weight: 600
 }
 </style>
 

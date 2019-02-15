@@ -173,18 +173,6 @@ export default {
 };
 </script>
 <style lang="less" scope>
-.navigatabar {
-  margin: 20rpx 60rpx 20rpx 60rpx;
-  background-color: #ffffff;
-  &_item {
-    padding: 20rpx 0;
-    border-bottom: transparent solid 6rpx;
-    &.borderColor {
-      color: #ffc86d;
-      border-bottom: #ffc86d solid 6rpx;
-    }
-  }
-}
 .list {
   padding: 0 60rpx;
   &_item {

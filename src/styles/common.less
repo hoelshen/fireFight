@@ -19,7 +19,27 @@ button::after {
 .button-hover {
   background-color: transparent;
 }
-
+.navigatabar {
+  width: 630rpx;
+  height: 92rpx;
+  margin: 20rpx 60rpx 20rpx 60rpx;
+  border-radius: 2px;
+  border: 1px solid #ffffff;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  align-items: flex-end;
+  justify-content: space-around;
+  &_item {
+    width: 162rpx;
+    height: 66rpx;
+    align-items: flex-end;
+    border-style: solid;
+    border: 1px #ffffff solid;
+    &.borderColor {
+      border-color: #ffffff #ffffff #ffc86d #ffffff;
+    }
+  }
+}
 .darkButton {
   margin-top: 16rpx;
   border-radius: 23px;

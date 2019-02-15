@@ -64,27 +64,6 @@ export default {
 };
 </script>
 <style lang="less" scope>
-.navigatabar {
-  height: 92rpx;
-  margin: 20rpx 60rpx 20rpx 60rpx;
-  border-radius: 2px;
-  border: 1px solid #ffffff;
-  box-sizing: border-box;
-  background-color: #ffffff;
-  align-items: flex-end;
-  justify-content: space-around;
-  &_item {
-    width: 162rpx;
-    height: 66rpx;
-    align-items: flex-end;
-    border-style: solid;
-    border-color: #ffffff;
-    &.borderColor {
-      color: #ffc86d;
-      border-color: #ffffff #ffffff #ffc86d #ffffff;
-    }
-  }
-}
 .noMail{
   height: 400rpx;
   margin: 80rpx
