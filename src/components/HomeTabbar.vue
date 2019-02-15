@@ -2,24 +2,24 @@
   <div class="bar box flex a-center j-between shadow" :class=" isIpx ? 'fix-iphonex-icon' : '' ">
     <form @submit="mail" report-submit="true">
       <button class="flex center" form-type="submit" hover-class="active">
-        <image class="icon" v-if="tab == 'mail'" src="/static/svgs/mail-active.svg">
+        <image class="icon" v-show="tab == 'mail'" src="/static/svgs/mail-active.svg">
         </image>
-        <image class="icon" v-else src="/static/svgs/mail.svg">
+        <image class="icon" v-show="tab != 'mail'" src="/static/svgs/mail.svg">
         </image>
       </button>
     </form>
     <form @submit="home" report-submit="true">
       <button class="flex center" form-type="submit" hover-class="active">
-        <image class="icon" v-if="tab == 'home'" src="/static/svgs/tell-active.svg">
+        <image class="icon" v-show="tab == 'home'" src="/static/svgs/tell-active.svg">
         </image>
-        <image class="icon" v-else src="/static/svgs/tell.svg">
+        <image class="icon" v-show="tab != 'home'" src="/static/svgs/tell.svg">
         </image>
       </button>
     </form>
     <form @submit="myInfo" report-submit="true">
       <button class="flex center" form-type="submit" hover-class="active">
-        <image class="icon" v-if="tab == 'mine'" src="/static/svgs/myinfo-active.svg"></image>
-        <image class="icon" v-else src="/static/svgs/myinfo.svg"></image>
+        <image class="icon" v-show="tab == 'mine'" src="/static/svgs/myinfo-active.svg"></image>
+        <image class="icon" v-show="tab != 'mine'"  src="/static/svgs/myinfo.svg"></image>
       </button>
     </form>
   </div>
@@ -36,11 +36,6 @@ export default {
   },
   created() {
     this.tab = this.active;
-    const model = wx.getSystemInfoSync().model;
-    if(model.includes('iPhone X')){
-      let isIpx = true;
-      this.isIpx = isIpx;
-    }
   },
   data() {
     return {
