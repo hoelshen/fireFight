@@ -60,7 +60,7 @@ export default {
     async onPush() {
       if (this.content.length < 50) {
         return wx.showToast({
-          title: "认真的讲诉更容易获得解答，多谢几句吧",
+          title: "认真的讲诉更容易获得解答，多写几句吧",
           icon: "none",
           duration: 2000
         });
