@@ -23,8 +23,7 @@
           <button class="flex center" @click="openMail">{{wayCount}} 封信正在邮寄的路上</button>
         </div>
         <div class="list" v-for="item in dialogs" :key="item._id">
-          <Envelope station="dialogId" :mail="item.toMail" :isRead="item.isRead" :dialogId="item._id" v-if="item.fromSystem"></Envelope>
-          <Envelope station="dialogId" :mail="item.toMail" :isRead="item.isRead" :dialogId="item._id" v-else-if="user._id == item.toUser._id"></Envelope>
+          <Envelope station="dialogId" :mail="item.toMail" :isRead="item.isRead" :isReplied="item.isReplied" :dialogId="item._id" v-if="user._id == item.toUser"></Envelope>
           <Envelope station="dialogId" :mail="item.fromMail" :isRead="true" :isReplied="true" :dialogId="item._id" v-else></Envelope>
         </div>
       </scroll-view>

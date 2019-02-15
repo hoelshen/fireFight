@@ -1,9 +1,10 @@
 <template>
   <view class="app list">
     <Mail :mail="item" v-for="item in list" :key="item._id"></Mail>
-    <Reply v-if="isReply" :target="target.aliasName" tag="mail" :id="id"></Reply>
+    <Mail :mail="replyMail" v-if="replyMail"></Mail>
+    <Reply v-if="isReply" :target="target" tag="mail" :id="id"></Reply>
     <div class="flex column center showReply_button" v-if="!isReply && !isFromSystem">
-      <button :disabled="fromUserId === userId" class="reply_button" @click="showReply">回信</button>
+      <button :disabled="isDisabled" class="reply_button" @click="showReply"> 回信</button>
       <span class="replay_text">需要使用 1 张邮票</span>
     </div>
   </view>
@@ -25,23 +26,35 @@ export default {
       id: "",
       userId: "",
       list: [],
+      replyMail: null,
       target: {},
       days: days,
-      fromUserId: "",
       stampCount: 0,
       isReply: false,
-      isActive: false,
-      isFromSystem:false,
+      isDisabled: true,
+      isFromSystem: false
     };
   },
   methods: {
     async getContent(id) {
       let res = await this.$request.get(`/dialog/detail/${id}`);
-      let dialog  = res.data;
-      this.target = dialog.fromUser || {};
-      this.fromUserId = this.target._id;
-      this.list = dialog.mailList;
+      let dialog = res.data;
+      let mailList = dialog.mailList;
+      let lastMail = mailList[mailList.length - 1];
+      this.list = mailList;
+      this.target = lastMail.aliasName;
       this.isFromSystem = dialog.fromSystem;
+      this.getReplyMail(dialog, lastMail._id);
+    },
+    getReplyMail(dialog, lastMailId) {
+      this.$request.get(`/mail/detail/${lastMailId}/reply`).then(res => {
+        if (res.data) {
+          this.replyMail = res.data;
+          this.isDisabled = true;
+        } else {
+          this.isDisabled = dialog.fromUser === this.userId ? true : false;
+        }
+      });
     },
     showReply() {
       if (this.stampCount === 0) {
@@ -52,13 +65,10 @@ export default {
         });
       }
       this.isReply = true;
-      this.isActive = true;
     }
   },
   onShow() {
-    const {
-      currentRoute: { query }
-    } = this.$router;
+    const { currentRoute: { query } } = this.$router;
     this.id = query.id;
     this.getContent(this.id);
     const { user } = getApp().globalData;
