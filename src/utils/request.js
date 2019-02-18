@@ -41,6 +41,7 @@ function snedToCloud(message, status, request) {
   const systemInfo = wx.getSystemInfoSync();
   const lauchOpts = getApp().globalData.options;
   const userId = getApp().globalData.user._id;
+  wx.cloud.init();
   wx.cloud.callFunction({
     name: "errorHandler",
     data: {
@@ -89,7 +90,7 @@ async function login() {
 
 async function getUser() {
   await fly.get("/user").then(res => {
-    const { user } = res.data;
+    const user = res.data;
     return (getApp().globalData.user = user);
   });
 }

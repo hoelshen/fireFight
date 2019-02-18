@@ -75,6 +75,9 @@ export default {
 };
 </script>
 <style lang="less" scope>
+page{
+  background-color: #ffffff;
+}
 .list {
   border: 1px solid #ffffff;
   width: 100%;

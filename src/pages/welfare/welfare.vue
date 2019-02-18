@@ -182,6 +182,7 @@ export default {
   .count {
     color: #ffc86d;
     margin-left: 8rpx;
+    font-weight: 600
   }
 }
 .list_item_span {

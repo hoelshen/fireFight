@@ -326,7 +326,7 @@ export default {
 .my_function {
   width: 630rpx;
   height: 172rpx;
-  margin: 32rpx 60rpx;
+  margin: 40rpx 60rpx;
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
   &_item {
@@ -348,7 +348,7 @@ export default {
 .my_contact {
   width: 630rpx;
   height: 216rpx;
-  margin: 32rpx 60rpx;
+  margin: 40rpx 60rpx;
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
   &_item {
@@ -361,10 +361,6 @@ export default {
       align-items: center;
       color: #4d495b;
       font-weight: 600;
-      .iconfont {
-        width: 32rpx;
-        height: 32rpx;
-      }
     }
     &-img {
       height: 36rpx;
@@ -384,13 +380,13 @@ export default {
   }
 }
 .my_share {
+  margin: 40rpx 60rpx;
   & button {
     border: 2rpx #ffc86d solid;
     border-radius: 46px;
     height: 92rpx;
     width: 316rpx;
     font-size: 28rpx;
-    margin: 40rpx 24rpx;
     &.active {
       background: #fff;
     }
