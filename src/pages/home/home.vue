@@ -82,17 +82,20 @@
       </scroll-view>
     </div>
 
+    <Modal v-if="isShowModal" :title="modalTitle" :content="modalContent" :confir="confir" :sure="sure" @change="showModal"></Modal>
+
     <HomeTabbar @change="onTabChange"></HomeTabbar>
   </view>
 </template>
 <script>
 import HomeTabbar from "@/components/HomeTabbar";
 import Envelope from "@/components/Envelope";
-
+import Modal from "@/components/Modal";
 export default {
   components: {
     HomeTabbar,
-    Envelope
+    Envelope,
+    Modal
   },
   data() {
     return {
@@ -101,7 +104,12 @@ export default {
       wayCount: 0,
       dialogs: [],
       user: {},
-      scrolHeight: 541
+      scrolHeight: 541,
+      isShowModal: false,
+      modalTitle: "",
+      modalContent: "",
+      confir: "",
+      sure: ""
     };
   },
   onLoad(opt) {
@@ -109,7 +117,16 @@ export default {
   },
   onLaunch() {},
   onShow() {
-    this.$request.get("/tips");
+    this.$request.get("/tips").then(res=>{
+      const { lastTips } = res.data;
+      if(lastTips){
+        this.isShowModal = true;
+        this.modalTitle = "解答者身份已取消";
+        this.modalContent = "你的解答者身份已被取消，若要继续尝试，请到解答室重新申请";
+        this.confir = "前往解答室";
+        this.sure = "好的";
+      }
+    });
     this.getScroll();
   },
   onShareAppMessage(res) {
@@ -126,6 +143,7 @@ export default {
       this.tab = tab;
       if(this.tab === 'home'){
         this.getBanners();
+        this.showModal();
       }
       if(this.tab === 'mail'){
         this.getWayCount();
@@ -218,6 +236,9 @@ export default {
             this.scrolHeight = systemInfo.windowHeight - barHeight;
           }.bind(this)
         );
+    },
+    showModal(){
+      this.isShowModal=false
     }
   }
 };

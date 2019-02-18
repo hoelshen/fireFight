@@ -7,18 +7,21 @@
       <button :disabled="isDisabled" class="reply_button" @click="showReply"> 回信</button>
       <span class="replay_text">需要使用 1 张邮票</span>
     </div>
+    <Modal v-if="isShowModal" :title="modalTitle" :content="modalContent" :confir="confir" :sure="sure" @change="showModal"></Modal>
   </view>
 </template>
 
 
-<script>
+<script>2
 import Mail from "@/components/Mail";
 import Reply from "@/components/Reply";
+import Modal from "@/components/Modal";
 
 export default {
   components: {
     Mail,
-    Reply
+    Reply,
+    Modal
   },
   data() {
     return {
@@ -30,7 +33,12 @@ export default {
       stampCount: 0,
       isReply: false,
       isDisabled: true,
-      isFromSystem: false
+      isFromSystem: false,
+      isShowModal:false,
+      modalTitle: "",
+      modalContent: "",
+      confir: "",
+      sure: ""
     };
   },
   methods: {
@@ -56,13 +64,18 @@ export default {
     },
     showReply() {
       if (this.stampCount === 0) {
-        return wx.showToast({
-          title: "邮票不足",
-          icon: "none",
-          duration: 2000
-        });
+        this.isShowModal = true;
+        this.modalTitle = "邮票不足";
+        this.modalContent = "需要消耗 1 邮票，当前余额不足";
+        this.confir = "获取邮票";
+        this.sure = "好的";
+
+        return false;
       }
       this.isReply = true;
+    },
+    showModal(){
+      this.isShowModal = false;
     }
   },
   onShow() {
@@ -85,13 +98,11 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.app {
-  padding: 40rpx 0rpx;
-}
 .mail {
   width: 630rpx;
   min-height: 620rpx;
-  margin: 81rpx 60rpx 36rpx 60rpx;
+  margin: 40rpx 60rpx 40rpx 60rpx;
+  border-radius: 4rpx;
 }
 
 .reply_button {

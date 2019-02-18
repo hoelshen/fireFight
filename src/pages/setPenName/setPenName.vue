@@ -73,11 +73,10 @@ export default {
             aliasPortrait
           })
           .then(res => {
-            console.log(res);
             this.$router.reLaunch({
               query: { active: "mine" },
               path: "/pages/home/index"
-            });            
+            });
           });
       }
       if (!aliasName) {

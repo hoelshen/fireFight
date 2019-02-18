@@ -68,6 +68,12 @@ export default {
       imageUrl,
       path
     };
+  },
+  onUnload(){
+    this.$router.reLaunch({
+      query: { active: "home" },
+      path: "/pages/home/index"
+    });
   }
 };
 </script>

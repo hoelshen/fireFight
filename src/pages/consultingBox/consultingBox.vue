@@ -5,7 +5,8 @@
         <span class="consultingBox_title">咨询箱</span>
 
         <span class="consultingBox_detail">
-          烦恼咨询服务每次需使用1张解忧券 若 3 日未收到解答则退还解忧券
+          你可以在这里咨询你的烦恼   
+          每次使用 1 张解忧券
         </span>
         <span class="consultingBox_content" @click="onDetail">查看详细说明</span>
       </div>

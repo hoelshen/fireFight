@@ -42,7 +42,6 @@ export default {
     select(index) {
       this.title = this.titles[index];
       this.activeIndex =index;
-      //this.islightColor = true;
     },
     add() {
       this.$request.put("/tag", { _id: this.title._id }).then(res => {
