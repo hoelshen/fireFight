@@ -89,8 +89,7 @@ async function login() {
 
 async function getUser() {
   await fly.get("/user").then(res => {
-    const { user } = res.data;
-    return (getApp().globalData.user = user);
+    return (getApp().globalData.user = res.data);
   });
 }
 

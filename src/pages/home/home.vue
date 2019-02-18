@@ -61,10 +61,7 @@
         </session>
 
         <session class="my_contact flex column">
-          <button class="my_contact_item-button flex wrap center grow" open-type="contact" send-message-img :session-from="{
-            'nickName':user.aliasName, 
-            'avatarUrl':user.aliasPortrait
-            }" @contact="joinGroup">
+          <button class="my_contact_item-button flex wrap center grow" open-type="contact" :show-message-card="true" send-message-title=“加入群聊” session-from="{'nickName':user.aliasName, 'avatarUrl':user.aliasPortrait}">
             <image class="iconfont" src="/static/svgs/joinGroup.svg" />
 
             <span class="my_contact_item-text grow">加入群聊</span>
@@ -112,6 +109,7 @@ export default {
   },
   onLaunch() {},
   onShow() {
+    this.$request.get("/tips");
     this.getScroll();
   },
   onShareAppMessage(res) {
