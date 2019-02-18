@@ -84,8 +84,7 @@
           <span class="welfare_content">进入客服会话后发送「订阅号」，按提示进行操作。关注订阅号后即可领取邮票。</span>
         </div>
         <div class="exchange flex center">
-          <button open-type="contact" class="flex center ">去关注 </button>
-
+          <button open-type="contact" class="flex center ">去关注</button>
         </div>
       </div>
     </session>

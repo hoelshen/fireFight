@@ -39,7 +39,7 @@
             <div class="flex j-around my_info_user-nickName">
               <div @click="login">{{user.aliasName}}</div>
             </div>
-            <div class="my_info_user-address flex wrap">{{user.aliasAddress}}</div>
+            <div class="my_info_user-address flex wrap" @click="showAddressModal">{{user.aliasAddress}}</div>
           </div>
         </div>
 
@@ -82,7 +82,7 @@
       </scroll-view>
     </div>
 
-    <Modal v-if="isShowModal" :title="modalTitle" :content="modalContent" :confir="confir" :sure="sure" @change="showModal"></Modal>
+    <Modal v-if="isShowModal" :title="modalTitle" :content="modalContent" :confirm="confirm" :sure="sure" @change="showModal"></Modal>
 
     <HomeTabbar @change="onTabChange"></HomeTabbar>
   </view>
@@ -108,7 +108,7 @@ export default {
       isShowModal: false,
       modalTitle: "",
       modalContent: "",
-      confir: "",
+      confirm: "",
       sure: ""
     };
   },
@@ -117,16 +117,7 @@ export default {
   },
   onLaunch() {},
   onShow() {
-    this.$request.get("/tips").then(res=>{
-      const { lastTips } = res.data;
-      if(lastTips){
-        this.isShowModal = true;
-        this.modalTitle = "解答者身份已取消";
-        this.modalContent = "你的解答者身份已被取消，若要继续尝试，请到解答室重新申请";
-        this.confir = "前往解答室";
-        this.sure = "好的";
-      }
-    });
+    this.getTips();
     this.getScroll();
   },
   onShareAppMessage(res) {
@@ -143,7 +134,6 @@ export default {
       this.tab = tab;
       if(this.tab === 'home'){
         this.getBanners();
-        this.showModal();
       }
       if(this.tab === 'mail'){
         this.getWayCount();
@@ -237,8 +227,27 @@ export default {
           }.bind(this)
         );
     },
+    showAddressModal(){
+      this.isShowModal = true;
+      this.modalTitle = "Tell 住址";
+      this.modalContent = "这是你在 Tell 的住址，用于收取书信。未来会提供更多相关功能，敬请期待！";
+      this.confirm = "no";
+      this.sure = "好的"; 
+    },
+    getTips(){
+      this.$request.get("/tips").then(res=>{
+        const { lastTips } = res.data;
+        if(lastTips){
+          this.isShowModal = true;
+          this.modalTitle = "解答者身份已取消";
+          this.modalContent = "你的解答者身份已被取消，若要继续尝试，请到解答室重新申请";
+          this.confirm = "前往解答室";
+          this.sure = "好的";
+        }
+      });      
+    },
     showModal(){
-      this.isShowModal=false
+      this.isShowModal = false
     }
   }
 };

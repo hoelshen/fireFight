@@ -4,12 +4,18 @@
             <div class="title">
                 {{title}}
             </div>
-            <div class="content">
+            <div v-if="!img" class="content">
                 {{content}}
             </div>
+            <div v-else class="content">
+                <img v-if="type === 'service' " src="/static/svgs/service_tips.jpg" alt="">
+                <img v-if="type === 'subscript'"src="/static/svgs/service_tips.jpg" alt="">
+                <img v-if="type === 'group'"src="/static/svgs/service_tips.jpg" alt="">
+            </div>
             <div class="btn">
-                <button class="confir darkButton" @click="ensure">{{confir}}</button>
-                <button class="cancel lightButton" @click="cancel">{{sure}}</button>
+                <button v-if="confirm !== 'no' " class="confirm darkButton" @click="ensure">{{confirm}}</button>
+                <button v-if="confirm === 'no' && ((type === 'service') || (type === 'subscript') || (type === 'group')) " open-type="contact" :show-message-card="true" :send-message-img="imgUrl" :send-message-title="title" session-from="{'nickName':user.aliasName, 'avatarUrl':user.aliasPortrait}" class="confirm darkButton" @click="ensure">{{sure}}</button>
+                <button v-if="confirm === 'no' && type === 'no' " class="cancel lightButton" @click="cancel">{{sure}}</button>
             </div>
         </div>
     </div>
@@ -29,7 +35,7 @@ export default {
         content:{
             type: String
         },
-        confir:{
+        confirm:{
             type: String
         },
         sure:{
@@ -37,25 +43,34 @@ export default {
             default: "好的"
         }
     },
+    data(){
+        return {
+            img: true,
+            user: {},
+            type: "no"
+        }
+    },
     methods:{
         ensure(){
-            if(this.confir === "获取邮票") {
+            if(this.confirm === "获取邮票") {
                 this.$router.reLaunch({
                     query: { active: "mail" },
                     path: "/pages/welfare/index"
                 });
             }
-            if(this.confir === "获取解忧券") {
+            if(this.confirm === "获取解忧券") {
                 this.$router.reLaunch({
                     query: { active: "solution" },
                     path: "/pages/welfare/index"
                 });
             }
-            if(this.confir === "前往解答室") {
+            if(this.confirm === "前往解答室") {
                 this.$router.reLaunch({
                     path: "/pages/solution/solutionDetail"
                 });
             }
+            if(this.confirm === "no" && this.title === "Tell 住址") {}
+
         },
         cancel(){
             this.isShowModal = false;
@@ -63,11 +78,31 @@ export default {
         }
     },
     created() {
-        
+        const { user } = getApp().globalData;
+        this.user.aliasName = user.aliasName;
+        this.user.aliasPortrait = user.aliasPortrait;
+        if(this.confirm === "no" && this.title === "如何关注"){
+                this.type = "service"
+            console.log('service')           
+
+                this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/service_accout.jpg"
+        }
+        if(this.confirm === "no" && this.title === "如何关注"){       
+            this.type = "subscript"
+            console.log('subscript', this.type)
+
+            this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/subscribe_accout.jpg"
+        }
+        if(this.confirm === "no" && this.title === "加群"){
+            this.type = "group"
+            console.log('group')           
+
+            this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/join_group.jpg"
+        }
     },
 }
 </script>
-<style scoped>
+<style lang="less" scoped>
 .modal{
   position: fixed;
   left: 0;
@@ -85,7 +120,7 @@ export default {
     height: 596rpx;
     background-color: #FFFFFF;
     border-radius: 4rpx;
-    box-shadow: (0, 0, 0, .5)
+    box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, .05)
 }
 .title{
     margin-top: 60rpx;
@@ -94,6 +129,10 @@ export default {
 }
 .content{
     margin:40rpx 60rpx 60rpx 60rpx;
+    & image{
+        width: 550rpx;
+        height: 244rpx;
+    }
 }
 .cancel{
     font-size: 28rpx;

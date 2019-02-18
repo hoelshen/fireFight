@@ -39,11 +39,15 @@
   </view>
 </template>
 <script>
+import Modal from "@/components/Modal";
 var WORDS =
   "自杀|迫害|家暴|不想活|不活了|生无可恋|抑郁症|十分压抑|非常压抑|没有希望|死了算了|跳楼|自尽";
 const SENSITIVE_REG = new RegExp(WORDS, "i");
 
 export default {
+  components: {
+    Modal
+  },
   data() {
     const day = this.$day().format("YYYY/MM/DD"); ///.format('YYYY-MM-DD') // 展示
     return {
@@ -53,11 +57,20 @@ export default {
       isDisplay: true,
       day: day,
       aliasName: "",
-      isFocus: false
+      isFocus: false,
+      ticketCount: 0
     };
   },
   methods: {
     async onPush() {
+      if(this.ticketCount === 0){
+        this.isShowModal = true;
+        this.modalTitle = "解忧券不足";
+        this.modalContent = "需要消耗 1 解忧券，当前余额不足";
+        this.confirm = "获取解忧券";
+        this.sure = "好的";
+        return false;
+      }
       if (this.content.length < 50) {
         return wx.showToast({
           title: "认真的讲诉更容易获得解答，多写几句吧",
@@ -119,6 +132,8 @@ export default {
     }
   },
   onShow() {
+    const { user } = getApp().globalData
+    this.ticketCount = user.ticketCount;
     this.getWeather();
     this.refresh();
   },

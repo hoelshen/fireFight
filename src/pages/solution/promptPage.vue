@@ -21,7 +21,7 @@
         </div>
         <image class="home flex center" src="/static/svgs/focusServer.jpg">
         </image>
-        <button class="promptBtn flex column center" open-type="contact">
+        <button class="promptBtn flex column center" @click="attention">
           <span>关注服务</span>
           <span>被感谢时立即收到通知</span>
           <image class="iconfont" src="/static/svgs/leftArrow.svg" />
@@ -29,24 +29,41 @@
       </div>
       <button class="darkButton" @click="sure">好的</button>
     </div>
+
+    <Modal v-if="isShowModal" :title="modalTitle" :content="modalContent" :confirm="confirm" :sure="sure" @change="showModal"></Modal>
   </div>
 </template>
 
 
 <script>
+import Modal from "@/components/Modal";
+
 export default {
+  components: {
+    Modal
+  },  
   data() {
     return {
       targetUser: "",
-      active: ""
+      active: "",
+      isShowModal: false
     };
   },
   methods: {
+    attention(){
+      this.isShowModal = true;
+      this.modalTitle = "如何关注";
+      this.confirm = "no";
+      this.sure = "马上开始"; 
+    },
     sure() {
       this.$router.reLaunch({
         query: { active: "home" },
         path: "/pages/home/index"
       });
+    },
+    showModal(){
+      this.isShowModal = false
     }
   },
   onShow() {

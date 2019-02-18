@@ -7,12 +7,12 @@
       <button :disabled="isDisabled" class="reply_button" @click="showReply"> 回信</button>
       <span class="replay_text">需要使用 1 张邮票</span>
     </div>
-    <Modal v-if="isShowModal" :title="modalTitle" :content="modalContent" :confir="confir" :sure="sure" @change="showModal"></Modal>
+    <Modal v-if="isShowModal" :title="modalTitle" :content="modalContent" :confirm="confirm" :sure="sure" @change="showModal"></Modal>
   </view>
 </template>
 
 
-<script>2
+<script>
 import Mail from "@/components/Mail";
 import Reply from "@/components/Reply";
 import Modal from "@/components/Modal";
@@ -37,7 +37,7 @@ export default {
       isShowModal:false,
       modalTitle: "",
       modalContent: "",
-      confir: "",
+      confirm: "",
       sure: ""
     };
   },
@@ -67,7 +67,7 @@ export default {
         this.isShowModal = true;
         this.modalTitle = "邮票不足";
         this.modalContent = "需要消耗 1 邮票，当前余额不足";
-        this.confir = "获取邮票";
+        this.confirm = "获取邮票";
         this.sure = "好的";
 
         return false;
