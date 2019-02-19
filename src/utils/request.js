@@ -1,7 +1,7 @@
 import flyio from "flyio/dist/npm/wx";
 import { promisify } from "@/utils/index";
 
-const environment = "test"; // 配置环境
+const environment = "local"; // 配置环境
 
 const fly = new flyio();
 let cookies = [],
@@ -35,25 +35,23 @@ function showError(message, status, request) {
 }
 
 function snedToCloud(message, status, request) {
-  if (!request){
+  if (!request) {
     return false;
   }
   const systemInfo = wx.getSystemInfoSync();
   const lauchOpts = getApp().globalData.options;
   const userId = getApp().globalData.user._id;
   wx.cloud.init();
-  wx.cloud.callFunction({
-    name: "errorHandler",
-    data: {
-      systemInfo: systemInfo,
-      lauchOpts: lauchOpts,
-      requestName: request.url,
-      method: request.method,
-      status,
-      userId,
-      message,
-      createdAt: new Date()
-    }
+  const db = wx.cloud.database();
+  db.collection("errors").add({
+    systemInfo: systemInfo,
+    lauchOpts: lauchOpts,
+    requestName: request.url,
+    method: request.method,
+    status,
+    userId,
+    message,
+    createdAt: Date()
   });
 }
 
@@ -176,13 +174,13 @@ fly.interceptors.response.use(
   },
   err => {
     if (err.status == 502 || err.status == 404) {
-      showError("服务器抽风啦，请重试"); // 生产环境：服务器正在重启
+      showError("服务器抽风啦，请重试", err.status, err.request); // 生产环境：服务器正在重启
       return wx.reLaunch({
         url: "/pages/noFound/index"
       });
     }
     if (!err.response) {
-      showError("服务器抽风啦，请重试"); // 本地环境：服务器正在重启
+      showError("服务器抽风啦，请重试", err.status, err.request); // 本地环境：服务器正在重启
       return wx.reLaunch({
         url: "/pages/noFound/index"
       });

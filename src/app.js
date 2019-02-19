@@ -50,7 +50,8 @@ export default {
       "pages/stronger-write/index", //MYS写故事
       "pages/noFound/index", //404,
       "pages/faq/index", //FAQ,
-      "pages/webview/index" //内嵌网页
+      "pages/webview/index", //内嵌网页
+      "pages/share/index" //内嵌网页
     ],
     window: {
       backgroundTextStyle: "light",
