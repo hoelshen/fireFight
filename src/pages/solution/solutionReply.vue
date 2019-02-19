@@ -3,9 +3,9 @@
     <Mail :mail="mail"></Mail>
     <Mail v-if="reMail" :mail="reMail"></Mail>
     <Reply v-if="isReply" :target="mail.aliasName" tag="solution" :id="id"></Reply>
-    <div class="flex column center showReply_button" v-if="!isReply && !reMail">
-      <button :disabled="reMail" class="reply_button flex center" @click="showReply">回信</button>
-      <span class="replay_text">今天还可以回复1次</span>
+    <div class="flex column center showReply_button">
+      <button :disabled="isDisable" class="reply_button flex center" @click="showReply">回信</button>
+      <span class="replay_text">今天还可以回复 {{replyCount}} 次</span>
     </div>
   </view>
 </template>
@@ -25,10 +25,11 @@ export default {
       mail: {},
       reMail: {},
       fromUserId: "",
-      mailCount: 0,
+      replyCount: 1,
       isReply: false,
       myReply: null,
-      isActive: false
+      isActive: false,
+      isDisable:true
     };
   },
   methods: {
@@ -37,27 +38,20 @@ export default {
       let Res = await this.$request.get(`/mail/detail/${id}/reply`);
       this.mail = res.data;
       this.reMail = Res.data;
+      this.isDisable = (!isReply && !reMail ) ? false : true;
     },
     showReply() {
-      if (this.mailCount === 0) {
-        return wx.showToast({
-          title: "邮票不足",
-          icon: "none",
-          duration: 2000
-        });
-      }
       this.isReply = true;
       this.isActive = true;
     }
   },
   async onShow() {
-    const {
-      currentRoute: { query }
-    } = this.$router;
+    const { currentRoute: { query } } = this.$router;
     this.id = query.id;
-    const { user } = getApp().globalData;
-    this.mailCount = user.mailCount;
+    const { replyCount } = getApp().globalData;
+    this.replyCount = replyCount;
     this.getContent(this.id);
+    this.isDisable = replyCount > 0 ? false : true;
   },
   onShareAppMessage(res) {
     let { title, imageUrl, path, user } = getApp().globalData;
@@ -75,7 +69,7 @@ export default {
   padding: 40rpx 60rpx;
 }
 .showReply_button {
-  color:#ffffff;
+  color: #ffffff;
   margin-bottom: 60rpx;
 }
 .replay_text {

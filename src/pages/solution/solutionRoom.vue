@@ -1,7 +1,7 @@
 <template>
   <view class="app">
     <NavBar title="解答室" :isAuto="true"></NavBar>
-    <scroll-view  scroll-y :style='`height: ${scrolHeight}px`'>
+    <scroll-view scroll-y :style='`height: ${scrolHeight}px`'>
       <session class="solutionRoomName">
         <div class="solutionRoomName-name">
           <p class="solutionRoomName-day">{{days}}</p>
@@ -48,6 +48,7 @@ export default {
       let res = await this.$request.get("/mail/story");
       this.mails = res.data.list;
       this.replyCount = res.data.lastRepliedAt ? 0 : 1;
+      getApp().globalData.replyCount = this.replyCount;
     },
     onSolutionLimit() {
       this.$router.push({
@@ -63,7 +64,7 @@ export default {
     }
   },
   onShow() {
-    const { user,titleBarHeight } = getApp().globalData;
+    const { user, titleBarHeight } = getApp().globalData;
     let systemInfo = wx.getSystemInfoSync();
     this.aliasName = user.aliasName;
     this.scrolHeight = systemInfo.windowHeight - titleBarHeight;

@@ -11,8 +11,8 @@ export default {
   },
   onShow() {
     const { SDKVersion, statusBarHeight } = wx.getSystemInfoSync();
-    const version = parseInt(SDKVersion.replace(/\./g,''));
-    if (version < 252 ) {
+    const version = parseInt(SDKVersion.replace(/\./g, ""));
+    if (version < 252) {
       wx.showModal({
         title: "提示",
         content:
@@ -43,7 +43,8 @@ export default {
       imageUrl: "https://cdn.tellers.cn/tell_v2/static/share_default.jpg", // 默认分享图
       path: "/pages/home/index",
       statusBarHeight: 20,
-      titleBarHeight: 68
+      titleBarHeight: 68,
+      replyCount: 1
     };
   }
 };
