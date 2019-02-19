@@ -9,8 +9,8 @@
             </div>
             <div v-else class="content">
                 <img v-if="confirm === 'FocusServer' " src="/static/svgs/service_tips.jpg" alt="">
-                <img v-if="confirm === 'FocusSubscript'"src="/static/svgs/service_tips.jpg" alt="">
-                <img v-if="confirm === 'group'"src="/static/svgs/service_tips.jpg" alt="">
+                <img v-if="confirm === 'FocusSubscript'" src="/static/svgs/service_tips.jpg" alt="">
+                <img v-if="confirm === 'group'" src="/static/svgs/service_tips.jpg" alt="">
             </div>
             <div class="btn">
                 <button v-if="type === 'CONFIRM' " class="confirm darkButton" @click="ensure">{{confirm}}</button>
@@ -25,94 +25,96 @@
 
 <script>
 export default {
-    props:{
-        isShowModal:{
-            type: Boolean
-        },
-        title:{
-            type: String
-        },
-        content:{
-            type: String
-        },
-        confirm:{
-            type: String,
-            default: "no"
-        },
-        sure:{
-            type: String,
-            default: "好的"
-        },
-        type:{
-            type: String,
-            default: ""
-        }
+  name: "Modal",
+  props: {
+    isShowModal: {
+      type: Boolean
     },
-    data(){
-        return {
-            img: true,
-            user: {},
-            type: "no"
-        }
+    title: {
+      type: String
     },
-    methods:{
-        ensure(){
-            if(this.confirm === "获取邮票") {
-                this.$router.reLaunch({
-                    query: { active: "mail" },
-                    path: "/pages/welfare/index"
-                });
-            }
-            if(this.confirm === "获取解忧券") {
-                this.$router.reLaunch({
-                    query: { active: "solution" },
-                    path: "/pages/welfare/index"
-                });
-            }
-            if(this.confirm === "前往解答室") {
-                this.$router.reLaunch({
-                    path: "/pages/solution/solutionDetail"
-                });
-            }
-            if(this.title === "Tell 住址") {}
+    content: {
+      type: String
+    },
+    confirm: {
+      type: String,
+      default: "no"
+    },
+    sure: {
+      type: String,
+      default: "好的"
+    },
+    type: {
+      type: String,
+      default: ""
+    }
+  },
+  data() {
+    return {
+      img: true,
+      user: {},
+      type: "no"
+    };
+  },
+  methods: {
+    ensure() {
+      if (this.confirm === "获取邮票") {
+        this.$router.reLaunch({
+          query: { active: "mail" },
+          path: "/pages/welfare/index"
+        });
+      }
+      if (this.confirm === "获取解忧券") {
+        this.$router.reLaunch({
+          query: { active: "solution" },
+          path: "/pages/welfare/index"
+        });
+      }
+      if (this.confirm === "前往解答室") {
+        this.$router.reLaunch({
+          path: "/pages/solution/solutionDetail"
+        });
+      }
+      if (this.title === "Tell 住址") {
+      }
+    },
 
-        },
-
-        cancel(){
-            if(this.confirm === "FocusServer"){
-                this.$router.push({
-                    query: { page: "FocusServer" },
-                    path: "/pages/webview/index"
-                });  
-            }
-            if(this.confirm === "FocusSubscript"){
-                this.$router.push({
-                    query: { page: "FocusSubscript" },
-                    path: "/pages/webview/index"
-                });  
-            }
-            this.isShowModal = false;
-            this.$emit("change", this.isShowModal);
-        }
-    },
-    created() {
-        const { user } = getApp().globalData;
-        this.user.aliasName = user.aliasName;
-        this.user.aliasPortrait = user.aliasPortrait;
-        if(this.confirm === "FocusServer"){
-            this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/service_accout.jpg"
-        }
-        if(this.confirm === "FocusSubscript"){       
-            this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/subscribe_accout.jpg"
-        }
-        if(this.confirm === "group"){
-            this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/join_group.jpg"
-        }
-    },
-}
+    cancel() {
+      if (this.confirm === "FocusServer") {
+        this.$router.push({
+          query: { page: "FocusServer" },
+          path: "/pages/webview/index"
+        });
+      }
+      if (this.confirm === "FocusSubscript") {
+        this.$router.push({
+          query: { page: "FocusSubscript" },
+          path: "/pages/webview/index"
+        });
+      }
+      this.isShowModal = false;
+      this.$emit("change", this.isShowModal);
+    }
+  },
+  created() {
+    const { user } = getApp().globalData;
+    this.user.aliasName = user.aliasName;
+    this.user.aliasPortrait = user.aliasPortrait;
+    if (this.confirm === "FocusServer") {
+      this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/service_accout.jpg";
+    }
+    if (this.confirm === "FocusSubscript") {
+      this.imgUrl =
+        "https://cdn.tellers.cn/tell_v2/static/subscribe_accout.jpg";
+    }
+    if (this.confirm === "group") {
+      this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/join_group.jpg";
+    }
+  }
+};
 </script>
 <style lang="less" scoped>
-.modal{
+.modal {
   position: fixed;
   left: 0;
   right: 0;
@@ -121,35 +123,35 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(189, 189, 192, .10);
+  background-color: rgba(189, 189, 192, 0.1);
   z-index: 99;
 }
-.card{
-    width: 630rpx;
-    height: 596rpx;
-    background-color: #FFFFFF;
-    border-radius: 4rpx;
-    box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, .05)
+.card {
+  width: 630rpx;
+  height: 596rpx;
+  background-color: #ffffff;
+  border-radius: 4rpx;
+  box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
 }
-.title{
-    margin-top: 60rpx;
-    font-size: 34rpx;
-    font-weight: 600;
+.title {
+  margin-top: 60rpx;
+  font-size: 34rpx;
+  font-weight: 600;
 }
-.content{
-    margin:40rpx 60rpx 60rpx 60rpx;
-    & image{
-        width: 550rpx;
-        height: 244rpx;
-    }
+.content {
+  margin: 40rpx 60rpx 60rpx 60rpx;
+  & image {
+    width: 550rpx;
+    height: 244rpx;
+  }
 }
 
-.cancel{
-    font-size: 28rpx;
-    font-weight: 600;
-    padding: 0 130rpx;
-    margin-bottom: 60rpx;
-    margin-top:40rpx;
-    line-height:88rpx;
+.cancel {
+  font-size: 28rpx;
+  font-weight: 600;
+  padding: 0 130rpx;
+  margin-bottom: 60rpx;
+  margin-top: 40rpx;
+  line-height: 88rpx;
 }
 </style>

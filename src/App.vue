@@ -5,16 +5,22 @@ export default {
   onLaunch(opts) {
     this.globalData.options = opts;
     this.$request.login();
-    this.globalData.path = opts.query.scene ? this.globalData.path + `&scene=${opts.scene}` : this.globalData.path;
+    this.globalData.path = opts.query.scene
+      ? this.globalData.path + `&scene=${opts.scene}`
+      : this.globalData.path;
   },
   onShow() {
-    if (!wx.createSelectorQuery) {
+    const { SDKVersion, statusBarHeight } = wx.getSystemInfoSync();
+    const version = parseInt(SDKVersion.replace(/\./g,''));
+    if (version < 252 ) {
       wx.showModal({
         title: "提示",
         content:
           "当前微信版本过低，可能影响使用体验，请升级到最新微信版本后重试。"
       });
     }
+    this.globalData.statusBarHeight = statusBarHeight; // 用于自定义导航栏组件
+    this.globalData.titleBarHeight = statusBarHeight + 48;
     this.$request.get("/image/default").then(res => {
       this.globalData.imageUrl = res.data;
     });
@@ -35,7 +41,9 @@ export default {
       mys: {}, // 活动主题
       title: "送你一张解忧券",
       imageUrl: "https://cdn.tellers.cn/tell_v2/static/share_default.jpg", // 默认分享图
-      path: "/pages/home/index"
+      path: "/pages/home/index",
+      statusBarHeight: 20,
+      titleBarHeight: 68
     };
   }
 };
