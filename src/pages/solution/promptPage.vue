@@ -53,7 +53,7 @@ export default {
     attention(){
       this.isShowModal = true;
       this.modalTitle = "如何关注";
-      this.confirm = "no";
+      this.confirm = "FocusServer";
       this.sure = "马上开始"; 
     },
     sure() {

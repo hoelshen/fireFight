@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 22,
+			"current": 23,
 			"list": [
 				{
 					"id": -1,
@@ -177,6 +177,12 @@
 					"name": "回信完成提示页",
 					"pathName": "pages/solution/promptPage",
 					"query": "targetUser=&active=solution",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "安利给好友",
+					"pathName": "pages/share/index",
 					"scene": null
 				}
 			]

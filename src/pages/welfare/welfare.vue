@@ -41,7 +41,7 @@
           <span class="welfare_content">进入客服会话后发送「服务号」，按提示进行操作。关注服务号后即可领取解忧券。</span>
         </div>
         <div class="exchange flex center">
-          <button open-type="contact" class="flex center ">去关注
+          <button @click="FocusServer" class="flex center ">去关注
           </button>
         </div>
       </div>
@@ -84,19 +84,24 @@
           <span class="welfare_content">进入客服会话后发送「订阅号」，按提示进行操作。关注订阅号后即可领取邮票。</span>
         </div>
         <div class="exchange flex center">
-          <button open-type="contact" class="flex center ">去关注</button>
+          <button @click="FocusSubscript" class="flex center ">去关注</button>
         </div>
       </div>
     </session>
-
+    <Modal v-if="isShowModal" :title="modalTitle" :content="modalContent" :confirm="confirm" :sure="sure" @change="showModal"></Modal>
   </view>
-
 </template>
 <script>
+import Modal from "@/components/Modal";
+
 export default {
+  components: {
+    Modal
+  }, 
   data() {
     return {
-      active: "solution"
+      active: "solution",
+      isShowModal: false,
     };
   },
   onShareAppMessage(res) {
@@ -161,6 +166,18 @@ export default {
           }
         });
       }
+    },
+    FocusServer(){
+      this.isShowModal = true;
+      this.modalTitle = "如何关注";
+      this.confirm = "FocusServer";
+      this.sure = "马上开始"; 
+    },
+    FocusSubscript(){
+      this.isShowModal = true;
+      this.modalTitle = "如何关注";
+      this.confirm = "FocusSubscript";
+      this.sure = "马上开始"; 
     }
   },
   onShow(){

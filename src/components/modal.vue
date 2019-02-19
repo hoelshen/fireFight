@@ -8,14 +8,14 @@
                 {{content}}
             </div>
             <div v-else class="content">
-                <img v-if="type === 'service' " src="/static/svgs/service_tips.jpg" alt="">
-                <img v-if="type === 'subscript'"src="/static/svgs/service_tips.jpg" alt="">
-                <img v-if="type === 'group'"src="/static/svgs/service_tips.jpg" alt="">
+                <img v-if="confirm === 'FocusServer' " src="/static/svgs/service_tips.jpg" alt="">
+                <img v-if="confirm === 'FocusSubscript'"src="/static/svgs/service_tips.jpg" alt="">
+                <img v-if="confirm === 'group'"src="/static/svgs/service_tips.jpg" alt="">
             </div>
             <div class="btn">
-                <button v-if="confirm !== 'no' " class="confirm darkButton" @click="ensure">{{confirm}}</button>
-                <button v-if="confirm === 'no' && ((type === 'service') || (type === 'subscript') || (type === 'group')) " open-type="contact" :show-message-card="true" :send-message-img="imgUrl" :send-message-title="title" session-from="{'nickName':user.aliasName, 'avatarUrl':user.aliasPortrait}" class="confirm darkButton" @click="ensure">{{sure}}</button>
-                <button v-if="confirm === 'no' && type === 'no' " class="cancel lightButton" @click="cancel">{{sure}}</button>
+                <button v-if="type === 'CONFIRM' " class="confirm darkButton" @click="ensure">{{confirm}}</button>
+                <button v-if="type === 'group'" open-type="contact" :show-message-card="true" :send-message-img="imgUrl" :send-message-title="title" session-from="{'nickName':user.aliasName, 'avatarUrl':user.aliasPortrait}" class="confirm darkButton" @click="ensure">{{sure}}</button>
+                <button class="cancel lightButton" @click="cancel">{{sure}}</button>
             </div>
         </div>
     </div>
@@ -36,11 +36,16 @@ export default {
             type: String
         },
         confirm:{
-            type: String
+            type: String,
+            default: "no"
         },
         sure:{
             type: String,
             default: "好的"
+        },
+        type:{
+            type: String,
+            default: ""
         }
     },
     data(){
@@ -69,10 +74,23 @@ export default {
                     path: "/pages/solution/solutionDetail"
                 });
             }
-            if(this.confirm === "no" && this.title === "Tell 住址") {}
+            if(this.title === "Tell 住址") {}
 
         },
+
         cancel(){
+            if(this.confirm === "FocusServer"){
+                this.$router.push({
+                    query: { page: "FocusServer" },
+                    path: "/pages/webview/index"
+                });  
+            }
+            if(this.confirm === "FocusSubscript"){
+                this.$router.push({
+                    query: { page: "FocusSubscript" },
+                    path: "/pages/webview/index"
+                });  
+            }
             this.isShowModal = false;
             this.$emit("change", this.isShowModal);
         }
@@ -81,22 +99,13 @@ export default {
         const { user } = getApp().globalData;
         this.user.aliasName = user.aliasName;
         this.user.aliasPortrait = user.aliasPortrait;
-        if(this.confirm === "no" && this.title === "如何关注"){
-                this.type = "service"
-            console.log('service')           
-
-                this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/service_accout.jpg"
+        if(this.confirm === "FocusServer"){
+            this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/service_accout.jpg"
         }
-        if(this.confirm === "no" && this.title === "如何关注"){       
-            this.type = "subscript"
-            console.log('subscript', this.type)
-
+        if(this.confirm === "FocusSubscript"){       
             this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/subscribe_accout.jpg"
         }
-        if(this.confirm === "no" && this.title === "加群"){
-            this.type = "group"
-            console.log('group')           
-
+        if(this.confirm === "group"){
             this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/join_group.jpg"
         }
     },
@@ -134,6 +143,7 @@ export default {
         height: 244rpx;
     }
 }
+
 .cancel{
     font-size: 28rpx;
     font-weight: 600;
