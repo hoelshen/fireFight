@@ -70,10 +70,10 @@ export default {
     };
   },
   onUnload(){
-    this.$router.reLaunch({
-      query: { active: "home" },
-      path: "/pages/home/index"
-    });
+    // this.$router.reLaunch({
+    //   query: { active: "home" },
+    //   path: "/pages/home/index"
+    // });
   }
 };
 </script>

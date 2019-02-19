@@ -106,12 +106,12 @@ export default {
       user: {},
       scrolHeight: 541,
       isShowModal: false,
-      modal:{
+      modal: {
         title: "",
         content: "",
         confirm: "",
         type: "",
-        sure: "",
+        sure: ""
       },
       unreadMessages: 0
     };
@@ -123,6 +123,10 @@ export default {
   onShow() {
     this.getTips();
     this.getScroll();
+    this.$request.getUser().then((res)=>{
+      console.log(res);
+      this.user = res;
+    });
   },
   onShareAppMessage(res) {
     let { title, imageUrl, path, user } = getApp().globalData;
@@ -137,7 +141,6 @@ export default {
     onTabChange(tab = "home") {
       this.tab = tab;
       if (this.tab === "home") {
-        this.$request.getUser();
         this.getBanners();
       }
       if (this.tab === "mail") {
@@ -147,7 +150,6 @@ export default {
       if (this.tab === "mine") {
         this.$request.getUser();
       }
-      this.user = getApp().globalData.user;
     },
     openMail() {
       this.$router.push({ path: "/pages/mail/mailDay" });
@@ -240,7 +242,8 @@ export default {
 
       this.isShowModal = true;
       title = "Tell 住址";
-      content = "这是你在 Tell 的住址，用于收取书信。未来会提供更多相关功能，敬请期待！";
+      content =
+        "这是你在 Tell 的住址，用于收取书信。未来会提供更多相关功能，敬请期待！";
       confirm = "no";
       sure = "好的";
     },
@@ -249,7 +252,7 @@ export default {
         const { lastTips } = res.data;
         this.unreadMessages = res.data.unreadMessages;
         let { title, content, type, confirm, sure } = this.modal;
-        if(lastTips){
+        if (lastTips) {
           this.isShowModal = true;
           title = lastTips.title;
           content = lastTips.content;
