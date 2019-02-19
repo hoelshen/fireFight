@@ -77,7 +77,7 @@
         </session>
 
         <session class="my_share flex center">
-          <button class="flex center" hover-class="active" open-type="share">安利Tell给好友</button>
+          <button class="flex center" hover-class="active" @click="toShare">安利Tell给好友</button>
         </session>
       </scroll-view>
     </div>
@@ -132,14 +132,14 @@ export default {
   methods: {
     onTabChange(tab = "home") {
       this.tab = tab;
-      if(this.tab === 'home'){
+      if (this.tab === "home") {
         this.getBanners();
       }
-      if(this.tab === 'mail'){
+      if (this.tab === "mail") {
         this.getWayCount();
         this.getDialogs();
       }
-      if(this.tab==='mine'){
+      if (this.tab === "mine") {
         this.$request.getUser();
       }
       this.user = getApp().globalData.user;
@@ -174,6 +174,9 @@ export default {
         }
         return this.$router.push({ path: "/pages/solution/solutionRoom" });
       }
+    },
+    toShare() {
+      this.$router.push({ path: "/pages/share/index" });
     },
     memory() {
       const { user } = getApp().globalData;
@@ -227,27 +230,29 @@ export default {
           }.bind(this)
         );
     },
-    showAddressModal(){
+    showAddressModal() {
       this.isShowModal = true;
       this.modalTitle = "Tell 住址";
-      this.modalContent = "这是你在 Tell 的住址，用于收取书信。未来会提供更多相关功能，敬请期待！";
+      this.modalContent =
+        "这是你在 Tell 的住址，用于收取书信。未来会提供更多相关功能，敬请期待！";
       this.confirm = "no";
-      this.sure = "好的"; 
+      this.sure = "好的";
     },
-    getTips(){
-      this.$request.get("/tips").then(res=>{
+    getTips() {
+      this.$request.get("/tips").then(res => {
         const { lastTips } = res.data;
-        if(lastTips){
+        if (lastTips) {
           this.isShowModal = true;
           this.modalTitle = "解答者身份已取消";
-          this.modalContent = "你的解答者身份已被取消，若要继续尝试，请到解答室重新申请";
+          this.modalContent =
+            "你的解答者身份已被取消，若要继续尝试，请到解答室重新申请";
           this.confirm = "前往解答室";
           this.sure = "好的";
         }
-      });      
+      });
     },
-    showModal(){
-      this.isShowModal = false
+    showModal() {
+      this.isShowModal = false;
     }
   }
 };
