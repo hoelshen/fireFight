@@ -61,7 +61,7 @@
         </session>
 
         <session class="my_contact flex column">
-          <button class="my_contact_item-button flex wrap center grow" open-type="contact" :show-message-card="true" send-message-title=“加入群聊” session-from="{'nickName':user.aliasName, 'avatarUrl':user.aliasPortrait}">
+          <button class="my_contact_item-button flex wrap center grow" @click="joinGroup">
             <image class="iconfont" src="/static/svgs/joinGroup.svg" />
 
             <span class="my_contact_item-text grow">加入群聊</span>
@@ -236,13 +236,18 @@ export default {
         );
     },
     showAddressModal() {
-      let { title, content, type, confirm, sure } = this.modal;
-
+      this.modal.title = "Tell 住址";
+      this.modal.content = "这是你在 Tell 的住址，用于收取书信。未来会提供更多相关功能，敬请期待！";
+      this.modal.confirm = "no";
+      this.modal.sure = "好的";
       this.isShowModal = true;
-      title = "Tell 住址";
-      content = "这是你在 Tell 的住址，用于收取书信。未来会提供更多相关功能，敬请期待！";
-      confirm = "no";
-      sure = "好的";
+    },
+    joinGroup(){
+      this.isShowModal = true;
+      this.modal.title = "加群";
+      this.modal.confirm = "group";
+      this.modal.type = "group";
+      this.modal.sure = "马上开始";
     },
     getTips() {
       this.$request.get("/tips").then(res => {

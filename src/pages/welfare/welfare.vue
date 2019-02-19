@@ -168,16 +168,16 @@ export default {
       }
     },
     FocusServer(){
-      this.isShowModal = true;
-      this.modalTitle = "如何关注";
-      this.confirm = "FocusServer";
-      this.sure = "马上开始"; 
+      this.$router.push({
+          query: { page: "FocusServer" },
+          path: "/pages/webview/index"
+      });
     },
     FocusSubscript(){
-      this.isShowModal = true;
-      this.modalTitle = "如何关注";
-      this.confirm = "FocusSubscript";
-      this.sure = "马上开始"; 
+      this.$router.push({
+          query: { page: "FocusSubscript" },
+          path: "/pages/webview/index"
+      });
     }
   },
   onShow(){

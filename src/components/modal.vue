@@ -8,14 +8,12 @@
                 {{content}}
             </div>
             <div v-else class="content">
-                <img v-if="confirm === 'FocusServer' " src="/static/svgs/service_tips.jpg" alt="">
-                <img v-if="confirm === 'FocusSubscript'"src="/static/svgs/service_tips.jpg" alt="">
-                <img v-if="confirm === 'group'"src="/static/svgs/service_tips.jpg" alt="">
+                <img v-if="confirm === 'group'"src="/static/svgs/join_group_guide.jpg" alt="">
             </div>
             <div class="btn">
                 <button v-if="type === 'CONFIRM' " class="confirm darkButton" @click="ensure">{{confirm}}</button>
                 <button v-if="type === 'group'" open-type="contact" :show-message-card="true" :send-message-img="imgUrl" :send-message-title="title" session-from="{'nickName':user.aliasName, 'avatarUrl':user.aliasPortrait}" class="confirm darkButton" @click="ensure">{{sure}}</button>
-                <button class="cancel lightButton" @click="cancel">{{sure}}</button>
+                <button v-if="type !== 'group' " class="cancel lightButton" @click="cancel">{{sure}}</button>
             </div>
         </div>
     </div>
@@ -79,18 +77,6 @@ export default {
         },
 
         cancel(){
-            if(this.confirm === "FocusServer"){
-                this.$router.push({
-                    query: { page: "FocusServer" },
-                    path: "/pages/webview/index"
-                });  
-            }
-            if(this.confirm === "FocusSubscript"){
-                this.$router.push({
-                    query: { page: "FocusSubscript" },
-                    path: "/pages/webview/index"
-                });  
-            }
             this.isShowModal = false;
             this.$emit("change", this.isShowModal);
         }
@@ -99,12 +85,6 @@ export default {
         const { user } = getApp().globalData;
         this.user.aliasName = user.aliasName;
         this.user.aliasPortrait = user.aliasPortrait;
-        if(this.confirm === "FocusServer"){
-            this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/service_accout.jpg"
-        }
-        if(this.confirm === "FocusSubscript"){       
-            this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/subscribe_accout.jpg"
-        }
         if(this.confirm === "group"){
             this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/join_group.jpg"
         }

@@ -29,19 +29,12 @@
       </div>
       <button class="darkButton" @click="sure">好的</button>
     </div>
-
-    <Modal v-if="isShowModal" :title="modalTitle" :content="modalContent" :confirm="confirm" :sure="sure" @change="showModal"></Modal>
   </div>
 </template>
 
 
 <script>
-import Modal from "@/components/Modal";
-
-export default {
-  components: {
-    Modal
-  },  
+export default { 
   data() {
     return {
       targetUser: "",
@@ -51,10 +44,10 @@ export default {
   },
   methods: {
     attention(){
-      this.isShowModal = true;
-      this.modalTitle = "如何关注";
-      this.confirm = "FocusServer";
-      this.sure = "马上开始"; 
+        this.$router.push({
+            query: { page: "FocusServer" },
+            path: "/pages/webview/index"
+        });     
     },
     sure() {
       this.$router.reLaunch({
