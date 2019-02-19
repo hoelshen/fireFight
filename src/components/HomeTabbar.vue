@@ -1,11 +1,12 @@
 <template>
   <div class="bar box flex a-center j-between shadow" :class=" isIpx ? 'fix-iphonex-icon' : '' ">
     <form @submit="mail" report-submit="true">
-      <button class="flex center" form-type="submit" hover-class="active">
-        <image class="icon" v-show="tab == 'mail'" src="/static/svgs/mail-active.svg">
+      <button class="flex center mailBtn" form-type="submit" hover-class="active">
+        <image class="icon mail" v-show="tab == 'mail'" src="/static/svgs/mail-active.svg">
         </image>
-        <image class="icon" v-show="tab != 'mail'" src="/static/svgs/mail.svg">
+        <image class="icon mail" v-show="tab != 'mail'" src="/static/svgs/mail.svg">
         </image>
+        <div class="flex center" :class="mailCount  > 10 ? 'mailCountTwo' : 'mailCountOne' " v-if="mailCount">{{mailCount}}</div>
       </button>
     </form>
     <form @submit="home" report-submit="true">
@@ -32,6 +33,10 @@ export default {
     active: {
       type: String,
       default: "home"
+    },
+    mailCount: {
+      type: Number,
+      default: 0
     }
   },
   created() {
@@ -68,7 +73,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .bar {
   flex-shrink: 0;
   height: 124rpx;
@@ -79,6 +84,7 @@ export default {
   .icon {
     width: 60rpx;
     height: 60rpx;
+    position: relative;
   }
   .active {
     background: #ffffff;
@@ -87,5 +93,26 @@ export default {
 .fix-iphonex-icon {
   height: 142rpx;
   padding:32rpx 86rpx 80rpx;
+}
+.mailBtn {
+  overflow: visible;
+}
+.mailCountOne{
+  width:32rpx;
+  height: 32rpx;
+  border-radius: 16px;
+  background-color: #FFC86D;
+  color: #ffffff;
+  margin-top: -46rpx;
+  font-size: 22rpx;
+}
+.mailCountTwo{
+  width:44rpx;
+  height: 32rpx;
+  border-radius: 16px;
+  background-color: #FFC86D;
+  color: #ffffff;
+  margin-top: -46rpx;
+  font-size: 22rpx;
 }
 </style>

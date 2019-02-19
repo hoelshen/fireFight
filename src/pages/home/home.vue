@@ -10,7 +10,7 @@
             </swiper-item>
           </block>
         </swiper>
-        <image class="home flex center" src="/static/svgs/homeBg.jpg"></image>
+        <image class="home flex center" :style="`height: ${(scrolHeight - 80)}px`" src="/static/svgs/homeBg.jpg"></image>
         <div class="left" @click="toConsulting" />
         <div class="right" @click="toSolution" />
       </scroll-view>
@@ -84,7 +84,7 @@
 
     <Modal v-if="isShowModal" :title="modalTitle" :content="modalContent" :confirm="confirm" :sure="sure" @change="showModal"></Modal>
 
-    <HomeTabbar @change="onTabChange"></HomeTabbar>
+    <HomeTabbar @change="onTabChange" :mailCount="unreadMessages"></HomeTabbar>
   </view>
 </template>
 <script>
@@ -109,7 +109,8 @@ export default {
       modalTitle: "",
       modalContent: "",
       confirm: "",
-      sure: ""
+      sure: "",
+      unreadMessages: 0
     };
   },
   onLoad(opt) {
@@ -237,6 +238,7 @@ export default {
     getTips(){
       this.$request.get("/tips").then(res=>{
         const { lastTips } = res.data;
+        this.unreadMessages = res.data.unreadMessages;
         if(lastTips){
           this.isShowModal = true;
           this.modalTitle = "解答者身份已取消";
@@ -272,7 +274,6 @@ export default {
   position: relative;
   .home {
     width: 630rpx;
-    height: 906rpx;
     margin: 10rpx 60rpx 0 60rpx;
     position: absolute;
     left: 0;
