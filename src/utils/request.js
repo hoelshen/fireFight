@@ -1,7 +1,7 @@
 import flyio from "flyio/dist/npm/wx";
 import { promisify } from "@/utils/index";
 
-const environment = "test"; // 配置环境
+const environment = "local"; // 配置环境
 
 const fly = new flyio();
 let cookies = [],
@@ -86,10 +86,13 @@ async function login() {
   return (getApp().globalData.user = logRes.data);
 }
 
-async function getUser() {
-  await fly.get("/user").then(res => {
-    const user = res.data;
-    return (getApp().globalData.user = user);
+function getUser() {
+  return new Promise(function(resolve, reject) {
+    fly.get("/user").then(res => {
+      const user = res.data;
+      getApp().globalData.user = user;
+      resolve(user);
+    });
   });
 }
 
