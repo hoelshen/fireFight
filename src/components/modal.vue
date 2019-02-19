@@ -8,14 +8,12 @@
                 {{content}}
             </div>
             <div v-else class="content">
-                <img v-if="confirm === 'FocusServer' " src="/static/svgs/service_tips.jpg" alt="">
-                <img v-if="confirm === 'FocusSubscript'" src="/static/svgs/service_tips.jpg" alt="">
-                <img v-if="confirm === 'group'" src="/static/svgs/service_tips.jpg" alt="">
+                <img v-if="confirm === 'group'"src="/static/svgs/join_group_guide.jpg" alt="">
             </div>
             <div class="btn">
                 <button v-if="type === 'CONFIRM' " class="confirm darkButton" @click="ensure">{{confirm}}</button>
                 <button v-if="type === 'group'" open-type="contact" :show-message-card="true" :send-message-img="imgUrl" :send-message-title="title" session-from="{'nickName':user.aliasName, 'avatarUrl':user.aliasPortrait}" class="confirm darkButton" @click="ensure">{{sure}}</button>
-                <button class="cancel lightButton" @click="cancel">{{sure}}</button>
+                <button v-if="type !== 'group' " class="cancel lightButton" @click="cancel">{{sure}}</button>
             </div>
         </div>
     </div>
@@ -33,12 +31,41 @@ export default {
     title: {
       type: String
     },
-    content: {
-      type: String
+    methods:{
+        ensure(){
+            if(this.confirm === "获取邮票") {
+                this.$router.reLaunch({
+                    query: { active: "mail" },
+                    path: "/pages/welfare/index"
+                });
+            }
+            if(this.confirm === "获取解忧券") {
+                this.$router.reLaunch({
+                    query: { active: "solution" },
+                    path: "/pages/welfare/index"
+                });
+            }
+            if(this.confirm === "前往解答室") {
+                this.$router.reLaunch({
+                    path: "/pages/solution/solutionDetail"
+                });
+            }
+            if(this.title === "Tell 住址") {}
+
+        },
+
+        cancel(){
+            this.isShowModal = false;
+            this.$emit("change", this.isShowModal);
+        }
     },
-    confirm: {
-      type: String,
-      default: "no"
+    created() {
+        const { user } = getApp().globalData;
+        this.user.aliasName = user.aliasName;
+        this.user.aliasPortrait = user.aliasPortrait;
+        if(this.confirm === "group"){
+            this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/join_group.jpg"
+        }
     },
     sure: {
       type: String,
