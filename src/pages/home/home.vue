@@ -6,11 +6,11 @@
         <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
           <block v-for="item in banners" :key="item">
             <swiper-item>
-              <image :src="item.imgUrl" class="img" />
+              <image :src="item.imgUrl" class="img" @click="toBanner(item)" />
             </swiper-item>
           </block>
         </swiper>
-        <image class="home flex center"  src="/static/jpg/homeBg.jpg"></image>
+        <image class="home flex center" src="/static/jpg/homeBg.jpg"></image>
         <div class="left" @click="toConsulting" />
         <div class="right" @click="toSolution" />
       </scroll-view>
@@ -127,7 +127,7 @@ export default {
       this.toPage = null;
       return this.$router.push({
         path: toPage,
-        query:this.$mp.query
+        query: this.$mp.query
       });
     }
     this.getTips();
@@ -276,6 +276,28 @@ export default {
     },
     showModal() {
       this.isShowModal = false;
+    },
+    toBanner(banner) {
+      switch (banner.type) {
+        case "MINI":
+          wx.navigateToMiniProgram({
+            appId: banner.appId,
+            path: banner.path
+          });
+          break;
+        case "WEBVIEW":
+          this.$router.push({
+            query: { url: banner.url, title: banner.title },
+            path: "/pages/webview/index"
+          });
+          break;
+        case "PAGE":
+          this.$router.push({
+            query: banner.query,
+            path: banner.path
+          });
+          break;
+      }
     }
   }
 };
@@ -314,7 +336,7 @@ export default {
     position: absolute;
     left: 0;
     top: 160rpx;
-    margin:20rpx 0rpx 0 60rpx;
+    margin: 20rpx 0rpx 0 60rpx;
   }
   .right {
     width: 315rpx;
@@ -323,7 +345,7 @@ export default {
     position: absolute;
     left: 375rpx;
     top: 160rpx;
-    margin:20rpx 60rpx 0 0;
+    margin: 20rpx 60rpx 0 0;
   }
 }
 

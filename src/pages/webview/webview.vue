@@ -1,5 +1,5 @@
 <template>
-    <web-view :src="url"></web-view>
+  <web-view :src="url"></web-view>
 
 </template>
 <script>
@@ -13,15 +13,13 @@ const URL_MAP = {
       "https://api.tellers.cn/static-pages/v2/Trouble-Consultaion-Service-Description.html",
     title: "烦恼咨询服务说明"
   },
-  "FocusServer":{
-   url: 
-   "https://mp.weixin.qq.com/s/1mqFcKu0rNUGDY7vZS_sPw",
-   title: "关注服务号" 
+  FocusServer: {
+    url: "https://mp.weixin.qq.com/s/1mqFcKu0rNUGDY7vZS_sPw",
+    title: "关注服务号"
   },
-  "FocusSubscript":{
-   url: 
-   "https://mp.weixin.qq.com/s/1mqFcKu0rNUGDY7vZS_sPw",
-   title: "关注订阅号" 
+  FocusSubscript: {
+    url: "https://mp.weixin.qq.com/s/1mqFcKu0rNUGDY7vZS_sPw",
+    title: "关注订阅号"
   }
 };
 export default {
@@ -31,10 +29,18 @@ export default {
     };
   },
   onLoad(opts) {
-    const page = opts.page || "Solver-Manual";
-    this.url = URL_MAP[page].url;
+    let url, title;
+    if (opts.url) {
+      url = opts.url;
+      title = opts.title;
+    } else {
+      let page = opts.page || "Solver-Manual";
+      url = URL_MAP[page].url;
+      title = URL_MAP[page].title;
+    }
+    this.url = url;
     wx.setNavigationBarTitle({
-      title: URL_MAP[page].title
+      title: title
     });
   },
   onShareAppMessage(res) {
