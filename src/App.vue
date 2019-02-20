@@ -10,20 +10,16 @@ export default {
       : this.globalData.path;
   },
   onShow() {
-    const { SDKVersion, statusBarHeight } = wx.getSystemInfoSync();
-    const version = parseInt(SDKVersion.replace(/\./g, ""));
-    if (version < 252) {
+    this.$request.get("/image/default").then(res => {
+      this.globalData.imageUrl = res.data;
+    });
+    if (!wx.createSelectorQuery) {
       wx.showModal({
         title: "提示",
         content:
           "当前微信版本过低，可能影响使用体验，请升级到最新微信版本后重试。"
       });
     }
-    this.globalData.statusBarHeight = statusBarHeight; // 用于自定义导航栏组件
-    this.globalData.titleBarHeight = statusBarHeight + 48;
-    this.$request.get("/image/default").then(res => {
-      this.globalData.imageUrl = res.data;
-    });
   },
   onPageNotFound(res) {
     wx.reLaunch({
