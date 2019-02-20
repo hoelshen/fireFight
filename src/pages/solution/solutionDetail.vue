@@ -44,6 +44,15 @@ export default {
       this.activeIndex =index;
     },
     add() {
+      if(!this.title._id) {
+        return wx.showToast({
+          title: '请选择标签',
+          icon: 'none',
+          image: '',
+          duration: 1500,
+          mask: false,
+        });
+      }
       this.$request.put("/tag", { _id: this.title._id });
       this.$router.push({ path: "/pages/solution/becomeSolutor" });
     }
