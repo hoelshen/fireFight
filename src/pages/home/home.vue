@@ -264,14 +264,13 @@ export default {
       this.$request.get("/tips").then(res => {
         const { lastTips } = res.data;
         this.unreadMessages = res.data.unreadMessages;
-        let { title, content, type, confirm, sure } = this.modal;
         if (lastTips) {
           this.isShowModal = true;
-          title = lastTips.title;
-          content = lastTips.content;
-          type = lastTips.type;
-          confirm = "前往解答室";
-          sure = "好的";
+          this.modal.title = lastTips.title;
+          this.modal.content = lastTips.content;
+          this.modal.type = lastTips.type;
+          this.modal.confirm = "前往解答室";
+          this.modal.sure = "好的";
         }
       });
     },

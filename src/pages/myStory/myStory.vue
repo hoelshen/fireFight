@@ -36,6 +36,8 @@
       <button class="addMystoryButton flex center" @click="onPush">提交咨询</button>
       <p class="text-center">需要使用1张解忧券</p>
     </div>
+    
+    <Modal v-if="isShowModal" :type="modal.type" :title="modal.title" :content="modal.content" :confirm="modal.confirm" :sure="modal.sure" @change="showModal"></Modal>
   </view>
 </template>
 <script>
@@ -58,17 +60,26 @@ export default {
       day: day,
       aliasName: "",
       isFocus: false,
-      ticketCount: 0
+      ticketCount: 0,
+      isShowModal: false,
+      modal: {
+        title: "",
+        content: "",
+        confirm: "",
+        type: "",
+        sure: ""
+      },
     };
   },
   methods: {
     async onPush() {
       if(this.ticketCount === 0){
+        this.modal.title = "解忧券不足";
+        this.modal.content = "需要消耗 1 解忧券，当前余额不足";
+        this.modal.confirm = "获取解忧券";
+        this.modal.type = "CONFIRM"
+        this.modal.sure = "好的";
         this.isShowModal = true;
-        this.modalTitle = "解忧券不足";
-        this.modalContent = "需要消耗 1 解忧券，当前余额不足";
-        this.confirm = "获取解忧券";
-        this.sure = "好的";
         return false;
       }
       if (this.content.length < 50) {
@@ -129,6 +140,9 @@ export default {
       if(this.content.length === 0){
         this.isDisplay = true;
       }
+    },
+    showModal() {
+      this.isShowModal = false;
     }
   },
   onShow() {

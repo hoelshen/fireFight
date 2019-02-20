@@ -1,5 +1,5 @@
 <template>
-    <div class="modal">
+    <div class="modal" @tap='clickMask'>
         <div class="card flex column center">
             <div class="title">
                 {{title}}
@@ -78,6 +78,10 @@ export default {
 
       },
       enSure(){
+          this.isShowModal = false;
+          this.$emit("change", this.isShowModal);
+      },
+      clickMask(){
           this.isShowModal = false;
           this.$emit("change", this.isShowModal);
       }
