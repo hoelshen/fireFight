@@ -75,7 +75,7 @@ export default {
   font-weight: bold;
 }
 .mail_content {
-  font-size: 28rpx;
+  font-size: 34rpx;
   margin-top: 40rpx;
   margin-bottom: 80rpx;
   line-height: 52rpx;

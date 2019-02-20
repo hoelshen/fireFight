@@ -92,6 +92,6 @@ export default {
 }
 .titleButtonSpan {
   color: #a9a9a9;
-  font-size: 22rpx;
+  font-size: 28rpx;
 }
 </style>

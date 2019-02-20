@@ -4,7 +4,7 @@
       <div class="flex target">
         <span class="target">{{target}}</span>收
       </div>
-      <textarea class="textArea" maxlength="5000" :value="reply.content" @input="bindTextAreaBlur"/>
+      <textarea :focus="true" class="textArea" maxlength="5000" :value="reply.content" @input="bindTextAreaBlur"/>
       <div class="reply_weather flex column">
         <div class="flex wrap j-end">
           <img class="reply_weather_name" :src="reply.aliasPortrait">
@@ -120,7 +120,6 @@ export default {
   min-height: 400rpx;
   padding: 40rpx;
   background-color: #ffffff;
-  border: 2rpx solid #bdbdc0;
   width: 100%;
   color: #4d495b;
   font-size: 28rpx;
