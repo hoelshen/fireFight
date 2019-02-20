@@ -65,7 +65,7 @@
             <image class="iconfont" src="/static/svgs/joinGroup.svg" />
 
             <span class="my_contact_item-text grow">加入群聊</span>
-            <image class="group flex center" src="/static/svgs/group.png" />
+            <image class="group flex center" src="/static/jpg/group.png" />
             <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
           </button>
 
@@ -191,7 +191,7 @@ export default {
       }
     },
     toShare() {
-      this.$router.push({ path: "/pages/share/index" });
+      this.$router.push({ path: "/pages/share/share" });
     },
     memory() {
       const { user } = getApp().globalData;
