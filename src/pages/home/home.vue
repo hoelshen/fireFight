@@ -124,7 +124,6 @@ export default {
     this.getTips();
     this.getScroll();
     this.$request.getUser().then((res)=>{
-      console.log(res);
       this.user = res;
     });
   },
