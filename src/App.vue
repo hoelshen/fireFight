@@ -6,8 +6,8 @@ export default {
     this.globalData.options = opts;
     this.$request.login();
     this.globalData.path = opts.query.scene
-      ? this.globalData.path + `&scene=${opts.scene}`
-      : this.globalData.path;
+      ? this.globalData.path + `scene=${opts.scene}`
+      : this.globalData.path ;
   },
   onShow() {
     this.$request.get("/image/default").then(res => {
@@ -37,9 +37,7 @@ export default {
       mys: {}, // 活动主题
       title: "送你一张解忧券",
       imageUrl: "https://cdn.tellers.cn/tell_v2/static/share_default.jpg", // 默认分享图
-      path: "/pages/home/index",
-      statusBarHeight: 20,
-      titleBarHeight: 68,
+      path: "/pages/share/receive?",
       replyCount: 1
     };
   }
