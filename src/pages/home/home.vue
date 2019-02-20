@@ -113,14 +113,23 @@ export default {
         type: "",
         sure: ""
       },
-      unreadMessages: 0
+      unreadMessages: 0,
+      toPage: null
     };
   },
   onLoad(opt) {
-    console.log('opt: ', opt);
+    this.toPage = opt.toPage;
     this.onTabChange(opt.tab);
   },
   onShow() {
+    if (this.toPage) {
+      let toPage = this.toPage;
+      this.toPage = null;
+      return this.$router.push({
+        path: toPage,
+        query:this.$mp.query
+      });
+    }
     this.getTips();
     this.getScroll();
     this.$request.getUser().then(res => {

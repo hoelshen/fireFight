@@ -43,7 +43,7 @@ function snedToCloud(message, status, request) {
   const userId = getApp().globalData.user._id;
   wx.cloud.init();
   const db = wx.cloud.database();
-  db.collection("errors").add({
+  const data = {
     systemInfo: systemInfo,
     lauchOpts: lauchOpts,
     requestName: request.url,
@@ -52,7 +52,8 @@ function snedToCloud(message, status, request) {
     userId,
     message,
     createdAt: Date()
-  });
+  }
+  db.collection("errors").add({data});
 }
 
 function normalizeUserCookie(cookiesArray) {

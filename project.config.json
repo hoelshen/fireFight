@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 23,
+			"current": 25,
 			"list": [
 				{
 					"id": -1,
@@ -180,9 +180,31 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 23,
 					"name": "安利给好友",
-					"pathName": "pages/share/index",
+					"pathName": "pages/share/share",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 24,
+					"name": "首页跳到信件详情",
+					"pathName": "pages/home/index",
+					"query": "toPage=pages/solution/solutionReply&id=5c07caf6d22a465b72f0ac74",
+					"scene": null
+				},
+				{
+					"id": 25,
+					"name": "领取解忧券",
+					"pathName": "pages/share/receive",
+					"query": "type=invite",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "私信详情",
+					"pathName": "pages/mail/mailDetail",
+					"query": "id=5c6bbe1905e055778984f8f1",
 					"scene": null
 				}
 			]

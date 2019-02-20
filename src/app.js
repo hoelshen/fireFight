@@ -52,7 +52,9 @@ export default {
       "pages/noFound/index", //404,
       "pages/faq/index", //FAQ,
       "pages/webview/index", //内嵌网页
-      "pages/share/index" //内嵌网页
+      "pages/share/share", //安利给好友
+      "pages/share/receive" //领取解忧券
+
     ],
     window: {
       backgroundTextStyle: "light",
