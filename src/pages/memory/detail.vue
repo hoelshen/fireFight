@@ -66,9 +66,6 @@ export default {
 };
 </script>
 <style lang="less">
-.app {
-  padding: 40rpx 60rpx;
-}
 .showReply_button {
   color: #ffffff;
   margin-bottom: 60rpx;

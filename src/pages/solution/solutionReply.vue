@@ -3,7 +3,7 @@
     <Mail :mail="mail"></Mail>
     <Mail v-if="reMail" :mail="reMail"></Mail>
     <Reply v-if="isReply" :target="mail.aliasName" tag="solution" :id="id"></Reply>
-    <div class="flex column center showReply_button">
+    <div v-else class="flex column center showReply_button">
       <button :disabled="isDisable" class="reply_button flex center" @click="showReply">回信</button>
       <span class="replay_text">今天还可以回复 {{replyCount}} 次</span>
     </div>
@@ -24,11 +24,8 @@ export default {
       id: "",
       mail: {},
       reMail: {},
-      fromUserId: "",
       replyCount: 1,
       isReply: false,
-      myReply: null,
-      isActive: false,
       isDisable:true
     };
   },
@@ -38,11 +35,16 @@ export default {
       let Res = await this.$request.get(`/mail/detail/${id}/reply`);
       this.mail = res.data;
       this.reMail = Res.data;
-      this.isDisable = (!isReply && !reMail ) ? false : true;
+      if(this.isDisable && this.reMail){
+        return this.isDisable = true
+      } 
+      if(this.isDisable && !this.reMail) {
+        return this.isDisable = true
+      }
+      return this.isDisable = false
     },
     showReply() {
       this.isReply = true;
-      this.isActive = true;
     }
   },
   async onShow() {
@@ -65,9 +67,6 @@ export default {
 };
 </script>
 <style lang="less">
-.app {
-  padding: 40rpx 60rpx;
-}
 .showReply_button {
   color: #ffffff;
   margin-bottom: 60rpx;
