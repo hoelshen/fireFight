@@ -10,7 +10,7 @@
             </swiper-item>
           </block>
         </swiper>
-        <image class="home flex center" :style="`height: ${(scrolHeight - 80)}px`" src="/static/jpg/homeBg.jpg"></image>
+        <image class="home flex center"  src="/static/jpg/homeBg.jpg"></image>
         <div class="left" @click="toConsulting" />
         <div class="right" @click="toSolution" />
       </scroll-view>
@@ -299,9 +299,11 @@ export default {
 
 .entries {
   position: relative;
+  background: #ffffff;
   .home {
-    width: 630rpx;
-    margin: 10rpx 60rpx 0 60rpx;
+    width: 612rpx;
+    height: 906rpx;
+    margin: 20rpx 60rpx 0 60rpx;
     position: absolute;
     left: 0;
     top: 160rpx;
@@ -309,21 +311,20 @@ export default {
   .left {
     width: 315rpx;
     height: 906rpx;
-    padding: 0;
     z-index: 99;
     position: absolute;
     left: 0;
     top: 160rpx;
-    padding-left: 60rpx;
+    margin:20rpx 0rpx 0 60rpx;
   }
   .right {
     width: 315rpx;
     height: 906rpx;
-    padding: 0;
     z-index: 99;
     position: absolute;
     left: 375rpx;
     top: 160rpx;
+    margin:20rpx 60rpx 0 0;
   }
 }
 
