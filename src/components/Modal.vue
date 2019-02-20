@@ -39,7 +39,7 @@ export default {
       type: String,
       default: ""
     },
-    confir: {
+    confirm: {
       type: String,
       default: ""
     },
@@ -50,7 +50,7 @@ export default {
   },
   data() {
     return {
-      img: true,
+      img: false,
       user: {},
       type: "no"
     };
@@ -87,6 +87,7 @@ export default {
       this.user.aliasName = user.aliasName;
       this.user.aliasPortrait = user.aliasPortrait;
       if(this.confirm === "group"){
+          this.img = true;
           this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/join_group.jpg"
       }
   },

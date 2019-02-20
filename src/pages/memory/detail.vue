@@ -43,7 +43,6 @@ export default {
     async getTargetDialog(id) {
       let res = await this.$request.get(`/dialog/detail/${id}`);
       this.mailList = res.data.mailList;
-      console.log(this.mailList);
     },
     async getTargetLink(id) {
       let res = await this.$request.get(`/mail/detail/${id}/link`);
