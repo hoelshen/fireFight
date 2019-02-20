@@ -128,7 +128,7 @@ export default {
 }
 
 .replay_content {
-  margin: 0rpx 0rpx 36rpx 0rpx;
+  margin: 0rpx 60rpx 36rpx 60rpx;
   background: #fff;
 }
 

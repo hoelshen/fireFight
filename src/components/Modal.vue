@@ -8,12 +8,12 @@
                 {{content}}
             </div>
             <div v-else class="content">
-                <img v-if="confirm === 'group'"src="/static/jpg/join_group_guide.jpg" alt="">
+                <img v-if="type === 'group'"src="/static/jpg/join_group_guide.jpg" alt="">
             </div>
             <div class="btn">
-                <button v-if="type === 'CONFIRM' " class="confirm darkButton" @click="ensure">{{confirm}}</button>
-                <button v-if="type === 'group'" open-type="contact" :show-message-card="true" :send-message-img="imgUrl" :send-message-title="title" session-from="{'nickName':user.aliasName, 'avatarUrl':user.aliasPortrait}" class="confirm darkButton" @click="ensure">{{sure}}</button>
-                <button v-if="type !== 'group' " class="cancel lightButton" @click="cancel">{{sure}}</button>
+                <button v-if="type === 'CONFIRM' " class="confirm darkButton" @click="enConfirm">{{confirm}}</button>
+                <button v-if="type === 'group'" open-type="contact" :show-message-card="true" :send-message-img="imgUrl" :send-message-title="title" session-from="{'nickName':user.aliasName, 'avatarUrl':user.aliasPortrait}" class="sure darkButton" @click="enSure">{{sure}}</button>
+                <button v-if="type !== 'group' " class="sure lightButton" @click="enSure">{{sure}}</button>
             </div>
         </div>
     </div>
@@ -31,42 +31,6 @@ export default {
     title: {
       type: String
     },
-    methods:{
-        ensure(){
-            if(this.confirm === "获取邮票") {
-                this.$router.reLaunch({
-                    query: { active: "mail" },
-                    path: "/pages/welfare/index"
-                });
-            }
-            if(this.confirm === "获取解忧券") {
-                this.$router.reLaunch({
-                    query: { active: "solution" },
-                    path: "/pages/welfare/index"
-                });
-            }
-            if(this.confirm === "前往解答室") {
-                this.$router.reLaunch({
-                    path: "/pages/solution/solutionDetail"
-                });
-            }
-            if(this.title === "Tell 住址") {}
-
-        },
-
-        cancel(){
-            this.isShowModal = false;
-            this.$emit("change", this.isShowModal);
-        }
-    },
-    created() {
-        const { user } = getApp().globalData;
-        this.user.aliasName = user.aliasName;
-        this.user.aliasPortrait = user.aliasPortrait;
-        if(this.confirm === "group"){
-            this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/join_group.jpg"
-        }
-    },
     sure: {
       type: String,
       default: "好的"
@@ -74,70 +38,59 @@ export default {
     type: {
       type: String,
       default: ""
+    },
+    confirm: {
+      type: String,
+      default: ""
+    },
+    content: {
+      type: String,
+      defalut: ""
     }
   },
   data() {
     return {
-      img: true,
+      img: false,
       user: {},
       type: "no"
     };
   },
-  methods: {
-    ensure() {
-      if (this.confirm === "获取邮票") {
-        this.$router.reLaunch({
-          query: { active: "mail" },
-          path: "/pages/welfare/index"
-        });
-      }
-      if (this.confirm === "获取解忧券") {
-        this.$router.reLaunch({
-          query: { active: "solution" },
-          path: "/pages/welfare/index"
-        });
-      }
-      if (this.confirm === "前往解答室") {
-        this.$router.reLaunch({
-          path: "/pages/solution/solutionDetail"
-        });
-      }
-      if (this.title === "Tell 住址") {
-      }
-    },
+  methods:{
+      enConfirm(){
+          if(this.confirm === "获取邮票") {
+              this.$router.reLaunch({
+                  query: { active: "mail" },
+                  path: "/pages/welfare/index"
+              });
+          }
+          if(this.confirm === "获取解忧券") {
+              this.$router.reLaunch({
+                  query: { active: "solution" },
+                  path: "/pages/welfare/index"
+              });
+          }
+          if(this.confirm === "前往解答室") {
+              this.$router.reLaunch({
+                  path: "/pages/solution/solutionDetail"
+              });
+          }
+          if(this.title === "Tell 住址") {}
 
-    cancel() {
-      if (this.confirm === "FocusServer") {
-        this.$router.push({
-          query: { page: "FocusServer" },
-          path: "/pages/webview/index"
-        });
+      },
+      enSure(){
+          this.isShowModal = false;
+          this.$emit("change", this.isShowModal);
       }
-      if (this.confirm === "FocusSubscript") {
-        this.$router.push({
-          query: { page: "FocusSubscript" },
-          path: "/pages/webview/index"
-        });
-      }
-      this.isShowModal = false;
-      this.$emit("change", this.isShowModal);
-    }
   },
   created() {
-    const { user } = getApp().globalData;
-    this.user.aliasName = user.aliasName;
-    this.user.aliasPortrait = user.aliasPortrait;
-    if (this.confirm === "FocusServer") {
-      this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/service_accout.jpg";
-    }
-    if (this.confirm === "FocusSubscript") {
-      this.imgUrl =
-        "https://cdn.tellers.cn/tell_v2/static/subscribe_accout.jpg";
-    }
-    if (this.confirm === "group") {
-      this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/join_group.jpg";
-    }
-  }
+      const { user } = getApp().globalData;
+      this.user.aliasName = user.aliasName;
+      this.user.aliasPortrait = user.aliasPortrait;
+      if(this.confirm === "group"){
+          this.img = true;
+          this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/join_group.jpg"
+      }
+  },
 };
 </script>
 <style lang="less" scoped>
@@ -173,7 +126,7 @@ export default {
   }
 }
 
-.cancel {
+.sure {
   font-size: 28rpx;
   font-weight: 600;
   padding: 0 130rpx;

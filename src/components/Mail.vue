@@ -68,6 +68,7 @@ export default {
   color: #4d495b;
   margin-bottom: 40rpx;
   background: #fff;
+  margin:40rpx 60rpx;
 }
 .mail_title {
   font-size: 34rpx;
