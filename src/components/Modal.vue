@@ -1,6 +1,6 @@
 <template>
-    <div class="modal">
-        <div class="card flex column center">
+    <div class="modal" @click="clickMask">
+        <div class="card flex column center"  @tap.stop="stopkMask">
             <div class="title">
                 {{title}}
             </div>
@@ -12,7 +12,7 @@
             </div>
             <div class="btn">
                 <button v-if="type === 'CONFIRM' " class="confirm darkButton" @click="enConfirm">{{confirm}}</button>
-                <button v-if="type === 'group'" open-type="contact" :show-message-card="true" :send-message-img="imgUrl" :send-message-title="title" session-from="{'nickName':user.aliasName, 'avatarUrl':user.aliasPortrait}" class="sure darkButton" @click="enSure">{{sure}}</button>
+                <button v-if="type === 'group'" open-type="contact" :show-message-card="true" :send-message-img="imgUrl" :send-message-title="title" :session-from="{'nickName':user.aliasName, 'avatarUrl':user.aliasPortrait}" class="sure darkButton" @click="enSure">{{sure}}</button>
                 <button v-if="type !== 'group' " class="sure lightButton" @click="enSure">{{sure}}</button>
             </div>
         </div>
@@ -80,7 +80,12 @@ export default {
       enSure(){
           this.isShowModal = false;
           this.$emit("change", this.isShowModal);
-      }
+      },
+      clickMask(){
+          this.isShowModal = false;
+          this.$emit("change", this.isShowModal);
+      },
+      stopkMask(){}
   },
   created() {
       const { user } = getApp().globalData;
@@ -103,7 +108,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(189, 189, 192, 0.1);
+  background-color: rgba(77, 73, 91, .3);
   z-index: 99;
 }
 .card {

@@ -83,7 +83,6 @@ export default {
     },
     onSoluter() {
       const { user } = getApp().globalData;
-      console.log("this.checked: ", this.checked);
       if (this.checked) {
         if (!user.authAt)
           return this.$router.push({ path: "/pages/setPenName/index" });
@@ -119,6 +118,7 @@ export default {
 <style lang="less">
 .solverDetailStyle {
   height: 100vh;
+  background-color: #ffffff;
   .solverDetailBtn {
     margin-bottom: 60rpx;
     button {

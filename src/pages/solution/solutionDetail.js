@@ -7,9 +7,9 @@ app.$mount()
 
 export default {
   config: {
-    navigationBarBackgroundColor: '#fffefb',
+    navigationBarBackgroundColor: '#ffffff',
     navigationBarTextStyle: 'black',
-    navigationBarTitleText: '成为解答者',
-    backgroundColor: '#FFFEFB'
+    navigationBarTitleText: '申请成为解答者',
+    backgroundColor: '#ffffff'
   }
 };
