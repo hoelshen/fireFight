@@ -34,7 +34,7 @@ export default {
       isReply: false,
       isDisabled: true,
       isFromSystem: false,
-      isShowModal:false,
+      isShowModal: false,
       modalTitle: "",
       modalContent: "",
       confirm: "",
@@ -50,6 +50,9 @@ export default {
       this.list = mailList;
       this.target = lastMail.aliasName;
       this.isFromSystem = dialog.fromSystem;
+      setTimeout(() => {
+        wx.pageScrollTo({ scrollTop: 10000 });
+      }, 1000);
       this.getReplyMail(dialog, lastMail._id);
     },
     getReplyMail(dialog, lastMailId) {
@@ -74,7 +77,7 @@ export default {
       }
       this.isReply = true;
     },
-    showModal(){
+    showModal() {
       this.isShowModal = false;
     }
   },

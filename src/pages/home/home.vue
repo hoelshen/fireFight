@@ -123,7 +123,7 @@ export default {
   onShow() {
     this.getTips();
     this.getScroll();
-    this.$request.getUser().then((res)=>{
+    this.$request.getUser().then(res => {
       this.user = res;
     });
   },
@@ -238,17 +238,18 @@ export default {
     },
     showAddressModal() {
       this.modal.title = "Tell 住址";
-      this.modal.content = "这是你在 Tell 的住址，用于收取书信。未来会提供更多相关功能，敬请期待！";
+      this.modal.content =
+        "这是你在 Tell 的住址，用于收取书信。未来会提供更多相关功能，敬请期待！";
       this.modal.confirm = "no";
       this.modal.sure = "好的";
       this.isShowModal = true;
     },
-    joinGroup(){
-      this.isShowModal = true;
+    joinGroup() {
       this.modal.title = "加群";
       this.modal.confirm = "group";
       this.modal.type = "group";
       this.modal.sure = "马上开始";
+      this.isShowModal = true;
     },
     getTips() {
       this.$request.get("/tips").then(res => {
