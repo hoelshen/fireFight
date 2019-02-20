@@ -1,6 +1,6 @@
 <template>
-    <div class="modal" @tap='clickMask'>
-        <div class="card flex column center">
+    <div class="modal" @click="clickMask">
+        <div class="card flex column center"  @tap.stop="stopkMask">
             <div class="title">
                 {{title}}
             </div>
@@ -84,7 +84,8 @@ export default {
       clickMask(){
           this.isShowModal = false;
           this.$emit("change", this.isShowModal);
-      }
+      },
+      stopkMask(){}
   },
   created() {
       const { user } = getApp().globalData;
@@ -107,7 +108,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(189, 189, 192, 0.1);
+  background-color: rgba(77, 73, 91, .3);
   z-index: 99;
 }
 .card {
