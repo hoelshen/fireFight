@@ -7,7 +7,7 @@ app.$mount()
 export default {
   config: {
     navigationBarBackgroundColor: '#FFFEFB',
-    navigationBarTextStyle: 'white',
+    navigationBarTextStyle: 'black',
     navigationBarTitleText: '邮差迷路了',
     backgroundColor: '#FFFEFB'
   }

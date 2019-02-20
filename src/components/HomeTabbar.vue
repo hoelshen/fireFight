@@ -1,10 +1,10 @@
 <template>
   <div class="bar box flex a-center j-between shadow" :class=" isIpx ? 'fix-iphonex-icon' : '' ">
     <form @submit="mail" report-submit="true">
-      <button class="flex center mailBtn" form-type="submit" hover-class="active">
+      <button :class="mailCount ? 'leftMail' : '' " class="flex center mailBtn" form-type="submit" hover-class="active">
         <image class="icon mail" v-show="tab == 'mail'" src="/static/svgs/mail-active.svg">
         </image>
-        <image class="icon mail" v-show="tab != 'mail'" src="/static/svgs/mail.svg">
+        <image  class="icon mail" v-show="tab != 'mail'" src="/static/svgs/mail.svg">
         </image>
         <div class="flex center" :class="mailCount  > 10 ? 'mailCountTwo' : 'mailCountOne' " v-if="mailCount">{{mailCount}}</div>
       </button>
@@ -97,13 +97,18 @@ export default {
 .mailBtn {
   overflow: visible;
 }
+.leftMail{
+  margin-right:16rpx;
+}
 .mailCountOne{
   width:32rpx;
   height: 32rpx;
   border-radius: 16px;
   background-color: #FFC86D;
   color: #ffffff;
-  margin-top: -46rpx;
+  position:absolute;
+  left:85rpx;
+  top:-10rpx;
   font-size: 22rpx;
 }
 .mailCountTwo{
@@ -112,7 +117,9 @@ export default {
   border-radius: 16px;
   background-color: #FFC86D;
   color: #ffffff;
-  margin-top: -46rpx;
+  position: absolute;
+  left:85rpx;
+  top:-10rpx;
   font-size: 22rpx;
 }
 </style>

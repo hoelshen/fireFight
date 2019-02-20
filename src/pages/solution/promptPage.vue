@@ -1,34 +1,34 @@
 <template>
-  <div class="app">
-    <div class="prompt flex column center">
-      <div class="promptDiv flex column center grow">
-        <div class="flex column targer" v-if="active === 'solution'">
-          <div>
-            您已解答
-            <span class="promptSpn">{{targetUser}}</span>的咨询
+  <div class="app flex column center">
+    <div class="prompt flex column center grow">
+      <div class="promptDiv flex column center" >
+          <div class="flex column targer" v-if="active === 'solution'">
+            <div>
+              您已解答
+              <span class="promptSpn">{{targetUser}}</span>的咨询
+            </div>
+            <span>若被对方感谢，还将获得 1 张邮票</span>
           </div>
-          <span>若被对方感谢，还将获得 1 张邮票</span>
-        </div>
-        <div class="flex column targer" v-if="active === 'mail'">
-          <span>此回信将于 6 小时左右后</span>
-          <div>
-            送到
-            <span class="promptSpn">{{targetUser}}</span>的信箱
+          <div class="flex column targer" v-if="active === 'mail'">
+            <span>此回信将于 6 小时左右后</span>
+            <div>
+              送到
+              <span class="promptSpn">{{targetUser}}</span>的信箱
+            </div>
           </div>
-        </div>
-        <div class="flex column targer" v-if="active === 'story'">
-          <span>我们会在每日 22:30 收集咨询箱中的信</span>
-        </div>
-        <image class="home flex center" src="/static/jpg/focusServer.jpg">
-        </image>
-        <button class="promptBtn flex column center" @click="attention">
-          <span>关注服务</span>
-          <span>被感谢时立即收到通知</span>
-          <image class="iconfont" src="/static/svgs/leftArrow.svg" />
-        </button>
+          <div class="flex column targer" v-if="active === 'story'">
+            <span>我们会在每日 22:30 收集咨询箱中的信</span>
+          </div>
+          <image class="home flex center" src="/static/jpg/focusServer.jpg">
+          </image>
+          <button class="promptBtn flex column center" @click="attention">
+            <span>关注服务号</span>
+            <span>被感谢时立即收到通知</span>
+            <image class="iconfont darkButton" src="/static/svgs/leftArrow.svg" />
+          </button>        
       </div>
-      <button class="darkButton" @click="sure">好的</button>
     </div>
+    <button class="lightButton" @click="sure">好的</button>
   </div>
 </template>
 
@@ -86,20 +86,14 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.prompt {
-  height: 100vh;
-}
 .darkButton {
-  margin-bottom: 60rpx;
+  margin-top: 60rpx;
   text-align: center;
-  line-height: 92rpx;
-  padding: 0 130rpx;
-}
-.promptDiv{
-  position: relative;
+  line-height: 64rpx;
+  padding: 10rpx 40rpx;
 }
 .targer {
-  padding-top: 60rpx;
+  margin-top: 40rpx;
   font-size: 34rpx;
 }
 .home{
@@ -108,7 +102,7 @@ export default {
   height:308rpx;
 }
 .promptBtn {
-  margin-top:112rpx;
+  margin-top:176rpx;
   font-weight:600;
   position:absolute;
   background-color:transparent;
@@ -120,6 +114,10 @@ export default {
   font-weight: 600;
   line-height: 52rpx;
   margin: 0 10rpx;
+}
+.lightButton{
+  margin-bottom:60rpx;
+  padding:0rpx 130rpx;
 }
 </style>
 

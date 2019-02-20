@@ -200,6 +200,7 @@ export default {
 .aliasNameInput {
   width: 252rpx;
   height: 84rpx;
+  padding-left:20rpx;
   background-color: rgba(189, 189, 192, .15);
 }
 .addMystoryButton {

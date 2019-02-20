@@ -134,6 +134,7 @@ export default {
           border-radius: 2rpx;
           height: 84rpx;
           width: 550rpx;
+          padding-left:20rpx;
           background-color: rgba(189, 189, 192, .15);
         }
       }
