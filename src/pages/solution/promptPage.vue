@@ -19,7 +19,7 @@
         <div class="flex column targer" v-if="active === 'story'">
           <span>我们会在每日 22:30 收集咨询箱中的信</span>
         </div>
-        <image class="home flex center" src="/static/svgs/focusServer.jpg">
+        <image class="home flex center" src="/static/jpg/focusServer.jpg">
         </image>
         <button class="promptBtn flex column center" @click="attention">
           <span>关注服务</span>

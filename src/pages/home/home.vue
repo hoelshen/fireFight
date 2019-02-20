@@ -10,7 +10,7 @@
             </swiper-item>
           </block>
         </swiper>
-        <image class="home flex center" :style="`height: ${(scrolHeight - 80)}px`" src="/static/svgs/homeBg.jpg"></image>
+        <image class="home flex center" :style="`height: ${(scrolHeight - 80)}px`" src="/static/jpg/homeBg.jpg"></image>
         <div class="left" @click="toConsulting" />
         <div class="right" @click="toSolution" />
       </scroll-view>
