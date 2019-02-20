@@ -10,6 +10,7 @@ export default {
     navigationBarBackgroundColor: '#fffefb',
     navigationBarTextStyle: 'black',
     navigationBarTitleText: '记忆',
-    backgroundColor: '#FFFEFB'
+    backgroundColor: '#FFFEFB',
+    disableScroll: true
   }
 };

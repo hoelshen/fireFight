@@ -1,17 +1,23 @@
 <template>
   <view class="app">
-    <session class="navigatabar flex ">
-      <div @click="toggleQuestion" :class="{borderColor:isActive}" class="navigatabar_item  flex center">我的咨询</div>
-      <div @click="toggleAnswer" :class="{borderColor:!isActive}" class="navigatabar_item flex center">我的解答</div>
+    <session class="navigatabar flex" id="navigatabar">
+      <div @click="toggleQuestion" :class="active =='question' ? 'borderColor': ''" class="navigatabar_item  flex center">我的咨询</div>
+      <div @click="toggleAnswer" :class="active =='answer' ? 'borderColor': ''" class="navigatabar_item flex center">我的解答</div>
     </session>
-    <session class="list">
-      <Envelope station="memory" :mail="item" v-for="(item,index) in list" :key="index">
+    <scroll-view class="list  box" scroll-y lower-threshold="200" :style='`height: ${scrolHeight}px`' @scrolltolower="scrolltolower" v-if="active =='question' ">
+      <Envelope station="memory" :mail="item" v-for="(item,index) in storyList" :key="index">
       </Envelope>
-      <div v-if="list.length === 0" class="noMail flex center">
-        暂无记忆
+      <div v-if="storyList.length === 0" class="noMail flex center">
+        暂无咨询
       </div>
-    </session>
-
+    </scroll-view>
+    <scroll-view class="list  box" scroll-y lower-threshold="200" :style='`height: ${scrolHeight}px`' @scrolltolower="scrolltolower" v-else>
+      <Envelope station="memory" :mail="item" v-for="(item,index) in replyList" :key="index">
+      </Envelope>
+      <div v-if="replyList.length === 0" class="noMail flex center">
+        暂无解答
+      </div>
+    </scroll-view>
   </view>
 </template>
 <script>
@@ -23,33 +29,66 @@ export default {
   data() {
     return {
       active: "question",
-      isActive: true,
-      list: []
+      storyList: [],
+      replyList: [],
+      storyPage: 1,
+      replyPage: 1,
+      scrolHeight: "562"
     };
   },
   onShow() {
-    this.getList();
+    this.getStoryList();
+    this.getReplyList();
+    this.setScrollHeight();
   },
   methods: {
+    setScrollHeight() {
+      wx
+        .createSelectorQuery()
+        .select(".navigatabar")
+        .boundingClientRect()
+        .exec(
+          function(res) {
+            let barHeight = res[0].height;
+            let systemInfo = wx.getSystemInfoSync();
+            this.scrolHeight = systemInfo.windowHeight - barHeight;
+          }.bind(this)
+        );
+    },
     toggleQuestion() {
       this.active = "question";
-      this.isActive = !this.isActive;
-      this.getList();
+      this.getStoryList(1);
     },
     toggleAnswer() {
       this.active = "answer";
-      this.isActive = !this.isActive;
-      this.getList();
+      this.getReplyList(1);
     },
-    async getList() {
-      let res;
-      if (this.active === "question") {
-        res = await this.$request.get("/mail/mine/outbox"); //我的咨询
+    scrolltolower() {
+      if (this.active == "question") {
+        this.getStoryList(this.storyPage + 1);
+      } else {
+        this.getReplyList(this.replyPage + 1);
       }
-      if (this.active === "answer") {
-        res = await this.$request.get("/mail/mine/inbox"); //我的解答
+    },
+    async getStoryList(page = 1) {
+      let res = await this.$request.get(`/mail/mine/outbox?page=${page}`); //我的咨询
+      if (page == 1) {
+        this.storyPage = 1;
+        this.storyList = res.data;
+      } else if (res.data.length > 0) {
+        this.storyPage = page;
+        this.storyList = this.storyList.concat(res.data);
       }
-      this.list = res.data;
+    },
+    async getReplyList(page = 1) {
+      let res = await this.$request.get(`/mail/mine/inbox?page=${page}`); //我的咨询
+      if (page == 1) {
+        this.replyPage = 1;
+        this.replyList = res.data;
+      } else if (res.data.length > 0) {
+        this.replyPage = page;
+        this.replyList = this.replyList.concat(res.data);
+      }
     }
   },
   onShareAppMessage(res) {
@@ -64,9 +103,12 @@ export default {
 };
 </script>
 <style lang="less" scope>
-.noMail{
+.list {
+  padding-bottom: 80rpx;
+}
+.noMail {
   height: 400rpx;
-  margin: 80rpx
+  margin: 80rpx;
 }
 </style>
 
