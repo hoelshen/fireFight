@@ -8,7 +8,7 @@
                 {{content}}
             </div>
             <div v-else class="content">
-                <img v-if="confirm === 'group'"src="/static/svgs/join_group_guide.jpg" alt="">
+                <img v-if="confirm === 'group'"src="/static/jpg/join_group_guide.jpg" alt="">
             </div>
             <div class="btn">
                 <button v-if="type === 'CONFIRM' " class="confirm darkButton" @click="ensure">{{confirm}}</button>

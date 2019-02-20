@@ -34,6 +34,7 @@ export default {
       "pages/solution/solutionDetail", //成为解答者
       "pages/solution/solutionRoom", //解答室
       "pages/solution/solutionReply", //信件
+      "pages/solution/becomeSolutor", //信件
       "pages/solution/promptPage", //回信之后的提示页
       "pages/myStory/index", //我的故事
       "pages/setPenName/index", //设置笔名

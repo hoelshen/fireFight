@@ -44,19 +44,8 @@ export default {
       this.activeIndex =index;
     },
     add() {
-      this.$request.put("/tag", { _id: this.title._id }).then(res => {
-        wx.showToast({
-          title: "申请成功",
-          icon: "none",
-          duration: 1500,
-          mask: false,
-          success: result => {
-            this.$router.push({ path: "/pages/solution/solutionRoom" });
-          },
-          fail: () => {},
-          complete: () => {}
-        });
-      });
+      this.$request.put("/tag", { _id: this.title._id });
+      this.$router.push({ path: "/pages/solution/becomeSolutor" });
     }
   },
   onShow() {
@@ -90,13 +79,16 @@ export default {
   font-size: 34rpx;
 }
 .foot {
-  margin: 0 60rpx 60rpx 60rpx;
+  margin: 300rpx 60rpx 60rpx 60rpx;
   & button {
     margin-bottom: 40rpx;
   }
 }
 .lightColor{
   border: 2rpx #ffc86d solid;
+}
+.darkButton{
+    width: 358rpx;
 }
 .titleButtonSpan {
   color: #a9a9a9;
