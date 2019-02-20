@@ -16,8 +16,7 @@
     </div>
     <div class="mail_reply flex column j-end">
       <div class="flex wrap j-end">
-
-        <img class="mail_weather_name" :src="mail.aliasPortrait">
+        <img class="mail_weather_name" :src="mail.aliasPortrait" v-if="mail.type != 'STORY'">
         <span class="mail_reply_aliasName">{{mail.aliasName}}</span>
       </div>
 
