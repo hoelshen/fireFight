@@ -1,36 +1,29 @@
 <template>
-  <view class="app">
-    <NavBar title="解答室" :isAuto="true"></NavBar>
-    <scroll-view scroll-y :style='`height: ${scrolHeight}px`'>
-      <session class="solutionRoomName">
-        <div class="solutionRoomName-name">
-          <p class="solutionRoomName-day">{{days}}</p>
-          <p class="solutionRoomName-aliasName">{{aliasName}}</p>
-        </div>
-        <div clss="solutionRoomName_question flex j-between">
-          <span class="solutionRoomName_question_mail">你今天还可以解答{{replyCount}}个咨询</span>
-        </div>
-      </session>
+  <scroll-view class="scroll" scroll-y>
+    <session class="solutionRoomName">
+      <div class="solutionRoomName-name">
+        <p class="solutionRoomName-day">{{days}}</p>
+        <p class="solutionRoomName-aliasName">{{aliasName}}</p>
+      </div>
+      <div clss="solutionRoomName_question flex j-between">
+        <span class="solutionRoomName_question_mail">你今天还可以解答{{replyCount}}个咨询</span>
+      </div>
+    </session>
 
-      <session class="list">
-        <Envelope station="solution" :isRead="item.isRead" :isReplied="item.isReplied" :mail="item.mail" v-for="(item,index) in mails" :key="index">
-        </Envelope>
-      </session>
+    <session class="list">
+      <Envelope station="solution" :isRead="item.isRead" :isReplied="item.isReplied" :mail="item.mail" v-for="(item,index) in mails" :key="index">
+      </Envelope>
+    </session>
 
-      <session class="solutionDetail flex center">
-        <div class="solutionDetailButton flex center" @click="solutionDetail">解答者手册</div>
-      </session>
-    </scroll-view>
-
-  </view>
-
+    <session class="solutionDetail flex center">
+      <div class="solutionDetailButton flex center" @click="solutionDetail">解答者手册</div>
+    </session>
+  </scroll-view>
 </template>
 <script>
-import NavBar from "@/components/NavBar";
 import Envelope from "@/components/Envelope";
 export default {
   components: {
-    NavBar,
     Envelope
   },
   data() {
@@ -39,8 +32,7 @@ export default {
       days: days,
       aliasName: "",
       replyCount: 1,
-      mails: [],
-      scrolHeight: 600
+      mails: []
     };
   },
   methods: {
@@ -64,10 +56,14 @@ export default {
     }
   },
   onShow() {
-    const { user, titleBarHeight } = getApp().globalData;
-    let systemInfo = wx.getSystemInfoSync();
-    this.aliasName = user.aliasName;
-    this.scrolHeight = systemInfo.windowHeight - titleBarHeight;
+    const { user } = getApp().globalData;
+    if (!user.aliasName) {
+      this.$request.getUser().then(res => {
+        this.aliasName = res.aliasName;
+      });
+    } else {
+      this.aliasName = user.aliasName;
+    }
     this.getStory();
   },
   onShareAppMessage(res) {
@@ -78,16 +74,14 @@ export default {
       imageUrl,
       path
     };
-  },
-  onUnload() {
-    // this.$router.reLaunch({
-    //   query: { active: "home" },
-    //   path: "/pages/home/index"
-    // });
   }
 };
 </script>
 <style lang="less" scoped>
+.scroll {
+  height: 100vh;
+}
+
 .solutionRoomName {
   display: block;
   border: 1px solid #ffffff;

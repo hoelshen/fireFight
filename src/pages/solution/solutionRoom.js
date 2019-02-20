@@ -11,7 +11,6 @@ export default {
     navigationBarTextStyle: "black",
     navigationBarTitleText: "解答室",
     backgroundColor: "#FFFEFB",
-    disableScroll: true,
-    navigationStyle: "custom"
+    disableScroll: true
   }
 };
