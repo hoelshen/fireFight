@@ -7,6 +7,10 @@
       <button :disabled="isDisabled" class="reply_button" @click="showReply"> 回信</button>
       <span class="replay_text">需要使用 1 张邮票</span>
     </div>
+    <div class="btns flex column center" v-if="isFromSystem">
+      <button class="darkButton btn" @click="toConsulting"> 去咨询</button>
+      <button class="lightButton btn" @click="toSolution"> 去解答</button>
+    </div>
     <Modal v-if="isShowModal" :type="type" :title="modalTitle" :content="modalContent" :confirm="confirm" :sure="sure" @change="showModal"></Modal>
   </view>
 </template>
@@ -70,16 +74,31 @@ export default {
         this.modalTitle = "邮票不足";
         this.modalContent = "需要消耗 1 邮票，当前余额不足";
         this.confirm = "获取邮票";
-        this.type= "CONFIRM";
+        this.type = "CONFIRM";
         this.isShowModal = true;
         this.sure = "好的";
-
         return false;
       }
       this.isReply = true;
     },
     showModal() {
       this.isShowModal = false;
+    },
+    toSolution() {
+      const { user } = getApp().globalData;
+      const status = this.$checkAuth(user);
+      if (status) {
+        if (!user.becomeAnswererAt) {
+          return this.$router.push({
+            query: { active: "solverDetail" },
+            path: "/pages/detail/index"
+          });
+        }
+        return this.$router.push({ path: "/pages/solution/solutionRoom" });
+      }
+    },
+    toConsulting() {
+      this.$router.push({ path: "/pages/consultingBox/consultingBox" });
     }
   },
   onShow() {
@@ -126,6 +145,14 @@ export default {
 
 .showReply_button {
   margin-bottom: 60rpx;
+}
+.btns {
+  padding-bottom: 50rpx;
+  .btn {
+    width: 316rpx;
+    height: 92rpx;
+    margin-bottom: 30rpx;
+  }
 }
 </style>
 

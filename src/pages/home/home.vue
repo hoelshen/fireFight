@@ -119,7 +119,6 @@ export default {
   },
   onLoad(opt) {
     this.toPage = opt.toPage;
-    this.onTabChange(opt.tab);
   },
   onShow() {
     if (this.toPage) {
@@ -135,6 +134,7 @@ export default {
     this.$request.getUser().then(res => {
       this.user = res;
     });
+    this.onTabChange(this.tab);
   },
   onShareAppMessage(res) {
     let { title, imageUrl, path, user } = getApp().globalData;
@@ -155,9 +155,9 @@ export default {
         this.getWayCount();
         this.getDialogs();
       }
-      if (this.tab === "mine") {
-        this.$request.getUser();
-      }
+      // if (this.tab === "mine") {
+      //   this.$request.getUser();
+      // }
     },
     openMail() {
       this.$router.push({ path: "/pages/mail/mailDay" });
