@@ -71,7 +71,7 @@ export default {
       });
       let content = this.content.trim();
       if (content.length < 50) {
-        return wx.showToast({ icon: "none", title: "认真的讲诉更容易获得解答，多谢几句吧" });
+        return wx.showToast({ icon: "none", title: "认真的讲述更容易获得解答，多谢几句吧" });
       }
       if (content.length > 5000) {
         return wx.showToast({
