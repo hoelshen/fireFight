@@ -53,7 +53,7 @@ function snedToCloud(message, status, request) {
     message,
     createdAt: Date()
   }
-  db.collection("errors").add({data});
+  db.collection("back-errors").add({data});
 }
 
 function normalizeUserCookie(cookiesArray) {

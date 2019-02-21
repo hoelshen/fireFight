@@ -7,7 +7,7 @@ export default {
     this.$request.login();
     this.globalData.path = opts.query.scene
       ? this.globalData.path + `scene=${opts.scene}`
-      : this.globalData.path ;
+      : this.globalData.path;
   },
   onShow() {
     this.$request.get("/image/default").then(res => {
@@ -26,8 +26,18 @@ export default {
       url: "/pages/home/index"
     });
   },
-  onError: function(msg) {
-    console.error(msg);
+  onError(error) {
+    const systemInfo = wx.getSystemInfoSync();
+    const userId = this.globalData.user._id;
+    wx.cloud.init();
+    const db = wx.cloud.database();
+    const data = {
+      systemInfo: systemInfo,
+      userId,
+      error,
+      createdAt: Date()
+    };
+    db.collection("front-errors").add({ data });
   },
   globalData() {
     return {
@@ -42,6 +52,7 @@ export default {
     };
   }
 };
+
 </script>
 
 <style lang="less">
