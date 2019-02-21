@@ -9,7 +9,7 @@ export default {
   config: {
     navigationBarBackgroundColor: "#4D495B",
     navigationBarTextStyle: "white",
-    navigationBarTitleText: "安利给好友",
+    navigationBarTitleText: "分享给好友",
     backgroundColor: "#4D495B",
     disableScroll: true
   }

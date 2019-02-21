@@ -12,7 +12,6 @@
           v-else
           @blur="onBlur"
           :focus="isFocus"
-          auto-focus="true"
           maxlength="5000"
           cursor-spacing="30"
           :value="content"
@@ -61,7 +60,7 @@ export default {
       isDisplay: true,
       day: day,
       aliasName: "",
-      isFocus: false,
+      isFocus: true,
       ticketCount: 0,
       isShowModal: false,
       modal: {

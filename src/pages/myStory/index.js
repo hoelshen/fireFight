@@ -9,7 +9,7 @@ export default {
   config: {
     navigationBarBackgroundColor: '#fffefb',
     navigationBarTextStyle: 'black',
-    navigationBarTitleText: '讲诉我的故事',
+    navigationBarTitleText: '讲述我的故事',
     backgroundColor: '#FFFEFB'
   }
 };

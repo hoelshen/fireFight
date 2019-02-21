@@ -5,8 +5,8 @@
         <span class="consultingBox_title">咨询箱</span>
 
         <span class="consultingBox_detail">
-          你可以在这里咨询你的烦恼   
-          每次使用 1 张解忧券
+          <p>你可以在这里咨询你的烦恼</p>
+          <p style="margin-left:30rpx">每次使用 1 张解忧券</p>
         </span>
         <span class="consultingBox_content" @click="onDetail">查看详细说明</span>
       </div>
@@ -75,13 +75,13 @@ export default {
     font-weight: 600;
   }
   &_detail {
-    margin-bottom: 20rpx;
     width: 450rpx;
     line-height: 52rpx;
+    margin-left: 140rpx;
   }
   &_content {
     color: #ffc86d;
-    margin-bottom: 30rpx;
+    margin-top: 60rpx;
     font-weight: 600;
   }
 }
@@ -90,7 +90,7 @@ export default {
   margin-top: 206rpx;
 }
 .myStoryButton {
-  margin-top: 16rpx;
+  margin-top: 60rpx;
   margin-bottom: 60rpx;
   border-radius: 23px;
   font-size: 28rpx;
@@ -108,5 +108,7 @@ export default {
     margin-left: 10rpx;
     font-weight: 600;
   }
+}
+.consultingBox_detail{
 }
 </style>

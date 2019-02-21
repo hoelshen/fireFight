@@ -111,6 +111,7 @@ export default {
 .reply_weather {
   margin-top: 42rpx;
   margin-bottom: 26rpx;
+  margin-right:40rpx;
 }
 .reply_weather_weather {
   font-size: 28rpx;
@@ -122,8 +123,8 @@ export default {
   padding: 40rpx;
   background-color: #ffffff;
   width: 100%;
-  color: #4d495b;
-  font-size: 28rpx;
+  color: #4D495B;
+  font-size: 34rpx;
   box-sizing: border-box;
 }
 
@@ -150,8 +151,14 @@ export default {
   font-size: 34rpx;
   color: #4D495B;
   font-weight: 600;
+  box-sizing: border-box
 }
 .reply_div{
   background-color:#FFFEFB;
+}
+.replyaliasName{
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #4D495B;
 }
 </style>

@@ -55,7 +55,7 @@
 				},
 				{
 					"id": 4,
-					"name": "讲诉我的故事",
+					"name": "讲述我的故事",
 					"pathName": "pages/myStory/index",
 					"query": ""
 				},

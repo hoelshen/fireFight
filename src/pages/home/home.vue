@@ -77,7 +77,7 @@
         </session>
 
         <session class="my_share flex center">
-          <button class="flex center" hover-class="active" @click="toShare">安利Tell给好友</button>
+          <button class="flex center" hover-class="active" @click="toShare">分享Tell给好友</button>
         </session>
       </scroll-view>
     </div>
