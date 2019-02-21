@@ -80,6 +80,14 @@ export default {
         this.modal.type = "CONFIRM"
         this.modal.sure = "好的";
         this.isShowModal = true;
+        try {
+          wx.setStorage({
+            key: "story",
+            data: this.content
+          })
+        } catch (error) {
+          
+        }
         return false;
       }
       if (this.content.length < 50) {
@@ -156,6 +164,16 @@ export default {
   onShow() {
     const { user } = getApp().globalData
     this.ticketCount = user.ticketCount;
+    try {
+      const value = wx.getStorageSync('story')
+      if (value) {
+        this.content = value;
+        this.isDisplay = false;
+        // Do something with return value
+      }
+    } catch (e) {
+      // Do something when catch error
+    }
     this.getWeather();
     this.refresh();
   },

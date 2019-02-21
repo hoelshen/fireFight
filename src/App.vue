@@ -50,6 +50,9 @@ export default {
       path: "/pages/share/receive?",
       replyCount: 1
     };
+  },
+  onUnload(){
+    wx.clearStorage();
   }
 };
 
