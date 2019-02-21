@@ -97,6 +97,12 @@ export default {
           title: "请控制在5000字以内"
         });
       }
+      if (this.aliasName.length > 10) {
+        return wx.showToast({
+          icon: "none",
+          title: "署名过长，请改短一些"
+        });
+      }
       const mail = {
         content: this.content,
         weather: this.weather,
