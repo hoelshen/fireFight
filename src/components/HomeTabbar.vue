@@ -48,7 +48,13 @@ export default {
       isIpx: false
     };
   },
-
+  onShow(){
+   const model = wx.getSystemInfoSync().model;
+   const SyHeight = ['iPhone X', 'iPhone XR', 'iPhone XS', 'iPhone XS Max']
+    if(SyHeight.includes(model)){
+     this.isIpx = true;
+    }
+  },
   methods: {
     myInfo(e) {
       wx.setNavigationBarTitle({ title: "我的" });
