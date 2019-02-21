@@ -50,7 +50,7 @@ export default {
   },
   onShow(){
    const model = wx.getSystemInfoSync().model;
-   const SyHeight = ['iPhone X', 'iPhone XR', 'iPhone XS', 'iPhone XS Max']
+   const SyHeight = ['iPhone X', 'iPhone Xr', 'iPhone Xs', 'iPhone Xs Max']
     if(SyHeight.includes(model)){
      this.isIpx = true;
     }
