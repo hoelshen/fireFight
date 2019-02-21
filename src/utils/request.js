@@ -48,6 +48,8 @@ function snedToCloud(message, status, request) {
     lauchOpts: lauchOpts,
     requestName: request.url,
     method: request.method,
+    params: request.params,
+    body: request.body,
     status,
     userId,
     message,
