@@ -65,6 +65,9 @@ export default {
 };
 </script>
 <style lang="less">
+page{
+  background-color: #ffffff;
+}
 .ticket {
   width: 630rpx;
   min-height: 100vh;

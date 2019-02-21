@@ -1,6 +1,6 @@
 <template>
   <view class="app flex column j-between">
-    <div class="flex consultingBox column center shadow">
+    <div class="flex consultingBox column center">
       <div class="conDiv column flex center grow">
         <span class="consultingBox_title">咨询箱</span>
 
@@ -69,8 +69,6 @@ export default {
   min-height: 726rpx;
   margin: auto;
   margin-top: 40rpx;
-  border-top-left-radius: 365rpx;
-  border-top-right-radius: 182px;
   &_title {
     font-size: 60rpx;
     margin-bottom: 30rpx;

@@ -189,6 +189,9 @@ export default {
 };
 </script>
 <style lang="less" scope>
+page{
+  background-color: #ffffff;
+}
 .list {
   padding: 0 60rpx;
   &_item {
