@@ -58,19 +58,19 @@ export default {
   methods:{
       enConfirm(){
           if(this.confirm === "获取邮票") {
-              this.$router.reLaunch({
+              this.$router.push({
                   query: { active: "mail" },
                   path: "/pages/welfare/index"
               });
           }
           if(this.confirm === "获取解忧券") {
-              this.$router.reLaunch({
+              this.$router.push({
                   query: { active: "solution" },
                   path: "/pages/welfare/index"
               });
           }
           if(this.confirm === "前往解答室") {
-              this.$router.reLaunch({
+              this.$router.push({
                   path: "/pages/solution/solutionDetail"
               });
           }
