@@ -188,8 +188,9 @@ export default {
   color: #4d495b;
   padding: 40rpx;
   width: 100%;
-  font-size: 28rpx;
+  font-size: 34rpx;
   box-sizing: border-box;
+  line-height:52rpx;
 }
 .textNameSpan {
   margin-right: 20rpx;
