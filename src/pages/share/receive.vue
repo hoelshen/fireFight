@@ -53,7 +53,7 @@ export default {
       }
     },
     toHome() {
-      this.$router.push({ path: "/pages/home/index" });
+      this.$router.relaunch({ path: "/pages/home/index" });
     }
   },
   onShareAppMessage(res) {
