@@ -12,7 +12,7 @@
             </div>
             <div class="btn">
                 <button v-if="type === 'CONFIRM' " class="confirm darkButton" @click="enConfirm">{{confirm}}</button>
-                <button v-if="type === 'group'" open-type="contact" :show-message-card="true" :send-message-img="imgUrl" :send-message-title="title" :session-from="{'nickName':user.aliasName, 'avatarUrl':user.aliasPortrait}" class="sure darkButton" @click="enSure">{{sure}}</button>
+                <button v-if="type === 'group'" open-type="contact" :show-message-card="true" :send-message-img="imgUrl" :send-message-title="title" :session-from="`nickName'${user.aliasName}, 'avatarUrl':${user.aliasPortrait}`" class="sure darkButton" @click="enSure">{{sure}}</button>
                 <button v-if="type !== 'group' " class="sure lightButton" @click="enSure">{{sure}}</button>
             </div>
         </div>
