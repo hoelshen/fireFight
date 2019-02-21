@@ -3,7 +3,7 @@
     <!-- 首页 -->
     <div class="pannel grow" v-if="tab == 'home'">
       <scroll-view class="entries" scroll-y :style='`height: ${scrolHeight}px`'>
-        <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
+        <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000" circular="true" >
           <block v-for="item in banners" :key="item">
             <swiper-item>
               <image :src="item.imgUrl" class="img" @click="toBanner(item)" />

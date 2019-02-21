@@ -103,9 +103,6 @@ export default {
 .mailBtn {
   overflow: visible;
 }
-.leftMail{
-  margin-right:16rpx;
-}
 .mailCountOne{
   width:32rpx;
   height: 32rpx;
