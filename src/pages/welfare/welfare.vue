@@ -158,7 +158,7 @@ export default {
           paySign: order.paySign,
           success(res) {
             wx.hideLoading();
-            wx.showToast({ title: "兑换成功" });
+            wx.showToast({ title: "购买成功" });
           },
           fail(res) {
             wx.hideLoading();
