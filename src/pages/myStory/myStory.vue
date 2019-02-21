@@ -56,11 +56,10 @@ export default {
     return {
       content: "",
       weather: "",
-      hidenText: true,
       isDisplay: true,
       day: day,
       aliasName: "",
-      isFocus: true,
+      isFocus: false,
       ticketCount: 0,
       isShowModal: false,
       modal: {
@@ -131,10 +130,11 @@ export default {
       this.aliasName = e.detail.value;
     },
     hidenMethod() {
-      this.isFocus = true;
-      console.log('this.isFocus : ', this.isFocus );
-      this.hidenText = false;
       this.isDisplay = false;
+      setTimeout(() => {
+        this.isFocus = true;
+        console.log('this.isFocus : ', this.isFocus );
+      }, 1000);
     },
     async refresh() {
       let name = await this.$request.get("/name");
