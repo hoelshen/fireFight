@@ -1,22 +1,22 @@
 <template>
-    <div class="modal" @click="clickMask">
-        <div class="card flex column center"  @tap.stop="stopkMask">
-            <div class="title">
+    <cover-view class="modal" @click="clickMask">
+        <cover-view class="card flex column center"  @tap.stop="stopkMask">
+            <cover-view class="title">
                 {{title}}
-            </div>
-            <div v-if="!img" class="content">
+            </cover-view>
+            <cover-view v-if="!img" class="content">
                 {{content}}
-            </div>
-            <div v-else class="content">
-                <img v-if="type === 'group'"src="/static/jpg/join_group_guide.jpg" alt="">
-            </div>
-            <div class="btn">
+            </cover-view>
+            <cover-view v-else class="content">
+                <cover-image v-if="type === 'group'"src="/static/jpg/join_group_guide.jpg" alt=""/>
+            </cover-view>
+            <cover-view class="btn">
                 <button v-if="type === 'CONFIRM' " class="confirm darkButton" @click="enConfirm">{{confirm}}</button>
                 <button v-if="type === 'group'" open-type="contact" :show-message-card="true" :send-message-img="imgUrl" :send-message-title="title" :session-from="`nickName'${user.aliasName}, 'avatarUrl':${user.aliasPortrait}`" class="sure darkButton" @click="enSure">{{sure}}</button>
                 <button v-if="type !== 'group' " class="sure lightButton" @click="enSure">{{sure}}</button>
-            </div>
-        </div>
-    </div>
+            </cover-view>
+        </cover-view>
+    </cover-view>
 </template>
 
 
