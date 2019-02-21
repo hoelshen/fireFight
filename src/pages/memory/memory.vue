@@ -5,14 +5,14 @@
       <div @click="toggleAnswer" :class="active =='answer' ? 'borderColor': ''" class="navigatabar_item flex center">我的解答</div>
     </session>
     <scroll-view class="list  box" scroll-y lower-threshold="200" :style='`height: ${scrolHeight}px`' @scrolltolower="scrolltolower" v-if="active =='question' ">
-      <Envelope station="memory" :mail="item" v-for="(item,index) in storyList" :key="index">
+      <Envelope station="memory" :mail="story" v-for="story in storyList" :key="story._id">
       </Envelope>
       <div v-if="storyList.length === 0" class="noMail flex center">
         暂无咨询
       </div>
     </scroll-view>
     <scroll-view class="list  box" scroll-y lower-threshold="200" :style='`height: ${scrolHeight}px`' @scrolltolower="scrolltolower" v-else>
-      <Envelope station="memory" :mail="item" v-for="(item,index) in replyList" :key="index">
+      <Envelope station="memory" :mail="reply" v-for="reply in replyList" :key="reply._id">
       </Envelope>
       <div v-if="replyList.length === 0" class="noMail flex center">
         暂无解答
@@ -36,10 +36,12 @@ export default {
       scrolHeight: "562"
     };
   },
+  onLoad() {
+    this.setScrollHeight();
+  },
   onShow() {
     this.getStoryList();
-    this.getReplyList();
-    this.setScrollHeight();
+    //this.getReplyList();
   },
   methods: {
     setScrollHeight() {

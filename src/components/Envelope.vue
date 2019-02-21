@@ -1,27 +1,24 @@
 <template>
-  <div class="list_item flex column j-between" :class="isRead ? 'read' :''" @tap="toMail">
-    <div class="list_item-sendName flex wrap j-between">
-      <div class="flex column j-between">
-        <div class="list_item-receiverName" v-if="mail.fromSystem">
+  <view class="list_item flex column j-between" :class="isRead ? 'read' :''" @tap="toMail">
+    <view class="list_item-sendName flex wrap j-between">
+      <view class="flex column j-between">
+        <view class="list_item-receiverName">
           <span class="list_item-receiverNameSpan">{{mail.targetUserName}}</span>
-        </div>
-        <div class="list_item-receiverName" v-else>
-          <span class="list_item-receiverNameSpan">{{mail.targetUserName}}</span>
-          <span>收</span>
-        </div>
-        <div class="list_item-content ">
+          <span v-if="!mail.fromSystem">收</span>
+        </view>
+        <view class="list_item-content ">
           <span>{{mail.fromSystem ? mail.title :mail.content}}</span>
-        </div>
-      </div>
-      <div class="flex">
-        <img class="mail-svg" src="/static/svgs/stamp.svg" alt="">
-      </div>
-    </div>
-    <div class="list_item-sendName flex j-between">
-      <span>{{isReplied ? '已回复' : ''}}</span>
-      <span>{{mail.aliasName}}</span>
-    </div>
-  </div>
+        </view>
+      </view>
+      <view class="flex">
+        <image class="mail-svg" src="/static/svgs/stamp.svg"/>
+      </view>
+    </view>
+    <view class="list_item-sendName flex j-between">
+      <view>{{isReplied ? '已回复' : ''}}</view>
+      <view>{{mail.aliasName}}</view>
+    </view>
+  </view>
 </template>
 <script>
 export default {
@@ -49,6 +46,9 @@ export default {
   data() {
     return {};
   },
+  created(){
+    console.log(this.mail);
+  },
   methods: {
     toMail() {
       if (this.station === 'dialogId') {
@@ -64,6 +64,7 @@ export default {
         });
       } 
       if(this.station === 'memory') {
+        console.log('memory');
         this.$router.push({
           query:{id: this.mail._id},
           path: "/pages/memory/detail"

@@ -3,7 +3,7 @@
     <div class="container flex grow">
       <div class="photo-circle flex wrap j-start center">
         <div class="circle" @click="takePhoto">
-          <image class="userinfo-avatar" :src="userInfo.aliasPortrait" alt="选择头像" background-size="cover">
+          <image class="userinfo-avatar" :src="aliasPortrait" alt="选择头像" background-size="cover">
           </image>
         </div>
         <div class="userinfo-name">
@@ -22,29 +22,33 @@
 export default {
   data() {
     return {
-      imageUrl:
-        "https://user-images.githubusercontent.com/20720117/48262986-80e02780-e45f-11e8-8426-2872916adad9.png",
+      aliasPortrait: "",
       userInfo: {
-        aliasPortrait: "",
-        aliasName: ""
+        aliasName: "",
+        aliasPortrait: ""
       }
     };
   },
   methods: {
     takePhoto() {
-      var that = this;
       wx.chooseImage({
         count: 1,
         sizeType: ["compressed"],
         sourceType: ["album", "camera"],
-        success(res) {
+        success: function(res) {
           const tempFilePaths = res.tempFilePaths;
-          that.$request.uploadFile(tempFilePaths[0]).then(res => {
-            const data = JSON.parse(res.data);
-            that.userInfo.aliasPortrait = data.data;
-          });
-        },
-        fail(e) {}
+          this.$request.uploadFile(tempFilePaths[0]).then(
+            function(res) {
+              let data = JSON.parse(res.data);
+              this.aliasPortrait = data.data;
+              this.userInfo.aliasPortrait = data.data;
+              console.log("设置成功");
+            }.bind(this)
+          );
+        }.bind(this),
+        fail(e) {
+          console.error(e);
+        }
       });
     },
     save() {
@@ -77,7 +81,7 @@ export default {
   onShow() {
     this.$request.getUser().then(() => {
       const { user } = getApp().globalData;
-      this.userInfo.aliasPortrait = user.aliasPortrait;
+      this.aliasPortrait = user.aliasPortrait;
       this.userInfo.aliasName = user.nickName;
     });
   },
