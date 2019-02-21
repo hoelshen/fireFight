@@ -126,6 +126,7 @@ export default {
   color: #4D495B;
   font-size: 34rpx;
   box-sizing: border-box;
+  line-height:52rpx;
 }
 
 .replay_content {

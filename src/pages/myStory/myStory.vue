@@ -130,11 +130,11 @@ export default {
       this.aliasName = e.detail.value;
     },
     hidenMethod() {
-      this.isDisplay = false;
-      setTimeout(() => {
+      setTimeout(function() {
         this.isFocus = true;
-        console.log('this.isFocus : ', this.isFocus );
-      }, 1000);
+      }.bind(this),1000)
+      this.hidenText = false;
+      this.isDisplay = false;
     },
     async refresh() {
       let name = await this.$request.get("/name");
@@ -187,8 +187,9 @@ export default {
   color: #4d495b;
   padding: 40rpx;
   width: 100%;
-  font-size: 28rpx;
+  font-size: 34rpx;
   box-sizing: border-box;
+  line-height:52rpx;
 }
 .textNameSpan {
   margin-right: 20rpx;
