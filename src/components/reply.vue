@@ -1,10 +1,11 @@
 <template>
   <div class="replay_content">
     <div class="content">
-      <div class="flex target">
-        <span class="target">{{target}}</span>收
+      <div class="flex">
+        <span class="target">{{target}}</span>
+        <span class="target" style="margin-left:10rpx;">收</span>
       </div>
-      <textarea :focus="true" class="textArea" maxlength="5000" :value="reply.content" @input="bindTextAreaBlur"/>
+      <textarea :focus="true" class="textArea" maxlength="5000" cursor-spacing="30" :value="reply.content" @input="bindTextAreaBlur"/>
       <div class="reply_weather flex column">
         <div class="flex wrap j-end">
           <img class="reply_weather_name" :src="reply.aliasPortrait">
@@ -127,7 +128,7 @@ export default {
 }
 
 .replay_content {
-  margin: 0rpx 60rpx 36rpx 60rpx;
+  margin: 60rpx 60rpx 60rpx 60rpx;
   background: #fff;
 }
 
@@ -141,14 +142,14 @@ export default {
   margin-right: 10rpx;
 }
 .content {
-  padding: 60rpx 40rpx 0rpx 40rpx;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
 }
 .target {
-  padding: 0rpx 20rpx 40rpx 0rpx;
-  & view {
-    margin-right: 10rpx;
-  }
+  margin-top: 60rpx;
+  margin-left:  40rpx;
+  font-size: 34rpx;
+  color: #4D495B;
+  font-weight: 600;
 }
 .reply_div{
   background-color:#FFFEFB;

@@ -12,7 +12,9 @@
           v-else
           @blur="onBlur"
           :focus="isFocus"
+          auto-focus="true"
           maxlength="5000"
+          cursor-spacing="30"
           :value="content"
           @input="bindTextAreaBlur"
         />
@@ -125,6 +127,7 @@ export default {
     },
     hidenMethod() {
       this.isFocus = true;
+      console.log('this.isFocus : ', this.isFocus );
       this.hidenText = false;
       this.isDisplay = false;
     },

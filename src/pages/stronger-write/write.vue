@@ -10,7 +10,7 @@
     </div>
 
     <div class="content grow">
-      <textarea :value="content" class="txt" name="" placeholder="50字以上" maxlength="5000" auto-height @input="onContentChange"></textarea>
+      <textarea :value="content" cursor-spacing="30" class="txt" name="" placeholder="50字以上" maxlength="5000" auto-height @input="onContentChange"></textarea>
     </div>
 
     <div class="btns  flex center column">

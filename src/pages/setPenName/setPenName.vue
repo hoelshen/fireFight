@@ -97,6 +97,9 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+page{
+  background-color: #ffffff;
+}
 .app {
   margin: auto;
   width: 630rpx;
@@ -105,7 +108,7 @@ export default {
     .photo-circle {
       height: 548rpx;
       width: 630rpx;
-      margin-top: 40rpx;
+      margin-top: 60rpx;
     }
     .circle {
       width: 216rpx;
@@ -132,7 +135,7 @@ export default {
     .userinfo-text {
       margin-top: 40rpx;
       display: block;
-      color: #a9a9a9;
+      color: #bdbdc0;      
       font-size: 28rpx;
     }
   }
