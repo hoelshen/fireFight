@@ -7,16 +7,7 @@
           <div style="line-height:52rpx">2.关键的人物、地点等信息建议使用化名</div>
           <div style="line-height:52rpx">3.落款署名尽量不要使用笔名或微信昵称</div>
         </div>
-        <textarea
-          class="textArea"
-          v-else
-          @blur="onBlur"
-          :focus="isFocus"
-          maxlength="5000"
-          cursor-spacing="30"
-          :value="content"
-          @input="bindTextAreaBlur"
-        />
+        <textarea class="textArea" v-else @blur="onBlur" :focus="isFocus" maxlength="5000" cursor-spacing="30" :value="content" @input="bindTextAreaBlur" />
       </div>
       <div class="flex column j-between textName">
         <div class="flex j-end a-center">
@@ -37,7 +28,7 @@
       <button class="addMystoryButton flex center" @click="onPush">提交咨询</button>
       <p class="text-center">需要使用1张解忧券</p>
     </div>
-    
+
     <Modal v-if="isShowModal" :type="modal.type" :title="modal.title" :content="modal.content" :confirm="modal.confirm" :sure="modal.sure" @change="showModal"></Modal>
   </view>
 </template>
@@ -68,26 +59,24 @@ export default {
         confirm: "",
         type: "",
         sure: ""
-      },
+      }
     };
   },
   methods: {
     async onPush() {
-      if(this.ticketCount === 0){
+      if (this.ticketCount === 0) {
         this.modal.title = "解忧券不足";
         this.modal.content = "需要消耗 1 解忧券，当前余额不足";
         this.modal.confirm = "获取解忧券";
-        this.modal.type = "CONFIRM"
+        this.modal.type = "CONFIRM";
         this.modal.sure = "好的";
         this.isShowModal = true;
         try {
           wx.setStorage({
             key: "story",
             data: this.content
-          })
-        } catch (error) {
-          
-        }
+          });
+        } catch (error) {}
         return false;
       }
       if (this.content.length < 50) {
@@ -122,6 +111,9 @@ export default {
       }
       let res = await this.$request.post("/mail/story", mail);
       if (res.success) {
+        wx.removeStorage({
+          key: "story"
+        }); // 清空缓存
         this.$router.push({
           query: {
             active: "story",
@@ -138,9 +130,12 @@ export default {
       this.aliasName = e.detail.value;
     },
     hidenMethod() {
-      setTimeout(function() {
-        this.isFocus = true;
-      }.bind(this),1000)
+      setTimeout(
+        function() {
+          this.isFocus = true;
+        }.bind(this),
+        1000
+      );
       this.hidenText = false;
       this.isDisplay = false;
     },
@@ -153,7 +148,7 @@ export default {
       this.weather = res.data;
     },
     onBlur() {
-      if(this.content.length === 0){
+      if (this.content.length === 0) {
         this.isDisplay = true;
       }
     },
@@ -162,10 +157,10 @@ export default {
     }
   },
   onShow() {
-    const { user } = getApp().globalData
+    const { user } = getApp().globalData;
     this.ticketCount = user.ticketCount;
     try {
-      const value = wx.getStorageSync('story')
+      const value = wx.getStorageSync("story");
       if (value) {
         this.content = value;
         this.isDisplay = false;
@@ -191,11 +186,11 @@ export default {
 <style lang="less" scoped>
 .appDiv {
   margin: 40rpx 60rpx;
-  min-height:1042rpx;
+  min-height: 1042rpx;
 }
 .text {
   background-color: #ffffff;
-  min-height:830rpx;
+  min-height: 830rpx;
   color: rgba(189, 189, 192, 1);
 }
 .textArea {
@@ -207,7 +202,7 @@ export default {
   width: 100%;
   font-size: 34rpx;
   box-sizing: border-box;
-  line-height:52rpx;
+  line-height: 52rpx;
 }
 .textNameSpan {
   margin-right: 20rpx;
@@ -241,8 +236,8 @@ export default {
 .aliasNameInput {
   width: 252rpx;
   height: 84rpx;
-  padding-left:20rpx;
-  background-color: rgba(189, 189, 192, .15);
+  padding-left: 20rpx;
+  background-color: rgba(189, 189, 192, 0.15);
 }
 .addMystoryButton {
   border-radius: 23px;
