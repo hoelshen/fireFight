@@ -107,10 +107,15 @@ export default {
 }
 .solutionRoomName-day {
   margin-top: 40rpx;
+  color: #4D495B;
+  font-size: 34rpx;
+  font-weight:600;
 }
 .solutionRoomName-aliasName {
   margin: 24rpx 0;
   font-size: 60rpx;
+  font-weight:600;
+  color:#4D495B;
 }
 .solutionRoomName_question_mail {
   color: #a9a9a9;

@@ -1,13 +1,13 @@
 <template>
   <view class="app flex column j-between">
     <div class="appDiv flex column">
-      <div class="text">
+      <div class="text shadow">
         <div class="textAreafloat flex column j-start" v-if="isDisplay" @click="hidenMethod">
-          <div style="line-height:52rpx">1.请尽量具体叙述你的故事，便于解答者理解和代入，从而给出具体的解答.</div>
-          <div style="line-height:52rpx">2.关键的人物、地点等信息建议使用化名</div>
-          <div style="line-height:52rpx">3.落款署名尽量不要使用笔名或微信昵称</div>
+          <div style="line-height:52rpx">· 请尽量具体叙述你的故事，便于解答者理解和代入，从而给出具体的解答.</div>
+          <div style="line-height:52rpx">· 关键的人物、地点等信息建议使用化名</div>
+          <div style="line-height:52rpx">· 落款署名尽量不要使用笔名或微信昵称</div>
         </div>
-        <textarea class="textArea" v-else @blur="onBlur" :focus="isFocus" maxlength="5000" cursor-spacing="30" :value="content" @input="bindTextAreaBlur" />
+        <textarea class="textArea shadow" v-else @blur="onBlur" :focus="isFocus" maxlength="5000" cursor-spacing="30" :value="content" @input="bindTextAreaBlur" />
       </div>
       <div class="flex column j-between textName">
         <div class="flex j-end a-center">
@@ -253,6 +253,8 @@ export default {
   padding: 26rpx 102rpx;
   text-align: center;
   background-color: #ffc86d;
+  font-size:28rpx;
+
 }
 .text-ontent {
   margin: auto;

@@ -95,6 +95,7 @@ export default {
 }
 .lightColor{
   border: 2rpx #ffc86d solid;
+  background-color: #ffffff;
 }
 .darkButton{
     width: 358rpx;

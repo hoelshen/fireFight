@@ -2,8 +2,6 @@
   <div class="faq flex column">
     <scroll-view class="items grow box" scroll-y>
       <div class="item">
-        <div class="h">问题与反馈</div>
-        <div class="hr"></div>
         <div class="t">关于投递箱</div>
         <div class="q">Q：我写的咨询谁会收到？</div>
         <div class="a">A：我们会在每晚 22:30 将咨询箱中的信收集到解答室，按照一定规则随机分发给解答者，并利用算法尽量确保每个咨询被若干个适合的解答者看到，以增加被回复的概率。
@@ -88,7 +86,7 @@
 
     <div class="btns flex column center box">
       <div class="tips">问题没有解决？直接联系我们吧！</div>
-      <button class="flex center" :session-from="userInfo" open-type="contact">在线客服</button>
+      <button class="flex center darkButton" :session-from="userInfo" open-type="contact">在线客服</button>
     </div>
   </div>
 </template>
@@ -148,17 +146,17 @@ export default {
       margin: 20rpx 0rpx;
     }
     .t {
-      color: #2f2f2f;
+      color: #4D495B;
       font-size: 48rpx;
       margin-bottom: 20rpx;
     }
     .q {
-      color: #2f2f2f;
+      color: #4D495B;
       font-size: 36rpx;
       margin-bottom: 20rpx;
     }
     .a {
-      color: #5b5b5b;
+      color: #BDBDC0;
       font-size: 28rpx;
       line-height: 50rpx;
     }
@@ -173,12 +171,7 @@ export default {
       margin-bottom: 20rpx;
     }
     button {
-      width: 480rpx;
-      height: 100rpx;
-      background: @yellow;
-      color: #fff;
-      font-size: 28rpx;
-      border-radius: 16rpx;
+      width:316rpx;
       &.active {
         background: darken(@yellow, 10%);
       }

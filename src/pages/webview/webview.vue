@@ -14,11 +14,11 @@ const URL_MAP = {
     title: "烦恼咨询服务说明"
   },
   FocusServer: {
-    url: "https://mp.weixin.qq.com/s/1mqFcKu0rNUGDY7vZS_sPw",
+    url: "https://mp.weixin.qq.com/s/o4T39HyVAgtv2XplB6MLqA",
     title: "关注服务号"
   },
   FocusSubscript: {
-    url: "https://mp.weixin.qq.com/s/1mqFcKu0rNUGDY7vZS_sPw",
+    url: "https://mp.weixin.qq.com/s/y-jhXyvsh9ZLzNR8TMh8Aw",
     title: "关注订阅号"
   }
 };
