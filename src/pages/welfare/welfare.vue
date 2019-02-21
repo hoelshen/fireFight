@@ -45,6 +45,19 @@
           </button>
         </div>
       </div>
+      <div class="list_item flex  j-between ">
+        <div class="flex column">
+          <div class="flex a-center">
+            <span class="list_item_span">关注订阅号得解忧券</span>
+            <image class="iconfont" src="/static/svgs/ticket.svg" />
+            <span class="count">×1</span>
+          </div>
+          <span class="welfare_content">关注后可免费领取 1 张解忧券 </span>
+        </div>
+        <div class="exchange flex center">
+          <button @click="FocusSubscript" class="flex center ">去关注</button>
+        </div>
+      </div>
     </session>
     <session class="list" v-if="active === 'mail'">
       <div class="list_item flex  j-between ">
@@ -72,19 +85,6 @@
         <div class="exchange flex center">
           <button @click="toShare" class="flex center ">去分享
           </button>
-        </div>
-      </div>
-      <div class="list_item flex  j-between ">
-        <div class="flex column">
-          <div class="flex a-center">
-            <span class="list_item_span">关注订阅号得邮票</span>
-            <image class="iconfont" src="/static/svgs/stamp-icon.svg" />
-            <span class="count">×1</span>
-          </div>
-          <span class="welfare_content">关注后可免费领取 1 张邮票 </span>
-        </div>
-        <div class="exchange flex center">
-          <button @click="FocusSubscript" class="flex center ">去关注</button>
         </div>
       </div>
     </session>
