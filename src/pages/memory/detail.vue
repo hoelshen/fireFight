@@ -36,7 +36,11 @@ export default {
       } else if (mail.targetDialog) {
         this.getTargetDialog(mail.targetDialog);
       } else if (mail.targetLink) {
+        // 兼容历史数据：回复
         this.currentMail = mail;
+        this.getTargetLink(id);
+      } else if (mail.generateLink) {
+        // 兼容历史数据：追问
         this.getTargetLink(id);
       }
     },
