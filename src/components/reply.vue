@@ -62,7 +62,7 @@ export default {
     replyMail() {
       if (this.reply.content.length < 30) {
         return wx.showToast({
-          title: "认真的讲诉更容易获得解答，多谢几句吧",
+          title: "认真的讲述更容易获得解答，多谢几句吧",
           icon: "none",
           duration: 2000
         });
