@@ -12,7 +12,7 @@
             <image class="iconfont" src="/static/svgs/ticket.svg" />
             <span class="count">×1</span>
           </div>
-          <span class="welfare_content">用户可以使用 9.9 元人民币购买 1 张解忧券。</span>
+          <span class="welfare_content">使用 9.9 元人民币购买 1 张解忧券。</span>
         </div>
         <div class="exchange  flex center">
           <button @click="toPay" class="flex center">购买</button>
@@ -25,7 +25,7 @@
             <image class="iconfont" src="/static/svgs/ticket.svg" />
             <span class="count">×1</span>
           </div>
-          <span class="welfare_content">解忧券用于向 Tell 烦恼咨询中心提交烦恼咨询，你可以使用10张邮票兑换 1 张解忧券。</span>
+          <span class="welfare_content">使用10张邮票兑换 1 张解忧券。</span>
         </div>
         <div class="exchange  flex center">
           <button @click="toExchange" class="flex center">兑换</button>
@@ -34,11 +34,11 @@
       <div class="list_item flex  j-between ">
         <div class="flex column">
           <div class="flex a-center">
-            <span class="list_item_span">服务号领解忧券</span>
+            <span class="list_item_span">关注服务号得解忧券</span>
             <image class="iconfont" src="/static/svgs/ticket.svg" />
             <span class="count">×1</span>
           </div>
-          <span class="welfare_content">进入客服会话后发送「服务号」，按提示进行操作。关注服务号后即可领取解忧券。</span>
+          <span class="welfare_content">关注后可免费领取 1 张解忧券。</span>
         </div>
         <div class="exchange flex center">
           <button @click="FocusServer" class="flex center ">去关注
@@ -50,11 +50,11 @@
       <div class="list_item flex  j-between ">
         <div class="flex column">
           <div class="flex a-center">
-            <span class="list_item_span">解答咨询获得邮票</span>
+            <span class="list_item_span">解答咨询得邮票</span>
             <image class="iconfont" src="/static/svgs/stamp-icon.svg" />
             <span class="count">×1</span>
           </div>
-          <span class="welfare_content">用户可在此跳转到解答室。</span>
+          <span class="welfare_content">解答和被感谢均可获得邮票。</span>
         </div>
         <div class="exchange  flex center">
           <button @click="toReply" class="flex center">去解答</button>
@@ -63,11 +63,11 @@
       <div class="list_item flex  j-between ">
         <div class="flex column">
           <div class="flex a-center">
-            <span class="list_item_span">分享好友得邮票</span>
+            <span class="list_item_span">安利 Tell 给好友得邮票</span>
             <image class="iconfont" src="/static/svgs/stamp-icon.svg" />
             <span class="count">×1</span>
           </div>
-          <span class="welfare_content">用户可在此跳转到「安利 Tell 给好友」页面。</span>
+          <span class="welfare_content">安利好友加入 Tell  可获得邮票。</span>
         </div>
         <div class="exchange flex center">
           <button @click="toShare" class="flex center ">去安利
@@ -77,11 +77,11 @@
       <div class="list_item flex  j-between ">
         <div class="flex column">
           <div class="flex a-center">
-            <span class="list_item_span">订阅号领邮票</span>
+            <span class="list_item_span">关注订阅号得邮票</span>
             <image class="iconfont" src="/static/svgs/stamp-icon.svg" />
             <span class="count">×1</span>
           </div>
-          <span class="welfare_content">进入客服会话后发送「订阅号」，按提示进行操作。关注订阅号后即可领取邮票。</span>
+          <span class="welfare_content">关注后可免费领取 1 张邮票。</span>
         </div>
         <div class="exchange flex center">
           <button @click="FocusSubscript" class="flex center ">去关注</button>
