@@ -9,7 +9,7 @@ export function promisify(fn, self = null) {
 }
 
 export function checkAuth(user) {
-  if (!user.authAt) { //无授权
+  if (!user.unionid) { //无授权
     this.$router.push({
       path: "/pages/login/index"
     });

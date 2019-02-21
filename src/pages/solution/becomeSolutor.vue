@@ -10,7 +10,7 @@
 export default {
     methods:{
         opneSolution(){
-            this.$router.push({ path: "/pages/solution/solutionRoom" });
+            this.$router.reLaunch({ path: "/pages/home/index",query:{toPage:'/pages/solution/solutionRoom'} });
         }
     }
 }

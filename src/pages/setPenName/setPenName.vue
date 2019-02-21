@@ -3,24 +3,12 @@
     <div class="container flex grow">
       <div class="photo-circle flex wrap j-start center">
         <div class="circle" @click="takePhoto">
-          <image
-            class="userinfo-avatar"
-            :src="userInfo.aliasPortrait"
-            alt="选择头像"
-            background-size="cover"
-          >
+          <image class="userinfo-avatar" :src="userInfo.aliasPortrait" alt="选择头像" background-size="cover">
           </image>
         </div>
         <div class="userinfo-name">
           <div class="set">设置笔名</div>
-          <input
-            type="text"
-            :value="userInfo.aliasName"
-            @input="setName"
-            placeholder="设置笔名"
-            maxlength="10"
-            focus
-          >
+          <input type="text" :value="userInfo.aliasName" @input="setName" placeholder="设置笔名" maxlength="10" focus>
           <span class="userinfo-text">你可以随时点击头像和笔名来修改它们</span>
         </div>
       </div>
@@ -64,8 +52,8 @@ export default {
 
       const { aliasName, aliasPortrait } = this.userInfo;
       if (aliasName) {
-        if(aliasName.length < 2) {
-          return  wx.showToast({ title: "请设置大于2个字符的笔名" });
+        if (aliasName.length < 2) {
+          return wx.showToast({ title: "请设置大于2个字符的笔名" });
         }
         this.$request
           .put("/user", {
@@ -73,14 +61,13 @@ export default {
             aliasPortrait
           })
           .then(res => {
-            this.$router.reLaunch({
-              query: { active: "mine" },
-              path: "/pages/home/index"
+            wx.navigateBack({
+              delta: 2
             });
           });
       }
       if (!aliasName) {
-        wx.showToast({ title: "请设置笔名", icon: 'none' });
+        wx.showToast({ title: "请设置笔名", icon: "none" });
       }
     },
     setName(e) {
@@ -88,11 +75,11 @@ export default {
     }
   },
   onShow() {
-   this.$request.getUser().then(()=>{
-    const { user } = getApp().globalData;
-    this.userInfo.aliasPortrait = user.aliasPortrait;
-    this.userInfo.aliasName = user.nickName;
-   });
+    this.$request.getUser().then(() => {
+      const { user } = getApp().globalData;
+      this.userInfo.aliasPortrait = user.aliasPortrait;
+      this.userInfo.aliasName = user.nickName;
+    });
   },
   onShareAppMessage(res) {
     let { title, imageUrl, path, user } = getApp().globalData;
@@ -110,40 +97,40 @@ export default {
   margin: auto;
   width: 630rpx;
   height: 381rpx;
-  .container{
-      .photo-circle {
-        height: 548rpx;
-        width: 630rpx;
-        margin-top: 40rpx;
+  .container {
+    .photo-circle {
+      height: 548rpx;
+      width: 630rpx;
+      margin-top: 40rpx;
+    }
+    .circle {
+      width: 216rpx;
+      height: 216rpx;
+    }
+    .userinfo-avatar {
+      width: 216rpx;
+      height: 216rpx;
+      border-radius: 50%;
+    }
+    .userinfo-name {
+      .set {
+        color: #4d495b;
       }
-      .circle {
-        width: 216rpx;
-        height: 216rpx;
+      input {
+        margin-top: 12rpx;
+        border-radius: 2rpx;
+        height: 84rpx;
+        width: 550rpx;
+        padding-left: 20rpx;
+        background-color: rgba(189, 189, 192, 0.15);
       }
-      .userinfo-avatar {
-        width: 216rpx;
-        height: 216rpx;
-        border-radius: 50%;
-      }
-      .userinfo-name {
-        .set{
-          color: #4D495B
-        }
-        input {
-          margin-top: 12rpx;
-          border-radius: 2rpx;
-          height: 84rpx;
-          width: 550rpx;
-          padding-left:20rpx;
-          background-color: rgba(189, 189, 192, .15);
-        }
-      }
-      .userinfo-text {
-        margin-top: 40rpx;
-        display: block;
-        color: #a9a9a9;
-        font-size: 28rpx;
-      }
+    }
+    .userinfo-text {
+      margin-top: 40rpx;
+      display: block;
+      color: #a9a9a9;
+      font-size: 28rpx;
+    }
   }
   .saveButton {
     width: 316rpx;

@@ -15,7 +15,7 @@
           <span class="welfare_content">用户可以使用 9.9 元人民币购买 1 张解忧券。</span>
         </div>
         <div class="exchange  flex center">
-          <button @click="pay" class="flex center">购买</button>
+          <button @click="toPay" class="flex center">购买</button>
         </div>
       </div>
       <div class="list_item flex  j-between ">
@@ -28,7 +28,7 @@
           <span class="welfare_content">解忧券用于向 Tell 烦恼咨询中心提交烦恼咨询，你可以使用10张邮票兑换 1 张解忧券。</span>
         </div>
         <div class="exchange  flex center">
-          <button @click="exchange" class="flex center">兑换</button>
+          <button @click="toExchange" class="flex center">兑换</button>
         </div>
       </div>
       <div class="list_item flex  j-between ">
@@ -57,7 +57,7 @@
           <span class="welfare_content">用户可在此跳转到解答室。</span>
         </div>
         <div class="exchange  flex center">
-          <button @click="reply" class="flex center">去解答</button>
+          <button @click="toReply" class="flex center">去解答</button>
         </div>
       </div>
       <div class="list_item flex  j-between ">
@@ -70,7 +70,7 @@
           <span class="welfare_content">用户可在此跳转到「安利 Tell 给好友」页面。</span>
         </div>
         <div class="exchange flex center">
-          <button open-type="share" class="flex center ">去安利
+          <button @click="toShare" class="flex center ">去安利
           </button>
         </div>
       </div>
@@ -97,11 +97,11 @@ import Modal from "@/components/Modal";
 export default {
   components: {
     Modal
-  }, 
+  },
   data() {
     return {
       active: "solution",
-      isShowModal: false,
+      isShowModal: false
     };
   },
   onShareAppMessage(res) {
@@ -117,32 +117,37 @@ export default {
     toggle(tab) {
       this.active = tab;
     },
-    reply() {},
-    async exchange() {
+    toReply() {
+      this.$router.push({ path: "/pages/solution/solutionRoom" });
+    },
+    toShare() {
+      this.$router.push({ path: "/pages/share/share" });
+    },
+    async toExchange() {
       let res = await this.$request.post("/task/exchange");
       wx.showModal({
-        title: '提示',
-        content: '确定要兑换？',
+        title: "提示",
+        content: "确定要兑换？",
         showCancel: true,
-        cancelText: '取消',
-        cancelColor: '#000000',
-        confirmText: '确定',
-        confirmColor: '#3CC51F',
-        success: (result) => {
-          if(result.confirm){
-              if (res.success) {
-                wx.hideLoading();
-                wx.showToast({ title: "兑换成功" });
-              } else {
-                wx.showToast({ title: res.message ,icon: "none" });
-              }
+        cancelText: "取消",
+        cancelColor: "#000000",
+        confirmText: "确定",
+        confirmColor: "#3CC51F",
+        success: result => {
+          if (result.confirm) {
+            if (res.success) {
+              wx.hideLoading();
+              wx.showToast({ title: "兑换成功" });
+            } else {
+              wx.showToast({ title: res.message, icon: "none" });
+            }
           }
         },
-        fail: ()=>{},
-        complete: ()=>{}
+        fail: () => {},
+        complete: () => {}
       });
     },
-    async pay() {
+    async toPay() {
       wx.showLoading({
         title: "",
         mask: true
@@ -167,25 +172,23 @@ export default {
         });
       }
     },
-    FocusServer(){
+    FocusServer() {
       this.$router.push({
-          query: { page: "FocusServer" },
-          path: "/pages/webview/index"
+        query: { page: "FocusServer" },
+        path: "/pages/webview/index"
       });
     },
-    FocusSubscript(){
+    FocusSubscript() {
       this.$router.push({
-          query: { page: "FocusSubscript" },
-          path: "/pages/webview/index"
+        query: { page: "FocusSubscript" },
+        path: "/pages/webview/index"
       });
     }
   },
-  onShow(){
-    const {
-      currentRoute: { query }
-    } = this.$router;
-    this.active = query.active || 'solution';
-  }  
+  onShow() {
+    const { currentRoute: { query } } = this.$router;
+    this.active = query.active || "solution";
+  }
 };
 </script>
 <style lang="less" scope>
@@ -201,7 +204,7 @@ page{
   .count {
     color: #ffc86d;
     margin-left: 8rpx;
-    font-weight: 600
+    font-weight: 600;
   }
 }
 .list_item_span {
@@ -211,14 +214,14 @@ page{
 .exchange {
   margin-left: 40rpx;
   & button {
-    box-sizing:border-box;
-    border:#ffc86d 2rpx solid;
-    border-radius:32rpx;
-    height:64rpx;
-    width:168rpx;
-    font-size:28rpx;
-    color:#2b2b2b;
-    font-weight:600;
+    box-sizing: border-box;
+    border: #ffc86d 2rpx solid;
+    border-radius: 32rpx;
+    height: 64rpx;
+    width: 168rpx;
+    font-size: 28rpx;
+    color: #2b2b2b;
+    font-weight: 600;
   }
 }
 .welfare_content {
