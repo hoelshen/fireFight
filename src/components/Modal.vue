@@ -79,11 +79,19 @@ export default {
       },
       enSure(){
           this.isShowModal = false;
+          this.clearMash();
           this.$emit("change", this.isShowModal);
       },
       clickMask(){
           this.isShowModal = false;
           this.$emit("change", this.isShowModal);
+      },
+      clearMash(){
+        this.title="";
+        this.sure="";
+        this.type="";
+        this.confirm="";
+        this.content="";
       },
       stopkMask(){}
   },
