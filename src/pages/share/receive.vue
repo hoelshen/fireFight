@@ -83,7 +83,7 @@ page {
   width: 630rpx;
   height: 720rpx;
   background-color: #4d495b;
-  background-image: url("https://cdn.tellers.cn/tell_v2/static/share_mine.jpg");
+  background-image: url("https://cdn.tellers.cn/tell_v2/static/share_mine_v3.jpg");
   background-size: cover;
   .up {
     height: 472rpx;
