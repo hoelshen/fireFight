@@ -60,7 +60,7 @@ export default {
       isDisplay: true,
       day: day,
       aliasName: "",
-      isFocus: true,
+      isFocus: false,
       ticketCount: 0,
       isShowModal: false,
       modal: {
@@ -131,8 +131,9 @@ export default {
       this.aliasName = e.detail.value;
     },
     hidenMethod() {
-      this.isFocus = true;
-      console.log('this.isFocus : ', this.isFocus );
+      setTimeout(function() {
+        this.isFocus = true;
+      }.bind(this),1000)
       this.hidenText = false;
       this.isDisplay = false;
     },

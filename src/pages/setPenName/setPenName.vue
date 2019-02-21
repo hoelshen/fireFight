@@ -82,6 +82,7 @@ export default {
     this.$request.getUser().then(() => {
       const { user } = getApp().globalData;
       this.aliasPortrait = user.aliasPortrait;
+      this.userInfo.aliasPortrait = user.aliasPortrait;
       this.userInfo.aliasName = user.nickName;
     });
   },
@@ -97,7 +98,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-page{
+page {
   background-color: #ffffff;
 }
 .app {
@@ -135,7 +136,7 @@ page{
     .userinfo-text {
       margin-top: 40rpx;
       display: block;
-      color: #bdbdc0;      
+      color: #bdbdc0;
       font-size: 28rpx;
     }
   }

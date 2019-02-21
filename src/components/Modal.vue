@@ -125,6 +125,8 @@ export default {
 }
 .content {
   margin: 40rpx 60rpx 60rpx 60rpx;
+  white-space:normal;
+  line-height:52rpx;
   & image {
     width: 550rpx;
     height: 244rpx;
