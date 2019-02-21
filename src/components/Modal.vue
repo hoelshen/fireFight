@@ -84,6 +84,7 @@ export default {
       },
       clickMask(){
           this.isShowModal = false;
+          this.clearMash();
           this.$emit("change", this.isShowModal);
       },
       clearMash(){

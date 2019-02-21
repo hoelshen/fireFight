@@ -154,6 +154,11 @@ export default {
     },
     showModal() {
       this.isShowModal = false;
+      this.modal.title="";
+      this.modal.sure="";
+      this.modal.type="";
+      this.modal.confirm="";
+      this.modal.content="";
     }
   },
   onShow() {

@@ -83,6 +83,11 @@ export default {
     },
     showModal() {
       this.isShowModal = false;
+      this.modalTitle="";
+      this.modalContent="";
+      this.confirm="";
+      this.type="";
+      this.sure="";
     },
     toSolution() {
       const { user } = getApp().globalData;
