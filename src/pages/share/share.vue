@@ -87,6 +87,7 @@ page {
 .page {
   height: 100vh;
   padding: 40rpx 60rpx;
+  background: #ffffff;
 }
 
 .img {

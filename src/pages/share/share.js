@@ -7,8 +7,8 @@ app.$mount();
 
 export default {
   config: {
-    navigationBarBackgroundColor: "#4D495B",
-    navigationBarTextStyle: "white",
+    navigationBarBackgroundColor: "#ffffff",
+    navigationBarTextStyle: "black",
     navigationBarTitleText: "分享给好友",
     backgroundColor: "#4D495B",
     disableScroll: true

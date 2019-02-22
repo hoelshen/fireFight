@@ -37,6 +37,7 @@ export default {
       if (this.isDisable) {
         return false;
       }
+      this.$request.setRelogin();
       wx.reLaunch({
         url: "/pages/home/index"
       });

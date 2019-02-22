@@ -1,12 +1,13 @@
 import flyio from "flyio/dist/npm/wx";
 import { promisify } from "@/utils/index";
 
-const environment = "test"; // 配置环境
+const environment = "prod"; // 配置环境
 
 const fly = new flyio();
 let cookies = [],
   token = "",
   tryCount = 0;
+let isRelogin = false;
 
 fly.config.baseURL = getBaseURL(environment);
 fly.config.headers["Accept"] = "application/json";
@@ -23,6 +24,10 @@ function getBaseURL(env) {
     default:
       return "https://api.tellers.cn/teller-v2";
   }
+}
+
+function setRelogin(){
+  isRelogin = true;
 }
 
 function showError(message, status, request) {
@@ -84,6 +89,7 @@ async function login() {
   } else if (query.refer) {
     loginUrl += `&refer=${query.refer}`;
   }
+  isRelogin = false;
   let logRes = await fly.get(loginUrl);
   logLogin(); // 上报登陆信息
   return (getApp().globalData.user = logRes.data);
@@ -159,7 +165,9 @@ fly.interceptors.request.use(async function(request) {
   if (/login\?code=/.test(request.url)) {
     return request;
   }
-  if (!token) {
+  if (isRelogin){
+    await login();
+  }else if(!token){
     await waitingLogin();
   }
   request.headers["Cookie"] = cookies;
@@ -199,5 +207,5 @@ fly.login = login;
 fly.saveFormid = saveFormid;
 fly.uploadFile = uploadFile;
 fly.getUser = getUser;
-
+fly.setRelogin = setRelogin;
 export default fly;
