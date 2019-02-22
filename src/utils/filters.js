@@ -16,17 +16,3 @@ exports.momentFormat = (value) => {
     return arrivedTime.format('HH:mm');
 
 }
-exports.checkComment = (value) => {
-    if (value.length < 35) {
-        wx.showToast({
-            title: '',
-            duration: 1500,
-            mask: false,
-            success: (result) => {
-                console.log(result)
-            },
-            fail: () => {},
-            complete: () => {}
-        });
-    }
-}

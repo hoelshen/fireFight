@@ -2,12 +2,8 @@
   <view class="app flex column j-between">
     <div class="soDetail">
       <div class="title">选择你最愿意看到的话题</div>
-      <div class="tag box" hover-class="active" 
-          :class="activeIndex == index ?'lightColor' :''"
-          v-for="(item,index) in titles" 
-          :key="index" @click="select(index)"
-      >
-      {{item.name}}
+      <div class="tag box" hover-class="active" :class="activeIndex == index ?'lightColor' :''" v-for="(item,index) in titles" :key="index" @click="select(index)">
+        {{item.name}}
       </div>
     </div>
     <div class="foot">
@@ -24,33 +20,27 @@ export default {
       titles: [],
       title: {},
       isFlag: false,
-      activeIndex:-1,
+      activeIndex: -1,
       islightColor: false
     };
   },
   methods: {
-    async tag() {
-      await this.$request
-        .get("/tag")
-        .then(res => {
-          this.titles = res.data;
-        })
-        .catch(err => {
-          return console.log(err);
-        });
+    async getTags() {
+      let res = await this.$request.get("/tag");
+      this.titles = res.data;
     },
     select(index) {
       this.title = this.titles[index];
-      this.activeIndex =index;
+      this.activeIndex = index;
     },
     add() {
-      if(!this.title._id) {
+      if (!this.title._id) {
         return wx.showToast({
-          title: '请选择标签',
-          icon: 'none',
-          image: '',
+          title: "请选择标签",
+          icon: "none",
+          image: "",
           duration: 1500,
-          mask: false,
+          mask: false
         });
       }
       this.$request.put("/tag", { _id: this.title._id });
@@ -58,15 +48,13 @@ export default {
     }
   },
   onShow() {
-    const {
-      currentRoute: { query }
-    } = this.$router;
+    const { currentRoute: { query } } = this.$router;
     const { user } = getApp().globalData;
     if (user.becomeAnswererAt) {
       this.isFlag = true;
     }
     this.active = query.active;
-    this.tiltes = this.tag();
+    this.tiltes = this.getTags();
   },
   onShareAppMessage(res) {
     let { title, imageUrl, path, user } = getApp().globalData;
@@ -93,12 +81,12 @@ export default {
     margin-bottom: 40rpx;
   }
 }
-.lightColor{
+.lightColor {
   border: 2rpx #ffc86d solid;
   background-color: #ffffff;
 }
-.darkButton{
-    width: 358rpx;
+.darkButton {
+  width: 358rpx;
 }
 .titleButtonSpan {
   color: #a9a9a9;

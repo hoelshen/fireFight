@@ -42,7 +42,6 @@ export default {
               let data = JSON.parse(res.data);
               this.aliasPortrait = data.data;
               this.userInfo.aliasPortrait = data.data;
-              console.log("设置成功");
             }.bind(this)
           );
         }.bind(this),

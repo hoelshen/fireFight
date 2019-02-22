@@ -47,27 +47,11 @@ export default {
         .catch(err => {
           wx.hideLoading();
         });
-    },
-    checkUserInfoPermission(callback = () => {}) {
-      wx.getSetting({
-        success: result => {
-          if (!result.authSetting["scope.userInfo"]) {
-            wx.openSetting({
-              success(authSetting) {
-                console.log(authSetting);
-              }
-            });
-          }
-        },
-        fail: () => {},
-        complete: () => {}
-      });
     }
   },
   onShow() {
     let { user } = getApp().globalData;
     this.userInfo = user;
-    console.log("this.userInfo: ", this.userInfo);
   },
   onShareAppMessage(res) {
     let { title, imageUrl, path, user } = getApp().globalData;

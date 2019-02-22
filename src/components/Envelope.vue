@@ -46,9 +46,6 @@ export default {
   data() {
     return {};
   },
-  created(){
-    console.log(this.mail);
-  },
   methods: {
     toMail() {
       if (this.station === 'dialogId') {
@@ -64,7 +61,6 @@ export default {
         });
       } 
       if(this.station === 'memory') {
-        console.log('memory');
         this.$router.push({
           query:{id: this.mail._id},
           path: "/pages/memory/detail"
