@@ -2,7 +2,7 @@
   <div class="faq flex column">
     <scroll-view class="items grow box" scroll-y>
       <div class="item">
-        <div class="t">关于投递箱</div>
+        <div class="t">关于咨询箱</div>
         <div class="q">Q：我写的咨询谁会收到？</div>
         <div class="a">A：我们会在每晚 22:30 将咨询箱中的信收集到解答室，按照一定规则随机分发给解答者，并利用算法尽量确保每个咨询被若干个适合的解答者看到，以增加被回复的概率。
         </div>

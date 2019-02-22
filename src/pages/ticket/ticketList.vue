@@ -3,7 +3,7 @@
     <div class="list" style="margin-left:0">
       <div class="ticketList flex j-between" @tap="welfareDetail('mail')">
         <div class="flex center">
-          <image class="iconfont" src="/static/svgs/solutionNum.svg"/>
+          <image class="iconfont" src="/static/svgs/stamp-icon.svg"/>
           <span class="my_contact_item-text">邮票</span>
         </div>
         <div class="flex center">
@@ -13,7 +13,7 @@
       </div>
       <div class="solutionList flex j-between" @tap="welfareDetail('solution')">
         <div class="flex center">
-          <image class="iconfont" src="/static/svgs/mailNum.svg"/>
+          <image class="iconfont" src="/static/svgs/ticket.svg"/>
           <span class="my_contact_item-text">解忧券</span>
         </div>
         <div class="flex center">
@@ -39,9 +39,11 @@ export default {
   },
   methods: {
     getList() {
-      const { user } = getApp().globalData;
-      this.stampCount = user.stampCount;
-      this.ticketCount = user.ticketCount;
+      this.$request.getUser().then(res => {
+        const data = res.data;
+        this.stampCoun = data.stampCount;
+        this.ticketCount = data.ticketCount;
+      });
     },
     ticketDetail(tab = "ticket") {
       this.$router.push({ path: "/pages/ticket/ticketDetail" });

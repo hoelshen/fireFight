@@ -75,24 +75,14 @@ export default {
               });
           }
           if(this.title === "Tell 住址") {}
-
+          this.$emit("change", this.isShowModal);
+          
       },
       enSure(){
-          this.isShowModal = false;
-          this.clearMash();
           this.$emit("change", this.isShowModal);
       },
       clickMask(){
-          this.isShowModal = false;
-          this.clearMash();
           this.$emit("change", this.isShowModal);
-      },
-      clearMash(){
-        this.title="";
-        this.sure="";
-        this.type="";
-        this.confirm="";
-        this.content="";
       },
       stopkMask(){}
   },

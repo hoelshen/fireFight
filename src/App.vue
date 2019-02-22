@@ -51,9 +51,6 @@ export default {
       replyCount: 1
     };
   },
-  onUnload(){
-    wx.clearStorage();
-  }
 };
 
 </script>
