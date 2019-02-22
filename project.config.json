@@ -1,7 +1,7 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": false,
 		"postcss": true,
 		"minified": false,
@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 27,
+			"current": 18,
 			"list": [
 				{
 					"id": -1,
@@ -149,8 +149,8 @@
 					"scene": null
 				},
 				{
-					"id": 22,
-					"name": "回信完成提示页",
+					"id": 18,
+					"name": "回信完成",
 					"pathName": "pages/solution/promptPage",
 					"query": "targetUser=&active=solution",
 					"scene": null

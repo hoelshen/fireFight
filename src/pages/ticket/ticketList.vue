@@ -33,14 +33,14 @@ export default {
   data() {
     return {
       list: {},
-      stampCount: 1,
-      ticketCount: 1
+      stampCount: 0,
+      ticketCount: 0
     };
   },
   methods: {
     getList() {
       this.$request.getUser().then(res => {
-        this.stampCoun = res.stampCount;
+        this.stampCount = res.stampCount;
         this.ticketCount = res.ticketCount;
       });
     },
