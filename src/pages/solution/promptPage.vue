@@ -29,25 +29,36 @@
       </div>
     </div>
     <button class="lightButton" @click="sure">好的</button>
+
+    <Modal v-if="isShowModal" :title="modalTitle" :content="modalContent" :confirm="confirm" :sure="sure" @change="showModal"></Modal>
   </div>
 </template>
 
 
 <script>
-export default { 
+import Modal from "@/components/Modal";
+export default {
+  components: {
+    Modal
+  }, 
   data() {
     return {
       targetUser: "",
       active: "",
-      isShowModal: false
+      isShowModal: false,
+      modalTitle: "",
+      type: "",
+      confirm: "",
+      sure: ""
     };
   },
   methods: {
     attention(){
-        this.$router.push({
-            query: { page: "FocusServer" },
-            path: "/pages/webview/index"
-        });     
+    this.isShowModal = true;
+    this.modalTitle = "关注服务号";
+    this.type="server";
+    this.confirm = "CONFRIM";
+    this.sure = "马上开始";   
     },
     sure() {
       this.$router.reLaunch({
@@ -56,7 +67,11 @@ export default {
       });
     },
     showModal(){
-      this.isShowModal = false
+      this.isShowModal = false;
+      this.modalTitle = "";
+      this.type="";
+      this.confirm = "";
+      this.sure = "";   
     }
   },
   onShow() {

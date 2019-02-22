@@ -88,7 +88,7 @@
         </div>
       </div>
     </session>
-    <Modal v-if="isShowModal" :title="modalTitle" :content="modalContent" :confirm="confirm" :sure="sure" @change="showModal"></Modal>
+    <Modal v-if="isShowModal" :type="modalType" :title="modalTitle" :content="modalContent" :confirm="modalConfirm" :sure="modalSure" @change="showModal"></Modal>
   </view>
 </template>
 <script>
@@ -101,7 +101,7 @@ export default {
   data() {
     return {
       active: "solution",
-      isShowModal: false
+      isShowModal: false,
     };
   },
   onShareAppMessage(res) {
@@ -173,16 +173,25 @@ export default {
       }
     },
     FocusServer() {
-      this.$router.push({
-        query: { page: "FocusServer" },
-        path: "/pages/webview/index"
-      });
+      this.isShowModal = true;
+      this.modalTitle = "关注服务号";
+      this.modalType="server";
+      this.modalConfirm = "server";
+      this.modalSure = "马上开始";  
     },
     FocusSubscript() {
-      this.$router.push({
-        query: { page: "FocusSubscript" },
-        path: "/pages/webview/index"
-      });
+      this.isShowModal = true;
+      this.modalTitle = "关注订阅号";
+      this.modalType="subscript";
+      this.modalConfirm = "subscript";
+      this.modalSure = "马上开始";  
+    },
+    showModal(){
+      this.isShowModal = false;
+      this.modalTitle = "";
+      this.modalType="";
+      this.modalConfirm = "";
+      this.modalSure = "";  
     }
   },
   onShow() {

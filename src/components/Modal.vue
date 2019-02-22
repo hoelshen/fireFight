@@ -8,12 +8,14 @@
                 {{content}}
             </cover-view>
             <cover-view v-else class="content">
+                <cover-image v-if="type === 'server'"src="/static/jpg/server_guide.jpg" alt=""/>
+                <cover-image v-if="type === 'subscript'"src="/static/jpg/subscript_guide.jpg" alt=""/>
                 <cover-image v-if="type === 'group'"src="/static/jpg/join_group_guide.jpg" alt=""/>
             </cover-view>
             <cover-view class="btn">
                 <button v-if="type === 'CONFIRM' " class="confirm darkButton" @click="enConfirm">{{confirm}}</button>
-                <button v-if="type === 'group'" open-type="contact" :show-message-card="true" :send-message-img="imgUrl" :send-message-title="title" :session-from="`nickName'${user.aliasName}, 'avatarUrl':${user.aliasPortrait}`" class="sure darkButton" @click="enSure">{{sure}}</button>
-                <button v-if="type !== 'group' " class="sure lightButton" @click="enSure">{{sure}}</button>
+                <button v-if="type === 'group' || type === 'server'  || type === 'subscript'" open-type="contact" :show-message-card="true" :send-message-img="imgUrl" :send-message-title="title" :session-from="`nickName'${user.aliasName}, 'avatarUrl':${user.aliasPortrait}`" class="sure darkButton" @click="enSure">{{sure}}</button>
+                <button v-else class="sure lightButton" @click="enSure">{{sure}}</button>
             </cover-view>
         </cover-view>
     </cover-view>
@@ -90,6 +92,15 @@ export default {
       const { user } = getApp().globalData;
       this.user.aliasName = user.aliasName;
       this.user.aliasPortrait = user.aliasPortrait;
+      console.log('this.type: ', this.type);
+      if(this.confirm === "server"){
+        this.img = true;
+          this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/service_accout.jpg"        
+      }
+      if(this.confirm === "subscript"){
+        this.img = true;
+          this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/subscribe_accout.jpg"        
+      }
       if(this.confirm === "group"){
           this.img = true;
           this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/join_group.jpg"
