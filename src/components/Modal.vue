@@ -92,7 +92,6 @@ export default {
       const { user } = getApp().globalData;
       this.user.aliasName = user.aliasName;
       this.user.aliasPortrait = user.aliasPortrait;
-      console.log('this.type: ', this.type);
       if(this.confirm === "server"){
         this.img = true;
           this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/service_accout.jpg"        
