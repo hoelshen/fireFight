@@ -40,9 +40,8 @@ export default {
   methods: {
     getList() {
       this.$request.getUser().then(res => {
-        const data = res.data;
-        this.stampCoun = data.stampCount;
-        this.ticketCount = data.ticketCount;
+        this.stampCoun = res.stampCount;
+        this.ticketCount = res.ticketCount;
       });
     },
     ticketDetail(tab = "ticket") {

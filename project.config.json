@@ -1,13 +1,14 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": false,
 		"postcss": true,
 		"minified": false,
 		"newFeature": true,
 		"nodeModules": false,
-		"autoAudits": false
+		"autoAudits": false,
+		"uglifyFileName": false
 	},
 	"miniprogramRoot": "dist-wechat/",
 	"cloudfunctionRoot": "server/cloudFunctions/",
@@ -43,12 +44,6 @@
 				},
 				{
 					"id": -1,
-					"name": "主页",
-					"pathName": "pages/home/index",
-					"query": ""
-				},
-				{
-					"id": -1,
 					"name": "设置笔名",
 					"pathName": "pages/setPenName/index",
 					"query": ""
@@ -64,13 +59,6 @@
 					"name": "咨询箱",
 					"pathName": "pages/consultingBox/consultingBox",
 					"query": ""
-				},
-				{
-					"id": 5,
-					"name": "信箱",
-					"pathName": "pages/home/index",
-					"query": "tab=mail",
-					"scene": null
 				},
 				{
 					"id": 7,
@@ -92,12 +80,6 @@
 					"query": ""
 				},
 				{
-					"id": 10,
-					"name": "徽章页面",
-					"pathName": "pages/badge/index",
-					"query": "active=\"\""
-				},
-				{
 					"id": 11,
 					"name": "详情页面-每日解答上限说明",
 					"pathName": "pages/detail/index",
@@ -108,12 +90,6 @@
 					"name": "解答室——咨询信",
 					"pathName": "pages/solution/solutionReply",
 					"query": "id=5c458a3a0a868a16f8377223"
-				},
-				{
-					"id": -1,
-					"name": "主页",
-					"pathName": "pages/home/index",
-					"query": ""
 				},
 				{
 					"id": 14,
@@ -195,9 +171,9 @@
 				},
 				{
 					"id": 25,
-					"name": "领取解忧券",
+					"name": "领取解忧券 - 服务号",
 					"pathName": "pages/share/receive",
-					"query": "type=invite",
+					"query": "type=service",
 					"scene": null
 				},
 				{
@@ -211,7 +187,7 @@
 					"id": -1,
 					"name": "申请解答者成功",
 					"pathName": "pages/solution/becomeSolutor",
-					"query": "type=invite",
+					"query": "",
 					"scene": null
 				}
 			]
