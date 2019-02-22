@@ -58,6 +58,10 @@
           <button @click="FocusSubscript" class="flex center ">去关注</button>
         </div>
       </div>
+
+      <div class="desc box flex center">
+        解忧券最大持有量为 3 张，超出部分自动销毁
+      </div>
     </session>
     <session class="list" v-if="active === 'mail'">
       <div class="list_item flex  j-between ">
@@ -241,6 +245,16 @@ page{
 
 .iconfont {
   margin-left: 20rpx;
+}
+
+.desc{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: #BDBDC0;
+  font-size: 28rpx;
+  padding: 60rpx;
 }
 </style>
 
