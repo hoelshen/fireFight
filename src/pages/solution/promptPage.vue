@@ -17,7 +17,8 @@
             </div>
           </div>
           <div class="flex column targer" v-if="active === 'story'">
-            <span>我们会在每日 22:30 收集咨询箱中的信</span>
+            <div class="line">我们会在每日 22:30</div>
+            <div class="line">收集咨询箱中的信</div>
           </div>
           <image class="home flex center" src="/static/jpg/focusServer.jpg">
           </image>
@@ -110,6 +111,10 @@ export default {
 .targer {
   margin-top: 40rpx;
   font-size: 34rpx;
+  color: #4D495B;
+  .line{
+    line-height: 52rpx;
+  }
 }
 .home{
   margin-top:94rpx;
@@ -122,7 +127,8 @@ export default {
   position:absolute;
   background-color:transparent;
   label{
-    line-height: 52rpx
+    line-height: 52rpx;
+    text-align: center;
   }
 }
 .textAlign{
