@@ -15,13 +15,13 @@ dayjs.prototype.timeQual = function () {
     if (13 < val && val <= 17) {
         value = "下午好"
     }
-    if ((17 < val && val <= 19)) {
+    if ((17 < val && val < 19)) {
         value = "傍晚好"
     }
-    if (19 < val && val <= 23) {
+    if (19 <= val && val <= 23) {
         value = "晚上好"
     }
-    if (1 < val && val <= 5) {
+    if (0 < val && val <= 5) {
         value = "深夜好"
     }
     return value;
