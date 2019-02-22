@@ -76,7 +76,7 @@ export default {
   font-size: 34rpx;
 }
 .foot {
-  margin: 300rpx 60rpx 60rpx 60rpx;
+  margin: 60rpx;
   & button {
     margin-bottom: 40rpx;
   }
