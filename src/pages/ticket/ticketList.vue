@@ -8,7 +8,7 @@
         </div>
         <div class="flex center">
           <button class="btnStyle btnWidth flex center" @click="mailTicket">{{stampCount}}</button>
-          <image style="margin-left:74rpx" class="iconfont" src="/static/svgs/arrow.svg"/>
+          <image class="iconfont" src="/static/svgs/arrow.svg"/>
         </div>
       </div>
       <div class="solutionList flex j-between" @tap="welfareDetail('solution')">
@@ -18,7 +18,7 @@
         </div>
         <div class="flex center">
           <button class="btnStyle btnWidth flex center" @click="solutionTicket">{{ticketCount}}</button>
-          <image style="margin-left:74rpx" class="iconfont" src="/static/svgs/arrow.svg"/>
+          <image  class="iconfont" src="/static/svgs/arrow.svg"/>
         </div>
       </div>
     </div>
@@ -96,6 +96,7 @@ page{
 }
 .btnWidth {
   height: 56rpx;
+  font-size: 34rpx;
 }
 
 .addButton {
