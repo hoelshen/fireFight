@@ -152,11 +152,11 @@ export default {
   margin-bottom: 60rpx;
 }
 .btns {
-  padding-bottom: 50rpx;
+  padding-bottom: 44rpx;
   .btn {
     width: 316rpx;
     height: 92rpx;
-    margin-bottom: 30rpx;
+    margin-bottom: 14rpx;
   }
 }
 </style>
