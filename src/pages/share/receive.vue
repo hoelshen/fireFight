@@ -49,7 +49,7 @@ export default {
           title: "领取成功",
           icon: "none"
         });
-        this.toHome();
+        this.isReceived = true;
       }
     },
     toHome() {
