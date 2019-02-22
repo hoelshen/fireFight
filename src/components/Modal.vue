@@ -14,7 +14,7 @@
             </cover-view>
             <cover-view class="btn">
                 <button v-if="type === 'CONFIRM' " class="confirm darkButton" @click="enConfirm">{{confirm}}</button>
-                <button v-if="type === 'group' || type === 'server'  || type === 'subscript'" open-type="contact" :show-message-card="true" :send-message-img="imgUrl" :send-message-title="title" :session-from="`nickName'${user.aliasName}, 'avatarUrl':${user.aliasPortrait}`" class="sure darkButton" @click="enSure">{{sure}}</button>
+                <button v-if="type === 'group' || type === 'server'  || type === 'subscript'" open-type="contact" :show-message-card="true" :send-message-img="imgUrl" :send-message-title="filterTitle" :session-from="`nickName'${user.aliasName}, 'avatarUrl':${user.aliasPortrait}`" class="sure darkButton" @click="enSure">{{sure}}</button>
                 <button v-else class="sure lightButton" @click="enSure">{{sure}}</button>
             </cover-view>
         </cover-view>
@@ -54,7 +54,8 @@ export default {
     return {
       img: false,
       user: {},
-      type: "no"
+      type: "no",
+      filterTitle: ""
     };
   },
   methods:{
@@ -78,7 +79,6 @@ export default {
           }
           if(this.title === "Tell 住址") {}
           this.$emit("change", this.isShowModal);
-          
       },
       enSure(){
           this.$emit("change", this.isShowModal);
@@ -93,15 +93,16 @@ export default {
       this.user.aliasName = user.aliasName;
       this.user.aliasPortrait = user.aliasPortrait;
       if(this.confirm === "server"){
-        this.img = true;
+          this.img = true;
           this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/service_accout.jpg"        
       }
       if(this.confirm === "subscript"){
-        this.img = true;
+          this.img = true;
           this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/subscribe_accout.jpg"        
       }
       if(this.confirm === "group"){
           this.img = true;
+          this.filterTitle = "加群";
           this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/join_group.jpg"
       }
   },
