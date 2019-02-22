@@ -74,7 +74,7 @@ export default {
           }
           if(this.confirm === "前往解答室") {
               this.$router.push({
-                  path: "/pages/solution/solutionDetail"
+                  path: "/pages/solution/tags"
               });
           }
           if(this.title === "Tell 住址") {}

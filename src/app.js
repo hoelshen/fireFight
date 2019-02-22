@@ -31,14 +31,14 @@ export default {
       "pages/mail/mailDay", //正在路上的信
       "pages/mail/mailDetail", //回信
       "pages/consultingBox/consultingBox", //咨询箱
-      "pages/solution/solutionDetail", //成为解答者
+      "pages/solution/tags", //成为解答者
       "pages/solution/solutionRoom", //解答室
       "pages/solution/solutionReply", //信件
       "pages/solution/becomeSolutor", //信件
       "pages/solution/promptPage", //回信之后的提示页
-      "pages/myStory/index", //我的故事
-      "pages/setPenName/index", //设置笔名
-      "pages/detail/index", //详细说明
+      "pages/consultingBox/myStory", //我的故事
+      "pages/penName/index", //设置笔名
+      "pages/manual/index", //详细说明
       "pages/ticket/ticketDetail", //票券明细
       "pages/ticket/ticketList", //票券
       "pages/welfare/index", //福利社

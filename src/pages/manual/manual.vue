@@ -19,42 +19,12 @@
         </div>
       </div>
     </div>
-
-    <div v-if="active === 'solutionLimit'">
-      <div class="solutionLimit_title">每日收取到的咨询以及可解答次数与你持有的徽章会有关，具体关系如下</div>
-      <view class="table">
-        <view class="tr bg-w">
-          <view class="th">持有徽章</view>
-          <view class="th">每日收取</view>
-          <view class="th">每日可解答</view>
-        </view>
-        <block v-for="(item,index) in listData" :key="index">
-          <view class="tr bg-g" v-if="index % 2 == 0">
-            <view class="td">
-              <!-- <img
-                :src="item.imgUrl"
-                alt=""
-              >-->
-              <span>{{item.name}}</span>
-            </view>
-            <view class="td">{{item.mailboxLimit}}</view>
-            <view class="td">{{item.replyLimit}}</view>
-          </view>
-
-          <view class="tr" v-else>
-            <view class="td">{{item.name}}</view>
-            <view class="td">{{item.mailboxLimit}}</view>
-            <view class="td">{{item.replyLimit}}</view>
-          </view>
-        </block>
-      </view>
-    </div>
   </view>
 </template>
 
 <script>
 export default {
-  name: "Tdetail",
+  name: "Manual",
   data() {
     return {
       active: "solverDetail",
@@ -85,9 +55,9 @@ export default {
       const { user } = getApp().globalData;
       if (this.checked) {
         if (!user.authAt)
-          return this.$router.push({ path: "/pages/setPenName/index" });
+          return this.$router.push({ path: "/pages/penName/index" });
 
-        return this.$router.push({ path: "pages/solution/solutionDetail" });
+        return this.$router.push({ path: "pages/solution/tags" });
       } else {
         wx.showToast({
           title: "请同意并遵守《解答者手册》的约定",

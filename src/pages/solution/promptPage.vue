@@ -3,11 +3,11 @@
     <div class="prompt flex column center grow">
       <div class="promptDiv flex column center" >
           <div class="flex column targer" v-if="active === 'solution'">
-            <div>
+            <div class="textAlign">
               您已解答
               <span class="promptSpn">{{targetUser}}</span>的咨询
             </div>
-            <span>若被对方感谢，还将获得 1 张邮票</span>
+            <span class="textAlign">若被对方感谢，还将获得 1 张邮票</span>
           </div>
           <div class="flex column targer" v-if="active === 'mail'">
             <span>此回信将于 6 小时左右后</span>
@@ -124,6 +124,9 @@ export default {
   label{
     line-height: 52rpx
   }
+}
+.textAlign{
+  text-align: center
 }
 .promptSpn {
   font-weight: 600;

@@ -45,7 +45,7 @@ export default {
     onSolutionLimit() {
       this.$router.push({
         query: { active: "solutionLimit" },
-        path: "/pages/detail/index"
+        path: "/pages/manual/index"
       });
     },
     solutionDetail() {

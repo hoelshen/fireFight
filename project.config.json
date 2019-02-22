@@ -45,13 +45,13 @@
 				{
 					"id": -1,
 					"name": "设置笔名",
-					"pathName": "pages/setPenName/index",
+					"pathName": "pages/penName/index",
 					"query": ""
 				},
 				{
 					"id": 4,
 					"name": "讲述我的故事",
-					"pathName": "pages/myStory/index",
+					"pathName": "pages/consultingBox/myStory",
 					"query": ""
 				},
 				{
@@ -63,7 +63,7 @@
 				{
 					"id": 7,
 					"name": "解答室说明",
-					"pathName": "pages/solution/solutionDetail",
+					"pathName": "pages/solution/tags",
 					"query": "active='solutionLimit’"
 				},
 				{
@@ -82,7 +82,7 @@
 				{
 					"id": 11,
 					"name": "详情页面-每日解答上限说明",
-					"pathName": "pages/detail/index",
+					"pathName": "pages/manual/index",
 					"query": "active=solutionLimit"
 				},
 				{
@@ -138,7 +138,7 @@
 				{
 					"id": 22,
 					"name": "解答室-说明",
-					"pathName": "pages/detail/index",
+					"pathName": "pages/manual/index",
 					"query": "active=solverDetail"
 				},
 				{

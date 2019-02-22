@@ -41,7 +41,7 @@ export default {
         .then(
           function(authRes) {
             wx.hideLoading();
-            this.$router.push({ path: "/pages/setPenName/index" });
+            this.$router.push({ path: "/pages/penName/index" });
           }.bind(this)
         )
         .catch(err => {

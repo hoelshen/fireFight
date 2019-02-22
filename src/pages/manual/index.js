@@ -1,4 +1,4 @@
-import App from './detail'
+import App from './manual'
 import Vue from 'vue'
 
 const app = new Vue(App)

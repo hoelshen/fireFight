@@ -1,4 +1,4 @@
-import App from './setPenName'
+import App from './tags'
 import Vue from 'vue'
 
 const app = new Vue(App)
@@ -9,7 +9,7 @@ export default {
   config: {
     navigationBarBackgroundColor: '#ffffff',
     navigationBarTextStyle: 'black',
-    navigationBarTitleText: '设置笔名和头像',
+    navigationBarTitleText: '申请成为解答者',
     backgroundColor: '#ffffff'
   }
-}
+};

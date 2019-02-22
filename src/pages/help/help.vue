@@ -70,7 +70,7 @@ export default {
       });
       this.$router.push({
         query: { active: "consultative" },
-        path: "/pages/detail/index"
+        path: "/pages/manual/index"
       });
     },
     makePhone(e) {

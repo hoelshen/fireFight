@@ -184,7 +184,7 @@ export default {
         if (!user.becomeAnswererAt) {
           return this.$router.push({
             query: { active: "solverDetail" },
-            path: "/pages/detail/index"
+            path: "/pages/manual/index"
           });
         }
         return this.$router.push({ path: "/pages/solution/solutionRoom" });
@@ -223,7 +223,7 @@ export default {
       if (status) {
         this.$router.push({
           query: { id: 1 },
-          path: "/pages/setPenName/index"
+          path: "/pages/penName/index"
         });
       }
     },
