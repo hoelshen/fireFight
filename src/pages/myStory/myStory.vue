@@ -7,7 +7,7 @@
           <div>· 关键的人物、地点等信息建议使用化名</div>
           <div>· 落款署名尽量不要使用笔名或微信昵称</div>
         </div>
-        <textarea class="textArea" v-else @blur="onBlur" :focus="isFocus" maxlength="5000" cursor-spacing="30" :value="content" @input="bindTextAreaBlur" />
+        <textarea class="textArea" :auto-height="true"  v-else @blur="onBlur" :focus="isFocus" maxlength="5000" cursor-spacing="30" :value="content" @input="bindTextAreaBlur" />
       </div>
       <div class="flex column j-between textName">
         <div class="flex j-end a-center">

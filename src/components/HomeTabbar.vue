@@ -41,19 +41,17 @@ export default {
   },
   created() {
     this.tab = this.active;
+    const model = wx.getSystemInfoSync().model;
+    const SyHeight = ['iPhone X', 'iPhone Xr', 'iPhone Xs', 'iPhone Xs Max']
+     if(SyHeight.includes(model)){
+      this.isIpx = true;
+     }
   },
   data() {
     return {
       tab: "home" ,
       isIpx: false
     };
-  },
-  onShow(){
-   const model = wx.getSystemInfoSync().model;
-   const SyHeight = ['iPhone X', 'iPhone Xr', 'iPhone Xs', 'iPhone Xs Max']
-    if(SyHeight.includes(model)){
-     this.isIpx = true;
-    }
   },
   methods: {
     myInfo(e) {

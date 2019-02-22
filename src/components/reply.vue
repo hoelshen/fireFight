@@ -5,7 +5,7 @@
         <span class="target">{{target}}</span>
         <span class="target" style="margin-left:10rpx;">收</span>
       </div>
-      <textarea :focus="true" class="textArea" maxlength="5000" cursor-spacing="30" :value="reply.content" @input="bindTextAreaBlur"/>
+      <textarea :focus="true" :auto-height="true" class="textArea" maxlength="5000" cursor-spacing="30" :value="reply.content" @input="bindTextAreaBlur"/>
       <div class="reply_weather flex column">
         <div class="flex wrap j-end">
           <img class="reply_weather_name" :src="reply.aliasPortrait">
