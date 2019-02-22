@@ -94,10 +94,12 @@ export default {
       this.user.aliasPortrait = user.aliasPortrait;
       if(this.confirm === "server"){
           this.img = true;
+          this.filterTitle = "关注服务号";
           this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/service_accout.jpg"        
       }
       if(this.confirm === "subscript"){
           this.img = true;
+          this.filterTitle = "关注订阅号";
           this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/subscribe_accout.jpg"        
       }
       if(this.confirm === "group"){
@@ -105,7 +107,7 @@ export default {
           this.filterTitle = "加群";
           this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/join_group.jpg"
       }
-  },
+  }
 };
 </script>
 <style lang="less" scoped>
