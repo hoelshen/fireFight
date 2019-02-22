@@ -254,7 +254,7 @@ export default {
       this.isShowModal = true;
     },
     joinGroup() {
-      this.modal.title = "加群";
+      this.modal.title = "如何加群";
       this.modal.confirm = "group";
       this.modal.type = "group";
       this.modal.sure = "马上开始";

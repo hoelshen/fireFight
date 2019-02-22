@@ -3,11 +3,11 @@
     <div class="appDiv flex column">
       <div class="text shadow">
         <div class="textAreafloat flex column j-start" v-if="isDisplay" @click="hidenMethod">
-          <div style="line-height:52rpx">· 请尽量具体叙述你的故事，便于解答者理解和代入，从而给出具体的解答.</div>
-          <div style="line-height:52rpx">· 关键的人物、地点等信息建议使用化名</div>
-          <div style="line-height:52rpx">· 落款署名尽量不要使用笔名或微信昵称</div>
+          <div>· 请尽量具体叙述你的故事，便于解答者理解和代入，从而给出具体的解答.</div>
+          <div>· 关键的人物、地点等信息建议使用化名</div>
+          <div>· 落款署名尽量不要使用笔名或微信昵称</div>
         </div>
-        <textarea class="textArea shadow" v-else @blur="onBlur" :focus="isFocus" maxlength="5000" cursor-spacing="30" :value="content" @input="bindTextAreaBlur" />
+        <textarea class="textArea" v-else @blur="onBlur" :focus="isFocus" maxlength="5000" cursor-spacing="30" :value="content" @input="bindTextAreaBlur" />
       </div>
       <div class="flex column j-between textName">
         <div class="flex j-end a-center">
@@ -185,6 +185,18 @@ export default {
       imageUrl,
       path
     };
+  },
+  onHide(){ //跳转页面
+    wx.setStorage({
+      key: "story",
+      data: this.content
+    });
+  },
+  onUnload(){ //回退
+    wx.setStorage({
+          key: "story",
+          data: this.content
+    })
   }
 };
 </script>
@@ -201,7 +213,6 @@ export default {
 .textArea {
   min-height: 750rpx;
   background-color: #ffffff;
-  color: black;
   color: #4d495b;
   padding: 40rpx;
   width: 100%;
@@ -228,6 +239,7 @@ export default {
 .textAreafloat {
   min-height: 750rpx;
   margin: 40rpx;
+  line-height:52rpx;
   color: rgba(169, 169, 169, 1);
   background-color: #ffffff;
 }
