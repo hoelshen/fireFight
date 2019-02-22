@@ -109,6 +109,5 @@ export default {
     font-weight: 600;
   }
 }
-.consultingBox_detail{
-}
+
 </style>

@@ -28,7 +28,7 @@
           </button>        
       </div>
     </div>
-    <button class="lightButton" @click="sure">好的</button>
+    <button class="lightButton" @click="onSure">好的</button>
 
     <Modal v-if="isShowModal" :title="modalTitle" :content="modalContent" :confirm="confirm" :sure="sure" @change="showModal"></Modal>
   </div>
@@ -60,7 +60,7 @@ export default {
     this.confirm = "CONFRIM";
     this.sure = "马上开始";   
     },
-    sure() {
+    onSure() {
       this.$router.reLaunch({
         query: { active: "home" },
         path: "/pages/home/index"
