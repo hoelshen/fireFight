@@ -3,6 +3,7 @@
 export default {
   mpType: "app",
   onLaunch(opts) {
+    wx.cloud.init();
     this.globalData.options = opts;
     this.$request.login();
     this.globalData.path = opts.query.scene
@@ -27,17 +28,7 @@ export default {
     });
   },
   onError(error) {
-    const systemInfo = wx.getSystemInfoSync();
-    const userId = this.globalData.user._id;
-    wx.cloud.init();
-    const db = wx.cloud.database();
-    const data = {
-      systemInfo: systemInfo,
-      userId,
-      error,
-      createdAt: Date()
-    };
-    db.collection("front-errors").add({ data });
+    this.$request.sendFrontErrorToCloud(error);
   },
   globalData() {
     return {
@@ -50,9 +41,8 @@ export default {
       path: "/pages/share/receive?",
       replyCount: 1
     };
-  },
+  }
 };
-
 </script>
 
 <style lang="less">
