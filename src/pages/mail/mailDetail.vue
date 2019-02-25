@@ -127,9 +127,8 @@ export default {
 </script>
 <style lang="less" scoped>
 .mail {
-  width: 630rpx;
   min-height: 620rpx;
-  margin: 40rpx 60rpx 40rpx 60rpx;
+  margin: 40rpx 20rpx 40rpx 20rpx;
   border-radius: 4rpx;
 }
 

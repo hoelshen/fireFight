@@ -80,9 +80,15 @@ export default {
   line-height: 52rpx;
   min-height: 200rpx;
   white-space: pre-wrap;
-  word-wrap: break-word;
+  // word-wrap: break-word;
   text-align: justify;
+  // text-align-last: justify;
   letter-spacing: 2rpx;
+  &:after{
+      content: '';
+      width:100%;
+      display: inine-block;              //让伪元素称为最后一行
+  }
 }
 .mail-sendName {
   color: #4d495b;
