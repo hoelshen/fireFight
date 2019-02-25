@@ -6,7 +6,7 @@
         <p class="solutionRoomName-aliasName">{{aliasName}}</p>
       </div>
       <div clss="solutionRoomName_question flex j-between">
-        <span class="solutionRoomName_question_mail">你今天还可以解答{{replyCount}}个咨询</span>
+        <span class="solutionRoomName_question_mail">你今天还可以解答 {{replyCount}} 个咨询</span>
       </div>
     </session>
 

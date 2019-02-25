@@ -3,9 +3,9 @@
     <div class="appDiv flex column">
       <div class="text shadow">
         <div class="textAreafloat flex column j-start" v-if="isDisplay" @click="hidenMethod">
-          <div>· 请尽量具体叙述你的故事，便于解答者理解和代入，从而给出具体的解答.</div>
-          <div>· 关键的人物、地点等信息建议使用化名</div>
-          <div>· 落款署名尽量不要使用笔名或微信昵称</div>
+          <div class="textAreafloat_item">· 请尽量具体叙述你的故事，便于解答者理解和代入，从而给出具体的解答</div>
+          <div class="textAreafloat_item">· 关键的人物、地点等信息建议使用化名</div>
+          <div class="textAreafloat_item">· 落款署名尽量不要使用笔名或微信昵称</div>
         </div>
         <textarea class="textArea" :auto-height="true"  v-else @blur="onBlur" :focus="isFocus" maxlength="5000" cursor-spacing="30" :value="content" @input="bindTextAreaBlur" />
       </div>
@@ -242,6 +242,9 @@ export default {
   line-height:52rpx;
   color: rgba(169, 169, 169, 1);
   background-color: #ffffff;
+  & .textAreafloat_item{
+    margin-bottom: 53rpx;
+  }
 }
 .play {
   position: relative;
