@@ -26,7 +26,7 @@
 
     <div class="flex column textAdd center">
       <button class="addMystoryButton flex center" @click="onPush">提交咨询</button>
-      <p class="text-center">需要使用1张解忧券</p>
+      <p class="text-center">需要使用 1 张解忧券</p>
     </div>
 
     <Modal v-if="isShowModal" :type="modal.type" :title="modal.title" :content="modal.content" :confirm="modal.confirm" :sure="modal.sure" @change="showModal"></Modal>

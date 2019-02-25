@@ -42,8 +42,7 @@ export default {
   created() {
     this.tab = this.active;
     const model = wx.getSystemInfoSync().model;
-    const SyHeight = ['iPhone X', 'iPhone Xr', 'iPhone Xs', 'iPhone Xs Max']
-     if(SyHeight.includes(model)){
+     if(model.match("iPhone X")){
       this.isIpx = true;
      }
   },
