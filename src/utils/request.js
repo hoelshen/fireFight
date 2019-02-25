@@ -26,7 +26,7 @@ function getBaseURL(env) {
   }
 }
 
-function setRelogin(){
+function setRelogin() {
   isRelogin = true;
 }
 
@@ -36,10 +36,10 @@ function showError(message, status, request) {
     icon: "none",
     duration: 2000
   });
-  snedToCloud(message, status, request);
+  sendBackErrorToCloud(message, status, request);
 }
 
-function snedToCloud(message, status, request) {
+function sendBackErrorToCloud(message, status, request) {
   if (!request) {
     return false;
   }
@@ -47,7 +47,7 @@ function snedToCloud(message, status, request) {
   const lauchOpts = getApp().globalData.options;
   const userId = getApp().globalData.user._id;
   wx.cloud.init();
-  const db = wx.cloud.database();
+  const db = wx.cloud.database({ env: environment == "prod" ? "tell-prod" : "tell-dev" });
   const data = {
     systemInfo: systemInfo,
     lauchOpts: lauchOpts,
@@ -59,8 +59,21 @@ function snedToCloud(message, status, request) {
     userId,
     message,
     createdAt: Date()
-  }
-  db.collection("back-errors").add({data});
+  };
+  db.collection("back-errors").add({ data });
+}
+
+function sendFrontErrorToCloud(error) {
+  const systemInfo = wx.getSystemInfoSync();
+  const userId = this.globalData.user._id;
+  const db = wx.cloud.database({ env: environment == "prod" ? "tell-prod" : "tell-dev" });
+  const data = {
+    systemInfo: systemInfo,
+    userId,
+    error,
+    createdAt: Date()
+  };
+  db.collection("front-errors").add({ data });
 }
 
 function normalizeUserCookie(cookiesArray) {
@@ -165,9 +178,9 @@ fly.interceptors.request.use(async function(request) {
   if (/login\?code=/.test(request.url)) {
     return request;
   }
-  if (isRelogin){
+  if (isRelogin) {
     await login();
-  }else if(!token){
+  } else if (!token) {
     await waitingLogin();
   }
   request.headers["Cookie"] = cookies;
@@ -208,4 +221,5 @@ fly.saveFormid = saveFormid;
 fly.uploadFile = uploadFile;
 fly.getUser = getUser;
 fly.setRelogin = setRelogin;
+fly.sendFrontErrorToCloud = sendFrontErrorToCloud;
 export default fly;
