@@ -268,13 +268,13 @@ export default {
         const { lastTips } = res.data;
         this.unreadMessages = res.data.unreadMessages;
         if (lastTips) {
-          this.$refs.mymodal = {
+          this.$refs.mymodal.show({
               title: lastTips.title,
               content: lastTips.content,
               type: lastTips.type,
               confirm: "前往解答室",
               sure: "好的",
-          }
+          })
         }
       });
     },

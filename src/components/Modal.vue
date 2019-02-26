@@ -60,6 +60,7 @@ export default {
         this.isShowModal = true;
       },
       enConfirm(){
+          this.isShowModal = false;
           if(this.confirm === "获取邮票") {
               this.$router.push({
                   query: { active: "mail" },
@@ -77,7 +78,6 @@ export default {
                   path: "/pages/solution/tags"
               });
           }
-          this.isShowModal = false;
       },
       enSure(){
           const { user } = getApp().globalData;
