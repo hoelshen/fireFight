@@ -28,7 +28,7 @@ export default {
     });
   },
   onError(error) {
-    this.$request.sendFrontErrorToCloud(error);
+    //this.$request.sendFrontErrorToCloud(error);
   },
   globalData() {
     return {

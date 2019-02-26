@@ -1,5 +1,5 @@
 <template>
-    <cover-view class="modal" @click="clickMask" :value="value" v-if="visible">
+    <cover-view class="modal" @click="clickMask" v-if="isShowModal">
         <cover-view class="card flex column center"  @tap.stop="stopkMask">
             <cover-view class="title">
                 {{value.title}}
@@ -26,26 +26,41 @@
 <script>
 export default {
   name: "Modal",
-  props: {
-    value:{
-      isShow:"",
-      title: "",
-      sure: "",
-      type: "no",
-      confirm: "",
-      content: ""
-    }
-  },
   data() {
     return {
       img: false,
+      isShowModal:false,
       user: {},
-      type: "no",
-      visible: false,
-      filterTitle: ""
+      value: {
+        title: "",
+        sure: "",
+        type: "",
+        confirm: "",
+        content: ""
+      }
     };
   },
   methods:{
+      show(value){
+        console.log('value: ', value);
+        this.value = value;
+        if(this.value.confirm === "server"){
+            this.img = true;
+            this.filterTitle = "关注服务号";
+            this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/service_accout.jpg"        
+        }
+        if(this.value.confirm === "subscript"){
+            this.img = true;
+            this.filterTitle = "关注订阅号";
+            this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/subscribe_accout.jpg"        
+        }
+        if(this.value.confirm === "group"){
+            this.img = true;
+            this.filterTitle = "加群";
+            this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/join_group.jpg"
+        }
+        this.isShowModal = true;
+      },
       enConfirm(){
           if(this.confirm === "获取邮票") {
               this.$router.push({
@@ -64,59 +79,28 @@ export default {
                   path: "/pages/solution/tags"
               });
           }
-          if(this.title === "Tell 住址") {}
-          this.visible = false;
-          this.value = {};
-          this.$emit("input", this.value);
+          this.isShowModal = false;
       },
       enSure(){
-          this.visible = false;
-          this.value = {};
-          this.$emit("input", this.value);
+          const { user } = getApp().globalData;
+          this.user.aliasName = user.aliasName;
+          this.user.aliasPortrait = user.aliasPortrait;
+          this.isShowModal = false;
       },
       clickMask(){
-          this.visible = false;
-          this.value = {};
-          this.$emit("input", this.value);
+          this.isShowModal = false;
+          this.img =false; 
+          this.value = {
+              title: "",
+              sure: "",
+              type: "",
+              confirm: "",
+              content: ""
+          }
       },
       stopkMask(){},
-  },
-  watch:{
-    value:{
-      handler(val){
-        this.visible = val.isShowModal;
-      },
-      deep: true,
-    },
-    visible(val){
-      if(val){
-        if(this.value.confirm === "server"){
-            this.img = true;
-            this.filterTitle = "关注服务号";
-            this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/service_accout.jpg"        
-        }
-        if(this.value.confirm === "subscript"){
-            this.img = true;
-            this.filterTitle = "关注订阅号";
-            this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/subscribe_accout.jpg"        
-        }
-        if(this.value.confirm === "group"){
-            this.img = true;
-            this.filterTitle = "加群";
-            console.log('this.filterTitle: ', this.filterTitle);
-            this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/join_group.jpg"
-        }
-      } else{
-        this.img = "";
-      }
-    }
-  },
-  created() {
-      const { user } = getApp().globalData;
-      this.user.aliasName = user.aliasName;
-      this.user.aliasPortrait = user.aliasPortrait;
   }
-};
+  }
 </script>
 <style lang="less" scoped>
 .modal {
