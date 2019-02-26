@@ -78,13 +78,10 @@ export default {
       stopkMask(){},
   },
   watch:{
-    value:{
-      handler(val, oldVal){
-        if(val){
-          this.visible = val.isShowModal;
-        }
-      },
-      deep: true,
+    value(val){
+      if(val){
+        this.visible = val.isShowModal;
+      }
     },
     visible(val){
       if(val){
