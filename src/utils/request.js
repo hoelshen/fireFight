@@ -185,6 +185,7 @@ fly.interceptors.request.use(async function(request) {
   }
   request.headers["Cookie"] = cookies;
   request.headers["x-csrf-token"] = token;
+  getApp().globalData.token = token;
   return request;
 });
 

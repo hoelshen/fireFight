@@ -22,7 +22,6 @@
 </template>
 
 
-
 <script>
 export default {
   name: "Modal",
@@ -42,7 +41,6 @@ export default {
   },
   methods:{
       show(value){
-        console.log('value: ', value);
         this.value = value;
         if(this.value.confirm === "server"){
             this.img = true;
