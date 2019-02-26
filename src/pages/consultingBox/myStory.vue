@@ -29,7 +29,7 @@
       <p class="text-center">需要使用 1 张解忧券</p>
     </div>
 
-    <Modal v-if="isShowModal" :type="modal.type" :title="modal.title" :content="modal.content" :confirm="modal.confirm" :sure="modal.sure" @change="showModal"></Modal>
+    <Modal ref="mymodal"></Modal>
   </view>
 </template>
 <script>
@@ -65,12 +65,13 @@ export default {
   methods: {
     async onPush() {
       if (this.ticketCount === 0) {
-        this.modal.title = "解忧券不足";
-        this.modal.content = "需要消耗 1 解忧券，当前余额不足";
-        this.modal.confirm = "获取解忧券";
-        this.modal.type = "CONFIRM";
-        this.modal.sure = "好的";
-        this.isShowModal = true;
+        this.$refs.mymodal.show({
+            title: "解忧券不足",
+            content: "需要消耗 1 解忧券，当前余额不足",
+            confirm: "获取解忧券",
+            type: "CONFIRM",
+            sure: "好的",
+        })
         try {
           wx.setStorage({
             key: "story",
@@ -152,14 +153,6 @@ export default {
         this.isDisplay = true;
       }
     },
-    showModal() {
-      this.isShowModal = false;
-      this.modal.title="";
-      this.modal.sure="";
-      this.modal.type="";
-      this.modal.confirm="";
-      this.modal.content="";
-    }
   },
   onShow() {
     const { user } = getApp().globalData;

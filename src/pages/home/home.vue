@@ -268,7 +268,7 @@ export default {
         const { lastTips } = res.data;
         this.unreadMessages = res.data.unreadMessages;
         if (lastTips) {
-          this.modal = {
+          this.$refs.mymodal = {
               title: lastTips.title,
               content: lastTips.content,
               type: lastTips.type,

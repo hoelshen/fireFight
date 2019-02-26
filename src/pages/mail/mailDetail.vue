@@ -11,7 +11,7 @@
       <button class="darkButton btn" @click="toConsulting"> 去咨询</button>
       <button class="lightButton btn" @click="toSolution"> 去解答</button>
     </div>
-    <Modal v-if="isShowModal" :type="type" :title="modalTitle" :content="modalContent" :confirm="confirm" :sure="sure" @change="showModal"></Modal>
+    <Modal ref="mymodal"></Modal>   
   </view>
 </template>
 
@@ -38,11 +38,13 @@ export default {
       isReply: false,
       isDisabled: true,
       isFromSystem: false,
-      isShowModal: false,
-      modalTitle: "",
-      modalContent: "",
-      confirm: "",
-      sure: ""
+      modal: {
+        title: "",
+        content: "",
+        confirm: "",
+        type: "",
+        sure: ""
+      }
     };
   },
   methods: {
@@ -71,23 +73,16 @@ export default {
     },
     showReply() {
       if (this.stampCount === 0) {
-        this.modalTitle = "邮票不足";
-        this.modalContent = "需要消耗 1 邮票，当前余额不足";
-        this.confirm = "获取邮票";
-        this.type = "CONFIRM";
-        this.isShowModal = true;
-        this.sure = "好的";
+        this.$refs.mymodal.show({
+            title: "邮票不足",
+            content: "需要消耗 1 邮票，当前余额不足",
+            confirm: "获取邮票",
+            type: "CONFIRM",
+            sure: "好的",
+        })
         return false;
       }
       this.isReply = true;
-    },
-    showModal() {
-      this.isShowModal = false;
-      this.modalTitle="";
-      this.modalContent="";
-      this.confirm="";
-      this.type="";
-      this.sure="";
     },
     toSolution() {
       const { user } = getApp().globalData;

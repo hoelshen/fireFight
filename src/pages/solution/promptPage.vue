@@ -31,7 +31,7 @@
     </div>
     <button class="lightButton" @click="onsure">好的</button>
 
-    <Modal v-if="isShowModal" :type="modalType" :title="modalTitle" :content="modalContent" :confirm="modalConfirm" :sure="modalSure" @change="showModal"></Modal>
+    <Modal ref="mymodal"></Modal>
   </div>
 </template>
 
@@ -46,33 +46,30 @@ export default {
     return {
       targetUser: "",
       active: "",
-      isShowModal: false,
-      modalTitle: "",
-      modalType: "",
-      modalConfirm: "",
-      modalSure: ""
+      modal: {
+        title: "",
+        content: "",
+        confirm: "",
+        type: "",
+        sure: ""
+      }
     };
   },
   methods: {
     attention(){
-      this.isShowModal = true;
-      this.modalTitle = "关注服务号";
-      this.modalType="server";
-      this.modalConfirm = "server";
-      this.modalSure = "马上开始";  
+      this.$refs.mymodal.show({
+          title: "关注服务号",
+          content: "",
+          confirm: "server",
+          type: "server",
+          sure: "马上开始",
+      })
     },
     onsure() {
       this.$router.reLaunch({
         query: { active: "home" },
         path: "/pages/home/index"
       });
-    },
-    showModal(){
-      this.isShowModal = false;
-      this.modalTitle = "";
-      this.modalType="";
-      this.modalConfirm = "";
-      this.modalSure = "";   
     }
   },
   onShow() {
