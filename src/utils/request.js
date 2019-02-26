@@ -181,7 +181,7 @@ fly.interceptors.request.use(async function(request) {
   }
   if (isRelogin) {
     await login();
-  } else if (!getApp().globalData.token) {
+  } else if (!token) {
     await waitingLogin();
   }
   request.headers["Cookie"] = cookies;
@@ -196,9 +196,8 @@ fly.interceptors.response.use(
     }
     if (response && response.headers && response.headers["set-cookie"]) {
       cookies = normalizeUserCookie(response.headers["set-cookie"]);
-      token = getToken(response.headers["set-cookie"][0]);
       getApp().globalData.token = getToken(response.headers["set-cookie"][0]);
-
+      token = getApp().globalData.token;
     }
     return response.data;
   },
