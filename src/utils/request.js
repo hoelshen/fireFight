@@ -180,7 +180,7 @@ fly.interceptors.request.use(async function(request) {
   }
   if (isRelogin) {
     await login();
-  } else if (!token) {
+  } else if (!getApp().globalData.token) {
     await waitingLogin();
   }
   request.headers["Cookie"] = cookies;
