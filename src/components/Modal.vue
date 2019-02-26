@@ -1,21 +1,21 @@
 <template>
-    <cover-view class="modal" @click="clickMask">
+    <cover-view class="modal" @click="clickMask" :value="value" v-if="visible">
         <cover-view class="card flex column center"  @tap.stop="stopkMask">
             <cover-view class="title">
-                {{title}}
+                {{value.title}}
             </cover-view>
             <cover-view v-if="!img" class="content">
-                {{content}}
+                {{value.content}}
             </cover-view>
             <cover-view v-else class="content">
-                <cover-image v-if="type === 'server'"src="/static/jpg/server_guide.jpg" alt=""/>
-                <cover-image v-if="type === 'subscript'"src="/static/jpg/subscript_guide.jpg" alt=""/>
-                <cover-image v-if="type === 'group'"src="/static/jpg/join_group_guide.jpg" alt=""/>
+                <cover-image v-if="value.type === 'server'"src="/static/jpg/server_guide.jpg" alt=""/>
+                <cover-image v-if="value.type === 'subscript'"src="/static/jpg/subscript_guide.jpg" alt=""/>
+                <cover-image v-if="value.type === 'group'"src="/static/jpg/join_group_guide.jpg" alt=""/>
             </cover-view>
             <cover-view class="btn">
-                <button v-if="type === 'CONFIRM' " class="confirm darkButton" @click="enConfirm">{{confirm}}</button>
-                <button v-if="type === 'group' || type === 'server'  || type === 'subscript'" open-type="contact" :show-message-card="true" :send-message-img="imgUrl" :send-message-title="filterTitle" :session-from="`nickName'${user.aliasName}, 'avatarUrl':${user.aliasPortrait}`" class="sure darkButton" @click="enSure">{{sure}}</button>
-                <button v-else class="sure lightButton" @click="enSure">{{sure}}</button>
+                <button v-if="value.type === 'CONFIRM' " class="confirm darkButton" @click="enConfirm">{{value.confirm}}</button>
+                <button v-if="value.type === 'group' || value.type === 'server'  || value.type === 'subscript'" open-type="contact" :show-message-card="true" :send-message-img="imgUrl" :send-message-title="filterTitle" :session-from="`nickName'${user.aliasName}, 'avatarUrl':${user.aliasPortrait}`" class="sure darkButton" @click="enSure">{{value.sure}}</button>
+                <button v-else class="sure lightButton" @click="enSure">{{value.sure}}</button>
             </cover-view>
         </cover-view>
     </cover-view>
@@ -27,27 +27,13 @@
 export default {
   name: "Modal",
   props: {
-    isShowModal: {
-      type: Boolean
-    },
-    title: {
-      type: String
-    },
-    sure: {
-      type: String,
-      default: "好的"
-    },
-    type: {
-      type: String,
-      default: ""
-    },
-    confirm: {
-      type: String,
-      default: ""
-    },
-    content: {
-      type: String,
-      defalut: ""
+    value:{
+      isShow:"",
+      title: "",
+      sure: "",
+      type: "no",
+      confirm: "",
+      content: ""
     }
   },
   data() {
@@ -55,6 +41,7 @@ export default {
       img: false,
       user: {},
       type: "no",
+      visible: false,
       filterTitle: ""
     };
   },
@@ -78,35 +65,56 @@ export default {
               });
           }
           if(this.title === "Tell 住址") {}
-          this.$emit("change", this.isShowModal);
+          this.visible = false;
+          this.value = {};
+          this.$emit("input", this.value);
       },
       enSure(){
-          this.$emit("change", this.isShowModal);
+          this.visible = false;
+          this.value = {};
+          this.$emit("input", this.value);
       },
       clickMask(){
-          this.$emit("change", this.isShowModal);
+          this.visible = false;
+          this.value = {};
+          this.$emit("input", this.value);
       },
-      stopkMask(){}
+      stopkMask(){},
+  },
+  watch:{
+    value:{
+      handler(val){
+        this.visible = val.isShowModal;
+      },
+      deep: true,
+    },
+    visible(val){
+      if(val){
+        if(this.value.confirm === "server"){
+            this.img = true;
+            this.filterTitle = "关注服务号";
+            this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/service_accout.jpg"        
+        }
+        if(this.value.confirm === "subscript"){
+            this.img = true;
+            this.filterTitle = "关注订阅号";
+            this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/subscribe_accout.jpg"        
+        }
+        if(this.value.confirm === "group"){
+            this.img = true;
+            this.filterTitle = "加群";
+            console.log('this.filterTitle: ', this.filterTitle);
+            this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/join_group.jpg"
+        }
+      } else{
+        this.img = "";
+      }
+    }
   },
   created() {
       const { user } = getApp().globalData;
       this.user.aliasName = user.aliasName;
       this.user.aliasPortrait = user.aliasPortrait;
-      if(this.confirm === "server"){
-          this.img = true;
-          this.filterTitle = "关注服务号";
-          this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/service_accout.jpg"        
-      }
-      if(this.confirm === "subscript"){
-          this.img = true;
-          this.filterTitle = "关注订阅号";
-          this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/subscribe_accout.jpg"        
-      }
-      if(this.confirm === "group"){
-          this.img = true;
-          this.filterTitle = "加群";
-          this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/join_group.jpg"
-      }
   }
 };
 </script>

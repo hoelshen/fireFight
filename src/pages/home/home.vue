@@ -82,7 +82,7 @@
       </scroll-view>
     </div>
 
-    <Modal v-if="isShowModal" :type="modal.type" :title="modal.title" :content="modal.content" :confirm="modal.confirm" :sure="modal.sure" @change="showModal"></Modal>
+    <Modal v-model="modal"></Modal>
 
     <HomeTabbar @change="onTabChange" :mailCount="unreadMessages"></HomeTabbar>
   </view>
@@ -251,36 +251,28 @@ export default {
         "这是你在 Tell 的住址，用于收取书信。未来会提供更多相关功能，敬请期待！";
       this.modal.confirm = "no";
       this.modal.sure = "好的";
-      this.isShowModal = true;
+      this.modal.isShowModal = true;
     },
     joinGroup() {
       this.modal.title = "如何加群";
       this.modal.confirm = "group";
       this.modal.type = "group";
       this.modal.sure = "马上开始";
-      this.isShowModal = true;
+      this.modal.isShowModal = true;
     },
     getTips() {
       this.$request.get("/tips").then(res => {
         const { lastTips } = res.data;
         this.unreadMessages = res.data.unreadMessages;
         if (lastTips) {
-          this.isShowModal = true;
           this.modal.title = lastTips.title;
           this.modal.content = lastTips.content;
           this.modal.type = lastTips.type;
           this.modal.confirm = "前往解答室";
           this.modal.sure = "好的";
+          this.modal.isShowModal = true;
         }
       });
-    },
-    showModal() {
-      this.isShowModal = false;
-      this.modal.title="";
-      this.modal.sure="";
-      this.modal.type="";
-      this.modal.confirm="";
-      this.modal.content="";
     },
     toBanner(banner) {
       switch (banner.type) {
