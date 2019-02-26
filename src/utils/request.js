@@ -46,7 +46,6 @@ function sendBackErrorToCloud(message, status, request) {
   const systemInfo = wx.getSystemInfoSync();
   const lauchOpts = getApp().globalData.options;
   const userId = getApp().globalData.user._id;
-  wx.cloud.init();
   const db = wx.cloud.database({ env: environment == "prod" ? "tell-prod" : "tell-dev" });
   const data = {
     systemInfo: systemInfo,
@@ -191,9 +190,9 @@ fly.interceptors.request.use(async function(request) {
 
 fly.interceptors.response.use(
   response => {
-    if (cookies && token) {
-      return response.data;
-    }
+    // if (cookies && token) {
+    //   return response.data;
+    // }
     if (response && response.headers && response.headers["set-cookie"]) {
       cookies = normalizeUserCookie(response.headers["set-cookie"]);
       getApp().globalData.token = getToken(response.headers["set-cookie"][0]);
