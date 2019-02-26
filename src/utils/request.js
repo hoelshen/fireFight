@@ -175,6 +175,7 @@ async function waitingLogin() {
 }
 
 fly.interceptors.request.use(async function(request) {
+  console.log("token", token);
   if (/login\?code=/.test(request.url)) {
     return request;
   }
@@ -185,7 +186,6 @@ fly.interceptors.request.use(async function(request) {
   }
   request.headers["Cookie"] = cookies;
   request.headers["x-csrf-token"] = token;
-  getApp().globalData.token = token;
   return request;
 });
 
@@ -197,6 +197,8 @@ fly.interceptors.response.use(
     if (response && response.headers && response.headers["set-cookie"]) {
       cookies = normalizeUserCookie(response.headers["set-cookie"]);
       token = getToken(response.headers["set-cookie"][0]);
+      getApp().globalData.token = getToken(response.headers["set-cookie"][0]);
+
     }
     return response.data;
   },
