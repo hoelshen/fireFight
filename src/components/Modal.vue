@@ -28,10 +28,10 @@ export default {
   name: "Modal",
   props: {
     value:{
-      isShow:"",
+      isShowModal:false,
       title: "",
       sure: "",
-      type: "no",
+      type: "",
       confirm: "",
       content: ""
     }
@@ -68,23 +68,21 @@ export default {
           this.visible = false;
           this.value = {};
           this.$emit("input", this.value);
-      },
+      },      
       enSure(){
           this.visible = false;
-          this.value = {};
-          this.$emit("input", this.value);
       },
       clickMask(){
           this.visible = false;
-          this.value = {};
-          this.$emit("input", this.value);
       },
       stopkMask(){},
   },
   watch:{
     value:{
-      handler(val){
-        this.visible = val.isShowModal;
+      handler(val, oldVal){
+        if(val){
+          this.visible = val.isShowModal;
+        }
       },
       deep: true,
     },
@@ -103,11 +101,19 @@ export default {
         if(this.value.confirm === "group"){
             this.img = true;
             this.filterTitle = "加群";
-            console.log('this.filterTitle: ', this.filterTitle);
             this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/join_group.jpg"
         }
       } else{
+        let model = {
+          isShowModal:false,
+          title: "",
+          sure: "",
+          type: "",
+          confirm: "",
+          content: ""
+        }
         this.img = "";
+        this.$emit("input",model);
       }
     }
   },

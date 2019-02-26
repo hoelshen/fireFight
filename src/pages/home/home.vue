@@ -246,31 +246,37 @@ export default {
         );
     },
     showAddressModal() {
-      this.modal.title = "Tell 住址";
-      this.modal.content =
-        "这是你在 Tell 的住址，用于收取书信。未来会提供更多相关功能，敬请期待！";
-      this.modal.confirm = "no";
-      this.modal.sure = "好的";
-      this.modal.isShowModal = true;
+      this.modal = {
+          title: "Tell 住址",
+          content: "这是你在 Tell 的住址，用于收取书信。未来会提供更多相关功能，敬请期待！",
+          type: "",
+          confirm: "no",
+          sure: "好的",          
+          isShowModal: true
+      }
     },
     joinGroup() {
-      this.modal.title = "如何加群";
-      this.modal.confirm = "group";
-      this.modal.type = "group";
-      this.modal.sure = "马上开始";
-      this.modal.isShowModal = true;
+      this.modal = {
+          title: "如何加群",
+          confirm: "group",
+          type: "group",
+          sure: "马上开始",
+          isShowModal: true
+      }
     },
     getTips() {
       this.$request.get("/tips").then(res => {
         const { lastTips } = res.data;
         this.unreadMessages = res.data.unreadMessages;
         if (lastTips) {
-          this.modal.title = lastTips.title;
-          this.modal.content = lastTips.content;
-          this.modal.type = lastTips.type;
-          this.modal.confirm = "前往解答室";
-          this.modal.sure = "好的";
-          this.modal.isShowModal = true;
+          this.modal = {
+              title: lastTips.title,
+              content: lastTips.content,
+              type: lastTips.type,
+              confirm: "前往解答室",
+              sure: "好的",
+              isShowModal: true
+          }
         }
       });
     },
