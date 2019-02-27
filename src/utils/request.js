@@ -1,7 +1,7 @@
 import flyio from "flyio/dist/npm/wx";
 import { promisify } from "@/utils/index";
 
-const environment = "prod"; // 配置环境
+const environment = "test"; // 配置环境
 
 const fly = new flyio();
 let cookies = [],
@@ -132,6 +132,7 @@ function uploadFile(path) {
         typeof resolve == "function" && resolve(res);
       },
       fail: function(err) {
+        showError("上传头像失败", 500, {});
         typeof reject == "function" && reject(err);
       }
     });

@@ -3,7 +3,7 @@
     <div class="container flex grow">
       <div class="photo-circle flex wrap j-start center">
         <div class="circle" @click="takePhoto">
-          <image class="userinfo-avatar" :src="aliasPortrait" alt="选择头像" background-size="cover">
+          <image class="userinfo-avatar" :src="userInfo.aliasPortrait" alt="选择头像" background-size="cover">
           </image>
         </div>
         <div class="userinfo-name">
@@ -22,7 +22,6 @@
 export default {
   data() {
     return {
-      aliasPortrait: "",
       userInfo: {
         aliasName: "",
         aliasPortrait: ""
@@ -40,7 +39,6 @@ export default {
           this.$request.uploadFile(tempFilePaths[0]).then(
             function(res) {
               let data = JSON.parse(res.data);
-              this.aliasPortrait = data.data;
               this.userInfo.aliasPortrait = data.data;
             }.bind(this)
           );
@@ -57,6 +55,13 @@ export default {
       if (aliasName) {
         if (aliasName.length < 2) {
           return wx.showToast({ title: "请设置大于2个字符的笔名" });
+        }
+
+        if(aliasName.length > 20){
+          return wx.showToast({ title: "请设置小于10个字符的笔名" });
+        }
+        if(aliasPortrait){
+          return wx.showToast({ title: "请设置头像" });
         }
         this.$request
           .put("/user", {
@@ -80,7 +85,6 @@ export default {
   onShow() {
     this.$request.getUser().then(() => {
       const { user } = getApp().globalData;
-      this.aliasPortrait = user.aliasPortrait;
       this.userInfo.aliasPortrait = user.aliasPortrait;
       this.userInfo.aliasName = user.nickName;
     });

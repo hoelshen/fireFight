@@ -53,8 +53,8 @@ export default {
       "pages/faq/index", //FAQ,
       "pages/webview/index", //内嵌网页
       "pages/share/share", //安利给好友
-      "pages/share/receive" //领取解忧券
-
+      "pages/share/receive", //领取解忧券
+      "pages/errors/index" //错误页面
     ],
     window: {
       backgroundTextStyle: "light",
