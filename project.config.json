@@ -11,7 +11,7 @@
 		"uglifyFileName": false
 	},
 	"miniprogramRoot": "dist-wechat/",
-	"cloudfunctionRoot": "server/cloudFunctions/",
+	"cloudfunctionRoot": "src/server/cloudFunctions/",
 	"compileType": "miniprogram",
 	"appid": "wx0af73175e644dbfc",
 	"projectname": "tell2.0_megalo",
@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 18,
+			"current": 24,
 			"list": [
 				{
 					"id": -1,
@@ -187,6 +187,13 @@
 					"id": -1,
 					"name": "申请解答者成功",
 					"pathName": "pages/solution/becomeSolutor",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "错误页面",
+					"pathName": "pages/errors/index",
 					"query": "",
 					"scene": null
 				}
