@@ -7,7 +7,7 @@
     <session class="list" v-if="list.length > 0">
       <div class="list_item flex j-between" v-for="(item,index) in list" :key="index">
         <div class="flex j-between center">
-          <image class="iconfont ifImage" :src="`/static/svgs/stamp-icon.svg`" />
+          <image class="iconfont ifImage" :src="`/static/svgs/${photo}.svg`" />
           <div class="flex column">
             <span class="message">{{item.message}}</span>
             <span class="ticket_day">{{item.createdAt | dayFormat}}</span>
@@ -27,7 +27,8 @@ export default {
     return {
       active: "ticket",
       isActive: true,
-      list: []
+      list: [],
+      photo: "ticket"
     };
   },
   onShow() {
@@ -35,7 +36,10 @@ export default {
     this.active = query.active || "ticket";
     if (this.active === "stamp") {
       this.isActive = !this.isActive;
-    }
+      this.photo = "stamp-icon"
+    } else{
+      this.photo = "ticket"
+      }
     this.getList();
   },
   methods: {

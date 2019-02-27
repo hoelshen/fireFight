@@ -94,6 +94,7 @@ function getToken(cookiesArray) {
 
 async function login() {
   isRelogin = false;
+  tryCount = 0;
   let wxRes = await promisify(wx.login, wx)();
   let loginUrl = `/login?code=${wxRes.code}`;
   let query = getApp().globalData.options.query;

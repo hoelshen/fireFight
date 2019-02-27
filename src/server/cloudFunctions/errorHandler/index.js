@@ -11,7 +11,7 @@ exports.main = async (event, context) => {
     message: _.neq("服务器抽风啦，请重试")
   };
   const data1 = {
-    _openid: "oo17M4j0dOpRnenHXrhQxeunStbA"
+    _openid: "oo17M4oU9HHiPC-7n6kTBZb4pS7A"
   };
   //   const countResult = await db.collection('back-errors').where(data)
   //       .count()
@@ -21,6 +21,7 @@ exports.main = async (event, context) => {
   const result = await db
     .collection("back-errors")
     .where(data)
+    .orderBy("createdAt", "desc")
     .get();
   console.log(result);
   return result;
