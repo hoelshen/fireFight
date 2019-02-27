@@ -46,7 +46,6 @@ function sendBackErrorToCloud(message, status, request) {
   const systemInfo = wx.getSystemInfoSync();
   const lauchOpts = getApp().globalData.options;
   const userId = getApp().globalData.user._id;
-  wx.cloud.init();
   const db = wx.cloud.database({ env: environment == "prod" ? "tell-prod" : "tell-dev" });
   const data = {
     systemInfo: systemInfo,
@@ -94,6 +93,7 @@ function getToken(cookiesArray) {
 }
 
 async function login() {
+  isRelogin = false;
   let wxRes = await promisify(wx.login, wx)();
   let loginUrl = `/login?code=${wxRes.code}`;
   let query = getApp().globalData.options.query;
@@ -102,7 +102,6 @@ async function login() {
   } else if (query.refer) {
     loginUrl += `&refer=${query.refer}`;
   }
-  isRelogin = false;
   let logRes = await fly.get(loginUrl);
   logLogin(); // 上报登陆信息
   return (getApp().globalData.user = logRes.data);
@@ -192,9 +191,9 @@ fly.interceptors.request.use(async function(request) {
 
 fly.interceptors.response.use(
   response => {
-    if (cookies && token) {
-      return response.data;
-    }
+    // if (cookies && token) {
+    //   return response.data;
+    // }
     if (response && response.headers && response.headers["set-cookie"]) {
       cookies = normalizeUserCookie(response.headers["set-cookie"]);
       getApp().globalData.token = getToken(response.headers["set-cookie"][0]);
