@@ -6,13 +6,9 @@
 import {errors} from "@/utils/errors";
 
 export default {
-    methods: {
-        error(){
-            errors() 
-        }
-    },
-    onShow(){
-        this.error();
+    async onShow(){
+        let data = await errors();
+        console.log(data);
     }
 }
 </script>

@@ -1,10 +1,7 @@
-export function errors(){
+export async function errors(){
   // wx.cloud.init();
-  wx.cloud.callFunction({
-      name: 'errorHandler',
-      complete: res => {
-          console.log('callFunction test result: ', res)
-      },
+  return await wx.cloud.callFunction({
+      name: 'errorHandler'
   })
 } 
 
