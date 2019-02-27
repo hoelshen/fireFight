@@ -1,5 +1,5 @@
 <template>
-  <div class="mail box flex column j-between list_item shadow">
+  <div class="mail box flex column j-between list_item shadow" v-if="mail._id">
     <div class="mail_title">
       {{mail.targetUserName || 'Tell烦恼咨询中心'}} {{mail.fromSystem ? "" :"收"}}
     </div>

@@ -57,7 +57,7 @@ export default {
           return wx.showToast({ title: "请设置大于2个字符的笔名" });
         }
 
-        if(aliasName.length > 20){
+        if(aliasName.length > 10){
           return wx.showToast({ title: "请设置小于10个字符的笔名" });
         }
         if(!aliasPortrait){

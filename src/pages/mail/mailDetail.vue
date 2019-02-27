@@ -32,7 +32,7 @@ export default {
       id: "",
       userId: "",
       list: [],
-      replyMail: null,
+      replyMail: {},
       target: {},
       stampCount: 0,
       isReply: false,
