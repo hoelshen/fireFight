@@ -115,6 +115,7 @@ export default {
         wx.removeStorage({
           key: "story"
         }); // 清空缓存
+        this.content = "";
         this.$router.push({
           query: {
             active: "story",

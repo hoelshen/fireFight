@@ -29,6 +29,8 @@ export default {
     return {
       img: false,
       isShowModal: false,
+      filterTitle: "",
+      imgUrl: "",
       user: {},
       value: {
         title: "",
@@ -66,19 +68,19 @@ export default {
     },
     enConfirm() {
       this.isShowModal = false;
-      if (this.confirm === "获取邮票") {
+      if (this.value.confirm === "获取邮票") {
         this.$router.push({
           query: { active: "mail" },
           path: "/pages/welfare/index"
         });
       }
-      if (this.confirm === "获取解忧券") {
+      if (this.value.confirm === "获取解忧券") {
         this.$router.push({
           query: { active: "solution" },
           path: "/pages/welfare/index"
         });
       }
-      if (this.confirm === "前往解答室") {
+      if (this.value.confirm === "前往解答室") {
         this.$router.push({
           path: "/pages/solution/tags"
         });
@@ -91,6 +93,7 @@ export default {
     clickMask() {
       this.isShowModal = false;
       this.img = false;
+      this.imgUrl = "";
       this.value = {
         title: "",
         sure: "",
