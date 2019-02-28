@@ -4,6 +4,7 @@ import { promisify } from "@/utils/index";
 const environment = "prod"; // 配置环境
 
 const fly = new flyio();
+
 let cookies = [],
   token = "",
   tryCount = 0;
@@ -43,13 +44,15 @@ function sendBackErrorToCloud(message, status, request) {
   if (!request) {
     return false;
   }
-  if (!wx.cloud){
+  if (!wx.cloud) {
     return false;
   }
   const systemInfo = wx.getSystemInfoSync();
   const lauchOpts = getApp().globalData.options;
   const userId = getApp().globalData.user._id;
-  const db = wx.cloud.database({ env: environment == "prod" ? "tell-prod" : "tell-dev-2019" });
+  const db = wx.cloud.database({
+    env: environment == "prod" ? "tell-prod" : "tell-dev-2019"
+  });
   const data = {
     systemInfo: systemInfo,
     lauchOpts: lauchOpts,
@@ -66,12 +69,14 @@ function sendBackErrorToCloud(message, status, request) {
 }
 
 function sendFrontErrorToCloud(error) {
-  if (!wx.cloud){
+  if (!wx.cloud) {
     return false;
   }
   const systemInfo = wx.getSystemInfoSync();
   const userId = this.globalData.user._id;
-  const db = wx.cloud.database({ env: environment == "prod" ? "tell-prod" : "tell-dev-2019" });
+  const db = wx.cloud.database({
+    env: environment == "prod" ? "tell-prod" : "tell-dev-2019"
+  });
   const data = {
     systemInfo: systemInfo,
     userId,
@@ -163,7 +168,7 @@ async function logLogin() {
 async function waitingLogin() {
   return new Promise(function(resolve, reject) {
     var hash = setInterval(function() {
-      if (tryCount >= 50) {
+      if (tryCount >= 100) {
         clearInterval(hash);
         wx.reLaunch({
           url: "/pages/noFound/index"
@@ -182,7 +187,6 @@ async function waitingLogin() {
 }
 
 fly.interceptors.request.use(async function(request) {
-  console.log("token", token);
   if (/login\?code=/.test(request.url)) {
     return request;
   }
@@ -198,30 +202,33 @@ fly.interceptors.request.use(async function(request) {
 
 fly.interceptors.response.use(
   response => {
-    // if (cookies && token) {
-    //   return response.data;
-    // }
+    if (cookies && token) {
+      return response.data;
+    }
     if (response && response.headers && response.headers["set-cookie"]) {
       cookies = normalizeUserCookie(response.headers["set-cookie"]);
-      getApp().globalData.token = getToken(response.headers["set-cookie"][0]);
-      token = getApp().globalData.token;
+      token =  getToken(response.headers["set-cookie"][0]);
     }
     return response.data;
   },
-  err => {
-    if (err.status == 502 || err.status == 404) {
-      showError("服务器抽风啦，请重试", err.status, err.request); // 生产环境：服务器正在重启
-      return wx.reLaunch({
+  async err => {
+    if (err.status == 504) {
+      await login();
+      return await fly.request(err.request);;
+    } else if (err.status == 502 || err.status == 404) {
+      showError("服务器抽风啦，请稍后重试", err.status, err.request); // 生产环境：服务器正在重启
+      wx.reLaunch({
         url: "/pages/noFound/index"
       });
-    }
-    if (!err.response) {
-      showError("服务器抽风啦，请重试", err.status, err.request); // 本地环境：服务器正在重启
-      return wx.reLaunch({
+    } else if (!err.response) {
+      showError("服务器抽风啦，请稍后重试", err.status, err.request); // 本地环境：服务器正在重启
+      rwx.reLaunch({
         url: "/pages/noFound/index"
       });
+    } else {
+      showError(err.response.data.message, err.status);
     }
-    showError(err.response.data.message, err.status, err.request);
+    return {};
   }
 );
 

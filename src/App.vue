@@ -41,8 +41,7 @@ export default {
       title: "送你一张解忧券",
       imageUrl: "https://cdn.tellers.cn/tell_v2/static/share_default.jpg", // 默认分享图
       path: "/pages/share/receive?",
-      replyCount: 1,
-      token: ""
+      replyCount: 1
     };
   }
 };
