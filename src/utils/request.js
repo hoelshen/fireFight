@@ -182,7 +182,6 @@ async function waitingLogin() {
 }
 
 fly.interceptors.request.use(async function(request) {
-  console.log("token", token);
   if (/login\?code=/.test(request.url)) {
     return request;
   }

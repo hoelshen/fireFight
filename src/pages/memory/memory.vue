@@ -5,16 +5,16 @@
       <div @click="toggleAnswer" :class="active =='answer' ? 'borderColor': ''" class="navigatabar_item flex center">我的解答</div>
     </session>
     <scroll-view class="list  box" scroll-y lower-threshold="200" :style='`height: ${scrolHeight}px`' @scrolltolower="scrolltolower" v-if="active =='question' ">
-      <Envelope station="memory" :mail="story" v-for="story in storyList" :key="story._id">
+      <Envelope station="memory" :mail="story" v-for="story in List" :key="story._id">
       </Envelope>
-      <div v-if="storyList.length === 0" class="noMail flex center">
+      <div v-if="List.length === 0" class="noMail flex center">
         暂无咨询
       </div>
     </scroll-view>
     <scroll-view class="list  box" scroll-y lower-threshold="200" :style='`height: ${scrolHeight}px`' @scrolltolower="scrolltolower" v-else>
-      <Envelope station="memory" :mail="reply" v-for="reply in replyList" :key="reply._id">
+      <Envelope station="memory" :mail="reply" v-for="reply in List" :key="reply._id">
       </Envelope>
-      <div v-if="replyList.length === 0" class="noMail flex center">
+      <div v-if="List.length === 0" class="noMail flex center">
         暂无解答
       </div>
     </scroll-view>
@@ -29,10 +29,9 @@ export default {
   data() {
     return {
       active: "question",
-      storyList: [],
-      replyList: [],
-      storyPage: 1,
-      replyPage: 1,
+      List: [],
+      Page: 1,
+      isFlage: false,
       scrolHeight: "562"
     };
   },
@@ -40,8 +39,7 @@ export default {
     this.setScrollHeight();
   },
   onShow() {
-    this.getStoryList();
-    //this.getReplyList();
+    this.getList();
   },
   methods: {
     setScrollHeight() {
@@ -59,37 +57,42 @@ export default {
     },
     toggleQuestion() {
       this.active = "question";
-      this.getStoryList(1);
+      this.isFlage = false;
+      this.Page = 1;
+      this.List =[];
+      this.getList(1);
     },
     toggleAnswer() {
       this.active = "answer";
-      this.getReplyList(1);
+      this.isFlage = false;
+      this.Page = 1;
+      this.List =[];
+      this.getList(1);
     },
     scrolltolower() {
-      if (this.active == "question") {
-        this.getStoryList(this.storyPage + 1);
-      } else {
-        this.getReplyList(this.replyPage + 1);
-      }
+      this.getList(this.Page + 1);
     },
-    async getStoryList(page = 1) {
-      let res = await this.$request.get(`/mail/mine/outbox?page=${page}`); //我的咨询
-      if (page == 1) {
-        this.storyPage = 1;
-        this.storyList = res.data;
-      } else if (res.data.length > 0) {
-        this.storyPage = page;
-        this.storyList = this.storyList.concat(res.data);
+    async getList(page = 1) {
+      // console.log("Page", Page);
+      if(this.isFlage) return false;
+        let res;
+      if(this.active == "question"){
+         res = await this.$request.get(`/mail/mine/outbox?page=${page}`); //我的咨询
+      } else{
+         res = await this.$request.get(`/mail/mine/inbox?page=${page}`); //我的咨询
       }
-    },
-    async getReplyList(page = 1) {
-      let res = await this.$request.get(`/mail/mine/inbox?page=${page}`); //我的咨询
+
+      if(res.data.length === 0){
+        this.isFlage = true;
+        return false;
+      }
+
       if (page == 1) {
-        this.replyPage = 1;
-        this.replyList = res.data;
+        this.Page = 1;
+        this.List = res.data;
       } else if (res.data.length > 0) {
-        this.replyPage = page;
-        this.replyList = this.replyList.concat(res.data);
+        this.Page = page;
+        this.List = this.List.concat(res.data);
       }
     }
   },
