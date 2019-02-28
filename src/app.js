@@ -1,4 +1,5 @@
 import App from "./App";
+import './static/sdk/ald-stat';
 import Vue from "vue";
 import VHtmlPlugin from "@megalo/vhtml-plugin";
 import filters from "./utils/filters";
