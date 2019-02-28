@@ -25,6 +25,7 @@ app.$mount();
 
 export default {
   config: {
+    cloud: true,
     // pages 的首个页面会被编译成首页
     pages: [
       "pages/home/index", //首页
