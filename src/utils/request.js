@@ -43,6 +43,9 @@ function sendBackErrorToCloud(message, status, request) {
   if (!request) {
     return false;
   }
+  if (!wx.cloud){
+    return false;
+  }
   const systemInfo = wx.getSystemInfoSync();
   const lauchOpts = getApp().globalData.options;
   const userId = getApp().globalData.user._id;
@@ -63,6 +66,9 @@ function sendBackErrorToCloud(message, status, request) {
 }
 
 function sendFrontErrorToCloud(error) {
+  if (!wx.cloud){
+    return false;
+  }
   const systemInfo = wx.getSystemInfoSync();
   const userId = this.globalData.user._id;
   const db = wx.cloud.database({ env: environment == "prod" ? "tell-prod" : "tell-dev-2019" });

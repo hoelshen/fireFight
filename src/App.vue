@@ -3,7 +3,9 @@
 export default {
   mpType: "app",
   onLaunch(opts) {
-    wx.cloud.init();
+    if (wx.cloud) {
+      wx.cloud.init();
+    }
     this.globalData.options = opts;
     this.$request.login();
     this.globalData.path = opts.query.scene
