@@ -158,6 +158,7 @@ export default {
   onShow() {
     const { user } = getApp().globalData;
     this.ticketCount = user.ticketCount;
+    this.aliasName = user.signName;
     try {
       const value = wx.getStorageSync("story");
       if (value) {
@@ -169,7 +170,6 @@ export default {
       // Do something when catch error
     }
     this.getWeather();
-    this.refresh();
   },
   onShareAppMessage(res) {
     let { title, imageUrl, path, user } = getApp().globalData;
