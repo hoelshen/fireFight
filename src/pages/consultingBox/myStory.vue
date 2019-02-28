@@ -7,7 +7,7 @@
           <div class="textAreafloat_item">· 关键的人物、地点等信息建议使用化名</div>
           <div class="textAreafloat_item">· 落款署名尽量不要使用笔名或微信昵称</div>
         </div>
-        <textarea class="textArea" :auto-height="true"  v-else @blur="onBlur" :focus="isFocus" maxlength="5000" cursor-spacing="30" :value="content" @input="bindTextAreaBlur" />
+        <textarea class="textArea" :auto-height="true"  v-else @blur="onBlur" :focus="isFocus" maxlength="5000" cursor-spacing="30px" :value="content" @input="bindTextAreaBlur" />
       </div>
       <div class="flex column j-between textName">
         <div class="flex j-end a-center">
@@ -202,13 +202,13 @@ export default {
 .text {
   background-color: #ffffff;
   min-height: 830rpx;
+  padding:40rpx;
   color: rgba(189, 189, 192, 1);
 }
 .textArea {
   min-height: 750rpx;
   background-color: #ffffff;
   color: #4d495b;
-  padding: 40rpx;
   width: 100%;
   font-size: 34rpx;
   box-sizing: border-box;
@@ -232,7 +232,6 @@ export default {
 }
 .textAreafloat {
   min-height: 750rpx;
-  margin: 40rpx;
   line-height:52rpx;
   color: rgba(169, 169, 169, 1);
   background-color: #ffffff;
