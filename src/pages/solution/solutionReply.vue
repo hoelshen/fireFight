@@ -2,7 +2,7 @@
   <view class="app box">
     <Mail :mail="mail"></Mail>
     <Mail v-if="reMail" :mail="reMail"></Mail>
-    <Reply v-if="isReply" :target="mail.aliasName" tag="solution" :id="id"></Reply>
+    <Reply v-if="isReply" :target="mail.aliasName" tag="solution" :id="id" @submit="submit"></Reply>
     <div v-else class="flex column center showReply_button">
       <button :disabled="isDisable" class="reply_button flex center" @click="showReply">回信</button>
       <span class="replay_text">今天还可以回复 {{replyCount}} 次</span>
@@ -45,6 +45,11 @@ export default {
     },
     showReply() {
       this.isReply = true;
+    },
+    submit(){
+      this.isReply = false;
+      this.isDisable = true;
+      this.replyCount = 0;
     }
   },
   async onShow() {

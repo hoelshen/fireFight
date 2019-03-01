@@ -2,7 +2,7 @@
   <view class="app list">
     <Mail :mail="item" v-for="item in list" :key="item._id"></Mail>
     <Mail :mail="replyMail" v-if="replyMail"></Mail>
-    <Reply v-if="isReply" :target="target" tag="mail" :id="id"></Reply>
+    <Reply v-if="isReply" :target="target" tag="mail" :id="id" @submit="submit"></Reply>
     <div class="flex column center showReply_button" v-if="!isDisabled &&!isReply && !isFromSystem">
       <button class="reply_button" @click="showReply"> 回信</button>
       <span class="replay_text">需要使用 1 张邮票</span>
@@ -101,6 +101,10 @@ export default {
     },
     toConsulting() {
       this.$router.push({ path: "/pages/consultingBox/consultingBox" });
+    },
+    submit(){
+      this.isReply = false;
+      this.isDisable = true;
     }
   },
   onShow() {

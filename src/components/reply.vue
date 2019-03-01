@@ -76,6 +76,7 @@ export default {
       const obj = { content: this.reply.content, weather: this.reply.weather };
       if (this.tag === "mail") {
         this.$request.put(`/dialog/${this.id}`, obj).then(() => {
+          this.$emit("submit", false);
           this.$router.push({
             query: { tag: this.tag, active: "mail", targetUser: this.target },
             path: "/pages/solution/promptPage"
@@ -84,6 +85,7 @@ export default {
       }
       if (this.tag === "solution") {
         this.$request.post(`/mail/story/${this.id}`, obj).then(() => {
+          this.$emit("submit", false);
           this.$router.push({
             query: {
               tag: this.tag,
