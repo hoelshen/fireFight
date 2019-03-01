@@ -241,7 +241,7 @@ export default {
         title: "",
         mask: true
       });
-      let detail = e.mp.detail;
+      let detail = e.detail;
       if (!detail.userInfo) {
         return wx.hideLoading();
       }

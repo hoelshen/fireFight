@@ -61,7 +61,7 @@ export default {
 
   methods: {
     onContentChange(e) {
-      this.content = e.mp.detail.value;
+      this.content = e.detail.value;
     },
     async send(e) {
       // 字数检测
