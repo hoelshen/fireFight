@@ -67,8 +67,7 @@ export default {
   padding: 60rpx 40rpx;
   color: #4d495b;
   background: #fff;
-  margin: 40rpx 20rpx;
-  border-radius: 4rpx;
+  margin:40rpx 20rpx;
 }
 .mail_title {
   font-size: 34rpx;
