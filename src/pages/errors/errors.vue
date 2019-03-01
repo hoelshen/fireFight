@@ -1,63 +1,73 @@
 <template>
-    <div>
-        <div v-for="item in data" :key="item._id">
-            <div>
-                _id:{{item._id}}
-            </div>
+    <div class="errors">
+        <div class="total flex center">
+            共查询到 {{data.length}} 条结果
+        </div>
+        <div class="line" v-for="item in data" :key="item._id">
+            {{item.createdAt | time}} - {{item.message}}
             <br/>
-            <div class="userid">
-                _openid:{{item._openid}}
-            </div>
-            <br/>
-            <div>
-                body:{{item.body}}
-            </div>
-            <br/>
-            <div class="time">
-                createdAt:{{item.createdAt}}
-            </div>
-            <br/>
-            <div>
-                lauchOpts:{{item.lauchOpts}}
-            </div>
-            <br/>
-            <div class="mess">
-                message:{{item.message}}
-            </div>
-            <br/>
-            <div>
-                systemInfo:{{item.systemInfo}}
-            </div>
-        </div>        
+        </div>
     </div>
 </template>
 
 <script>
-import {errors} from "@/utils/errors";
+import day from "../../utils/day";
 
 export default {
-    data(){
-        return{
-            data:[]
-        }
+  data() {
+    return {
+      data: []
+    };
+  },
+  methods: {
+    async callFunction(query) {
+      let res = await wx.cloud.callFunction({
+        name: "errorHandler",
+        data: query
+      });
+      return res.result.data;
     },
-    async onShow(){
-        let result = await errors();
-        const { result:{ data } } = result;
-        this.data = data;
-        // console.log("data", data);
+    async getAllBackErrors(id) {
+      let res = await this.callFunction({
+        env: "tell-dev-2019"
+      });
+      this.data = res;
+    },
+    async getBackErrorsByMessage(msg) {
+      let res = await this.callFunction({
+        doc: "back-errors",
+        rule: {
+          message: msg
+        }
+      });
+      //console.log(res);
+      this.data = res;
     }
-}
+  },
+  onLoad() {
+    wx.cloud.init();
+  },
+  onShow() {
+    //this.getAllBackErrors();
+    this.getBackErrorsByMessage("信件未找到");
+  },
+  filters: {
+    time: function(value) {
+      return day(value).format("YYYY-MM-DD HH:mm:ss");
+    }
+  }
+};
 </script>
 
 <style lang="less" scoped>
-    .userid{
-        background-color: orange
-    }
-    .mess{
-        background-color: aqua
-    }
-    .time{
-        background-color: red;
-    }
+.errors {
+  padding: 30rpx;
+}
+.total {
+  font-size: 40rpx;
+  padding: 20rpx;
+}
+.line {
+  margin-bottom: 20rpx;
+}
 </style>
