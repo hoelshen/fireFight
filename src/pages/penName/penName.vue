@@ -35,6 +35,13 @@ export default {
         sizeType: ["compressed"],
         sourceType: ["album", "camera"],
         success: function(res) {
+          wx.showLoading({
+            title: "上传中",
+            mask: true,
+            success: (result)=>{  
+              console.log('re', result);
+            }
+          });          
           const tempFilePaths = res.tempFilePaths;
           this.$request.uploadFile(tempFilePaths[0]).then(
             function(res) {
@@ -42,11 +49,13 @@ export default {
               this.userInfo.aliasPortrait = data.data;
             }.bind(this)
           );
+          setTimeout(wx.hideLoading, 2000)
         }.bind(this),
         fail(e) {
-          console.error(e);
+          wx.hideLoading();
         }
       });
+
     },
     save() {
       const route = this.$router.currentRoute;
