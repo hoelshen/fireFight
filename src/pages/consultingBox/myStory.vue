@@ -158,7 +158,11 @@ export default {
   onShow() {
     const { user } = getApp().globalData;
     this.ticketCount = user.ticketCount;
-    this.aliasName = user.signName;
+    if(user.signName){
+      this.aliasName = user.signName;
+    } else{
+      this.refresh();
+    }
     try {
       const value = wx.getStorageSync("story");
       if (value) {

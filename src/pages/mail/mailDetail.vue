@@ -123,12 +123,6 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.mail {
-  min-height: 620rpx;
-  margin: 40rpx 20rpx 40rpx 20rpx;
-  border-radius: 4rpx;
-}
-
 .reply_button {
   margin-top: 16rpx;
   border-radius: 23px;

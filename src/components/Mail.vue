@@ -63,11 +63,12 @@ export default {
 
 <style lang="less" scoped>
 .mail {
+  min-height: 620rpx;
   padding: 60rpx 40rpx;
   color: #4d495b;
-  margin-bottom: 40rpx;
   background: #fff;
-  margin:40rpx 60rpx;
+  margin: 40rpx 20rpx;
+  border-radius: 4rpx;
 }
 .mail_title {
   font-size: 34rpx;
