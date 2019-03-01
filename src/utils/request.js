@@ -73,7 +73,7 @@ function sendFrontErrorToCloud(error) {
     return false;
   }
   const systemInfo = wx.getSystemInfoSync();
-  const userId = this.globalData.user._id;
+  const userId = getApp().globalData.user._id;
   const db = wx.cloud.database({
     env: environment == "prod" ? "tell-prod" : "tell-dev-2019"
   });

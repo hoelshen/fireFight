@@ -3,15 +3,15 @@
     <Mail :mail="item" v-for="item in list" :key="item._id"></Mail>
     <Mail :mail="replyMail" v-if="replyMail"></Mail>
     <Reply v-if="isReply" :target="target" tag="mail" :id="id"></Reply>
-    <div class="flex column center showReply_button" v-if="!isReply && !isFromSystem">
-      <button :disabled="isDisabled" class="reply_button" @click="showReply"> 回信</button>
+    <div class="flex column center showReply_button" v-if="!isDisabled &&!isReply && !isFromSystem">
+      <button class="reply_button" @click="showReply"> 回信</button>
       <span class="replay_text">需要使用 1 张邮票</span>
     </div>
     <div class="btns flex column center" v-if="isFromSystem">
       <button class="darkButton btn" @click="toConsulting"> 去咨询</button>
       <button class="lightButton btn" @click="toSolution"> 去解答</button>
     </div>
-    <Modal ref="mymodal"></Modal>   
+    <Modal ref="mymodal"></Modal>
   </view>
 </template>
 
@@ -56,9 +56,11 @@ export default {
       this.list = mailList;
       this.target = lastMail.aliasName;
       this.isFromSystem = dialog.fromSystem;
-      setTimeout(() => {
-        wx.pageScrollTo({ scrollTop: 10000 });
-      }, 1000);
+      if (mailList.length > 1) {
+        setTimeout(() => {
+          wx.pageScrollTo({ scrollTop: 10000 });
+        }, 1000);
+      }
       this.getReplyMail(dialog, lastMail._id);
     },
     getReplyMail(dialog, lastMailId) {
@@ -74,12 +76,12 @@ export default {
     showReply() {
       if (this.stampCount === 0) {
         this.$refs.mymodal.show({
-            title: "邮票不足",
-            content: "需要消耗 1 邮票，当前余额不足",
-            confirm: "获取邮票",
-            type: "CONFIRM",
-            sure: "好的",
-        })
+          title: "邮票不足",
+          content: "需要消耗 1 邮票，当前余额不足",
+          confirm: "获取邮票",
+          type: "CONFIRM",
+          sure: "好的"
+        });
         return false;
       }
       this.isReply = true;

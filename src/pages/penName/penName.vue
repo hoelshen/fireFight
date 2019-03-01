@@ -37,16 +37,15 @@ export default {
         success: function(res) {
           wx.showLoading({
             title: "上传中",
-            mask: true,
-            success: (result)=>{  
-              console.log('re', result);
-            }
+            mask: true
           });          
           const tempFilePaths = res.tempFilePaths;
           this.$request.uploadFile(tempFilePaths[0]).then(
             function(res) {
               let data = JSON.parse(res.data);
-              this.userInfo.aliasPortrait = data.data;
+              let userInfo = this.userInfo;
+              userInfo.aliasPortrait = data.data;
+              this.userinfo = userInfo;
             }.bind(this)
           );
           setTimeout(wx.hideLoading, 2000)
