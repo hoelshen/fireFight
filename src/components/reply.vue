@@ -49,11 +49,42 @@ export default {
         aliasPortrait: "",
         aliasName: ""
       },
+      oldContent:""
     };
   },
   methods: {
     bindTextAreaBlur(e) {
       this.reply.content = e.detail.value;
+
+      const newLength = e.detail.cursor;
+      console.log('newLength: ', newLength);
+      let oldLength = this.oldContent.length || 0;
+      console.log('oldLength: ', oldLength);
+      
+      if(e.detail.cursor === 0){
+        wx.removeStorage({
+          key: this.id,
+          success(res) {
+            //
+          }
+        })          
+      }
+      // if(this.oldContent){
+      //   this.reply.content = this.oldContent || "";
+      //   oldLength = this.oldContent.length || 0;
+      // }
+
+      // console.log('this.oldContent : ', this.oldContent );
+
+      if((newLength - oldLength) > 10){
+        console.log('newl', newLength);
+          wx.setStorage({
+            key: this.id,
+            data: e.detail.value
+          })
+      }
+      
+      // console.log('e.detail.value: ', e.detail.cursor);
     },
     async getWeather() {
       let res = await this.$request.get("/weather");
@@ -77,6 +108,12 @@ export default {
       if (this.tag === "mail") {
         this.$request.put(`/dialog/${this.id}`, obj).then(() => {
           this.$emit("submit", true);
+          wx.removeStorage({
+            key: this.id,
+            success(res) {
+              //
+            }
+          })          
           this.$router.push({
             query: { tag: this.tag, active: "mail", targetUser: this.target },
             path: "/pages/solution/promptPage"
@@ -86,6 +123,12 @@ export default {
       if (this.tag === "solution") {
         this.$request.post(`/mail/story/${this.id}`, obj).then(() => {
           this.$emit("submit", true);
+          wx.removeStorage({
+            key: this.id,
+            success(res) {
+              //
+            }
+          })            
           this.$router.push({
             query: {
               tag: this.tag,
@@ -103,8 +146,12 @@ export default {
     this.reply.aliasName = user.aliasName;
     this.reply.aliasPortrait = user.aliasPortrait;
     this.getWeather();
-  },
 
+    this.oldContent = wx.getStorageSync(this.id);
+    if(this.oldContent){
+      this.reply.content = this.oldContent;
+    }
+  }
 };
 </script>
 <style lang="less" scoped>
