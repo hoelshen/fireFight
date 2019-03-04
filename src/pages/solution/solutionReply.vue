@@ -3,8 +3,8 @@
     <Mail :mail="mail"></Mail>
     <Mail v-if="reMail" :mail="reMail"></Mail>
     <Reply v-if="canReply" :target="mail.aliasName" tag="solution" :id="id" @submit="submit"></Reply>
-    <div v-if="isDisable" class="flex column center showReply_button">
-      <button :disabled="!isDisable" class="reply_button flex center" @click="showReply">回信</button>
+    <div v-if="isReplyButton" class="flex column center showReply_button">
+      <button :disabled="isDisable" class="reply_button flex center" @click="showReply">回信</button>
       <span class="replay_text">今天还可以回复 {{replyCount}} 次</span>
     </div>
   </view>
@@ -26,6 +26,7 @@ export default {
       reMail: {},
       replyCount: 1,
       canReply: false,
+      isReplyButton: false,
       isDisable:false,
     };
   },
@@ -38,19 +39,19 @@ export default {
       //如果有回过信件 不显示回信框和回信按钮
       if(this.reMail){
         this.canReply = false;
-        this.isDisable = false;
+        this.isReplyButton = false;
       } else {
         this.canReply = false;
+        this.isReplyButton = true;
         //判断有没有回信次数
-        this.isDisable = this.replyCount > 0 ? true : false;
+        this.isDisable = this.replyCount > 0 ? false : true;
       }
     },
     showReply() {
       this.canReply = true;
-      this.isDisable = false;
+      this.isReplyButton = false;
     },
     submit(){
-      // this.canReply = false;
     }
   },
   async onShow() {
