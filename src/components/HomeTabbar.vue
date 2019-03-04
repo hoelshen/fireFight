@@ -41,16 +41,9 @@ export default {
   },
   created() {
     this.tab = this.active;
-    const value = wx.getStorageSync('systemInfo');
-    if(value){
-      if(value.model.match("iPhone X")){
-        this.isIpx = true;
-      }
-    } else {
-      const model = wx.getSystemInfoSync().model;
-      if(model.match("iPhone X")){
-        this.isIpx = true;
-      }
+    const model = wx.getSystemInfoSync().model;
+    if(model.match("iPhone X")){
+      this.isIpx = true;
     }
   },
   data() {

@@ -43,7 +43,17 @@ export default {
   },
   methods: {
     setScrollHeight() {
-        this.scrolHeight = getApp().globalData.systemInfoHeight;
+      wx
+        .createSelectorQuery()
+        .select(".navigatabar")
+        .boundingClientRect()
+        .exec(
+          function(res) {
+            let barHeight = res[0].height;
+            let systemInfo = wx.getSystemInfoSync();
+            this.scrolHeight = systemInfo.windowHeight - barHeight;
+          }.bind(this)
+        );
     },
     toggleQuestion() {
       this.active = "question";
