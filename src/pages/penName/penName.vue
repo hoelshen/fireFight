@@ -54,7 +54,6 @@ export default {
           wx.hideLoading();
         }
       });
-
     },
     save() {
       const route = this.$router.currentRoute;

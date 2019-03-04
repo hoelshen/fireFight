@@ -37,7 +37,7 @@
           <button @click="login" v-if="!user.aliasPortrait">点击登录</button>
           <div class="flex column center" v-else>
             <div class="flex j-around my_info_user-nickName">
-              <div @click="login">{{user.aliasName}}</div>
+              <div @click="loginName">{{user.aliasName}}</div>
             </div>
             <div class="my_info_user-address flex wrap" @click="showAddressModal">{{user.aliasAddress}}</div>
           </div>
@@ -103,7 +103,10 @@ export default {
       banners: [],
       wayCount: 0,
       dialogs: [],
-      user: {},
+      user: {
+        aliasPortrait: "",
+        aliasName: ""
+      },
       scrolHeight: 541,
       isShowModal: false,
       modal: {
@@ -220,11 +223,46 @@ export default {
     },
     login() {
       const status = this.$checkAuth(this.user);
-      if (status) {
+      if(status) {
+          wx.chooseImage({
+            count: 1,
+            sizeType: ["compressed"],
+            sourceType: ["album", "camera"],
+            success: function(res) {
+              wx.showLoading({
+                title: "上传中",
+                mask: true
+              });          
+              const tempFilePaths = res.tempFilePaths;
+              this.$request.uploadFile(tempFilePaths[0]).then(
+                function(res) {
+                  let data = JSON.parse(res.data);
+                  let user = this.user;
+                  user.aliasPortrait = data.data;
+                  this.user = user;
+                  const { aliasName, aliasPortrait } = this.user;
+                  this.$request
+                    .put("/user", {
+                      aliasName,
+                      aliasPortrait
+                    })                  
+                }.bind(this)
+              );
+              setTimeout(wx.hideLoading, 2000)
+            }.bind(this),
+            fail(e) {
+              wx.hideLoading();
+            }
+          });
+      }
+    },
+    loginName(){
+      const status = this.$checkAuth(this.user);
+      if( status ){
         this.$router.push({
           query: { id: 1 },
-          path: "/pages/penName/index"
-        });
+          path: "/pages/penName/index"        
+        })
       }
     },
     toFaq() {
