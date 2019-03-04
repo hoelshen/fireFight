@@ -240,8 +240,18 @@ export default {
         .exec(
           function(res) {
             let barHeight = res[0].height;
-            let systemInfo = wx.getSystemInfoSync();
-            this.scrolHeight = systemInfo.windowHeight - barHeight;
+            const value = wx.getStorageSync('systemInfo');
+            if(value){
+              console.log('value: ', value);
+              this.scrolHeight = value.windowHeight - barHeight;
+            } else{
+              let systemInfo = wx.getSystemInfoSync();
+              this.scrolHeight = systemInfo.windowHeight - barHeight;
+              wx.setStorage({
+                key: 'systemInfo',
+                data: systemInfo
+              })
+            }
           }.bind(this)
         );
     },

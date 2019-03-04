@@ -1,7 +1,7 @@
 import flyio from "flyio/dist/npm/wx";
 import { promisify } from "@/utils/index";
 
-const environment = "prod"; // 配置环境
+const environment = "local"; // 配置环境
 
 const fly = new flyio();
 
@@ -17,7 +17,7 @@ fly.config.headers["Content-Type"] = "application/json; charset=utf-8";
 function getBaseURL(env) {
   switch (env) {
     case "local":
-      return "http://localhost:10701";
+      return "http://192.168.118.149:10701";
     case "mock":
       return "http://www.amusingcode.com:8001/mock/24/tell_v2";
     case "test":
@@ -222,7 +222,7 @@ fly.interceptors.response.use(
       });
     } else if (!err.response) {
       showError("服务器抽风啦，请稍后重试", err.status, err.request); // 本地环境：服务器正在重启
-      rwx.reLaunch({
+      wx.reLaunch({
         url: "/pages/noFound/index"
       });
     } else {

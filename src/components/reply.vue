@@ -76,7 +76,7 @@ export default {
       const obj = { content: this.reply.content, weather: this.reply.weather };
       if (this.tag === "mail") {
         this.$request.put(`/dialog/${this.id}`, obj).then(() => {
-          this.$emit("submit", false);
+          this.$emit("submit", true);
           this.$router.push({
             query: { tag: this.tag, active: "mail", targetUser: this.target },
             path: "/pages/solution/promptPage"
@@ -85,7 +85,7 @@ export default {
       }
       if (this.tag === "solution") {
         this.$request.post(`/mail/story/${this.id}`, obj).then(() => {
-          this.$emit("submit", false);
+          this.$emit("submit", true);
           this.$router.push({
             query: {
               tag: this.tag,
@@ -104,9 +104,7 @@ export default {
     this.reply.aliasPortrait = user.aliasPortrait;
     this.getWeather();
   },
-  onHide(){
-    this.reply.content = '';
-  }
+
 };
 </script>
 <style lang="less" scoped>

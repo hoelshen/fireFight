@@ -41,10 +41,17 @@ export default {
   },
   created() {
     this.tab = this.active;
-    const model = wx.getSystemInfoSync().model;
-     if(model.match("iPhone X")){
-      this.isIpx = true;
-     }
+    const value = wx.getStorageSync('systemInfo');
+    if(value){
+      if(value.model.match("iPhone X")){
+        this.isIpx = true;
+      }
+    } else {
+      const model = wx.getSystemInfoSync().model;
+      if(model.match("iPhone X")){
+        this.isIpx = true;
+      }
+    }
   },
   data() {
     return {
@@ -63,7 +70,6 @@ export default {
       wx.setNavigationBarTitle({ title: "Tell" });
       this.tab = "home";
       this.$emit("change", this.tab);
-
       this.$request.saveFormid(e.detail.formId);
     },
     mail(e) {
