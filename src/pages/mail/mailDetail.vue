@@ -9,7 +9,10 @@
     </div>
     <div class="btns flex column center" v-if="isFromSystem">
       <button class="darkButton btn" @click="toConsulting"> 去咨询</button>
-      <button class="lightButton btn" @click="toSolution"> 去解答</button>
+
+
+      <button v-if="!user.unionid" class="lightButton btn" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">去解答</button>
+      <button v-else class="lightButton btn" @click="toSolution">去解答</button>
     </div>
     <Modal ref="mymodal"></Modal>
   </view>
@@ -31,6 +34,7 @@ export default {
     return {
       id: "",
       userId: "",
+      user:{},
       list: [],
       replyMail: {},
       target: {},
@@ -86,7 +90,33 @@ export default {
       }
       this.isReply = true;
     },
+    onGotUserInfo(e) {
+      let { iv, userInfo, encryptedData } = e.detail;
+      if (!userInfo) {
+        return false;
+      }
+      wx.showLoading({
+        title: "授权中",
+        mask: true
+      });
+      this.$request
+        .post("/auth", {
+          iv,
+          userInfo,
+          encryptedData
+        })
+        .then(
+          function(authRes) {
+            wx.hideLoading();
+            this.$router.push({ path: "/pages/penName/index" });
+          }.bind(this)
+        )
+        .catch(err => {
+          wx.hideLoading();
+        });
+    },
     toSolution() {
+        const { user } = getApp().globalData;
         if (!user.becomeAnswererAt) {
           return this.$router.push({
             query: { active: "solverDetail" },
@@ -108,6 +138,7 @@ export default {
     this.id = query.id;
     this.getContent(this.id);
     const { user } = getApp().globalData;
+    this.user = user;
     this.userId = user._id;
     this.stampCount = user.stampCount;
   },
