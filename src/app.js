@@ -6,9 +6,7 @@ import filters from "./utils/filters";
 import megaloRouter from "megalo-router";
 import request from "./utils/request";
 import day from "./utils/day";
-import {
-  checkAuth,
-} from "./utils/index";
+
 Vue.use(VHtmlPlugin);
 
 Object.keys(filters).forEach(key => Vue.filter(key, filters[key]));
@@ -19,7 +17,7 @@ Vue.use(megaloRouter, {
 
 Vue.prototype.$request = request;
 Vue.prototype.$day = day;
-Vue.prototype.$checkAuth = checkAuth;
+
 //Vue.prototype.$compareVersion = compareVersion;
 const app = new Vue(App);
 app.$mount();
@@ -46,7 +44,6 @@ export default {
       "pages/welfare/index", //福利社
       "pages/memory/memory", //记忆
       "pages/memory/detail", //记忆
-      "pages/login/index", //授权
       "pages/help/index", //情感援助
       "pages/stronger-home/index", // MYS首页
       "pages/stronger-mail/index", //MYS故事

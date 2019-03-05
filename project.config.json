@@ -38,12 +38,6 @@
 			"list": [
 				{
 					"id": -1,
-					"name": "授权登录",
-					"pathName": "pages/login/index",
-					"query": ""
-				},
-				{
-					"id": -1,
 					"name": "设置笔名",
 					"pathName": "pages/penName/index",
 					"query": ""

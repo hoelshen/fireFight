@@ -10,7 +10,12 @@
         </span>
         <span class="consultingBox_content" @click="onDetail">查看详细说明</span>
       </div>
-      <button class="myStoryButton" @click="onMyStory">讲述我的故事</button>
+      <div v-if="!user.unionid">
+        <button  class="myStoryButton"  open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">
+        讲述我的故事
+        </button> 
+      </div>
+      <button v-else class="myStoryButton" @click="onMyStory">讲述我的故事</button>
     </div>
 
     <div class="foot flex center">
@@ -23,16 +28,13 @@
 export default {
   data() {
     return {
-      tickets: 0
+      tickets: 0,
+      user:{}
     };
   },
   methods: {
     onMyStory() {
-      const { user } = getApp().globalData;
-      const status = this.$checkAuth(user);
-      if (status) {
-        this.$router.push({ path: "/pages/consultingBox/myStory" });
-      }
+      this.$router.push({ path: "/pages/consultingBox/myStory" });
     },
     onDetail() {
       this.$router.push({
@@ -41,15 +43,37 @@ export default {
       });
     },
     returnWelfare() {
-      const { user } = getApp().globalData;
-      const status = this.$checkAuth(user);
-      if(status){
-        this.$router.push({ path: "/pages/welfare/index" });
+      this.$router.push({ path: "/pages/welfare/index" });
+    },
+    onGotUserInfo(e) {
+      let { iv, userInfo, encryptedData } = e.detail;
+      if (!userInfo) {
+        return false;
       }
-    }
+      wx.showLoading({
+        title: "授权中",
+        mask: true
+      });
+      this.$request
+        .post("/auth", {
+          iv,
+          userInfo,
+          encryptedData
+        })
+        .then(
+          function(authRes) {
+            wx.hideLoading();
+            this.$router.push({ path: "/pages/penName/index" });
+          }.bind(this)
+        )
+        .catch(err => {
+          wx.hideLoading();
+        });
+    },
   },
   onShow() {
     const { user } = getApp().globalData;
+    this.user = user
     this.tickets = user.ticketCount;
   },
   onShareAppMessage(res) {

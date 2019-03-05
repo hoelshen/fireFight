@@ -8,15 +8,6 @@ export function promisify(fn, self = null) {
   };
 }
 
-export function checkAuth(user) {
-  if (!user.unionid) { //无授权
-    this.$router.push({
-      path: "/pages/login/index"
-    });
-    return false;
-  }
-  return true;
-}
 
 export function compareVersion(v1, v2) {
   v1 = v1.split('.')
@@ -45,6 +36,5 @@ export function compareVersion(v1, v2) {
 }
 export default {
   promisify,
-  checkAuth,
   compareVersion
 }

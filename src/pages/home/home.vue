@@ -11,8 +11,12 @@
           </block>
         </swiper>
         <image class="home flex center" src="/static/jpg/homeBg.jpg"></image>
-        <div class="left" @click="toConsulting" />
-        <div class="right" @click="toSolution" />
+        <div  class="left" @click="toConsulting"/>
+        <div v-if="user.unionid" class="right" @click="toSolution"/>
+        <div v-else class="right">
+            <button  class="rightButton" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">
+            </button>
+        </div>
       </scroll-view>
     </div>
 
@@ -33,9 +37,15 @@
     <div class="pannel grow" v-else>
       <scroll-view scroll-y :style='`height: ${scrolHeight}px`'>
         <div class="my_info flex column">
-          <img class="my_info_user-avatarUrl" :src="user.aliasPortrait || 'https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg'" mode="scaleToFill" @click="login" />
-          <button @click="login" v-if="!user.aliasPortrait">点击登录</button>
-          <div class="flex column center" v-else>
+          <button v-if="!user.aliasPortrait" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">
+              <img class="my_info_user-avatarUrl" src="https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg" mode="scaleToFill" @click="login" />
+          </button>
+          <img v-else class="my_info_user-avatarUrl" :src="user.aliasPortrait || 'https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg'" mode="scaleToFill" @click="login" />
+
+
+          <button v-if="!user.aliasPortrait" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">点击登录</button>
+
+          <div v-else class="flex column center" >
             <div class="flex j-around my_info_user-nickName">
               <div @click="loginName">{{user.aliasName}}</div>
             </div>
@@ -54,10 +64,16 @@
             <span class="my_function_item-text">票券</span>
           </button>
 
-          <button @click="welfare" class="my_function_item-button flex column center">
+           <button v-if="!user.unionid" class="my_function_item-button flex column center" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">
+                <image class="iconfont" src="/static/svgs/welfare.svg" />
+                <span class="my_function_item-text">福利社</span>             
+          </button>
+
+          <button v-else @click="welfare" class="my_function_item-button flex column center">
             <image class="iconfont" src="/static/svgs/welfare.svg" />
             <span class="my_function_item-text">福利社</span>
           </button>
+
         </session>
 
         <session class="my_contact flex column">
@@ -119,7 +135,8 @@ export default {
       unreadMessages: 0,
       toPage: null,
       page: 1,
-      isFlage: false
+      isFlage: false,
+      userInfo: {}
     };
   },
   onLoad(opt) {
@@ -139,6 +156,7 @@ export default {
     this.$request.getUser().then(res => {
       this.user = res;
     });
+    this.userInfo =  getApp().globalData.user;      
     this.onTabChange(this.tab);
   },
   onShareAppMessage(res) {
@@ -160,9 +178,31 @@ export default {
         this.getWayCount();
         this.getDialogs();
       }
-      // if (this.tab === "mine") {
-      //   this.$request.getUser();
-      // }
+    },
+    onGotUserInfo(e) {
+      let { iv, userInfo, encryptedData } = e.detail;
+      if (!userInfo) {
+        return false;
+      }
+      wx.showLoading({
+        title: "授权中",
+        mask: true
+      });
+      this.$request
+        .post("/auth", {
+          iv,
+          userInfo,
+          encryptedData
+        })
+        .then(
+          function(authRes) {
+            wx.hideLoading();
+            this.$router.push({ path: "/pages/penName/index" });
+          }.bind(this)
+        )
+        .catch(err => {
+          wx.hideLoading();
+        });
     },
     openMail() {
       this.$router.push({ path: "/pages/mail/mailDay" });
@@ -199,88 +239,69 @@ export default {
     },
     toSolution() {
       const { user } = getApp().globalData;
-      const status = this.$checkAuth(user);
-      if (status) {
-        if (!user.becomeAnswererAt) {
-          return this.$router.push({
-            query: { active: "solverDetail" },
-            path: "/pages/manual/index"
-          });
-        }
-        return this.$router.push({ path: "/pages/solution/solutionRoom" });
+      if (!user.becomeAnswererAt) {
+        return this.$router.push({
+          query: { active: "solverDetail" },
+          path: "/pages/manual/index"
+        });
       }
+      return this.$router.push({ path: "/pages/solution/solutionRoom" });
     },
     toShare() {
       this.$router.push({ path: "/pages/share/share" });
     },
     memory() {
-      const { user } = getApp().globalData;
-      const status = this.$checkAuth(user);
-      if (status) {
         this.$router.push({ query: { id: 1 }, path: "/pages/memory/memory" });
-      }
     },
     ticket() {
-      const status = this.$checkAuth(this.user);
-      if (status) {
-        this.$router.push({
-          query: { id: 1 },
-          path: "/pages/ticket/ticketList"
-        });
-      }
+      this.$router.push({
+        query: { id: 1 },
+        path: "/pages/ticket/ticketList"
+      });
     },
     welfare() {
-      const status = this.$checkAuth(this.user);
-      if (status) {
-        this.$router.push({
-          query: { id: 1 },
-          path: "/pages/welfare/index"
-        });
-      }
+      this.$router.push({
+        query: { id: 1 },
+        path: "/pages/welfare/index"
+      });
     },
     login() {
-      const status = this.$checkAuth(this.user);
-      if(status) {
-          wx.chooseImage({
-            count: 1,
-            sizeType: ["compressed"],
-            sourceType: ["album", "camera"],
-            success: function(res) {
-              wx.showLoading({
-                title: "上传中",
-                mask: true
-              });          
-              const tempFilePaths = res.tempFilePaths;
-              this.$request.uploadFile(tempFilePaths[0]).then(
-                function(res) {
-                  let data = JSON.parse(res.data);
-                  let user = this.user;
-                  user.aliasPortrait = data.data;
-                  this.user = user;
-                  const { aliasName, aliasPortrait } = this.user;
-                  this.$request
-                    .put("/user", {
-                      aliasName,
-                      aliasPortrait
-                    })                  
-                }.bind(this)
-              );
-              setTimeout(wx.hideLoading, 2000)
-            }.bind(this),
-            fail(e) {
-              wx.hideLoading();
-            }
-          });
-      }
+        wx.chooseImage({
+          count: 1,
+          sizeType: ["compressed"],
+          sourceType: ["album", "camera"],
+          success: function(res) {
+            wx.showLoading({
+              title: "上传中",
+              mask: true
+            });          
+            const tempFilePaths = res.tempFilePaths;
+            this.$request.uploadFile(tempFilePaths[0]).then(
+              function(res) {
+                let data = JSON.parse(res.data);
+                let user = this.user;
+                user.aliasPortrait = data.data;
+                this.user = user;
+                const { aliasName, aliasPortrait } = this.user;
+                this.$request
+                  .put("/user", {
+                    aliasName,
+                    aliasPortrait
+                  })                  
+              }.bind(this)
+            );
+            setTimeout(wx.hideLoading, 2000)
+          }.bind(this),
+          fail(e) {
+            wx.hideLoading();
+          }
+        });
     },
     loginName(){
-      const status = this.$checkAuth(this.user);
-      if( status ){
-        this.$router.push({
-          query: { id: 1 },
-          path: "/pages/penName/index"        
-        })
-      }
+      this.$router.push({
+        query: { id: 1 },
+        path: "/pages/penName/index"        
+      })
     },
     toFaq() {
       this.$router.push({
@@ -405,6 +426,14 @@ export default {
     left: 375rpx;
     top: 160rpx;
     margin: 20rpx 60rpx 0 0;
+  }
+  .rightButton {
+    width: 315rpx;
+    height: 906rpx;
+    z-index: 99;
+    position: absolute;
+    background-color: transparent;
+    padding: 0
   }
 }
 

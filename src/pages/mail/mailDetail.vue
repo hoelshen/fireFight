@@ -87,9 +87,6 @@ export default {
       this.isReply = true;
     },
     toSolution() {
-      const { user } = getApp().globalData;
-      const status = this.$checkAuth(user);
-      if (status) {
         if (!user.becomeAnswererAt) {
           return this.$router.push({
             query: { active: "solverDetail" },
@@ -97,7 +94,6 @@ export default {
           });
         }
         return this.$router.push({ path: "/pages/solution/solutionRoom" });
-      }
     },
     toConsulting() {
       this.$router.push({ path: "/pages/consultingBox/consultingBox" });

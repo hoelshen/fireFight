@@ -77,7 +77,7 @@ export default {
           })
           .then(res => {
             wx.navigateBack({
-              delta: 2
+              delta: 1
             });
           });
       }
