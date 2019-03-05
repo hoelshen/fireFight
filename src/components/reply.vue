@@ -5,7 +5,7 @@
         <span class="target">{{target}}</span>
         <span class="target" style="margin-left:10rpx;">收</span>
       </div>
-      <textarea :focus="true" :auto-height="true" class="textArea" maxlength="5000" cursor-spacing="30" :value="reply.content" @input="bindTextAreaBlur"/>
+      <textarea :focus="true" :auto-height="true" class="textArea" maxlength="5000" cursor-spacing="30" :value="reply.content" @input="bindTextAreaInput"/>
       <div class="reply_weather flex column">
         <div class="flex wrap j-end">
           <img class="reply_weather_name" :src="reply.aliasPortrait">
@@ -53,21 +53,20 @@ export default {
     };
   },
   methods: {
-    bindTextAreaBlur(e) {
+    bindTextAreaInput(e) {
       this.reply.content = e.detail.value;
 
       const newLength = e.detail.value.length;
       console.log('newLength: ', newLength);
       let oldLength = this.oldContent.length || 0;
       console.log('oldLength: ', oldLength);
-      
       if(e.detail.value.length === 0){
         wx.removeStorage({
           key: this.id,
           success(res) {
             //
           }
-        })          
+        })
       }
       // if(this.oldContent){
       //   this.reply.content = this.oldContent || "";
@@ -84,7 +83,7 @@ export default {
           })
       }
       
-      // console.log('e.detail.value: ', e.detail.cursor);
+      // console.log('e.detail.value: ', e.detail.value.length);
     },
     async getWeather() {
       let res = await this.$request.get("/weather");
