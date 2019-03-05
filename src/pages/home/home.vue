@@ -18,7 +18,7 @@
 
     <!-- 信箱 -->
     <div class="pannel grow" v-else-if="tab == 'mail'">
-      <scroll-view scroll-y :style='`height: ${scrolHeight}px`'>
+      <scroll-view scroll-y :style='`height: ${scrolHeight}px`' @scrolltolower="scrolltolower" >
         <div class="mailbox_title flex center" v-if="wayCount">
           <button class="flex center" @click="openMail">{{wayCount}} 封信正在邮寄的路上</button>
         </div>
@@ -117,7 +117,9 @@ export default {
         sure: ""
       },
       unreadMessages: 0,
-      toPage: null
+      toPage: null,
+      page: 1,
+      isFlage: false
     };
   },
   onLoad(opt) {
@@ -173,9 +175,24 @@ export default {
       const res = await this.$request.get("/dialog/way/count");
       this.wayCount = res.data;
     },
-    async getDialogs() {
-      const res = await this.$request.get("/dialog");
+    async getDialogs(page=1) {
+      if(this.isFlage) return false;
+    
+      let res = await this.$request.get(`/dialog?page=${page}`);
       this.dialogs = res.data;
+
+      if(res.data.length === 0){
+        this.isFlage = true;
+        return false;
+      }
+
+      if (page == 1) {
+        this.Page = 1;
+        this.dialogs = res.data;
+      } else if (res.data.length > 0) {
+        this.Page = page;
+        this.dialogs = this.dialogs.concat(res.data);
+      }
     },
     toConsulting() {
       this.$router.push({ path: "/pages/consultingBox/consultingBox" });
@@ -269,6 +286,9 @@ export default {
       this.$router.push({
         path: "/pages/faq/index"
       });
+    },
+    scrolltolower() {
+      this.getDialogs(this.page + 1);
     },
     getScroll() {
       const query = wx.createSelectorQuery();
