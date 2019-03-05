@@ -56,12 +56,12 @@ export default {
     bindTextAreaBlur(e) {
       this.reply.content = e.detail.value;
 
-      const newLength = e.detail.cursor;
+      const newLength = e.detail.value.length;
       console.log('newLength: ', newLength);
       let oldLength = this.oldContent.length || 0;
       console.log('oldLength: ', oldLength);
       
-      if(e.detail.cursor === 0){
+      if(e.detail.value.length === 0){
         wx.removeStorage({
           key: this.id,
           success(res) {
