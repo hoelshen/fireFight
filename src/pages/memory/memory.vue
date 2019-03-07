@@ -108,8 +108,9 @@ export default {
 };
 </script>
 <style lang="less" scope>
-.list {
+.list{
   padding-bottom: 80rpx;
+  margin-top: -40rpx;
 }
 .noMail {
   height: 400rpx;

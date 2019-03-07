@@ -124,6 +124,7 @@ export default {
   position:absolute;
   background-color:transparent;
   label{
+    font-size: 32rpx;
     line-height: 52rpx;
     text-align: center;
   }

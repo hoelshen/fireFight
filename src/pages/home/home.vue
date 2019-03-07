@@ -38,56 +38,58 @@
       <scroll-view scroll-y :style='`height: ${scrolHeight}px`'>
         <div class="my_info flex column">
           <button v-if="!user.aliasPortrait" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">
-              <img class="my_info_user-avatarUrl" src="https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg" mode="scaleToFill" @click="login" />
+              <img class="my_info_user_avatarUrl" src="https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg" mode="scaleToFill" @click="login" />
           </button>
-          <img v-else class="my_info_user-avatarUrl" :src="user.aliasPortrait || 'https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg'" mode="scaleToFill" @click="login" />
+          <img v-else class="my_info_user_avatarUrl" :src="user.aliasPortrait || 'https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg'" mode="scaleToFill" @click="login" />
 
-
-          <button v-if="!user.aliasPortrait" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">点击登录</button>
+          <div v-if="!user.aliasPortrait" class="flex column center">
+            <button class="lightButton" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">点击登录</button>
+            <div class="my_info_user_address flex wrap">登录后体验完整功能</div>
+          </div>
 
           <div v-else class="flex column center" >
-            <div class="flex j-around my_info_user-nickName">
+            <div class="flex j-around my_info_user_nickName">
               <div @click="loginName">{{user.aliasName}}</div>
             </div>
-            <div class="my_info_user-address flex wrap" @click="showAddressModal">{{user.aliasAddress}}</div>
+            <div class="my_info_user_address flex wrap" @click="showAddressModal">{{user.aliasAddress}}</div>
           </div>
         </div>
 
         <session class="my_function flex">
-          <button @tap="memory" class="my_function_item-button flex column center">
+          <button @tap="memory" class="my_function_item_button flex column center">
             <image class="iconfont" src="/static/svgs/moment.svg" />
-            <span class="my_function_item-text">记忆</span>
+            <span class="my_function_item_text">记忆</span>
           </button>
 
-          <button @click="ticket" class="my_function_item-button flex column center">
+          <button @click="ticket" class="my_function_item_button flex column center">
             <image class="iconfont" src="/static/svgs/ticket.svg" />
-            <span class="my_function_item-text">票券</span>
+            <span class="my_function_item_text">票券</span>
           </button>
 
-           <button v-if="!user.unionid" class="my_function_item-button flex column center" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">
+           <button v-if="!user.unionid" class="my_function_item_button flex column center" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">
                 <image class="iconfont" src="/static/svgs/welfare.svg" />
-                <span class="my_function_item-text">福利社</span>             
+                <span class="my_function_item_text">福利社</span>             
           </button>
 
-          <button v-else @click="welfare" class="my_function_item-button flex column center">
+          <button v-else @click="welfare" class="my_function_item_button flex column center">
             <image class="iconfont" src="/static/svgs/welfare.svg" />
-            <span class="my_function_item-text">福利社</span>
+            <span class="my_function_item_text">福利社</span>
           </button>
 
         </session>
 
         <session class="my_contact flex column">
-          <button class="my_contact_item-button flex wrap center grow" @click="joinGroup">
+          <button class="my_contact_item_button flex wrap center grow" @click="joinGroup">
             <image class="iconfont" src="/static/svgs/joinGroup.svg" />
 
-            <span class="my_contact_item-text grow">加入群聊</span>
+            <span class="my_contact_item_text grow">加入群聊</span>
             <image class="group flex center" src="/static/jpg/group.png" />
             <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
           </button>
 
-          <button class="my_contact_item-button flex wrap center grow" @tap="toFaq">
+          <button class="my_contact_item_button flex wrap center grow" @tap="toFaq">
             <image class="iconfont" src="/static/svgs/question.svg" />
-            <span class="my_contact_item-text grow">问题与反馈</span>
+            <span class="my_contact_item_text grow">问题与反馈</span>
             <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
           </button>
         </session>
@@ -141,9 +143,11 @@ export default {
   },
   onLoad(opt) {
     this.toPage = opt.toPage;
+    this.tab = opt.tab;
   },
   onShow() {
     if (this.toPage) {
+      console.log('this.toPage: ', this.toPage);
       let toPage = this.toPage;
       this.toPage = null;
       return this.$router.push({
@@ -156,7 +160,7 @@ export default {
     this.$request.getUser().then(res => {
       this.user = res;
     });
-    this.userInfo =  getApp().globalData.user;      
+    this.userInfo =  getApp().globalData.user;
     this.onTabChange(this.tab);
   },
   onShareAppMessage(res) {
@@ -221,18 +225,18 @@ export default {
       let res = await this.$request.get(`/dialog?page=${page}`);
       this.dialogs = res.data;
 
-      if(res.data.length === 0){
-        this.isFlage = true;
-        return false;
-      }
+      // if(res.data.length === 0){
+      //   this.isFlage = true;
+      //   return false;
+      // }
 
-      if (page == 1) {
-        this.Page = 1;
-        this.dialogs = res.data;
-      } else if (res.data.length > 0) {
-        this.Page = page;
-        this.dialogs = this.dialogs.concat(res.data);
-      }
+      // if (page == 1) {
+      //   this.Page = 1;
+      //   this.dialogs = res.data;
+      // } else if (res.data.length > 0) {
+      //   this.Page = page;
+      //   this.dialogs = this.dialogs.concat(res.data);
+      // }
     },
     toConsulting() {
       this.$router.push({ path: "/pages/consultingBox/consultingBox" });
@@ -308,9 +312,9 @@ export default {
         path: "/pages/faq/index"
       });
     },
-    scrolltolower() {
-      this.getDialogs(this.page + 1);
-    },
+    // scrolltolower() {
+    //   this.getDialogs(this.page + 1);
+    // },
     getScroll() {
       const query = wx.createSelectorQuery();
       const res = query
@@ -455,87 +459,79 @@ export default {
 }
 
 .my_info {
-  width: 630rpx;
   height: 508rpx;
-  margin: 40rpx 60rpx 0;
+  margin: 40rpx 40rpx;
   border-radius: 2px;
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
   &_user {
-    &-avatarUrl {
+    &_avatarUrl {
       display: block;
       border-radius: 50%;
       height: 216rpx;
       width: 216rpx;
-      margin: 20px auto;
+      margin: 60rpx auto 44rpx;
     }
-    &-nickName {
+    &_nickName{
       font-weight: 600;
       height: 84rpx;
       font-size: 60rpx;
       text-align: center;
       color: #4d495b;
     }
-    &-nickNameImg {
-      width: 36rpx;
-      height: 36rpx;
-    }
-    &-address {
+    &_address {
       height: 40rpx;
-      font-size: 28rpx;
+      font-size: 32rpx;
       text-align: center;
       color: #bdbdc0;
-      margin-top: 24rpx;
+      margin-top: 20rpx;
+      margin-bottom: 60rpx;
     }
   }
 }
+
 .my_function {
-  width: 630rpx;
   height: 172rpx;
-  margin: 40rpx 60rpx;
+  margin: 40rpx 40rpx;
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
   &_item {
     height: 172rpx;
     width: 210rpx;
     background-color: #ffffff;
-    &-button {
+    &_button {
       height: 172rpx;
-      width: 210rpx;
+      width: 222rpx;
       color: #4d495b;
-      font-weight: 600;
     }
-
-    &-text {
-      font-size: 28rpx;
+    &_text {
+      font-size: 32rpx;
+      color: #4D495B;
     }
   }
 }
 .my_contact {
-  width: 630rpx;
   height: 216rpx;
-  margin: 40rpx 60rpx;
+  margin: 40rpx 40rpx;
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
   &_item {
-    width: 630rpx;
-    height: 108rpx;
-    background-color: #ffffff;
-    &-button {
+    &_button {
       width: 100%;
+      height: 108rpx;
       padding: 32rpx 40rpx;
       align-items: center;
       color: #4d495b;
-      font-weight: 600;
+      background-color: #ffffff;
     }
-    &-img {
+    &_img {
       height: 36rpx;
       width: 36rpx;
       margin: 18rpx 20rpx;
     }
-    &-text {
-      margin-left: 24rpx;
-      font-size: 28rpx;
+    &_text {
+      margin-left: 20rpx;
+      font-size: 32rpx;
       text-align: left;
     }
   }
@@ -553,10 +549,12 @@ export default {
     height: 92rpx;
     width: 316rpx;
     font-size: 28rpx;
+    font-weight: 600;
     &.active {
       background: #fff;
     }
   }
 }
+
 </style>
 

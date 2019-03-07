@@ -70,11 +70,11 @@ export default {
   margin:40rpx 20rpx;
 }
 .mail_title {
-  font-size: 34rpx;
+  font-size: 32rpx;
   font-weight: bold;
 }
 .mail_content {
-  font-size: 34rpx;
+  font-size: 28rpx;
   margin-top: 40rpx;
   margin-bottom: 80rpx;
   line-height: 52rpx;
@@ -124,7 +124,7 @@ export default {
 }
 .mail_reply_aliasName {
   color: #4d495b;
-  font-size: 34rpx;
+  font-size: 32rpx;
   font-weight: bold;
 }
 .mail_reply_weather {

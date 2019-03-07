@@ -47,6 +47,8 @@ export default {
       const { user } = getApp().globalData;
       this.user.aliasName = user.aliasName;
       this.user.aliasPortrait = user.aliasPortrait;
+      console.log(this.value.type);
+      console.log('this.user.aliasPortrait: ', this.value.confirm);
       if (this.value.confirm === "server") {
         this.img = true;
         this.filterTitle = "关注服务号";
@@ -121,32 +123,37 @@ export default {
 }
 .card {
   width: 630rpx;
-  height: 596rpx;
+  max-height: 598rpx;
+  min-height: 402rpx;
   background-color: #ffffff;
   border-radius: 4rpx;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
 }
 .title {
   margin-top: 60rpx;
-  font-size: 34rpx;
+  font-size: 32rpx;
   font-weight: 600;
+  color: #4D495B
 }
 .content {
-  margin: 40rpx 60rpx 60rpx 60rpx;
+  margin: 40rpx 40rpx 20rpx 40rpx;
   white-space: normal;
   line-height: 52rpx;
+  font-size: 28rpx;
+  text-align: center;
+  color: #4D495B;
   & image {
     width: 550rpx;
     height: 244rpx;
   }
 }
+.confirm{
+  margin-top: 0;
+  margin-bottom: 0;
+}
 
 .sure {
-  font-size: 28rpx;
-  font-weight: 600;
   padding: 0 130rpx;
-  margin-bottom: 60rpx;
-  margin-top: 40rpx;
-  line-height: 88rpx;
+  line-height: 92rpx;
 }
 </style>

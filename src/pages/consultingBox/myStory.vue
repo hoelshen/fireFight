@@ -1,7 +1,7 @@
 <template>
   <view class="app flex column j-between">
-    <div class="appDiv flex column">
-      <div class="text shadow">
+    <div class="appDiv flex column shadow">
+      <div class="text">
         <div class="textAreafloat flex column j-start" v-if="isDisplay" @click="hidenMethod">
           <div class="textAreafloat_item">· 请尽量具体叙述你的故事，便于解答者理解和代入，从而给出具体的解答</div>
           <div class="textAreafloat_item">· 关键的人物、地点等信息建议使用化名</div>
@@ -19,8 +19,7 @@
         </div>
       </div>
       <div class="flex j-end textDay">
-        <span>{{day}}</span>
-        <span>{{weather}}</span>
+        <span>{{day}} {{weather}}</span>
       </div>
     </div>
 
@@ -200,17 +199,17 @@ export default {
 </script>
 <style lang="less" scoped>
 .appDiv {
-  margin: 40rpx 60rpx;
-  min-height: 1042rpx;
+  margin: 40rpx 40rpx;
+  min-height: 884rpx;
 }
 .text {
   background-color: #ffffff;
-  min-height: 830rpx;
+  min-height: 600rpx;
   padding:40rpx;
   color: rgba(189, 189, 192, 1);
 }
 .textArea {
-  min-height: 750rpx;
+  min-height: 400rpx;
   background-color: #ffffff;
   color: #4d495b;
   width: 100%;
@@ -222,20 +221,22 @@ export default {
   margin-right: 20rpx;
 }
 .textName {
-  margin-top: 60rpx;
-  margin-bottom: 24rpx;
+  margin-right: 40rpx;
 }
 .textDay {
-  margin-top: 24rpx 0rpx;
+  margin-top: 28rpx;
+  margin-bottom: 60rpx;
+  margin-right: 40rpx;
 }
 .textAdd {
   margin-bottom: 60rpx;
+  margin-top: 32rpx;
   &button {
     margin-bottom: 12rpx;
   }
 }
 .textAreafloat {
-  min-height: 750rpx;
+  min-height: 592rpx;
   line-height:52rpx;
   color: rgba(169, 169, 169, 1);
   background-color: #ffffff;

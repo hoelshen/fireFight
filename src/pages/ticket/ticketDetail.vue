@@ -13,7 +13,7 @@
             <span class="ticket_day">{{item.createdAt | dayFormat}}</span>
           </div>
         </div>
-        <span class="count flex center">{{(item.count > 0) ? '+' : ' ' }} {{ item.count }}</span>
+        <span class="count flex center" :class=" (item.count > 0) ? 'yellowCount' : ''  ">{{(item.count > 0) ? '+' : ' ' }} {{ item.count }}</span>
       </div>
     </session>
     <div v-if="list.length === 0" class=" noMail flex center">
@@ -39,18 +39,20 @@ export default {
       this.photo = "stamp-icon"
     } else{
       this.photo = "ticket"
-      }
+    }
     this.getList();
   },
   methods: {
     toggleticket() {
       this.active = "ticket";
       this.isActive = !this.isActive;
+      this.photo = "ticket"
       this.getList();
     },
     toggleMail() {
       this.active = "stamp";
       this.isActive = !this.isActive;
+      this.photo = "stamp-icon"
       this.getList();
     },
     async getList() {
@@ -93,18 +95,18 @@ page{
     margin-top: 16rpx;
     margin-left: 60rpx;
     & .message{
-      font-size: 34rpx;
+      font-size: 32rpx;
     }
     & .ticket_day {
       color: #a9a9a9;
-      font-size:22rpx;
-      margin-top:12rpx;
+      font-size:28rpx;
+      margin-top:8rpx;
     }
   }
 }
 .ifImage{
   margin-right:20rpx;
-  top:-16rpx;
+  top:-22rpx;
   position:relative;
 }
 .noMail{
@@ -112,8 +114,11 @@ page{
   margin: 80rpx
 }
 .count{
-  font-size: 34rpx;
-  font-weight: 600
+  font-size: 32rpx;
+  color: #4D495B;
+}
+.yellowCount{
+  color: #FFC86D
 }
 </style>
 

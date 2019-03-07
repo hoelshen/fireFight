@@ -102,12 +102,15 @@ export default {
 .solverDetailspan {
   color: #a9a9a9;
   font-size: 28rpx;
+  margin-left: 10rpx;
 }
 .solverDetailStyleBtn {
   margin-top: 60rpx;
 }
 .solverDetailStyleBtnSpan {
   margin-right: 20rpx;
+  font-size:28rpx;
+  font-weight:600;
 }
 
 .solutionLimit {
@@ -117,37 +120,5 @@ export default {
     margin: 20rpx 60rpx 20rpx 60rpx;
   }
 }
-.table {
-  width: 670rpx;
-  height: 80rpx;
-  margin: 20rpx 60rpx 20rpx 60rpx;
-  background: #ffffff;
-}
-.tr {
-  display: flex;
-  justify-content: center;
-  height: 3rem;
-  align-items: center;
-  border: 1px solid #000000;
-}
-.td {
-  width: 250rpx;
-  justify-content: center;
-  text-align: center;
-  height: 3rem;
-  border: 1rpx solid #000000;
-}
-.bg-w {
-  background: #ffffff;
-}
-.th {
-  width: 424rpx;
-  justify-content: center;
-  border: 1px solid #000000;
-  background: #ffffff;
-  color: #000000;
-  display: flex;
-  height: 3rem;
-  align-items: center;
-}
+
 </style>

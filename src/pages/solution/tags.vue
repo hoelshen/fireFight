@@ -73,7 +73,7 @@ export default {
 }
 .title {
   margin: 40rpx 40rpx 40rpx 0;
-  font-size: 34rpx;
+  font-size: 32rpx;
 }
 .foot {
   margin: 60rpx;

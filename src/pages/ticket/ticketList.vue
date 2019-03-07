@@ -7,7 +7,7 @@
           <span class="my_contact_item-text">邮票</span>
         </div>
         <div class="flex center">
-          <button class="btnStyle btnWidth flex center" @click="mailTicket">{{stampCount}}</button>
+          <div class="btnStyle flex center">{{stampCount}}</div>
           <image class="iconfont" src="/static/svgs/arrow.svg"/>
         </div>
       </div>
@@ -17,7 +17,7 @@
           <span class="my_contact_item-text">解忧券</span>
         </div>
         <div class="flex center">
-          <button class="btnStyle btnWidth flex center" @click="solutionTicket">{{ticketCount}}</button>
+          <div class="btnStyle flex center">{{ticketCount}}</div>
           <image  class="iconfont" src="/static/svgs/arrow.svg"/>
         </div>
       </div>
@@ -70,17 +70,14 @@ page{
   background-color: #ffffff;
 }
 .ticket {
-  width: 630rpx;
+  margin: 40rpx;
   min-height: 100vh;
-  margin: auto;
   color: #4d495b;
 }
 .ticketList {
-  width: 630rpx;
   height: 132rpx;
 }
 .solutionList {
-  width: 630rpx;
   height: 132rpx;
 }
 .ticketDetail {
@@ -88,15 +85,15 @@ page{
 }
 .my_contact_item-text {
   margin-left: 20rpx;
+  font-size: 32rpx;
+  color: #4D495B;
 }
 .btnStyle {
   background-color: #FFFEFB;
   color: #BDBDC0;
-  font-size: 28rpx;
-}
-.btnWidth {
   height: 56rpx;
-  font-size: 34rpx;
+  font-size: 32rpx;
+  margin-right: 22rpx;
 }
 
 .addButton {

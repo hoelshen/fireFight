@@ -115,40 +115,38 @@ page {
   margin: auto;
   width: 630rpx;
   height: 381rpx;
-  .container {
-    .photo-circle {
-      height: 548rpx;
-      width: 630rpx;
-      margin-top: 60rpx;
+  .photo-circle {
+    height: 548rpx;
+    width: 630rpx;
+    margin-top: 60rpx;
+  }
+  .circle {
+    width: 216rpx;
+    height: 216rpx;
+  }
+  .userinfo-avatar {
+    width: 216rpx;
+    height: 216rpx;
+    border-radius: 50%;
+  }
+  .userinfo-name {
+    .set {
+      color: #4d495b;
     }
-    .circle {
-      width: 216rpx;
-      height: 216rpx;
+    input {
+      margin-top: 12rpx;
+      border-radius: 4rpx;
+      height: 84rpx;
+      width: 570rpx;
+      padding-left: 20rpx;
+      background-color: rgba(189, 189, 192, 0.15);
     }
-    .userinfo-avatar {
-      width: 216rpx;
-      height: 216rpx;
-      border-radius: 50%;
-    }
-    .userinfo-name {
-      .set {
-        color: #4d495b;
-      }
-      input {
-        margin-top: 12rpx;
-        border-radius: 2rpx;
-        height: 84rpx;
-        width: 550rpx;
-        padding-left: 20rpx;
-        background-color: rgba(189, 189, 192, 0.15);
-      }
-    }
-    .userinfo-text {
-      margin-top: 40rpx;
-      display: block;
-      color: #bdbdc0;
-      font-size: 28rpx;
-    }
+  }
+  .userinfo-text {
+    margin-top: 40rpx;
+    display: block;
+    color: #bdbdc0;
+    font-size: 28rpx;
   }
   .saveButton {
     width: 316rpx;

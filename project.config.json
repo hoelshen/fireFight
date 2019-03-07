@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 24,
+			"current": 25,
 			"list": [
 				{
 					"id": -1,
@@ -188,6 +188,20 @@
 					"id": -1,
 					"name": "错误页面",
 					"pathName": "pages/errors/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 24,
+					"name": "个人中心页面",
+					"pathName": "pages/home/index",
+					"query": "tab=mail23",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "正在路上的信",
+					"pathName": "pages/mail/mailDay",
 					"query": "",
 					"scene": null
 				}

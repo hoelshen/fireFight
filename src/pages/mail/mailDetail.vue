@@ -165,7 +165,7 @@ export default {
 }
 .replay_text {
   color: #a9a9a9;
-  font-size: 24rpx;
+  font-size: 28rpx;
   margin-top: 24rpx;
 }
 

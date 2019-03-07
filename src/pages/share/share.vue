@@ -103,7 +103,8 @@ page {
 
 .btn {
   width: 316rpx;
-  margin-top: 40rpx;
+  margin-bottom: 0;
+  line-height: 92rpx;
 }
 </style>
 

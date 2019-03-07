@@ -108,7 +108,7 @@ export default {
 .solutionRoomName-day {
   margin-top: 40rpx;
   color: #4D495B;
-  font-size: 34rpx;
+  font-size: 32rpx;
   font-weight:600;
 }
 .solutionRoomName-aliasName {

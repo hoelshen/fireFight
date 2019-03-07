@@ -170,7 +170,7 @@ export default {
   background-color: #ffffff;
   width: 100%;
   color: #4D495B;
-  font-size: 34rpx;
+  font-size: 28rpx;
   box-sizing: border-box;
   line-height:52rpx;
 }
@@ -195,7 +195,7 @@ export default {
 .target {
   margin-top: 60rpx;
   margin-left:  40rpx;
-  font-size: 34rpx;
+  font-size: 32rpx;
   color: #4D495B;
   font-weight: 600;
   box-sizing: border-box

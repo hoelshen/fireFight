@@ -45,7 +45,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .page{
-  padding: 40rpx 60rpx;
+  padding: 40rpx 40rpx;
   background-color: #fffefb;
   height:100vh;
 }
@@ -55,13 +55,12 @@ export default {
 }
 .mailDay {
   height: 120rpx;
-  margin-top: 10rpx;
-  margin-bottom: 10rpx;
   font-size: 28rpx;
 }
 .mailDayName {
-  font-size: 34rpx;
+  font-size: 32rpx;
   color: #2b2b2b;
+  font-weight: 600;
   margin: 0 12rpx;
 }
 </style>

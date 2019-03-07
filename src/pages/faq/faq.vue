@@ -85,8 +85,8 @@
     </scroll-view>
 
     <div class="btns flex column center box">
-      <div class="tips">问题没有解决？直接联系我们吧！</div>
       <button class="flex center darkButton" :session-from="userInfo" open-type="contact">在线客服</button>
+      <div class="tips">问题没有解决？直接联系我们吧！</div>
     </div>
   </div>
 </template>
@@ -147,12 +147,13 @@ export default {
     }
     .t {
       color: #4D495B;
-      font-size: 48rpx;
+      font-size: 32rpx;
+      font-weight: 600;
       margin-bottom: 20rpx;
     }
     .q {
       color: #4D495B;
-      font-size: 36rpx;
+      font-size: 32rpx;
       margin-bottom: 20rpx;
     }
     .a {
@@ -162,19 +163,20 @@ export default {
     }
   }
   .btns {
-    height: 220rpx;
+    height: 256rpx;
   }
   .btns {
-    .tips {
-      color: #5b5b5b;
-      font-size: 28rpx;
-      margin-bottom: 20rpx;
-    }
     button {
       width:316rpx;
+      margin-bottom:24rpx;
       &.active {
         background: darken(@yellow, 10%);
       }
+    }
+    .tips {
+      color: #BDBDC0;
+      font-size: 28rpx;
+      margin-bottom: 60rpx;
     }
   }
 }
