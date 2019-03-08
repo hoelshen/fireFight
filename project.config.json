@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 25,
+			"current": 27,
 			"list": [
 				{
 					"id": -1,
@@ -202,6 +202,20 @@
 					"id": -1,
 					"name": "正在路上的信",
 					"pathName": "pages/mail/mailDay",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "徽章",
+					"pathName": "pages/badge/badge",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "向日葵",
+					"pathName": "pages/badge/sunflower",
 					"query": "",
 					"scene": null
 				}

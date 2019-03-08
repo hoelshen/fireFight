@@ -201,6 +201,7 @@ export default {
 .appDiv {
   margin: 40rpx 40rpx;
   min-height: 884rpx;
+  background-color:#ffffff
 }
 .text {
   background-color: #ffffff;
