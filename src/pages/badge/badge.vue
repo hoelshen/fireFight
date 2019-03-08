@@ -8,41 +8,47 @@
             <div>
               <span class="list_item_span">{{item.name}}</span>
             </div>
-            <span class="welfare_content">{{item.createdAt}} </span>
+            <span v-if="item.status === 'CAN_NOT_RECEIVE' " class="badge_content">收到 {{ item.requireLikeCount }} 个感谢后可以领取</span>
+            <span v-else class="badge_content">{{item.receivedAt | dayFormat}} </span>
           </div>
         </div>
         <div class="exchange  flex center">
-          <div >
-              <button v-if="item.status === 'WEARED' " :disabled="true" class="flex center">佩戴中</button>
-              <button v-if="item.status === 'CAN_WEAR' "  @click="changeBadge" class="flex center">佩戴</button>
-              <button v-if="item.status === 'CAN_RECEIVE' " @click="haveBadge" class="flex center">领取</button>
-              <button v-if="item.status === 'CAN_NOT_RECEIVE' "  disabled class="flex center">{{item.currentLikeCount}}/{{item.requireLikeCount}}</button>
-          </div>
+          <button v-if="item.status === 'WEARED' " :disabled="true" class="flex center">佩戴中</button>
+          <button v-if="item.status === 'CAN_WEAR' "  @click="changeBadge(item._id)" class="flex center">佩戴</button>
+          <button v-if="item.status === 'CAN_RECEIVE' " @click="haveBadge(item._id)" class="flex center">领取</button>
+          <button v-if="item.status === 'CAN_NOT_RECEIVE' "  disabled class="flex center">{{item.currentLikeCount}}/{{item.requireLikeCount}}</button>
         </div>
       </div>
     </session>
-    <Modal ref="mymodal"></Modal>
+    <session class="list">
+      <div class="list_item flex  j-between ">
+        <div class="flex">
+          <image class="iconfont" :src="sunflower.defaultImgUrl" />
+          <div class="flex column j-start">
+            <div>
+              <span class="list_item_span">{{sunflower.name}}</span>
+            </div>
+            <span v-if="sunflower.status === 'CAN_APPLY' " class="badge_content">由 Tell 官方运营团队特邀 </span>
+            <span v-if="sunflower.status === 'CAN_WEAR' " class="badge_content">由 Tell 官方运营团队特邀 </span>
+            <span v-if="sunflower.status === 'WEARED' " class="badge_content">{{sunflower.createdAt | dayFormat}} </span>
+          </div>
+        </div>
+        <div class="exchange  flex center">
+          <button v-if="sunflower.status === 'WEARED' " :disabled="true" class="flex center">佩戴中</button>
+          <button v-if="sunflower.status === 'CAN_WEAR' "  @click="changeBadge(sunflower._id)" class="flex center">佩戴</button>
+          <button v-if="true " @click="openSunFlower(sunflower._id)" class="flex center">申请</button>
+        </div>
+      </div>
+    </session>
   </view>
 </template>
 <script>
-import Modal from "@/components/Modal";
 
 export default {
-  components: {
-    Modal
-  },
   data() {
     return {
-      active: "solution",
-      isShowModal: false,
       list:[],
-      modal: {
-        title: "",
-        content: "",
-        confirm: "",
-        type: "",
-        sure: ""
-      }
+      sunflower:{},
     };
   },
   onShareAppMessage(res) {
@@ -58,22 +64,36 @@ export default {
     toShare() {
       this.$router.push({ path: "/pages/share/share" });
     },
-    async haveBadge() {
-      let res = await this.$request.post(`/badge/:${id}`);
+    async haveBadge(id) {
+      wx.showLoading({
+        title: "请稍等",
+        mask: true
+      });
+     let res = await this.$request.post(`/badge/${id}`).then(res=>{
+       setTimeout(wx.hideLoading, 2000)
+     });
 
     },
-    async changeBadge(){
-      let res = await this.$request.put(`/badge/:${id}`);
+    async changeBadge(id){
+      wx.showLoading({
+        title: "请稍等",
+        mask: true
+      });
+      let res = await this.$request.put(`/badge/${id}`).then(res=>{
+       setTimeout(wx.hideLoading, 2000)
+      });
     },
     async getList(){
       let res = await this.$request.get("/badge");
       this.list = res.data.list;
-      console.log('res', res.data)
+      this.sunflower = res.data.sunflower;
+    },
+    openSunFlower(id){
+      this.$router.push({ query:{ id }, path: "/pages/badge/sunflower" });
     }
   },
   onShow() {
     const { currentRoute: { query } } = this.$router;
-    this.active = query.active || "solution";
     this.getList();
   }
 };
@@ -100,7 +120,6 @@ page {
   color: #4d495b;
 }
 .exchange {
-  margin-left: 40rpx;
   & button {
     box-sizing: border-box;
     border: #ffc86d 2rpx solid;
@@ -109,10 +128,11 @@ page {
     width: 168rpx;
     font-size: 28rpx;
     color: #2b2b2b;
+    background-color: #ffffff;
     font-weight: 600;
   }
 }
-.welfare_content {
+.badge_content {
   margin-top: 12rpx;
   color: #bdbdc0;
   font-size: 24rpx;
@@ -120,16 +140,6 @@ page {
 
 .iconfont {
   margin-right: 20rpx;
-}
-
-.desc{
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  color: #BDBDC0;
-  font-size: 28rpx;
-  padding: 60rpx;
 }
 </style>
 

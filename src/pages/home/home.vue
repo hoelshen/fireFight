@@ -50,6 +50,9 @@
           <div v-else class="flex column center" >
             <div class="flex j-around my_info_user_nickName">
               <div @click="loginName">{{user.aliasName}}</div>
+              <button @click="openbadge" class="my_info_user_badgeBtn">
+                <image class="my_info_user_badge" :src="badge.defaultImgUrl" />
+              </button>
             </div>
             <div class="my_info_user_address flex wrap" @click="showAddressModal">{{user.aliasAddress}}</div>
           </div>
@@ -121,6 +124,7 @@ export default {
       banners: [],
       wayCount: 0,
       dialogs: [],
+      badge:{},
       user: {
         aliasPortrait: "",
         aliasName: ""
@@ -181,6 +185,9 @@ export default {
       if (this.tab === "mail") {
         this.getWayCount();
         this.getDialogs();
+      }
+      if (this.tab === "mine"){
+        this.getBadge();
       }
     },
     onGotUserInfo(e) {
@@ -269,6 +276,9 @@ export default {
         path: "/pages/welfare/index"
       });
     },
+    openbadge(){
+      this.$router.push({ path: "/pages/badge/badge"});
+    },
     login() {
         wx.chooseImage({
           count: 1,
@@ -305,6 +315,11 @@ export default {
       this.$router.push({
         query: { id: 1 },
         path: "/pages/penName/index"        
+      })
+    },
+    getBadge(){
+      this.$request.get("/badge/mine").then(res => {
+        this.badge = res.data;
       })
     },
     toFaq() {
@@ -465,6 +480,14 @@ export default {
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
   &_user {
+    &_badgeBtn{
+      padding: 0
+    }
+    &_badge{
+      width: 68rpx;
+      height: 68rpx;
+      margin-left: 12rpx;
+    }
     &_avatarUrl {
       display: block;
       border-radius: 50%;

@@ -13,7 +13,7 @@
             <span class="ticket_day">{{item.createdAt | dayFormat}}</span>
           </div>
         </div>
-        <span class="count flex center" :class=" (item.count > 0) ? 'yellowCount' : ''  ">{{(item.count > 0) ? '+' : ' ' }} {{ item.count }}</span>
+        <span class="count flex center" :class=" (item.count > 0) ? 'yellowCount' : ''">{{(item.count > 0) ? '+' : ' '}}{{ item.count }}</span>
       </div>
     </session>
     <div v-if="list.length === 0" class=" noMail flex center">

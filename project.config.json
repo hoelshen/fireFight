@@ -195,7 +195,7 @@
 					"id": 24,
 					"name": "个人中心页面",
 					"pathName": "pages/home/index",
-					"query": "tab=mail23",
+					"query": "tab=mine",
 					"scene": null
 				},
 				{
@@ -213,9 +213,16 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "向日葵",
+					"id": 27,
+					"name": "向日葵说明",
 					"pathName": "pages/badge/sunflower",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "申请向日葵",
+					"pathName": "pages/badge/applySunflower",
 					"query": "",
 					"scene": null
 				}

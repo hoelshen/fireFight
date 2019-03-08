@@ -32,6 +32,7 @@ export default {
       "pages/mail/mailDetail", //回信
       "pages/badge/badge", //徽章
       "pages/badge/sunflower", //向日葵
+      "pages/badge/applySunflower",  //申请向日葵
       "pages/consultingBox/consultingBox", //咨询箱
       "pages/solution/tags", //成为解答者
       "pages/solution/solutionRoom", //解答室
