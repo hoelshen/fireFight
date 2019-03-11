@@ -12,25 +12,29 @@ const URL_MAP = {
     url:
       "https://api.tellers.cn/static-pages/v2/Trouble-Consultaion-Service-Description.html",
     title: "烦恼咨询服务说明"
-  },
+  }
 };
 export default {
   data() {
     return {
-      url: ""
+      url: "",
+      type: "",
+      time: null
     };
   },
   onLoad(opts) {
-    let url, title;
+    let url, title,type;
     if (opts.url) {
       url = opts.url;
       title = opts.title;
+      type = opts.type;
     } else {
       let page = opts.page || "Solver-Manual";
       url = URL_MAP[page].url;
       title = URL_MAP[page].title;
     }
     this.url = url;
+    this.type = type;
     wx.setNavigationBarTitle({
       title: title
     });
@@ -43,6 +47,24 @@ export default {
       imageUrl,
       path
     };
+  },
+  onShow(){
+    const now = new Date().getMinutes();
+    let  opts = wx.getLaunchOptionsSync();
+    if(!this.time) return;
+      console.log('opts.scene: ', opts);
+    if((now - this.time) > 1 && opts.scene === "1038"){
+      this.$router.reLaunch({path: "/pages/welfare/index", query:{status: "success"}})
+    } else if (opts.scene === "1038") {
+      this.$router.reLaunch({path: "/pages/welfare/index", query:{status: "failedTime"}})
+    } else {
+      this.$router.reLaunch({path: "/pages/welfare/index", query:{status: "failedScene"}})
+    }
+  },
+  onHide(){
+    if(this.type === "welfare"){
+      this.time = new Date().getMinutes();
+    }
   }
 };
 </script>

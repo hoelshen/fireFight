@@ -103,6 +103,22 @@
           </button>
         </div>
       </div>
+      <div class="list_item flex  j-between " v-for="item in task" :key="item._id">
+        <div class="flex ">
+          <image class="iconfont" src="/static/svgs/stamp-icon.svg" />
+          <div class="flex column j-start">
+            <div>
+              <span class="list_item_span">{{item.name}}</span>
+              <span class="count">×{{item.rewardCount}}</span>              
+            </div>
+            <span class="welfare_content">{{item.tipsText}}</span>
+          </div>
+        </div>
+        <div class="exchange  flex center">
+          <button @click="doTask(item._id)" class="flex center">{{isReceived ? '已完成' : '去领取'}} </button>
+        </div>
+      </div>
+      </div>
     </session>
 
     <Modal ref="mymodal"></Modal>
@@ -125,7 +141,8 @@ export default {
         confirm: "",
         type: "",
         sure: ""
-      }
+      },
+      task:[]
     };
   },
   onShareAppMessage(res) {
@@ -214,11 +231,55 @@ export default {
           sure: "马上开始",
       })
 
+    },
+    getTask(){
+      this.$request.get('/task/ad').then(res=>{
+        this.task = res.data;
+      })
+    },
+    doTask(id){
+      this.$router.push({
+        query: { url: "https://api.tellers.cn/static-pages/v2/flag.html", title: "体验 打脸神器 小程序", type: "welfare" },
+        path: "/pages/webview/index"
+      });
     }
+
   },
   onShow() {
     const { currentRoute: { query } } = this.$router;
     this.active = query.active || "solution";
+    this.status = query.status || "";
+    this.getTask();
+    if(!this.status) return;
+    if(this.status === "success"){
+      
+      this.$refs.mymodal.show({
+          title: "体验完成",
+          content: "恭喜，你已体验完毕，并获得 n 张邮票/解忧券。",
+          type: "welfare",
+          confirm: "no",
+          sure: "好的",          
+          isShowModal: true
+      });
+    } else if(this.status === "failedTime" ){
+      this.$refs.mymodal.show({
+          title: "体验失败",
+          content: "抱歉，体验时间过短，无法获得奖励。请重试。",
+          type: "welfare",
+          confirm: "no",
+          sure: "好的",          
+          isShowModal: true
+      });
+    } else{
+      this.$refs.mymodal.show({
+          title: "体验失败",
+          content: "过程中断，请确保体验没有跳转到其它页面。",
+          type: "welfare",
+          confirm: "no",
+          sure: "好的",          
+          isShowModal: true
+      });
+    }
   }
 };
 </script>
