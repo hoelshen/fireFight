@@ -18,9 +18,9 @@
       <view :class="isReplied ? 'list_item_status' : '' ">{{isReplied ? '已回复' : ''}}</view>
       <view >{{mail.aliasName}}</view>
     </view>
-    <hr class="hr"/>
-    <view class="context">
-      你好，我回到 了过去。可以的 我知道
+    <hr class="hr" v-if="referContent"/>
+    <view class="context" v-if="referContent">
+      {{referContent}}
     </view>
   </view>
 </template>
@@ -48,7 +48,18 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+      referContent:""
+    };
+  },
+  created(){
+    if (!this.mail.targetMail){
+      return true;
+    }
+    let referMailId = this.mail.targetMail;
+    this.$request.get(`/mail/detail/${referMailId}`).then((res)=>{
+      this.referContent = res.data.content;
+    })
   },
   methods: {
     toMail() {
