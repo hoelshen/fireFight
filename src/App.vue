@@ -7,7 +7,8 @@ export default {
       wx.cloud.init();
     }
     this.globalData.options = opts;
-    this.$request.login();
+    let userId = wx.getStorageSync('token') //永久保存用户账号
+    this.$request.login(userId);
     this.globalData.path = opts.query.scene
       ? this.globalData.path + `scene=${opts.scene}`
       : this.globalData.path;

@@ -1,12 +1,11 @@
 import flyio from "flyio/dist/npm/wx";
 import { promisify } from "@/utils/index";
 
-const environment = "test"; // 配置环境
+const environment = "local"; // 配置环境
 
 const fly = new flyio();
 
-let cookies = [],
-  token = "",
+let token = "",
   tryCount = 0;
 let isRelogin = false;
 
@@ -86,26 +85,13 @@ function sendFrontErrorToCloud(error) {
   db.collection("front-errors").add({ data });
 }
 
-function normalizeUserCookie(cookiesArray) {
-  let _cookies = [];
-  cookiesArray = cookiesArray + "";
-  (cookiesArray.match(/([\w\-.]*)=([^\s=]+);/g) || []).forEach(str => {
-    _cookies.push(str);
-  });
-  return _cookies.join(" ");
-}
-
-function getToken(cookiesArray) {
-  if (cookiesArray.indexOf("csrfToken") >= 0) {
-    let cookies = cookiesArray.split(";");
-    return cookies[0].replace("csrfToken=", "");
-  }
-  return "";
-}
-
-async function login() {
+async function login(userId) {
   isRelogin = false;
   tryCount = 0;
+  if (userId) {
+    token = userId;
+    return fly.config.headers["x-csrf-token"] = userId;
+  }
   let wxRes = await promisify(wx.login, wx)();
   let loginUrl = `/login?code=${wxRes.code}`;
   let query = getApp().globalData.options.query;
@@ -115,6 +101,12 @@ async function login() {
     loginUrl += `&refer=${query.refer}`;
   }
   let logRes = await fly.get(loginUrl);
+  token = logRes.data._id;
+  fly.config.headers["x-csrf-token"] = token;
+  wx.setStorage({
+    key: 'token',
+    data: token
+  })
   logLogin(); // 上报登陆信息
   return (getApp().globalData.user = logRes.data);
 }
@@ -136,7 +128,6 @@ function uploadFile(path) {
       filePath: path,
       name: "img",
       header: {
-        Cookie: cookies,
         "x-csrf-token": token
       },
       success: function(res) {
@@ -175,7 +166,7 @@ async function waitingLogin() {
         });
         reject("登陆超时"); // 10秒超时时间
       }
-      if (cookies.length > 0) {
+      if (token) {
         clearInterval(hash);
         resolve("登陆成功");
       } else {
@@ -195,27 +186,24 @@ fly.interceptors.request.use(async function(request) {
   } else if (!token) {
     await waitingLogin();
   }
-  request.headers["Cookie"] = cookies;
-  request.headers["x-csrf-token"] = token;
+  // request.headers["Cookie"] = cookies;
+  // request.headers["x-csrf-token"] = token;
   return request;
 });
 
 fly.interceptors.response.use(
   response => {
-    if (cookies && token) {
-      return response.data;
-    }
-    if (response && response.headers && response.headers["set-cookie"]) {
-      cookies = normalizeUserCookie(response.headers["set-cookie"]);
-      token =  getToken(response.headers["set-cookie"][0]);
-    }
+    // if (cookies && token) {
+    //   return response.data;
+    // }
+    // if (response && response.headers && response.headers["set-cookie"]) {
+    //   cookies = normalizeUserCookie(response.headers["set-cookie"]);
+    //   token = getToken(response.headers["set-cookie"][0]);
+    // }
     return response.data;
   },
   async err => {
-    if (err.status == 504) {
-      await login();
-      return await fly.request(err.request);;
-    } else if (err.status == 502 || err.status == 404) {
+    if (err.status == 502 || err.status == 404) {
       showError("服务器抽风啦，请稍后重试", err.status, err.request); // 生产环境：服务器正在重启
       wx.reLaunch({
         url: "/pages/noFound/index"
