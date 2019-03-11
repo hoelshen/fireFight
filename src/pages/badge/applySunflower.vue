@@ -1,48 +1,45 @@
 <template>
   <view class="app flex column j-between">
     <div class="appDiv flex column shadow">
-      <div class="flex column j-between textName">
+      <div class="flex column j-between ">
         <div class="flex j-start a-center">
           <span class="textNameSpan">姓名</span>
         </div>
-        <input class="aliasNameInput" @input="bindKeyInput" :value="aliasName">
+        <input class="aliasNameInput" @input="bindName" :value="form.name">
       </div>
 
-      <div class="flex column j-between textName">
+      <div class="flex column j-between ">
         <div class="flex j-start a-center">
           <span class="textNameSpan">笔名</span>
         </div>
-        <input class="aliasNameInput" @input="bindKeyInput" :value="aliasName">
+        <input class="aliasNameInput" @input="bindAliasName" :value="form.aliasName">
       </div>
 
-      <div class="flex column j-between textName">
+      <div class="flex column j-between ">
         <div class="flex j-start a-center">
           <span class="textNameSpan">微信名</span>
         </div>
-        <input class="aliasNameInput" @input="bindKeyInput" :value="aliasName">
+        <input class="aliasNameInput" @input="bindAliasName" :value="form.nickName">
       </div>
 
-      <div class="flex column j-between textName">
-        <div class="flex j-start a-center">
-          <span class="textNameSpan">出生年月</span>
-        </div>
-        <picker mode="date" :value="date" start="2015-09-01" end="2017-09-01" @change="bindDateChange">
-         {{date}} 
+      <div class="flex column j-between birthday ">
+        <picker mode="date" :value="form.bornDate"  @change="bindBornDate">
+          <span >出生年月： {{form.bornDate | dayFormat}} </span>
         </picker>
       </div>
 
-      <div class="flex column j-between textName">
+      <div class="flex column j-between ">
         <div class="flex j-start a-center">
           <span class="textNameSpan">如何知道 Tell 的</span>
         </div>
-        <input class="aliasNameInput" @input="bindKeyInput" :value="aliasName">
+        <input class="aliasNameInput" @input="bindWhere" :value="form.where">
       </div>
 
-      <div class="flex column j-between textName">
+      <div class="flex column j-between ">
         <div class="flex j-start a-center">
           <span class="textNameSpan">为什么想要持有向日葵徽章</span>
         </div>
-        <textarea class="textArea" :auto-height="true"  :focus="isFocus" maxlength="5000" cursor-spacing="30px" :value="content" @input="bindTextAreaInput" />
+        <textarea class="textArea" :auto-height="true"  :focus="isFocus" maxlength="5000" cursor-spacing="30px" :value="form.why" @input="bindWhy" />
       </div>
 
     </div>
@@ -59,20 +56,56 @@ export default {
   data() {
     return {
       form:{
-        date:""
+        name: "", //姓名
+        aliasName: "", //笔名
+        nickName:"", // 微信名称
+        bornDate: 0,
+        where: "",
+        why: ""
       }
     };
   },
   methods: {
-    bindTextAreaInput(){
-
+    bindWhy(e){
+      this.form.why = e.detail.value;
     },
-    bindDateChange(){
-      
+    bindBornDate(e){
+      this.form.bornDate = (e.detail.value) ;
+    },
+    bindName(e){
+      this.form.name  = e.detail.value;
+    },
+    bindAliasName(e){
+      this.form.aliasName  = e.detail.value;
+    },
+    bindNickName(e){
+      this.form.nickName  = e.detail.value;
+    },
+    bindWhere(e){
+      this.form.where  = e.detail.value;
+    },
+    onPush(){
+      // this.form = {};
+      Object.keys(this.form).forEach(val=>{
+        console.log('val: ', this.form[val] + val );
+        if(!this.form[val]) {
+        return wx.showToast({
+                title: '请填写完整',
+                icon: 'none',
+                duration: 1500,
+                mask: false,
+        });  
+      }});
+      this.$request.post("/badge/form/sunflower", this.form).then(res=>{
+        this.res;
+      })
     }
   },
   onShow() {
-
+      const { user } = getApp().globalData;
+      console.log('user: ', user);
+      this.form.nickName = user.aliasName;
+      this.form.aliasName = user.signName;
   }
 };
 </script>
@@ -128,6 +161,10 @@ export default {
   text-align: center;
   background-color: #ffc86d;
   font-size:28rpx;
+
+}
+.birthday{
+  margin: 20rpx 40rpx;
 
 }
 </style>

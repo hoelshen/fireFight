@@ -47,8 +47,6 @@ export default {
       const { user } = getApp().globalData;
       this.user.aliasName = user.aliasName;
       this.user.aliasPortrait = user.aliasPortrait;
-      console.log(this.value.type);
-      console.log('this.user.aliasPortrait: ', this.value.confirm);
       if (this.value.confirm === "server") {
         this.img = true;
         this.filterTitle = "关注服务号";
