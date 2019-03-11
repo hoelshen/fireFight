@@ -57,9 +57,9 @@ export default {
       this.reply.content = e.detail.value;
 
       const newLength = e.detail.value.length;
-      console.log('newLength: ', newLength);
+    
       let oldLength = this.oldContent.length || 0;
-      console.log('oldLength: ', oldLength);
+
       if(e.detail.value.length === 0){
         wx.removeStorage({
           key: this.id,

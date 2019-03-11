@@ -18,9 +18,8 @@
       <view :class="isReplied ? 'list_item_status' : '' ">{{isReplied ? '已回复' : ''}}</view>
       <view >{{mail.aliasName}}</view>
     </view>
-    <hr class="hr" v-if="referContent"/>
-    <view class="context" v-if="referContent">
-      {{referContent}}
+    <view  class="context" v-if="showRefer && remoteReferContent">
+      {{remoteReferContent}}
     </view>
   </view>
 </template>
@@ -45,20 +44,28 @@ export default {
     },
     dialogId: {
       type: String
+    },
+    showRefer:{
+      type: Boolean,
+      default: false
+    },
+    referMail:{
+      type: Object
     }
   },
   data() {
     return {
-      referContent:""
+      remoteReferContent:""
     };
   },
   created(){
     if (!this.mail.targetMail){
       return true;
     }
+    if(this.referMail) return this.remoteReferContent = this.referMail.content;
     let referMailId = this.mail.targetMail;
     this.$request.get(`/mail/detail/${referMailId}`).then((res)=>{
-      this.referContent = res.data.content;
+      this.remoteReferContent = res.data.content;
     })
   },
   methods: {
@@ -89,7 +96,6 @@ export default {
 <style lang="less" scoped>
 .list_item {
   margin: 40rpx 40rpx;
-  padding: 40rpx;
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
   color: #4d495b;
@@ -113,28 +119,30 @@ export default {
   }
   &_sendName {
     font-size: 28rpx;
+    padding: 40rpx
   }
   &_status{
     border-radius: 4rpx;
+    font-size: 24rpx;
+    padding: 4rpx 12rpx;
     background-color: #BDBDC0;
     color: #ffffff;
     border: 2rpx solid #979797;
   }
   &_alias{
     margin:40rpx 0;
+    padding: 0 40rpx
   }
-}
-.hr{
-  height: 1rpx;
-  background: #BDBDC0;
-  margin-bottom: 40rpx;
 }
 .context{
   font-size:28rpx;
   overflow:hidden;
+  padding:40rpx 40rpx;
+  border-top-color: #BDBDC0;
+  border-top-style: solid;
+  border-top-width: 2rpx;
   text-overflow:ellipsis;
   white-space:nowrap;
-  width:450rpx;
   color: #BDBDC0;
 }
 .mail-svg {

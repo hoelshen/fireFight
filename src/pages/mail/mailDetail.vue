@@ -73,7 +73,7 @@ export default {
           this.replyMail = res.data;
           this.isDisabled = true;
         } else {
-          this.isDisabled = dialog.fromUser === this.userId ? true : false;
+          this.isDisabled = dialog.fromUser === getApp().globalData.user._id ? true : false;
         }
       });
     },
