@@ -69,10 +69,10 @@ export default {
         title: "请稍等",
         mask: true
       });
-     let res = await this.$request.post(`/badge/${id}`).then(res=>{
-       setTimeout(wx.hideLoading, 2000)
-     });
-
+      let res = await this.$request.post(`/badge/${id}`).then(res=>{
+        setTimeout(wx.hideLoading, 2000)
+      });
+      this.getList();
     },
     async changeBadge(id){
       wx.showLoading({
@@ -82,6 +82,7 @@ export default {
       let res = await this.$request.put(`/badge/${id}`).then(res=>{
        setTimeout(wx.hideLoading, 2000)
       });
+     this.getList();
     },
     async getList(){
       let res = await this.$request.get("/badge");

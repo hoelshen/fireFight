@@ -115,7 +115,7 @@
           </div>
         </div>
         <div class="exchange  flex center">
-          <button @click="doTask(item._id)" class="flex center">{{isReceived ? '已完成' : '去领取'}} </button>
+          <button @click="doTask(item)" class="flex center">{{isReceived ? '已完成' : '去领取'}} </button>
         </div>
       </div>
       </div>
@@ -237,11 +237,10 @@ export default {
         this.task = res.data;
       })
     },
-    doTask(id){
-      this.$router.push({
-        query: { url: "https://api.tellers.cn/static-pages/v2/flag.html", title: "体验 打脸神器 小程序", type: "welfare" },
-        path: "/pages/webview/index"
-      });
+    doTask(task){
+      wx.navigateTo({
+        url: `/pages/webview/index?url=${task.url}&title='体验 打脸神器 小程序'&type='welfare'`
+      })
     }
 
   },
@@ -252,13 +251,16 @@ export default {
     this.getTask();
     if(!this.status) return;
     if(this.status === "success"){
-      
+      const { user } = getApp().gloablData;
+      this.$request.post(`/task/ad/${user._id}`).then(res=>{
+        // console.log("res",res);
+      })
       this.$refs.mymodal.show({
           title: "体验完成",
           content: "恭喜，你已体验完毕，并获得 n 张邮票/解忧券。",
           type: "welfare",
           confirm: "no",
-          sure: "好的",          
+          sure: "好的",
           isShowModal: true
       });
     } else if(this.status === "failedTime" ){

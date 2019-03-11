@@ -23,7 +23,7 @@ export default {
     };
   },
   onLoad(opts) {
-    let url, title,type;
+    let url, title, type;
     if (opts.url) {
       url = opts.url;
       title = opts.title;

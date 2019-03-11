@@ -85,17 +85,39 @@ export default {
       this.form.where  = e.detail.value;
     },
     onPush(){
-      // this.form = {};
+      const { name, aliasName, nickName, where, why} = this.form;
+      if(name.length > 10){
+          return wx.showToast({
+            icon: "none",
+            title: "请控制姓名在10字以内"
+          });
+      }
+      if(nickName.length > 20){
+          return wx.showToast({
+            icon: "none",
+            title: "请控制微信号在20字以内"
+          });
+      }      
+      if(why.length > 200){
+          return wx.showToast({
+            icon: "none",
+            title: "请控制理由在200字以内"
+          });
+      }
+      if(where.length > 100){
+          return wx.showToast({
+            icon: "none",
+            title: "请控制在100字以内"
+          });
+      }
       Object.keys(this.form).forEach(val=>{
-        console.log('val: ', this.form[val] + val );
         if(!this.form[val]) {
         return wx.showToast({
                 title: '请填写完整',
                 icon: 'none',
-                duration: 1500,
-                mask: false,
         });  
       }});
+      
       this.$request.post("/badge/form/sunflower", this.form).then(res=>{
         this.res;
       })
@@ -103,8 +125,6 @@ export default {
   },
   onShow() {
       const { user } = getApp().globalData;
-      console.log('user: ', user);
-      this.form.nickName = user.aliasName;
       this.form.aliasName = user.signName;
   }
 };
