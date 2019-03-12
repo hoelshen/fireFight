@@ -1,12 +1,12 @@
 import flyio from "flyio/dist/npm/wx";
 import { promisify } from "@/utils/index";
 
-const environment = "test"; // 配置环境
+const environment = "local"; // 配置环境
 
 const fly = new flyio();
 const Fly = new flyio();
 
-let token = ""
+let token = "";
 
 fly.config.baseURL = getBaseURL(environment);
 fly.config.headers["Accept"] = "application/json";
@@ -45,7 +45,6 @@ function sendBackErrorToCloud(message, status, request) {
   if (!wx.cloud) {
     return false;
   }
-  wx.init();
   const systemInfo = wx.getSystemInfoSync();
   const lauchOpts = getApp().globalData.options;
   const userId = getApp().globalData.user._id;
@@ -64,6 +63,7 @@ function sendBackErrorToCloud(message, status, request) {
     message,
     createdAt: Date()
   };
+  wx.cloud.init();
   db.collection("back-errors").add({ data });
 }
 
@@ -82,21 +82,22 @@ function sendFrontErrorToCloud(error) {
     error,
     createdAt: Date()
   };
+  wx.cloud.init();
   db.collection("front-errors").add({ data });
 }
 
 async function logLogin() {
-  // setInterval(function(){
-  //   const lauchOpts = getApp().globalData.options;
-  //   const systemInfo = wx.getSystemInfoSync();
-  //   fly.put("/record/login", {
-  //     lauchOpts,
-  //     systemInfo
-  //   });
-  // },500)
+  if (!getApp()) {
+    return setTimeout(logLogin, 100);
+  }
+  const lauchOpts = getApp().globalData.options;
+  const systemInfo = wx.getSystemInfoSync();
+  fly.put("/record/login", {
+    lauchOpts,
+    systemInfo
+  });
 }
 
-//getUser
 function getUser() {
   return new Promise(function(resolve, reject) {
     fly.get("/user").then(res => {
@@ -107,7 +108,6 @@ function getUser() {
   });
 }
 
-// upload
 function uploadFile(path) {
   return new Promise(function(resolve, reject) {
     wx.uploadFile({
@@ -134,41 +134,47 @@ async function saveFormid(formId) {
   });
 }
 
-//login
 async function login(userId) {
   if (userId) {
-    token = userId;
-    logLogin(); // 上报登陆信息
-    return fly.config.headers["x-csrf-token"] = userId;
+    logLogin();
+    // TODO: 更新用户信息
+    return (fly.config.headers["x-csrf-token"] = token = userId);
   }
-  let wxRes = await promisify(wx.login, wx)();
-  let loginUrl = `/login?code=${wxRes.code}`;
+  const wxRes = await promisify(wx.login, wx)();
+  const loginUrl = concatUrl(wxRes);
+  const user = await fetchLogin(loginUrl);
+  logLogin();
+  return (getApp().globalData.user = user);
+}
+
+function concatUrl(wxRes) {
+  let url = `/login?code=${wxRes.code}`;
   let query = getApp().globalData.options.query;
   if (query.scene) {
-    loginUrl += `&scene=${query.scene}`;
+    url += `&scene=${query.scene}`;
   } else if (query.refer) {
-    loginUrl += `&refer=${query.refer}`;
+    url += `&refer=${query.refer}`;
   }
-  let logRes = await Fly.get(loginUrl);
-  logLogin(); // 上报登陆信息
+  return url;
+}
 
-  token = logRes.data.data._id;
-  fly.config.headers["x-csrf-token"] = token;
+async function fetchLogin(loginUrl) {
+  const res = await Fly.get(loginUrl);
+  const user = res.data.data;
+  fly.config.headers["x-csrf-token"] = token = user._id;
+  fly.unlock();
   wx.setStorage({
-    key: 'token',
+    key: "token",
     data: token
-  })
-  return (getApp().globalData.user = logRes.data);
+  });
+  return user;
 }
 
 fly.interceptors.request.use(async function(request) {
-  if(!token){
-    console.log('token: ', token);
-      fly.lock();
-      await login();
-      fly.unlock(); 
-      request.headers["x-csrf-token"] = token;
-      return request;
+  if (!token) {
+    return fly.lock();
+  } else {
+    fly.unlock();
   }
   request.headers["x-csrf-token"] = token;
   return request;

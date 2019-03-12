@@ -3,9 +3,6 @@
 export default {
   mpType: "app",
   onLaunch(opts) {
-    if (wx.cloud) {
-      wx.cloud.init();
-    }
     this.globalData.options = opts;
     let userId = wx.getStorageSync('token') //永久保存用户账号
     this.$request.login(userId);
