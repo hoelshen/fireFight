@@ -203,29 +203,7 @@ export default {
       }
     },
     onGotUserInfo(e) {
-      let { iv, userInfo, encryptedData } = e.detail;
-      if (!userInfo) {
-        return false;
-      }
-      wx.showLoading({
-        title: "授权中",
-        mask: true
-      });
-      this.$request
-        .post("/auth", {
-          iv,
-          userInfo,
-          encryptedData
-        })
-        .then(
-          function(authRes) {
-            wx.hideLoading();
-            this.$router.push({ path: "/pages/penName/index" });
-          }.bind(this)
-        )
-        .catch(err => {
-          wx.hideLoading();
-        });
+      this.$request.auth(e.detail);
     },
     openMail() {
       this.$router.push({ path: "/pages/mail/mailDay" });
