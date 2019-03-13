@@ -45,7 +45,7 @@ function sendBackErrorToCloud(message, status, request) {
   if (!wx.cloud) {
     return false;
   }
-  wx.init();
+  wx.cloud.init();
   const systemInfo = wx.getSystemInfoSync();
   const lauchOpts = getApp().globalData.options;
   const userId = getApp().globalData.user._id;
@@ -86,14 +86,14 @@ function sendFrontErrorToCloud(error) {
 }
 
 async function logLogin() {
-  // setInterval(function(){
-  //   const lauchOpts = getApp().globalData.options;
-  //   const systemInfo = wx.getSystemInfoSync();
-  //   fly.put("/record/login", {
-  //     lauchOpts,
-  //     systemInfo
-  //   });
-  // },500)
+  setTimeout(function(){
+    const lauchOpts = getApp().globalData.options;
+    const systemInfo = wx.getSystemInfoSync();
+    fly.put("/record/login", {
+      lauchOpts,
+      systemInfo
+    });
+  },500)
 }
 
 //getUser

@@ -1,7 +1,7 @@
 <template>
   <div class="app flex column center">
     <div class="prompt flex column center grow">
-      <div class="promptDiv flex column center" >
+      <div class="flex column center" >
           <div class="flex column targer" v-if="active === 'solution'">
             <div class="textAlign">
               您已解答
