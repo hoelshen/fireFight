@@ -1,12 +1,14 @@
 <template>
   <scroll-view class="scroll" scroll-y>
     <session class="solutionRoomName">
-      <div class="solutionRoomName-name">
-        <p class="solutionRoomName-day">{{days}}</p>
-        <p class="solutionRoomName-aliasName">{{aliasName}}</p>
+      <p class="day">{{days}}</p>
+      <div class="flex j-start a-center">
+        <div class="aliasName">{{aliasName}}</div>
+        <image class="badgeIconfont" v-if="badge" :src="badge.defaultImgUrl" />
       </div>
-      <div clss="solutionRoomName_question flex j-between">
-        <span class="solutionRoomName_question_mail">你今天还可以解答 {{replyCount}} 个咨询</span>
+      <div class="flex a-center">
+        <span class="canSolver">你今天还可以解答 {{replyCount}} 个咨询</span>
+        <image class="iconfont"  src="/static/svgs/question.svg" />
       </div>
     </session>
 
@@ -32,7 +34,8 @@ export default {
       days: days,
       aliasName: "",
       replyCount: 1,
-      mails: []
+      mails: [],
+      badge: ""
     };
   },
   methods: {
@@ -53,7 +56,12 @@ export default {
         query: { page: "Solver-Manual" },
         path: "/pages/webview/index"
       });
-    }
+    },
+    getBadge(){
+      this.$request.get("/badge/mine").then(res => {
+        this.badge = res.data;
+      })
+    },
   },
   onShow() {
     const { user } = getApp().globalData;
@@ -65,6 +73,7 @@ export default {
       this.aliasName = user.aliasName;
     }
     this.getStory();
+    this.getBadge();
   },
   onShareAppMessage(res) {
     let { title, imageUrl, path, user } = getApp().globalData;
@@ -82,22 +91,15 @@ export default {
   height: 100vh;
 }
 
-.solutionRoomName {
-  display: block;
-  border: 1px solid #ffffff;
-  margin: 20rpx 60rpx;
-  &_question {
-    &-img {
-      height: 44rpx;
-      width: 44rpx;
-    }
-  }
-}
-
 .solutionDetail {
   padding-bottom: 60rpx;
 }
 
+.solutionRoomName{
+  display: block;
+  border: 1px solid #ffffff;
+  margin: 40rpx 40rpx;
+}
 .solutionDetailButton {
   margin-top: 16rpx;
   border-radius: 23px;
@@ -105,20 +107,26 @@ export default {
   height: 92rpx;
   border: 1px solid #ffc86d;
 }
-.solutionRoomName-day {
-  margin-top: 40rpx;
+.day {
   color: #4D495B;
   font-size: 32rpx;
   font-weight:600;
 }
-.solutionRoomName-aliasName {
+.aliasName {
   margin: 24rpx 0;
   font-size: 60rpx;
   font-weight:600;
   color:#4D495B;
+
 }
-.solutionRoomName_question_mail {
+.badgeIconfont{
+  width: 60rpx;
+  height: 60rpx;
+  margin-left: 20rpx;
+}
+
+.canSolver {
   color: #a9a9a9;
-  margin-top: 20rpx;
+  margin-right: 20rpx;
 }
 </style>

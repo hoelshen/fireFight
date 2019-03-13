@@ -142,7 +142,8 @@ export default {
         type: "",
         sure: ""
       },
-      task:[]
+      task:[],
+      status: ""
     };
   },
   onShareAppMessage(res) {
@@ -239,8 +240,30 @@ export default {
     },
     doTask(task){
       wx.navigateTo({
-        url: `/pages/webview/index?url=${task.url}&title=${task.name}&type='welfare'`
+        url: `/pages/webview/index?url=${task.url}&title=${task.name}&type=welfare&id=${task._id}`
       })
+    },
+    taskHandle(status){
+        if(!status) return;
+        if(status === "failedTime" ){
+          this.$refs.mymodal.show({
+              title: "体验失败",
+              content: "抱歉，体验时间过短，无法获得奖励。请重试。",
+              type: "welfare",
+              confirm: "no",
+              sure: "好的",  
+              isShowModal: true
+          });
+        } 
+        // this.$refs.mymodal.show({
+        //     title: "体验失败",
+        //     content: "过程中断，请确保体验没有跳转到其它页面。",
+        //     type: "welfare",
+        //     confirm: "no",
+        //     sure: "好的",          
+        //     isShowModal: true
+        // });
+        this.status = ""
     }
 
   },
@@ -249,39 +272,7 @@ export default {
     this.active = query.active || "solution";
     this.status = query.status || "";
     this.getTask();
-    if(!this.status) return;
-    if(this.status === "success"){
-      const { user } = getApp().gloablData;
-      this.$request.post(`/task/ad/${user._id}`).then(res=>{
-        // console.log("res",res);
-      })
-      this.$refs.mymodal.show({
-          title: "体验完成",
-          content: "恭喜，你已体验完毕，并获得 n 张邮票/解忧券。",
-          type: "welfare",
-          confirm: "no",
-          sure: "好的",
-          isShowModal: true
-      });
-    } else if(this.status === "failedTime" ){
-      this.$refs.mymodal.show({
-          title: "体验失败",
-          content: "抱歉，体验时间过短，无法获得奖励。请重试。",
-          type: "welfare",
-          confirm: "no",
-          sure: "好的",          
-          isShowModal: true
-      });
-    } else{
-      this.$refs.mymodal.show({
-          title: "体验失败",
-          content: "过程中断，请确保体验没有跳转到其它页面。",
-          type: "welfare",
-          confirm: "no",
-          sure: "好的",          
-          isShowModal: true
-      });
-    }
+    this.taskHandle(this.status);
   }
 };
 </script>

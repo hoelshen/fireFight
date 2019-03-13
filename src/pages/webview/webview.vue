@@ -19,7 +19,8 @@ export default {
     return {
       url: "",
       type: "",
-      time: null
+      time: null,
+      id: "" //福利社任务id
     };
   },
   onLoad(opts) {
@@ -35,6 +36,7 @@ export default {
     }
     this.url = url;
     this.type = type;
+    this.id = opts.id;
     wx.setNavigationBarTitle({
       title: title
     });
@@ -53,11 +55,13 @@ export default {
     let  opts = wx.getLaunchOptionsSync();
     if(!this.time) return;
  
-    if((now - this.time) > 1 ){
-      this.$router.reLaunch({path: "/pages/welfare/index", query:{status: "success"}})
-    } else {
-      this.$router.reLaunch({path: "/pages/welfare/index", query:{status: "failedTime"}})
-    }
+    if((now - this.time) < 1) return this.$router.reLaunch({path: "/pages/welfare/index", query:{status: "failedTime"}})
+    
+    return  this.$request.post(`/task/ad/${this.id}`).then(res=>{
+                if(res.success){
+                  this.$router.reLaunch({path: "/pages/welfare/index", query:{status: "success"}})
+                }
+            })
   },
   onHide(){
     if(this.type === "welfare"){
