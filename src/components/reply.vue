@@ -76,7 +76,6 @@ export default {
       // console.log('this.oldContent : ', this.oldContent );
 
       if((newLength - oldLength) > 10){
-        console.log('newl', newLength);
           wx.setStorage({
             key: this.id,
             data: e.detail.value

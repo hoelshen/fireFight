@@ -14,8 +14,8 @@
         </div>
         <div class="exchange  flex center">
           <button v-if="item.status === 'WEARED' " :disabled="true" class="flex center badge_weared">佩戴中</button>
-          <button v-if="item.status === 'CAN_WEAR' "  @click="changeBadge(item._id)" class="flex center">佩戴</button>
-          <button v-if="item.status === 'CAN_RECEIVE' " @click="haveBadge(item._id)" class="flex center">领取</button>
+          <button v-if="item.status === 'CAN_WEAR' "  @click="wearBadge(item._id)" class="flex center">佩戴</button>
+          <button v-if="item.status === 'CAN_RECEIVE' " @click="receiveBadge(item._id)" class="flex center">领取</button>
           <button v-if="item.status === 'CAN_NOT_RECEIVE' "  disabled class="flex center badge_noReceive">{{item.currentLikeCount}}/{{item.requireLikeCount}}</button>
         </div>
       </div>
@@ -35,7 +35,7 @@
         </div>
         <div class="exchange  flex center">
           <button v-if="sunflower.status === 'WEARED' " :disabled="true" class="flex center badge_weared">佩戴中</button>
-          <button v-if="sunflower.status === 'CAN_WEAR' "  @click="changeBadge(sunflower._id)" class="flex center">佩戴</button>
+          <button v-if="sunflower.status === 'CAN_WEAR' "  @click="wearBadge(sunflower._id)" class="flex center">佩戴</button>
           <button v-if="sunflower.status === 'CAN_APPLY' " @click="openSunFlower(sunflower._id)" class="flex center">申请</button>
         </div>
       </div>
@@ -69,25 +69,30 @@ export default {
     toShare() {
       this.$router.push({ path: "/pages/share/share" });
     },
-    async haveBadge(id) {
+    receiveBadge(id) {
       wx.showLoading({
         title: "请稍等",
         mask: true
       });
-      let res = await this.$request.post(`/badge/${id}`).then(res=>{
-        setTimeout(wx.hideLoading, 2000)
+      this.$request.post(`/badge/${id}`).then(res=>{
+        if(res.success){
+          wx.hideLoading();
+          this.getList();
+        }
       });
-      this.getList();
+  
     },
-    async changeBadge(id){
+    wearBadge(id){
       wx.showLoading({
         title: "请稍等",
         mask: true
       });
-      let res = await this.$request.put(`/badge/${id}`).then(res=>{
-       setTimeout(wx.hideLoading, 2000)
+       this.$request.put(`/badge/${id}`).then(res=>{
+        if(res.success){
+          wx.hideLoading();
+          this.getList();
+        }
       });
-     this.getList();
     },
     async getList(){
       let res = await this.$request.get("/badge");
@@ -142,7 +147,7 @@ page {
   background-color: #ffffff !important; 
 }
 .badge_noReceive{
-  border-color:rgba(255, 200, 109, .5);
+  border-color: #bdbdc0 !important;
   background-color: #ffffff !important; 
 }
 .badge_content {

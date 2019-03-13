@@ -52,13 +52,11 @@ export default {
     const now = new Date().getMinutes();
     let  opts = wx.getLaunchOptionsSync();
     if(!this.time) return;
-      console.log('opts.scene: ', opts);
-    if((now - this.time) > 1 && opts.scene === "1038"){
+ 
+    if((now - this.time) > 1 ){
       this.$router.reLaunch({path: "/pages/welfare/index", query:{status: "success"}})
-    } else if (opts.scene === "1038") {
-      this.$router.reLaunch({path: "/pages/welfare/index", query:{status: "failedTime"}})
     } else {
-      this.$router.reLaunch({path: "/pages/welfare/index", query:{status: "failedScene"}})
+      this.$router.reLaunch({path: "/pages/welfare/index", query:{status: "failedTime"}})
     }
   },
   onHide(){

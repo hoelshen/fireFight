@@ -239,7 +239,7 @@ export default {
     },
     doTask(task){
       wx.navigateTo({
-        url: `/pages/webview/index?url=${task.url}&title='体验 打脸神器 小程序'&type='welfare'`
+        url: `/pages/webview/index?url=${task.url}&title=${task.name}&type='welfare'`
       })
     }
 

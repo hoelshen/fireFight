@@ -132,15 +132,13 @@ export default {
     padding: 4rpx 12rpx;
     background-color: #BDBDC0;
     color: #ffffff;
-    border: 2rpx solid #979797;
   }
   &_extra{
     border-radius: 4rpx;
     font-size: 24rpx;
     padding: 4rpx 12rpx;
-    background-color: #BDBDC0;
-    color: #ffc86d;
-    border: 2rpx solid #979797;
+    background-color: #ffc86d;
+    color: #ffffff;
   }
   &_alias{
     margin:40rpx 0;
