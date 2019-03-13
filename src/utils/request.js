@@ -4,7 +4,7 @@ import { promisify } from "@/utils/index";
 const environment = "test"; // 配置环境
 
 const fly = new flyio();
-const Fly = new flyio();
+const loginFly = new flyio();
 
 let token = ""
 
@@ -149,7 +149,7 @@ async function login(userId) {
   } else if (query.refer) {
     loginUrl += `&refer=${query.refer}`;
   }
-  let logRes = await Fly.get(loginUrl);
+  let logRes = await loginFly.get(loginUrl);
   logLogin(); // 上报登陆信息
 
   token = logRes.data.data._id;
