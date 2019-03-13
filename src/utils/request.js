@@ -1,7 +1,7 @@
 import flyio from "flyio/dist/npm/wx";
 import { promisify } from "@/utils/index";
 
-const environment = "local"; // 配置环境
+const environment = "test"; // 配置环境
 
 const fly = new flyio();
 const Fly = new flyio();
@@ -137,7 +137,6 @@ async function saveFormid(formId) {
 async function login(userId) {
   if (userId) {
     logLogin();
-    // TODO: 更新用户信息
     return (fly.config.headers["x-csrf-token"] = token = userId);
   }
   const wxRes = await promisify(wx.login, wx)();
@@ -145,6 +144,36 @@ async function login(userId) {
   const user = await fetchLogin(loginUrl);
   logLogin();
   return (getApp().globalData.user = user);
+}
+
+async function auth(detail) {
+  let { iv, userInfo, encryptedData } = detail;
+  if (!userInfo) {
+    return false;
+  }
+  const wxRes = await promisify(wx.login, wx)();
+  wx.showLoading({
+    title: "授权中",
+    mask: true
+  });
+  fly
+    .post("/auth", {
+      code: wxRes.code,
+      iv,
+      userInfo,
+      encryptedData
+    })
+    .then(
+      function() {
+        wx.hideLoading();
+        wx.navigateTo({
+          url: "/pages/penName/index"
+        });
+      }.bind(this)
+    )
+    .catch(err => {
+      wx.hideLoading();
+    });
 }
 
 function concatUrl(wxRes) {
@@ -203,6 +232,7 @@ fly.interceptors.response.use(
 );
 
 fly.login = login;
+fly.auth = auth;
 fly.saveFormid = saveFormid;
 fly.uploadFile = uploadFile;
 fly.getUser = getUser;
