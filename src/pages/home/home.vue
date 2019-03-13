@@ -51,7 +51,7 @@
             <div class="flex j-around my_info_user_nickName">
               <div @click="loginName">{{user.aliasName}}</div>
               <button @click="openbadge" class="my_info_user_badgeBtn">
-                <image class="my_info_user_badge" :src="badge.defaultImgUrl" />
+                <image class="my_info_user_badge" v-if="badge" :src="badge.defaultImgUrl" />
               </button>
             </div>
             <div class="my_info_user_address flex wrap" @click="showAddressModal">{{user.aliasAddress}}</div>
@@ -70,29 +70,39 @@
           </button>
 
            <button v-if="!user.unionid" class="my_function_item_button flex column center" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">
-                <image class="iconfont" src="/static/svgs/welfare.svg" />
-                <span class="my_function_item_text">福利社</span>             
+            <image class="iconfont" src="/static/svgs/badge.svg" />
+            <span class="my_function_item_text">徽章</span>             
           </button>
 
-          <button v-else @click="welfare" class="my_function_item_button flex column center">
-            <image class="iconfont" src="/static/svgs/welfare.svg" />
-            <span class="my_function_item_text">福利社</span>
+          <button v-else @click="openbadge" class="my_function_item_button flex column center">
+            <image class="iconfont" src="/static/svgs/badge.svg" />
+            <span class="my_function_item_text">徽章</span>
           </button>
-
         </session>
 
         <session class="my_contact flex column">
           <button class="my_contact_item_button flex wrap center grow" @click="joinGroup">
             <image class="iconfont" src="/static/svgs/joinGroup.svg" />
-
             <span class="my_contact_item_text grow">加入群聊</span>
             <image class="group flex center" src="/static/jpg/group.png" />
             <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
           </button>
 
-          <button class="my_contact_item_button flex wrap center grow" @tap="toFaq">
+          <button class="my_contact_item_button flex wrap center grow" @click="toFaq">
             <image class="iconfont" src="/static/svgs/question.svg" />
             <span class="my_contact_item_text grow">问题与反馈</span>
+            <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
+          </button>
+
+           <button v-if="!user.unionid" class="my_contact_item_button flex wrap center grow" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">
+            <image class="iconfont" src="/static/svgs/welfare.svg" />
+            <span class="my_contact_item_text grow">福利社</span>
+            <image class="iconfont flex center" src="/static/svgs/arrow.svg" />           
+          </button>
+
+          <button v-else class="my_contact_item_button flex wrap center grow" @click="welfare">
+            <image class="iconfont" src="/static/svgs/welfare.svg" />
+            <span class="my_contact_item_text grow">福利社</span>
             <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
           </button>
         </session>
@@ -124,7 +134,9 @@ export default {
       banners: [],
       wayCount: 0,
       dialogs: [],
-      badge:{},
+      badge:{
+        defaultImgUrl: ""
+      },
       user: {
         aliasPortrait: "",
         aliasName: ""
@@ -474,7 +486,7 @@ export default {
 }
 
 .my_info {
-  height: 508rpx;
+  height: 526rpx;
   margin: 40rpx 40rpx;
   border-radius: 2px;
   background-color: #ffffff;
@@ -511,6 +523,12 @@ export default {
       margin-bottom: 60rpx;
     }
   }
+  .lightButton{
+    margin-bottom: 20rpx;
+    margin-top: 0rpx;
+    height:64rpx;
+    line-height:64rpx;
+  }
 }
 
 .my_function {
@@ -534,7 +552,7 @@ export default {
   }
 }
 .my_contact {
-  height: 216rpx;
+  height: 324rpx;
   margin: 40rpx 40rpx;
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);

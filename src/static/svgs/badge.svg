@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>分组</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="335" height="360" rx="2"></rect>
+        <filter x="-9.0%" y="-8.3%" width="117.9%" height="116.7%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="10" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.08 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="规范样式说明" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-974.000000, -262.000000)">
+            <rect fill="#FFFFFF" x="0" y="0" width="2112" height="2191"></rect>
+            <g id="分组-7" transform="translate(870.000000, 100.000000)">
+                <g id="矩形">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <g id="分组" transform="translate(104.000000, 162.000000)">
+                    <polygon id="Fill-1" fill="#FFFFFF" points="0 22 22 22 22 0 0 0"></polygon>
+                    <g transform="translate(2.750000, 2.750000)" fill="#FFC86D">
+                        <path d="M8.25,14.8000875 C6.468,14.8000875 5.017375,13.3494625 5.017375,11.5674625 C5.017375,9.7868375 6.468,8.3362125 8.25,8.3362125 C10.032,8.3362125 11.482625,9.7868375 11.482625,11.5674625 C11.482625,13.3494625 10.032,14.8000875 8.25,14.8000875 M8.25,6.9612125 C5.709,6.9612125 3.642375,9.0278375 3.642375,11.5674625 C3.642375,14.1084625 5.709,16.1750875 8.25,16.1750875 C10.791,16.1750875 12.857625,14.1084625 12.857625,11.5674625 C12.857625,9.0278375 10.791,6.9612125 8.25,6.9612125" id="Fill-2"></path>
+                        <path d="M14.4375,3.1978375 L13.0625,3.4728375 L13.0625,1.6990875 L14.4375,1.6990875 L14.4375,3.1978375 Z M8.25,4.4353375 L4.8125,3.7478375 L4.8125,1.6990875 L11.6875,1.6990875 L11.6875,3.7478375 L8.25,4.4353375 Z M2.0625,1.6990875 L3.4375,1.6990875 L3.4375,3.4728375 L2.0625,3.1978375 L2.0625,1.6990875 Z M15.125,0.3240875 L1.375,0.3240875 C0.9955,0.3240875 0.6875,0.6320875 0.6875,1.0115875 L0.6875,3.7615875 C0.6875,4.0888375 0.9185,4.3720875 1.24025,4.4353375 L8.11525,5.8103375 C8.160625,5.8199625 8.204625,5.8240875 8.25,5.8240875 C8.295375,5.8240875 8.339375,5.8199625 8.38475,5.8103375 L15.25975,4.4353375 C15.5815,4.3720875 15.8125,4.0888375 15.8125,3.7615875 L15.8125,1.0115875 C15.8125,0.6320875 15.5045,0.3240875 15.125,0.3240875 Z" id="Fill-4"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,7 +1,7 @@
 import flyio from "flyio/dist/npm/wx";
 import { promisify } from "@/utils/index";
 
-const environment = "local"; // 配置环境
+const environment = "test"; // 配置环境
 
 const fly = new flyio();
 const loginFly = new flyio();
@@ -12,9 +12,9 @@ fly.config.baseURL = getBaseURL(environment);
 fly.config.headers["Accept"] = "application/json";
 fly.config.headers["Content-Type"] = "application/json; charset=utf-8";
 
-Fly.config.baseURL = getBaseURL(environment);
-Fly.config.headers["Accept"] = "application/json";
-Fly.config.headers["Content-Type"] = "application/json; charset=utf-8";
+loginFly.config.baseURL = getBaseURL(environment);
+loginFly.config.headers["Accept"] = "application/json";
+loginFly.config.headers["Content-Type"] = "application/json; charset=utf-8";
 
 function getBaseURL(env) {
   switch (env) {

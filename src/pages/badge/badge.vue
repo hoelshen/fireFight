@@ -1,5 +1,5 @@
 <template>
-  <view class="ticket flex column j-between">
+  <div class="app flex column j-between">
     <session class="list"  v-for="item in list" :key="item._id">
       <div class="list_item flex  j-between ">
         <div class="flex">
@@ -13,10 +13,10 @@
           </div>
         </div>
         <div class="exchange  flex center">
-          <button v-if="item.status === 'WEARED' " :disabled="true" class="flex center">佩戴中</button>
+          <button v-if="item.status === 'WEARED' " :disabled="true" class="flex center badge_weared">佩戴中</button>
           <button v-if="item.status === 'CAN_WEAR' "  @click="changeBadge(item._id)" class="flex center">佩戴</button>
           <button v-if="item.status === 'CAN_RECEIVE' " @click="haveBadge(item._id)" class="flex center">领取</button>
-          <button v-if="item.status === 'CAN_NOT_RECEIVE' "  disabled class="flex center">{{item.currentLikeCount}}/{{item.requireLikeCount}}</button>
+          <button v-if="item.status === 'CAN_NOT_RECEIVE' "  disabled class="flex center badge_noReceive">{{item.currentLikeCount}}/{{item.requireLikeCount}}</button>
         </div>
       </div>
     </session>
@@ -34,13 +34,18 @@
           </div>
         </div>
         <div class="exchange  flex center">
-          <button v-if="sunflower.status === 'WEARED' " :disabled="true" class="flex center">佩戴中</button>
+          <button v-if="sunflower.status === 'WEARED' " :disabled="true" class="flex center badge_weared">佩戴中</button>
           <button v-if="sunflower.status === 'CAN_WEAR' "  @click="changeBadge(sunflower._id)" class="flex center">佩戴</button>
-          <button v-if="true " @click="openSunFlower(sunflower._id)" class="flex center">申请</button>
+          <button v-if="sunflower.status === 'CAN_APPLY' " @click="openSunFlower(sunflower._id)" class="flex center">申请</button>
         </div>
       </div>
     </session>
-  </view>
+    <session class="list_notice">
+      <div class="notice">
+          温馨提示：带有「可额外解答的咨询」标记的，收取和解答次数不受该规则限制。  
+      </div>
+    </session>
+  </div>
 </template>
 <script>
 
@@ -104,10 +109,9 @@ page {
   background-color: #ffffff;
 }
 .list {
-  padding: 0 40rpx;
+  margin: 40rpx 40rpx 0;
   &_item {
     background-color: #ffffff;
-    margin-bottom: 40rpx;
     margin-top:20rpx;
   }
   .count {
@@ -133,12 +137,27 @@ page {
     font-weight: 600;
   }
 }
+.badge_weared{
+  border-color:rgba(255, 200, 109, .5);
+  background-color: #ffffff !important; 
+}
+.badge_noReceive{
+  border-color:rgba(255, 200, 109, .5);
+  background-color: #ffffff !important; 
+}
 .badge_content {
   margin-top: 12rpx;
   color: #bdbdc0;
   font-size: 24rpx;
 }
-
+.notice{
+  font-size: 24rpx;
+  color: #bdbdc0;
+  margin: 0rpx 20rpx 10rpx;
+}
+.list_notice{
+  margin: 40rpx 40rpx;
+}
 .iconfont {
   margin-right: 20rpx;
 }

@@ -13,29 +13,33 @@
       <p  class="content">同时我们也希望你能够配合 Tell ，对外宣发关于 Tell 相关的活动信息。在 Tell 的用户微信群里，引导新加入的成员，帮助解决群员提出的问题。</p>
       <p  class="content">目前，向日葵徽章采取邀请制和申请制。Tell 团队会在某些情况下直接向优秀的解答者赠予徽章，若不想等待，可在下方主动申请。        
       </p>
-      <p class="title">若要申请，首先需满足以下条件</p>
-      <p class="content">
-      · 持有碧玉徽章
-      </p>
-      <p class="content">
-      · 最近一周保持活跃
-      </p>
-      <p class="content">
-      · 发自内心喜爱 Tell 社区
-      </p>
-      <p class="content">
-      · 能够真正在帮助他人时得到喜悦和满足
-      </p>
-      <p class="title">向日葵徽章将在下列情形下被回</p>
-      <p class="content">
-      · 连续 7 日未登录 Tell 时
-      </p>
-      <p class="content">
-      · 连续 30 日未获得感谢时
-      </p>
-      <p class="content">
-      · 违反相关使用协定或法律法规        
-      </p>
+      <div class="content">
+      <p class="condition">若要申请，首先需满足以下条件:</p>
+        <p >
+        · 持有碧玉徽章
+        </p>
+        <p >
+        · 最近一周保持活跃
+        </p>
+        <p >
+        · 发自内心喜爱 Tell 社区
+        </p>
+        <p >
+        · 能够真正在帮助他人时得到喜悦和满足
+        </p>
+      </div>
+      <div class="content">
+      <p class="condition">向日葵徽章将在下列情形下被回:</p>
+          <p>
+          · 连续 7 日未登录 Tell 时
+          </p>
+          <p >
+          · 连续 30 日未获得感谢时
+          </p>
+          <p >
+          · 违反相关使用协定或法律法规 
+          </p>
+      </div>
       <button class="darkButton" @click="applySunflower()">提交咨询</button>
     </div>
   </view>
@@ -95,13 +99,18 @@ page {
   line-height: 52rpx;
   font-size: 32rpx;
   font-weight: 600;
-  margin: 40rpx;
+  margin: 60rpx;
+}
+.condition{
+  color: "#4D495B";
+  line-height: 52rpx;
+  font-size: 32rpx;
+  font-weight: 600;
 }
 .content{
   font-size: 28rpx;
   line-height: 52rpx;
-  margin: 40rpx;
-
+  margin: 60rpx;
 }
 .darkButton{
   margin-right: 216rpx;

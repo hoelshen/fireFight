@@ -19,12 +19,15 @@
         <div class="flex j-start a-center">
           <span class="textNameSpan">微信名</span>
         </div>
-        <input class="aliasNameInput" @input="bindAliasName" :value="form.nickName">
+        <input class="aliasNameInput" @input="bindNickName" :value="form.nickName">
       </div>
 
       <div class="flex column j-between birthday ">
+        <div class="flex j-start a-center">
+          <span >出生年月：</span>
+        </div>
         <picker mode="date" :value="form.bornDate"  @change="bindBornDate">
-          <span >出生年月： {{form.bornDate | dayFormat}} </span>
+          <div class="flex a-center bornDate"> {{form.bornDate}} </div>
         </picker>
       </div>
 
@@ -59,7 +62,7 @@ export default {
         name: "", //姓名
         aliasName: "", //笔名
         nickName:"", // 微信名称
-        bornDate: 0,
+        bornDate: "1996-01-16",
         where: "",
         why: ""
       }
@@ -110,14 +113,18 @@ export default {
             title: "请控制在100字以内"
           });
       }
+      const result = [];
       Object.keys(this.form).forEach(val=>{
-        if(!this.form[val]) {
-        return wx.showToast({
-                title: '请填写完整',
-                icon: 'none',
-        });  
-      }});
-      
+        result.push(this.form[val]);
+      });
+      for(let v of result){
+        if(!v) {
+          return wx.showToast({
+                  title: '请填写完整',
+                  icon: 'none',
+                 })
+        }
+      }
       this.$request.post("/badge/form/sunflower", this.form).then(res=>{
         this.res;
       })
@@ -144,6 +151,7 @@ export default {
 .textArea {
   min-height: 400rpx;
   background-color: rgba(189, 189, 192, 0.15);
+  padding-left: 20rpx;
   width: 590rpx;
   font-size: 34rpx;
   margin-left: 40rpx;
@@ -169,6 +177,7 @@ export default {
   margin-left: 40rpx;
   margin-right: 40rpx;
   margin-top: 12rpx;
+  padding-left: 20rpx;
   background-color: rgba(189, 189, 192, 0.15);
 }
 .addMystoryButton {
@@ -185,6 +194,10 @@ export default {
 }
 .birthday{
   margin: 20rpx 40rpx;
-
+}
+.bornDate{
+  height: 84rpx;
+  padding-left: 20rpx;
+  background-color:rgba(189, 189, 192, 0.15);
 }
 </style>

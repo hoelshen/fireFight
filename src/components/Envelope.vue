@@ -14,8 +14,9 @@
         <image class="mail-svg" src="/static/svgs/stamp.svg"/>
       </view>
     </view>
-    <view class="flex j-between list_item_alias">
-      <view :class="isReplied ? 'list_item_status' : '' ">{{isReplied ? '已回复' : ''}}</view>
+    <view class="flex j-between list_item_alias" >
+      <view v-if="isExtra" :class="isExtra ? 'list_item_extra' : '' ">{{isExtra ? '可额外回复的信' : ''}}</view>
+      <view v-else :class="isReplied ? 'list_item_replied' : '' ">{{isReplied ? '已回复' : ''}}</view>
       <view >{{mail.aliasName}}</view>
     </view>
     <view  class="context" v-if="showRefer && remoteReferContent">
@@ -32,6 +33,10 @@ export default {
       requred: true
     },
     isRead: {
+      type: Boolean,
+      default: false
+    },
+    isExtra:{
       type: Boolean,
       default: false
     },
@@ -121,12 +126,20 @@ export default {
     font-size: 28rpx;
     padding: 40rpx
   }
-  &_status{
+  &_replied{
     border-radius: 4rpx;
     font-size: 24rpx;
     padding: 4rpx 12rpx;
     background-color: #BDBDC0;
     color: #ffffff;
+    border: 2rpx solid #979797;
+  }
+  &_extra{
+    border-radius: 4rpx;
+    font-size: 24rpx;
+    padding: 4rpx 12rpx;
+    background-color: #BDBDC0;
+    color: #ffc86d;
     border: 2rpx solid #979797;
   }
   &_alias{
