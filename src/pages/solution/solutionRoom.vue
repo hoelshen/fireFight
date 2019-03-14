@@ -5,7 +5,7 @@
       <div class="flex j-start a-center">
         <div class="aliasName">{{aliasName}}</div>
         <button class="aliasNameBtn"  @click="returnBadge">
-            <image class="badgeIconfont" v-if="badge" :src="badge.defaultImgUrl" />
+            <image class="badgeIconfont" v-if="badgeImgUrl" :src="badgeImgUrl" />
         </button>
       </div>
       <div class="flex j-start a-center">
@@ -39,14 +39,14 @@ export default {
       aliasName: "",
       replyCount: 1,
       mails: [],
-      badge: ""
+      badgeImgUrl: ""
     };
   },
   methods: {
     async getStory() {
       let res = await this.$request.get("/mail/story");
       this.mails = res.data.list;
-      this.replyCount = res.data.lastRepliedAt ? 0 : 1;
+      this.replyCount = res.data.replyCount;
       getApp().globalData.replyCount = this.replyCount;
     },
     onSolutionLimit() {
@@ -60,11 +60,6 @@ export default {
         query: { page: "Solver-Manual" },
         path: "/pages/webview/index"
       });
-    },
-    getBadge(){
-      this.$request.get("/badge/mine").then(res => {
-        this.badge = res.data;
-      })
     },
     returnBadge(){
       this.$router.push({ path: "/pages/badge/badge"});
@@ -82,8 +77,8 @@ export default {
     } else {
       this.aliasName = user.aliasName;
     }
+    this.badgeImgUrl = user.badgeImgUrl;
     this.getStory();
-    this.getBadge();
   },
   onShareAppMessage(res) {
     let { title, imageUrl, path, user } = getApp().globalData;
@@ -133,11 +128,12 @@ export default {
     margin:0;
     padding:0;
     line-height:0;
+    margin-left: 20rpx;
+
 }
 .badgeIconfont{
   width: 60rpx;
   height: 60rpx;
-  margin-left: 20rpx;
 }
 
 .canSolver {

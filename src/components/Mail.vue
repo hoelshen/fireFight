@@ -18,9 +18,8 @@
       <div class="flex wrap j-end">
         <img class="mail_weather_name" :src="mail.aliasPortrait" v-if="mail.type != 'STORY'">
         <span class="mail_reply_aliasName">{{mail.aliasName}}</span>
-        <img class="mail_reply_badge" :src="mail.aliasPortrait" v-if="mail.type != 'STORY'">
+        <img class="mail_reply_badge" :src="mail.badgeImgUrl" v-if="mail.type != 'STORY' && mail.badgeImgUrl">
       </div>
-
       <span class="flex wrap j-end mail_reply_weather">{{mail.createdAt | dayFormat}} {{mail.weather}}</span>
     </div>
   </div>
@@ -116,13 +115,9 @@ export default {
   width: 44rpx;
   height: 44rpx;
   border-radius: 50%;
-}
-.mail_reply_img {
-  width: 44rpx;
-  height: 44rpx;
-  border-radius: 11;
   margin-right: 20rpx;
 }
+
 .mail_reply_aliasName {
   color: #4d495b;
   font-size: 32rpx;

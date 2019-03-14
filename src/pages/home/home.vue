@@ -51,7 +51,7 @@
             <div class="flex j-around my_info_user_nickName">
               <div @click="loginName">{{user.aliasName}}</div>
               <button @click="openbadge" class="my_info_user_badgeBtn">
-                <image class="my_info_user_badge" v-if="badge" :src="badge.defaultImgUrl" />
+                <image class="my_info_user_badge" v-if="badge" :src="badge.imgUrl" />
               </button>
             </div>
             <div class="my_info_user_address flex wrap" @click="showAddressModal">{{user.aliasAddress}}</div>
@@ -135,7 +135,7 @@ export default {
       wayCount: 0,
       dialogs: [],
       badge:{
-        defaultImgUrl: ""
+        imgUrl: ""
       },
       user: {
         aliasPortrait: "",
@@ -471,12 +471,12 @@ export default {
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
   &_user {
     &_badgeBtn{
-      padding: 0
+      padding: 0;
+      margin-left: 12rpx;
     }
     &_badge{
-      width: 68rpx;
-      height: 68rpx;
-      margin-left: 12rpx;
+      width: 60rpx;
+      height: 60rpx;
     }
     &_avatarUrl {
       display: block;

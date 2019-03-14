@@ -3,7 +3,7 @@
     <session class="list"  v-for="item in list" :key="item._id">
       <div class="list_item flex  j-between ">
         <div class="flex">
-          <image class="iconfont" :src="item.defaultImgUrl" />
+          <image class="iconfont" :src="item.imgUrl" />
           <div class="flex column j-start">
             <div>
               <span class="list_item_span">{{item.name}}</span>
@@ -23,7 +23,7 @@
     <session class="list">
       <div class="list_item flex  j-between ">
         <div class="flex">
-          <image class="iconfont" :src="sunflower.defaultImgUrl" />
+          <image class="iconfont" :src="sunflower.imgUrl" />
           <div class="flex column j-start">
             <div>
               <span class="list_item_span">{{sunflower.name}}</span>
@@ -168,6 +168,9 @@ page {
   margin: 40rpx 40rpx;
 }
 .iconfont {
+  width: 60rpx;
+  margin-top: 16rpx;
+  height: 60rpx;
   margin-right: 20rpx;
 }
 </style>

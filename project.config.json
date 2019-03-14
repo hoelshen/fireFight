@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 27,
+			"current": 29,
 			"list": [
 				{
 					"id": -1,
@@ -223,6 +223,13 @@
 					"id": -1,
 					"name": "申请向日葵",
 					"pathName": "pages/badge/applySunflower",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "徽章说明",
+					"pathName": "pages/badge/badgeExplain",
 					"query": "",
 					"scene": null
 				}
