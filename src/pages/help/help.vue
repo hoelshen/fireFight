@@ -131,7 +131,7 @@ export default {
 .psychological{
   font-size: 28rpx;
   color: #FFC86D;
-  font-size: 600;
+  font-weight: 600;
   margin-top: 60rpx;
 }
 .card{
@@ -139,6 +139,7 @@ export default {
 }
 .darkButton{
   padding: 26rpx 102rpx;
+  margin-top: 60rpx;
 }
 .title{
   margin-left: 20rpx;

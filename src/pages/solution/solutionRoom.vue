@@ -4,11 +4,15 @@
       <p class="day">{{days}}</p>
       <div class="flex j-start a-center">
         <div class="aliasName">{{aliasName}}</div>
-        <image class="badgeIconfont" v-if="badge" :src="badge.defaultImgUrl" />
+        <button class="aliasNameBtn"  @click="returnBadge">
+            <image class="badgeIconfont" v-if="badge" :src="badge.defaultImgUrl" />
+        </button>
       </div>
-      <div class="flex a-center">
+      <div class="flex j-start a-center">
         <span class="canSolver">你今天还可以解答 {{replyCount}} 个咨询</span>
-        <image class="iconfont"  src="/static/svgs/question.svg" />
+        <button class="canSolverBtn" @click='badgeExplain'>
+            <image class="iconfont"  src="/static/svgs/question.svg" />
+        </button>
       </div>
     </session>
 
@@ -62,6 +66,12 @@ export default {
         this.badge = res.data;
       })
     },
+    returnBadge(){
+      this.$router.push({ path: "/pages/badge/badge"});
+    },
+    badgeExplain(){
+      this.$router.push({ path: "/pages/badge/badgeExplain"})
+    }
   },
   onShow() {
     const { user } = getApp().globalData;
@@ -119,6 +129,11 @@ export default {
   color:#4D495B;
 
 }
+.aliasNameBtn{
+    margin:0;
+    padding:0;
+    line-height:0;
+}
 .badgeIconfont{
   width: 60rpx;
   height: 60rpx;
@@ -129,4 +144,11 @@ export default {
   color: #a9a9a9;
   margin-right: 20rpx;
 }
+.canSolverBtn{
+  padding:0;
+  margin:0;
+  line-height:0;
+}
+
+
 </style>

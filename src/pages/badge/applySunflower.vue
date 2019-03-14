@@ -1,57 +1,63 @@
 <template>
-  <view class="app flex column j-between">
-    <div class="appDiv flex column shadow">
-      <div class="flex column j-between ">
-        <div class="flex j-start a-center">
-          <span class="textNameSpan">姓名</span>
-        </div>
-        <input class="aliasNameInput" @input="bindName" :value="form.name">
-      </div>
+  <view>
+    <div class="app flex column j-between" v-if="applying">
+        <div class="appDiv flex column shadow">
+          <div class="flex column j-between ">
+            <div class="flex j-start a-center">
+              <span class="textNameSpan">姓名</span>
+            </div>
+            <input class="aliasNameInput" @input="bindName" :value="form.name">
+          </div>
 
-      <div class="flex column j-between ">
-        <div class="flex j-start a-center">
-          <span class="textNameSpan">笔名</span>
-        </div>
-        <input class="aliasNameInput" @input="bindAliasName" :value="form.aliasName">
-      </div>
+          <div class="flex column j-between ">
+            <div class="flex j-start a-center">
+              <span class="textNameSpan">笔名</span>
+            </div>
+            <input class="aliasNameInput" @input="bindAliasName" :value="form.aliasName">
+          </div>
 
-      <div class="flex column j-between ">
-        <div class="flex j-start a-center">
-          <span class="textNameSpan">微信名</span>
-        </div>
-        <input class="aliasNameInput" @input="bindNickName" :value="form.nickName">
-      </div>
+          <div class="flex column j-between ">
+            <div class="flex j-start a-center">
+              <span class="textNameSpan">微信号</span>
+            </div>
+            <input class="aliasNameInput" @input="bindNickName" :value="form.nickName">
+          </div>
 
-      <div class="flex column j-between birthday ">
-        <div class="flex j-start a-center">
-          <span >出生年月：</span>
-        </div>
-        <picker mode="date" :value="form.bornDate"  @change="bindBornDate">
-          <div class="flex a-center bornDate"> {{form.bornDate}} </div>
-        </picker>
-      </div>
+          <div class="flex column j-between birthday ">
+            <div class="flex j-start a-center">
+              <span >出生年月：</span>
+            </div>
+            <picker class="birthdayPicker" mode="date" :value="form.bornDate"  @change="bindBornDate">
+              <div class="flex a-center bornDate"> {{form.bornDate}} </div>
+            </picker>
+          </div>
 
-      <div class="flex column j-between ">
-        <div class="flex j-start a-center">
-          <span class="textNameSpan">如何知道 Tell 的</span>
-        </div>
-        <input class="aliasNameInput" @input="bindWhere" :value="form.where">
-      </div>
+          <div class="flex column j-between ">
+            <div class="flex j-start a-center">
+              <span class="textNameSpan">如何知道 Tell 的</span>
+            </div>
+            <input class="aliasNameInput" @input="bindWhere" :value="form.where">
+          </div>
 
-      <div class="flex column j-between ">
-        <div class="flex j-start a-center">
-          <span class="textNameSpan">为什么想要持有向日葵徽章</span>
-        </div>
-        <textarea class="textArea" :auto-height="true"  :focus="isFocus" maxlength="5000" cursor-spacing="30px" :value="form.why" @input="bindWhy" />
-      </div>
+          <div class="flex column j-between ">
+            <div class="flex j-start a-center">
+              <span class="textNameSpan">为什么想要持有向日葵徽章</span>
+            </div>
+            <textarea class="textArea" :auto-height="true"  :focus="isFocus" maxlength="5000" cursor-spacing="30px" :value="form.why" @input="bindWhy" />
+          </div>
 
+        </div>
+
+        <div class="flex column textAdd center">
+          <button class="addMystoryButton flex center" @click="onPush">提交咨询</button>
+        </div>
     </div>
 
-    <div class="flex column textAdd center">
-      <button class="addMystoryButton flex center" @click="onPush">提交咨询</button>
+    <div class="app flex column center" v-if="!applying">
+          <span class="applyText">申请已提交</span>
+          <span class="applyText">Tell 团队会尽快与你联系</span>
+          <button class="flex center lightButton" @click="returnBadge">好的</button>   
     </div>
-
-
   </view>
 </template>
 <script>
@@ -65,7 +71,8 @@ export default {
         bornDate: "1996-01-16",
         where: "",
         why: ""
-      }
+      },
+      applying: true
     };
   },
   methods: {
@@ -126,11 +133,16 @@ export default {
         }
       }
       this.$request.post("/badge/form/sunflower", this.form).then(res=>{
-        this.res;
+        this.applying = false;
       })
+    },
+    returnBadge(){
+      this.$router.reLaunch({path:"/pages/badge/badge"})
     }
   },
   onShow() {
+      const { currentRoute: { query } } = this.$router;
+      this.applying = !(query.applying == 0);
       const { user } = getApp().globalData;
       this.form.aliasName = user.signName;
   }
@@ -192,6 +204,9 @@ export default {
   font-size:28rpx;
 
 }
+.birthdayPicker{
+  margin-top: 12rpx;
+}
 .birthday{
   margin: 20rpx 40rpx;
 }
@@ -199,5 +214,13 @@ export default {
   height: 84rpx;
   padding-left: 20rpx;
   background-color:rgba(189, 189, 192, 0.15);
+}
+.lightButton{
+  padding: 26rpx 130rpx;
+  margin: 60rpx;
+}
+.applyText{
+  font-size: 32rpx;
+  line-height:52rpx;
 }
 </style>

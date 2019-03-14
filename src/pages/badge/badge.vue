@@ -9,7 +9,7 @@
               <span class="list_item_span">{{item.name}}</span>
             </div>
             <span v-if="item.status === 'CAN_NOT_RECEIVE' " class="badge_content">收到 {{ item.requireLikeCount }} 个感谢后可以领取</span>
-            <span v-else class="badge_content">{{item.receivedAt | dayFormat}} </span>
+            <span v-else class="badge_content">已于 {{item.receivedAt | dayFormat}} 获得</span>
           </div>
         </div>
         <div class="exchange  flex center">
@@ -30,13 +30,14 @@
             </div>
             <span v-if="sunflower.status === 'CAN_APPLY' " class="badge_content">由 Tell 官方运营团队特邀 </span>
             <span v-if="sunflower.status === 'CAN_WEAR' " class="badge_content">由 Tell 官方运营团队特邀 </span>
-            <span v-if="sunflower.status === 'WEARED' " class="badge_content">{{sunflower.createdAt | dayFormat}} </span>
+            <span v-if="sunflower.status === 'WEARED' " class="badge_content">已于 {{sunflower.createdAt | dayFormat}} 获得</span>
           </div>
         </div>
         <div class="exchange  flex center">
-          <button v-if="sunflower.status === 'WEARED' " :disabled="true" class="flex center badge_weared">佩戴中</button>
-          <button v-if="sunflower.status === 'CAN_WEAR' "  @click="wearBadge(sunflower._id)" class="flex center">佩戴</button>
           <button v-if="sunflower.status === 'CAN_APPLY' " @click="openSunFlower(sunflower._id)" class="flex center">申请</button>
+          <button v-if="sunflower.status === 'APPLYING' " @click="applySunFlower()" class="flex center ">申请中</button>
+          <button v-if="sunflower.status === 'CAN_WEAR' "  @click="wearBadge(sunflower._id)" class="flex center">佩戴</button>
+          <button v-if="sunflower.status === 'WEARED' " :disabled="true" class="flex center badge_weared">佩戴中</button>
         </div>
       </div>
     </session>
@@ -101,6 +102,9 @@ export default {
     },
     openSunFlower(id){
       this.$router.push({ query:{ id }, path: "/pages/badge/sunflower" });
+    },
+    applySunFlower(){
+      this.$router.push({ query:{ applying: 0 }, path: "/pages/badge/applySunflower" });
     }
   },
   onShow() {
