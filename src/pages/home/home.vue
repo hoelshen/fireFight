@@ -50,7 +50,7 @@
           <div v-else class="flex column center" >
             <div class="flex j-around my_info_user_nickName">
               <div @click="loginName">{{user.aliasName}}</div>
-              <button @click="openbadge" class="my_info_user_badgeBtn">
+              <button @click="openbadge" class="my_info_user_badgeBtn flex center">
                 <image class="my_info_user_badge" v-if="badge" :src="badge.imgUrl" />
               </button>
             </div>
