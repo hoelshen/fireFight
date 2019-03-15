@@ -9,7 +9,7 @@ export default {
     config: {
         navigationBarBackgroundColor: '#ffffff',
         navigationBarTextStyle: 'black',
-        navigationBarTitleText: '每日解答上线说明',
+        navigationBarTitleText: '每日解答上限说明',
         backgroundColor: '#ffffff'
     }
 }

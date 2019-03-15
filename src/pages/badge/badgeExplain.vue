@@ -35,8 +35,7 @@
 export default {
   data() {
     return {
-      list:[],
-      sunflower:{},
+      list:[]
     };
   },
   onShareAppMessage(res) {
@@ -51,8 +50,10 @@ export default {
   methods: {
     async getList(){
       let res = await this.$request.get("/badge");
-      this.list = res.data.list;
-      this.sunflower = res.data.sunflower;
+      var list = res.data.list;
+      list.push(res.data.sunflower)
+      this.list = list;
+      //this.sunflower = res.data.sunflower;
     }
   },
   onShow() {

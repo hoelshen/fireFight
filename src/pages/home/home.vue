@@ -3,7 +3,7 @@
     <!-- 首页 -->
     <div class="pannel grow" v-if="tab == 'home'">
       <scroll-view class="entries" scroll-y :style='`height: ${scrolHeight}px`'>
-        <swiper class="swiper" :indicator-dots=" banners.length > 1 " autoplay="true" interval="5000" duration="1000" circular="true" >
+        <swiper class="swiper" :indicator-dots=" banners.length > 1 " autoplay="true" interval="5000" duration="1000" circular="true">
           <block v-for="item in banners" :key="item">
             <swiper-item>
               <image :src="item.imgUrl" class="img" @click="toBanner(item)" />
@@ -11,24 +11,24 @@
           </block>
         </swiper>
         <image class="home flex center" src="/static/jpg/homeBg.jpg"></image>
-        <div  class="left" @click="toConsulting"/>
-        <div v-if="user.unionid" class="right" @click="toSolution"/>
+        <div class="left" @click="toConsulting" />
+        <div v-if="user.unionid" class="right" @click="toSolution" />
         <div v-else class="right">
-            <button  class="rightButton" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">
-            </button>
+          <button class="rightButton" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">
+          </button>
         </div>
       </scroll-view>
     </div>
 
     <!-- 信箱 -->
     <div class="pannel grow" v-else-if="tab == 'mail'">
-      <scroll-view scroll-y :style='`height: ${scrolHeight}px`' @scrolltolower="scrolltolower" >
+      <scroll-view scroll-y :style='`height: ${scrolHeight}px`' @scrolltolower="scrolltolower">
         <div class="mailbox_title flex center" v-if="wayCount">
           <button class="flex center" @click="openMail">{{wayCount}} 封信正在邮寄的路上</button>
         </div>
         <div class="list" v-for="item in dialogs" :key="item._id">
           <Envelope station="dialogId" :mail="item.toMail" :isRead="item.isRead" :isReplied="item.isReplied" :dialogId="item._id" :showRefer="true" :referMail="item.fromMail" v-if="user._id == item.toUser"></Envelope>
-          <Envelope station="dialogId" :mail="item.fromMail" :isRead="true" :isReplied="true" :dialogId="item._id" :showRefer="true"  v-else></Envelope>
+          <Envelope station="dialogId" :mail="item.fromMail" :isRead="true" :isReplied="true" :dialogId="item._id" :showRefer="true" v-else></Envelope>
         </div>
       </scroll-view>
     </div>
@@ -38,7 +38,7 @@
       <scroll-view scroll-y :style='`height: ${scrolHeight}px`'>
         <div class="my_info flex column">
           <button v-if="!user.aliasPortrait" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">
-              <img class="my_info_user_avatarUrl" src="https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg" mode="scaleToFill" @click="login" />
+            <img class="my_info_user_avatarUrl" src="https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg" mode="scaleToFill" @click="login" />
           </button>
           <img v-else class="my_info_user_avatarUrl" :src="user.aliasPortrait || 'https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg'" mode="scaleToFill" @click="login" />
 
@@ -47,7 +47,7 @@
             <div class="my_info_user_address flex wrap">登录后体验完整功能</div>
           </div>
 
-          <div v-else class="flex column center" >
+          <div v-else class="flex column center">
             <div class="flex j-around my_info_user_nickName">
               <div @click="loginName">{{user.aliasName}}</div>
               <button @click="openbadge" class="my_info_user_badgeBtn flex center">
@@ -69,9 +69,9 @@
             <span class="my_function_item_text">票券</span>
           </button>
 
-           <button v-if="!user.unionid" class="my_function_item_button flex column center" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">
+          <button v-if="!user.unionid" class="my_function_item_button flex column center" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">
             <image class="iconfont" src="/static/svgs/badge.svg" />
-            <span class="my_function_item_text">徽章</span>             
+            <span class="my_function_item_text">徽章</span>
           </button>
 
           <button v-else @click="openbadge" class="my_function_item_button flex column center">
@@ -81,6 +81,18 @@
         </session>
 
         <session class="my_contact flex column">
+          <button v-if="!user.unionid" class="my_contact_item_button flex wrap center grow" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">
+            <image class="iconfont" src="/static/svgs/welfare.svg" />
+            <span class="my_contact_item_text grow">福利社</span>
+            <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
+          </button>
+
+          <button v-else class="my_contact_item_button flex wrap center grow" @click="welfare">
+            <image class="iconfont" src="/static/svgs/welfare.svg" />
+            <span class="my_contact_item_text grow">福利社</span>
+            <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
+          </button>
+
           <button class="my_contact_item_button flex wrap center grow" @click="joinGroup">
             <image class="iconfont" src="/static/svgs/joinGroup.svg" />
             <span class="my_contact_item_text grow">加入群聊</span>
@@ -94,17 +106,6 @@
             <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
           </button>
 
-           <button v-if="!user.unionid" class="my_contact_item_button flex wrap center grow" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">
-            <image class="iconfont" src="/static/svgs/welfare.svg" />
-            <span class="my_contact_item_text grow">福利社</span>
-            <image class="iconfont flex center" src="/static/svgs/arrow.svg" />           
-          </button>
-
-          <button v-else class="my_contact_item_button flex wrap center grow" @click="welfare">
-            <image class="iconfont" src="/static/svgs/welfare.svg" />
-            <span class="my_contact_item_text grow">福利社</span>
-            <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
-          </button>
         </session>
 
         <session class="my_share flex center">
@@ -134,7 +135,7 @@ export default {
       banners: [],
       wayCount: 0,
       dialogs: [],
-      badge:{
+      badge: {
         imgUrl: ""
       },
       user: {
@@ -163,7 +164,7 @@ export default {
   },
   onShow() {
     if (this.toPage) {
-      console.log('this.toPage: ', this.toPage);
+      console.log("this.toPage: ", this.toPage);
       let toPage = this.toPage;
       this.toPage = null;
       return this.$router.push({
@@ -176,7 +177,7 @@ export default {
     this.$request.getUser().then(res => {
       this.user = res;
     });
-    this.userInfo =  getApp().globalData.user;
+    this.userInfo = getApp().globalData.user;
     this.onTabChange(this.tab);
   },
   onShareAppMessage(res) {
@@ -198,7 +199,7 @@ export default {
         this.getWayCount();
         this.getDialogs();
       }
-      if (this.tab === "mine"){
+      if (this.tab === "mine") {
         this.getBadge();
       }
     },
@@ -216,9 +217,9 @@ export default {
       const res = await this.$request.get("/dialog/way/count");
       this.wayCount = res.data;
     },
-    async getDialogs(page=1) {
-      if(this.isFlage) return false;
-    
+    async getDialogs(page = 1) {
+      if (this.isFlage) return false;
+
       let res = await this.$request.get(`/dialog?page=${page}`);
       this.dialogs = res.data;
 
@@ -252,7 +253,7 @@ export default {
       this.$router.push({ path: "/pages/share/share" });
     },
     memory() {
-        this.$router.push({ query: { id: 1 }, path: "/pages/memory/memory" });
+      this.$router.push({ query: { id: 1 }, path: "/pages/memory/memory" });
     },
     ticket() {
       this.$router.push({
@@ -266,51 +267,50 @@ export default {
         path: "/pages/welfare/index"
       });
     },
-    openbadge(){
-      this.$router.push({ path: "/pages/badge/badge"});
+    openbadge() {
+      this.$router.push({ path: "/pages/badge/badge" });
     },
     login() {
-        wx.chooseImage({
-          count: 1,
-          sizeType: ["compressed"],
-          sourceType: ["album", "camera"],
-          success: function(res) {
-            wx.showLoading({
-              title: "上传中",
-              mask: true
-            });          
-            const tempFilePaths = res.tempFilePaths;
-            this.$request.uploadFile(tempFilePaths[0]).then(
-              function(res) {
-                let data = JSON.parse(res.data);
-                let user = this.user;
-                user.aliasPortrait = data.data;
-                this.user = user;
-                const { aliasName, aliasPortrait } = this.user;
-                this.$request
-                  .put("/user", {
-                    aliasName,
-                    aliasPortrait
-                  })                  
-              }.bind(this)
-            );
-            setTimeout(wx.hideLoading, 2000)
-          }.bind(this),
-          fail(e) {
-            wx.hideLoading();
-          }
-        });
+      wx.chooseImage({
+        count: 1,
+        sizeType: ["compressed"],
+        sourceType: ["album", "camera"],
+        success: function(res) {
+          wx.showLoading({
+            title: "上传中",
+            mask: true
+          });
+          const tempFilePaths = res.tempFilePaths;
+          this.$request.uploadFile(tempFilePaths[0]).then(
+            function(res) {
+              let data = JSON.parse(res.data);
+              let user = this.user;
+              user.aliasPortrait = data.data;
+              this.user = user;
+              const { aliasName, aliasPortrait } = this.user;
+              this.$request.put("/user", {
+                aliasName,
+                aliasPortrait
+              });
+            }.bind(this)
+          );
+          setTimeout(wx.hideLoading, 2000);
+        }.bind(this),
+        fail(e) {
+          wx.hideLoading();
+        }
+      });
     },
-    loginName(){
+    loginName() {
       this.$router.push({
         query: { id: 1 },
-        path: "/pages/penName/index"        
-      })
+        path: "/pages/penName/index"
+      });
     },
-    getBadge(){
+    getBadge() {
       this.$request.get("/badge/mine").then(res => {
         this.badge = res.data;
-      })
+      });
     },
     toFaq() {
       this.$router.push({
@@ -335,21 +335,22 @@ export default {
     },
     showAddressModal() {
       this.$refs.mymodal.show({
-          title: "Tell 住址",
-          content: "这是你在 Tell 的住址，用于收取书信。未来会提供更多相关功能，敬请期待！",
-          type: "",
-          confirm: "no",
-          sure: "好的",          
-          isShowModal: true
+        title: "Tell 住址",
+        content:
+          "这是你在 Tell 的住址，用于收取书信。未来会提供更多相关功能，敬请期待！",
+        type: "",
+        confirm: "no",
+        sure: "好的",
+        isShowModal: true
       });
     },
     joinGroup() {
       this.$refs.mymodal.show({
-          title: "如何加群",
-          confirm: "group",
-          type: "group",
-          sure: "马上开始",
-      })
+        title: "如何加群",
+        confirm: "group",
+        type: "group",
+        sure: "马上开始"
+      });
     },
     getTips() {
       this.$request.get("/tips").then(res => {
@@ -357,12 +358,12 @@ export default {
         this.unreadMessages = res.data.unreadMessages;
         if (lastTips) {
           this.$refs.mymodal.show({
-              title: lastTips.title,
-              content: lastTips.content,
-              type: lastTips.type,
-              confirm: "前往解答室",
-              sure: "好的",
-          })
+            title: lastTips.title,
+            content: lastTips.content,
+            type: lastTips.type,
+            confirm: "前往解答室",
+            sure: "好的"
+          });
         }
       });
     },
@@ -442,7 +443,7 @@ export default {
     z-index: 99;
     position: absolute;
     background-color: transparent;
-    padding: 0
+    padding: 0;
   }
 }
 
@@ -470,11 +471,11 @@ export default {
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
   &_user {
-    &_badgeBtn{
+    &_badgeBtn {
       padding: 0;
       margin-left: 12rpx;
     }
-    &_badge{
+    &_badge {
       width: 60rpx;
       height: 60rpx;
     }
@@ -485,7 +486,7 @@ export default {
       width: 216rpx;
       margin: 60rpx auto 44rpx;
     }
-    &_nickName{
+    &_nickName {
       font-weight: 600;
       height: 84rpx;
       font-size: 60rpx;
@@ -501,11 +502,11 @@ export default {
       margin-bottom: 60rpx;
     }
   }
-  .lightButton{
+  .lightButton {
     margin-bottom: 20rpx;
     margin-top: 0rpx;
-    height:64rpx;
-    line-height:64rpx;
+    height: 64rpx;
+    line-height: 64rpx;
   }
 }
 
@@ -525,7 +526,7 @@ export default {
     }
     &_text {
       font-size: 32rpx;
-      color: #4D495B;
+      color: #4d495b;
     }
   }
 }
@@ -574,6 +575,5 @@ export default {
     }
   }
 }
-
 </style>
 
