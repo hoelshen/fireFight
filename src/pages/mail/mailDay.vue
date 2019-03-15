@@ -2,7 +2,7 @@
   <view class="page">
     <div class="list shadow" v-for="item in list" :key="item._id">
       <div class="mailDay flex center" @click="showToast(index)">来自
-        <span class="mailDayName">{{item.aliasName}}</span>的信将于 {{item.createdAd | momentFormat}} 到达</div>
+        <span class="mailDayName">{{item.aliasName}}</span>的信将于 {{item.createdAt | momentFormat}} 到达</div>
     </div>
   </view>
 </template>
