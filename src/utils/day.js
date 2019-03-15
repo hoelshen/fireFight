@@ -4,6 +4,7 @@ import 'dayjs/locale/zh-cn' // 按需加载
 dayjs.locale('zh-cn')
 
 dayjs.prototype.timeQual = function () {
+    // TODO: Qual是什么意思？
     const val = dayjs().hour();
     let value
     if (7 < val && val <= 11) {

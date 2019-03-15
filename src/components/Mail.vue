@@ -20,7 +20,7 @@
         <span class="mail_reply_aliasName">{{mail.aliasName}}</span>
         <img class="mail_reply_badge" :src="mail.badgeImgUrl" v-if="mail.type != 'STORY' && mail.badgeImgUrl">
       </div>
-      <span class="flex wrap j-end mail_reply_weather">{{mail.createdAt | dayFormat}} {{mail.weather}}</span>
+      <span class="flex wrap j-end mail_reply_weather">{{mail.createdAt | dateFormat}} {{mail.weather}}</span>
     </div>
   </div>
 </template>

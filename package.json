@@ -10,7 +10,11 @@
     "dev:swan": "webpack --config ./build/webpack.config.swan.js -w",
     "dev:wechat": "webpack --config ./build/webpack.config.wechat.js -w"
   },
-  "keywords": [],
+  "keywords": [
+    "vue",
+    "wxapp",
+    "tell"
+  ],
   "author": "sjh <1039460820@qq.com>",
   "license": "ISC",
   "devDependencies": {
@@ -34,6 +38,10 @@
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/tellers/tell2.0_megalo.git"
   },
   "dependencies": {
     "@megalo/vhtml-plugin": "^0.1.2",

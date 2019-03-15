@@ -10,7 +10,7 @@
             </div>
             <span v-if="item.status === 'CAN_NOT_RECEIVE' " class="badge_content">收到 {{ item.requireLikeCount }} 个感谢后可以领取</span>
             <span v-else-if="item.status === 'CAN_RECEIVE' " class="badge_content">已满足领取条件</span>
-            <span v-else class="badge_content">已于 {{item.receivedAt | dayFormat}} 获得</span>
+            <span v-else class="badge_content">已于 {{item.receivedAt | dateFormat}} 获得</span>
           </div>
         </div>
         <div class="exchange  flex center">
@@ -31,7 +31,7 @@
             </div>
             <span v-if="sunflower.status === 'CAN_APPLY' " class="badge_content">由 Tell 官方运营团队特邀 </span>
             <span v-if="sunflower.status === 'CAN_WEAR' " class="badge_content">由 Tell 官方运营团队特邀 </span>
-            <span v-if="sunflower.status === 'WEARED' " class="badge_content">已于 {{sunflower.createdAt | dayFormat}} 获得</span>
+            <span v-if="sunflower.status === 'WEARED' " class="badge_content">已于 {{sunflower.createdAt | dateFormat}} 获得</span>
           </div>
         </div>
         <div class="exchange  flex center">

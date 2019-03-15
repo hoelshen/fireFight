@@ -10,7 +10,7 @@
           <image class="iconfont ifImage" :src="`/static/svgs/${photo}.svg`" />
           <div class="flex column">
             <span class="message">{{item.message}}</span>
-            <span class="ticket_day">{{item.createdAt | dayFormat}}</span>
+            <span class="ticket_day">{{item.createdAt | dateFormat}}</span>
           </div>
         </div>
         <span class="count flex center" :class=" (item.count > 0) ? 'yellowCount' : ''">{{(item.count > 0) ? '+' : ' '}}{{ item.count }}</span>

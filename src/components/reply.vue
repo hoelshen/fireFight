@@ -13,7 +13,7 @@
         </div>
 
         <div class="reply_weather_weather flex wrap j-end">
-          <div class="days flex j-end">{{days | dayFormat}}</div>
+          <div class="days flex j-end">{{days | dateFormat}}</div>
           <div class="flex j-end">{{reply.weather}}</div>
         </div>
       </div>

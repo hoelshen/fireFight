@@ -89,6 +89,7 @@ function sendFrontErrorToCloud(error) {
 
 async function logLogin() {
   if (!getApp()) {
+    // 等待实例初始化完成
     return setTimeout(logLogin, 100);
   }
   const lauchOpts = getApp().globalData.options;
@@ -202,7 +203,7 @@ async function fetchLogin(loginUrl) {
 
 fly.interceptors.request.use(async function(request) {
   if (!token) {
-    return fly.lock();
+    return fly.lock(); //登录登录完成
   } else {
     fly.unlock();
   }
@@ -238,4 +239,5 @@ fly.saveFormid = saveFormid;
 fly.uploadFile = uploadFile;
 fly.getUser = getUser;
 fly.sendFrontErrorToCloud = sendFrontErrorToCloud;
+
 export default fly

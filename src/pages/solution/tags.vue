@@ -93,4 +93,32 @@ export default {
   font-size: 28rpx;
   line-height: 52rpx;
 }
+
+.tags {
+  padding: 40rpx 10rpx 40rpx 40rpx;
+  height: 700rpx;
+  overflow-y: auto;
+}
+
+.tag {
+  display: inline-block;
+  height: 64rpx;
+  line-height: 64rpx;
+  text-align: center;
+  border-radius: 4rpx;
+  color: #BDBDC0;
+  background: transparent;
+  background-color: rgba(189, 189, 192, 0.05);
+  margin-right: 24rpx;
+  margin-bottom: 24rpx;
+  padding: 0 26rpx;
+  font-size: 32rpx;
+  border:2rpx transparent solid;
+  &.active {
+    border: 2rpx #ffc86d solid;
+  }
+  &.focus {
+    border: 2rpx #ffc86d solid;
+  }
+}
 </style>

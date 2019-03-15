@@ -1,5 +1,5 @@
 import App from "./App";
-import './static/sdk/ald-stat';
+import './static/sdk/ald-stat'; // 阿拉丁数据统计
 import Vue from "vue";
 import VHtmlPlugin from "@megalo/vhtml-plugin";
 import filters from "./utils/filters";
@@ -18,14 +18,12 @@ Vue.use(megaloRouter, {
 Vue.prototype.$request = request;
 Vue.prototype.$day = day;
 
-//Vue.prototype.$compareVersion = compareVersion;
 const app = new Vue(App);
 app.$mount();
 
 export default {
   config: {
     cloud: true,
-    // pages 的首个页面会被编译成首页
     pages: [
       "pages/home/index", //首页
       "pages/mail/mailDay", //正在路上的信
