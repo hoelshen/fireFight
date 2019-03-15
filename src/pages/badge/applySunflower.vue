@@ -49,7 +49,7 @@
         </div>
 
         <div class="flex column textAdd center">
-          <button class="addMystoryButton flex center" @click="onPush">提交咨询</button>
+          <button class="addMystoryButton flex center" @click="onPush">提交申请</button>
         </div>
     </div>
 
@@ -68,7 +68,7 @@ export default {
         name: "", //姓名
         aliasName: "", //笔名
         nickName:"", // 微信名称
-        bornDate: "1996-01-16",
+        bornDate: "1990-01-01",
         where: "",
         why: ""
       },
@@ -178,10 +178,10 @@ export default {
 }
 
 .textAdd {
-  margin-bottom: 60rpx;
-  margin-top: 32rpx;
+  padding-bottom: 60rpx;
+  padding-top: 32rpx;
   &button {
-    margin-bottom: 12rpx;
+    padding-bottom: 12rpx;
   }
 }
 .aliasNameInput {

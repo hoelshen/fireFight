@@ -1,6 +1,6 @@
 <template>
   <div class="app flex column j-between">
-    <session class="list"  v-for="item in list" :key="item._id">
+    <session class="list" v-for="item in list" :key="item._id">
       <div class="list_item flex  j-between ">
         <div class="flex">
           <image class="iconfont" :src="item.imgUrl" />
@@ -9,14 +9,15 @@
               <span class="list_item_span">{{item.name}}</span>
             </div>
             <span v-if="item.status === 'CAN_NOT_RECEIVE' " class="badge_content">收到 {{ item.requireLikeCount }} 个感谢后可以领取</span>
+            <span v-else-if="item.status === 'CAN_RECEIVE' " class="badge_content">已满足领取条件</span>
             <span v-else class="badge_content">已于 {{item.receivedAt | dayFormat}} 获得</span>
           </div>
         </div>
         <div class="exchange  flex center">
           <button v-if="item.status === 'WEARED' " :disabled="true" class="flex center badge_weared">佩戴中</button>
-          <button v-if="item.status === 'CAN_WEAR' "  @click="wearBadge(item._id)" class="flex center">佩戴</button>
+          <button v-if="item.status === 'CAN_WEAR' " @click="wearBadge(item._id)" class="flex center">佩戴</button>
           <button v-if="item.status === 'CAN_RECEIVE' " @click="receiveBadge(item._id)" class="flex center">领取</button>
-          <button v-if="item.status === 'CAN_NOT_RECEIVE' "  disabled class="flex center badge_noReceive">{{item.currentLikeCount}}/{{item.requireLikeCount}}</button>
+          <button v-if="item.status === 'CAN_NOT_RECEIVE' " disabled class="flex center badge_noReceive">{{item.currentLikeCount}}/{{item.requireLikeCount}}</button>
         </div>
       </div>
     </session>
@@ -36,25 +37,24 @@
         <div class="exchange  flex center">
           <button v-if="sunflower.status === 'CAN_APPLY' " @click="openSunFlower(sunflower._id)" class="flex center">申请</button>
           <button v-if="sunflower.status === 'APPLYING' " @click="applySunFlower()" class="flex center ">申请中</button>
-          <button v-if="sunflower.status === 'CAN_WEAR' "  @click="wearBadge(sunflower._id)" class="flex center">佩戴</button>
+          <button v-if="sunflower.status === 'CAN_WEAR' " @click="wearBadge(sunflower._id)" class="flex center">佩戴</button>
           <button v-if="sunflower.status === 'WEARED' " :disabled="true" class="flex center badge_weared">佩戴中</button>
         </div>
       </div>
     </session>
     <session class="list_notice">
       <div class="notice">
-          温馨提示：带有「可额外解答的咨询」标记的，收取和解答次数不受该规则限制。  
+        温馨提示：带有「可额外解答的咨询」标记的，收取和解答次数不受该规则限制。
       </div>
     </session>
   </div>
 </template>
 <script>
-
 export default {
   data() {
     return {
-      list:[],
-      sunflower:{},
+      list: [],
+      sunflower: {}
     };
   },
   onShareAppMessage(res) {
@@ -75,36 +75,38 @@ export default {
         title: "请稍等",
         mask: true
       });
-      this.$request.post(`/badge/${id}`).then(res=>{
-        if(res.success){
+      this.$request.post(`/badge/${id}`).then(res => {
+        if (res.success) {
           wx.hideLoading();
           this.getList();
         }
       });
-  
     },
-    wearBadge(id){
+    wearBadge(id) {
       wx.showLoading({
         title: "请稍等",
         mask: true
       });
-       this.$request.put(`/badge/${id}`).then(res=>{
-        if(res.success){
+      this.$request.put(`/badge/${id}`).then(res => {
+        if (res.success) {
           wx.hideLoading();
           this.getList();
         }
       });
     },
-    async getList(){
+    async getList() {
       let res = await this.$request.get("/badge");
       this.list = res.data.list;
       this.sunflower = res.data.sunflower;
     },
-    openSunFlower(id){
-      this.$router.push({ query:{ id }, path: "/pages/badge/sunflower" });
+    openSunFlower(id) {
+      this.$router.push({ query: { id }, path: "/pages/badge/sunflower" });
     },
-    applySunFlower(){
-      this.$router.push({ query:{ applying: 0 }, path: "/pages/badge/applySunflower" });
+    applySunFlower() {
+      this.$router.push({
+        query: { applying: 0 },
+        path: "/pages/badge/applySunflower"
+      });
     }
   },
   onShow() {
@@ -121,7 +123,7 @@ page {
   margin: 40rpx 40rpx 0;
   &_item {
     background-color: #ffffff;
-    margin-top:20rpx;
+    margin-top: 20rpx;
   }
   .count {
     color: #ffc86d;
@@ -146,25 +148,25 @@ page {
     font-weight: 600;
   }
 }
-.badge_weared{
-  border-color:rgba(255, 200, 109, .5);
-  background-color: #ffffff !important; 
+.badge_weared {
+  border-color: rgba(255, 200, 109, 0.5);
+  background-color: #ffffff !important;
 }
-.badge_noReceive{
+.badge_noReceive {
   border-color: #bdbdc0 !important;
-  background-color: #ffffff !important; 
+  background-color: #ffffff !important;
 }
 .badge_content {
   margin-top: 12rpx;
   color: #bdbdc0;
   font-size: 24rpx;
 }
-.notice{
+.notice {
   font-size: 24rpx;
   color: #bdbdc0;
   margin: 0rpx 20rpx 10rpx;
 }
-.list_notice{
+.list_notice {
   margin: 40rpx 40rpx;
 }
 .iconfont {

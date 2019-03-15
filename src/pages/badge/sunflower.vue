@@ -5,7 +5,7 @@
       Hey,Tellers
       </p>
       <p class="content">
-      来看另一枚特殊的徽章：向日葵 🌻。
+      来看另一枚特殊的徽章：向日葵
       </p>
       <p class="content"> 向日葵代表着一种精神，追寻阳光，并活成阳光的模样。或许无法照耀你，但映入眼帘时，仍能让你感到温暖。我们希望，持有向日葵徽章的也是这样的人。</p>
       <p  class="content">持有向日葵徽章，你每天解答咨询的次数将不再受到限制，便于你帮助到更多需要温暖的人。</p>
@@ -29,7 +29,7 @@
         </p>
       </div>
       <div class="content">
-      <p class="condition">向日葵徽章将在下列情形下被回:</p>
+      <p class="condition">向日葵徽章将在下列情形下被回收:</p>
           <p>
           · 连续 7 日未登录 Tell 时
           </p>
@@ -40,7 +40,7 @@
           · 违反相关使用协定或法律法规 
           </p>
       </div>
-      <button class="darkButton" @click="applySunflower()">提交咨询</button>
+      <button class="darkButton" @click="applySunflower()">提交申请</button>
     </div>
   </view>
 </template>
