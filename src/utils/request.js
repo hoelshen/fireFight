@@ -106,6 +106,9 @@ function getUser() {
       const user = res.data;
       getApp().globalData.user = user;
       resolve(user);
+    },()=>{
+      // TODO: 失败回调务必处理，结合首页场景，思考为什么？
+      reject({});
     });
   });
 }

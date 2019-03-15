@@ -15,8 +15,8 @@
         </div>
         <div class="exchange  flex center">
           <button v-if="item.status === 'WEARED' " :disabled="true" class="flex center badge_weared">佩戴中</button>
-          <button v-if="item.status === 'CAN_WEAR' " @click="wearBadge(item._id)" class="flex center">佩戴</button>
-          <button v-if="item.status === 'CAN_RECEIVE' " @click="receiveBadge(item._id)" class="flex center">领取</button>
+          <button v-if="item.status === 'CAN_WEAR' " @click="wearBadge(item)" class="flex center">佩戴</button>
+          <button v-if="item.status === 'CAN_RECEIVE' " @click="receiveBadge(item)" class="flex center">领取</button>
           <button v-if="item.status === 'CAN_NOT_RECEIVE' " disabled class="flex center badge_noReceive">{{item.currentLikeCount}}/{{item.requireLikeCount}}</button>
         </div>
       </div>
@@ -37,7 +37,7 @@
         <div class="exchange  flex center">
           <button v-if="sunflower.status === 'CAN_APPLY' " @click="openSunFlower(sunflower._id)" class="flex center">申请</button>
           <button v-if="sunflower.status === 'APPLYING' " @click="applySunFlower()" class="flex center ">申请中</button>
-          <button v-if="sunflower.status === 'CAN_WEAR' " @click="wearBadge(sunflower._id)" class="flex center">佩戴</button>
+          <button v-if="sunflower.status === 'CAN_WEAR' " @click="wearBadge(sunflower)" class="flex center">佩戴</button>
           <button v-if="sunflower.status === 'WEARED' " :disabled="true" class="flex center badge_weared">佩戴中</button>
         </div>
       </div>
@@ -47,15 +47,21 @@
         温馨提示：带有「可额外解答的咨询」标记的，收取和解答次数不受该规则限制。
       </div>
     </session>
+    <Modal ref="mymodal"></Modal>
   </div>
 </template>
 <script>
+import Modal from "@/components/Modal";
+
 export default {
   data() {
     return {
       list: [],
       sunflower: {}
     };
+  },
+  components: {
+    Modal
   },
   onShareAppMessage(res) {
     let { title, imageUrl, path, user } = getApp().globalData;
@@ -70,27 +76,42 @@ export default {
     toShare() {
       this.$router.push({ path: "/pages/share/share" });
     },
-    receiveBadge(id) {
+    receiveBadge(badge) {
       wx.showLoading({
         title: "请稍等",
         mask: true
       });
-      this.$request.post(`/badge/${id}`).then(res => {
+      this.$request.post(`/badge/${badge._id}`).then(res => {
         if (res.success) {
           wx.hideLoading();
           this.getList();
+          this.$refs.mymodal.show({
+            title: "获得徽章",
+            content: `恭喜，你已获得 ${badge.name}，是否立即佩戴`,
+            type: "CONFIRM",
+            confirm: "佩戴",
+            confirmCallbak: function() {
+              this.wearBadge(badge);
+            }.bind(this),
+            sure: "暂不"
+          });
         }
       });
     },
-    wearBadge(id) {
+    wearBadge(badge) {
       wx.showLoading({
         title: "请稍等",
         mask: true
       });
-      this.$request.put(`/badge/${id}`).then(res => {
+      this.$request.put(`/badge/${badge._id}`).then(res => {
         if (res.success) {
           wx.hideLoading();
           this.getList();
+          this.$refs.mymodal.show({
+            title: "已佩戴徽章",
+            content: `你已佩戴 ${badge.name}，将跟随笔名显示`,
+            sure: "好的"
+          });
         }
       });
     },

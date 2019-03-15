@@ -357,6 +357,7 @@ export default {
         const { lastTips } = res.data;
         this.unreadMessages = res.data.unreadMessages;
         if (lastTips) {
+          // TODO:需要扩展消息类型，以应对获得票券和徽章的场景
           this.$refs.mymodal.show({
             title: lastTips.title,
             content: lastTips.content,

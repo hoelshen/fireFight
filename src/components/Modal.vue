@@ -1,24 +1,24 @@
 <template>
-    <cover-view class="modal" @click="clickMask" v-if="isShowModal">
-        <cover-view class="card flex column center" @tap.stop="stopkMask">
-            <cover-view class="title">
-                {{value.title}}
-            </cover-view>
-            <cover-view v-if="!img" class="content">
-                {{value.content}}
-            </cover-view>
-            <cover-view v-else class="content">
-                <cover-image v-if="value.type === 'server'" src="/static/jpg/server_guide.jpg" alt="" />
-                <cover-image v-if="value.type === 'subscript'" src="/static/jpg/subscript_guide.jpg" alt="" />
-                <cover-image v-if="value.type === 'group'" src="/static/jpg/join_group_guide.jpg" alt="" />
-            </cover-view>
-            <cover-view class="btn">
-                <button v-if="value.type === 'CONFIRM' " class="confirm darkButton" @click="enConfirm">{{value.confirm}}</button>
-                <button v-if="value.type === 'group' || value.type === 'server'  || value.type === 'subscript'" open-type="contact" :show-message-card="true" :send-message-img="imgUrl" :send-message-title="filterTitle" :session-from="`nickName'${user.aliasName}, 'avatarUrl':${user.aliasPortrait}`" class="sure darkButton" @click="enSure">{{value.sure}}</button>
-                <button v-else class="sure lightButton" @click="enSure">{{value.sure}}</button>
-            </cover-view>
-        </cover-view>
+  <cover-view class="modal" @click="clickMask" v-if="isShowModal">
+    <cover-view class="card flex column center" @tap.stop="stopkMask">
+      <cover-view class="title">
+        {{value.title}}
+      </cover-view>
+      <cover-view v-if="!img" class="content">
+        {{value.content}}
+      </cover-view>
+      <cover-view v-else class="content">
+        <cover-image v-if="value.type === 'server'" src="/static/jpg/server_guide.jpg" alt="" />
+        <cover-image v-if="value.type === 'subscript'" src="/static/jpg/subscript_guide.jpg" alt="" />
+        <cover-image v-if="value.type === 'group'" src="/static/jpg/join_group_guide.jpg" alt="" />
+      </cover-view>
+      <cover-view class="btn">
+        <button v-if="value.type === 'CONFIRM' " class="confirm darkButton" @click="enConfirm">{{value.confirm}}</button>
+        <button v-if="value.type === 'group' || value.type === 'server'  || value.type === 'subscript'" open-type="contact" :show-message-card="true" :send-message-img="imgUrl" :send-message-title="filterTitle" :session-from="`nickName'${user.aliasName}, 'avatarUrl':${user.aliasPortrait}`" class="sure darkButton" @click="enSure">{{value.sure}}</button>
+        <button v-else class="sure lightButton" @click="enSure">{{value.sure}}</button>
+      </cover-view>
     </cover-view>
+  </cover-view>
 </template>
 
 
@@ -44,6 +44,7 @@ export default {
   methods: {
     show(value) {
       this.value = value;
+      // TODO:需要设置一些默认值，比如sure文案
       const { user } = getApp().globalData;
       this.user.aliasName = user.aliasName;
       this.user.aliasPortrait = user.aliasPortrait;
@@ -73,17 +74,23 @@ export default {
           query: { active: "mail" },
           path: "/pages/welfare/index"
         });
-      }
-      if (this.value.confirm === "获取解忧券") {
+      } else if (this.value.confirm === "获取解忧券") {
         this.$router.push({
           query: { active: "solution" },
           path: "/pages/welfare/index"
         });
-      }
-      if (this.value.confirm === "前往解答室") {
+      } else if (this.value.confirm === "前往解答室") {
         this.$router.push({
           path: "/pages/solution/tags"
         });
+      } else if (this.value.confirm === "佩戴") {
+        if (typeof this.value.confirmCallbak == "function") {
+          this.value.confirmCallbak.call();
+        } else {
+           this.$router.push({
+            path: "/pages/badge/badge"
+          });
+        }
       }
     },
     enSure() {
@@ -131,7 +138,7 @@ export default {
   margin-top: 60rpx;
   font-size: 32rpx;
   font-weight: 600;
-  color: #4D495B
+  color: #4d495b;
 }
 .content {
   margin: 40rpx 40rpx 20rpx 40rpx;
@@ -139,13 +146,13 @@ export default {
   line-height: 52rpx;
   font-size: 28rpx;
   text-align: center;
-  color: #4D495B;
+  color: #4d495b;
   & image {
     width: 550rpx;
     height: 244rpx;
   }
 }
-.confirm{
+.confirm {
   margin-top: 0;
   margin-bottom: 0;
 }
