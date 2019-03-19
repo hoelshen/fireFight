@@ -377,6 +377,7 @@ export default {
           });
           break;
         case "WEBVIEW":
+        // TODO: 改为原生方式，否则URL会被转码
           this.$router.push({
             query: { url: banner.url, title: banner.title },
             path: "/pages/webview/index"
