@@ -106,7 +106,6 @@ function getUser() {
       getApp().globalData.user = user;
       resolve(user);
     }).catch(err=>{
-      console.log('err: ', err);
       reject(err);
     });
   });
@@ -231,7 +230,7 @@ fly.interceptors.response.use(
     } else {
       showError(err.response.data.message, err.status);
     }
-    return {};
+    return Promise.reject(err);;
   }
 );
 

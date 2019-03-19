@@ -115,8 +115,11 @@ export default {
   font-weight: 600;
   color: #4d495b;
 }
+.btn{
+  margin-top: 64rpx ;
+}
 .content {
-  margin: 40rpx 40rpx 20rpx 40rpx;
+  margin: 40rpx 40rpx 20rpx;
   white-space: normal;
   line-height: 52rpx;
   font-size: 28rpx;

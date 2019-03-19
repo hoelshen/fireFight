@@ -149,7 +149,7 @@ export default {
   font-size:28rpx;
   overflow:hidden;
   padding:40rpx 40rpx;
-  border-top-color: #BDBDC0;
+  border-top-color: rgba(189,189,192,0.15);;
   border-top-style: solid;
   border-top-width: 2rpx;
   text-overflow:ellipsis;
