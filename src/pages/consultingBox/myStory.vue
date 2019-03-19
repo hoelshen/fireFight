@@ -67,9 +67,8 @@ export default {
         this.$refs.mymodal.show({
             title: "解忧券不足",
             content: "需要消耗 1 解忧券，当前余额不足",
-            confirm: "获取解忧券",
+            confirmButtonText: "获取解忧券",
             type: "CONFIRM",
-            sure: "好的",
         })
         try {
           wx.setStorage({

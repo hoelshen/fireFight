@@ -122,14 +122,18 @@
     </session>
 
     <Modal ref="mymodal"></Modal>
+    <ImgModal ref="myImgmodal"></ImgModal>
+
   </view>
 </template>
 <script>
 import Modal from "@/components/Modal";
+import ImgModal from "@/components/ImgModal";
 
 export default {
   components: {
-    Modal
+    Modal,
+    ImgModal
   },
   data() {
     return {
@@ -138,9 +142,9 @@ export default {
       modal: {
         title: "",
         content: "",
-        confirm: "",
+        confirmButtonText: "",
         type: "",
-        sure: ""
+        sureButtonText: ""
       },
       task:[],
       status: ""
@@ -215,21 +219,17 @@ export default {
       }
     },
     FocusServer() {
-      this.$refs.mymodal.show({
+      this.$refs.myImgmodal.show({
           title: "关注服务号",
-          content: "",
-          confirm: "server",
-          type: "server",
-          sure: "马上开始",
+          type: "ALERT",
+          sureButtonText: "马上开始",
       }) 
     },
     FocusSubscript() {
-      this.$refs.mymodal.show({
+      this.$refs.myImgmodal.show({
           title: "关注订阅号",
-          content: "",
-          confirm: "subscript",
-          type: "subscript",
-          sure: "马上开始",
+          type: "ALERT",
+          sureButtonText: "马上开始",
       })
 
     },
@@ -249,19 +249,12 @@ export default {
           this.$refs.mymodal.show({
               title: "体验失败",
               content: "抱歉，体验时间过短，无法获得奖励。请重试。",
-              type: "welfare",
-              confirm: "no",
-              sure: "好的",  
-              isShowModal: true
+              type: "welfare"
           });
         } 
         // this.$refs.mymodal.show({
         //     title: "体验失败",
         //     content: "过程中断，请确保体验没有跳转到其它页面。",
-        //     type: "welfare",
-        //     confirm: "no",
-        //     sure: "好的",          
-        //     isShowModal: true
         // });
         this.status = ""
     }

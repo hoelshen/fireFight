@@ -89,7 +89,7 @@ export default {
             title: "获得徽章",
             content: `恭喜，你已获得 ${badge.name}，是否立即佩戴`,
             type: "CONFIRM",
-            confirm: "佩戴",
+            confirmButtonText: "佩戴",
             confirmCallbak: function() {
               this.wearBadge(badge);
             }.bind(this),
@@ -109,8 +109,7 @@ export default {
           this.getList();
           this.$refs.mymodal.show({
             title: "已佩戴徽章",
-            content: `你已佩戴 ${badge.name}，将跟随笔名显示`,
-            sure: "好的"
+            content: `你已佩戴 ${badge.name}，将跟随笔名显示`
           });
         }
       });

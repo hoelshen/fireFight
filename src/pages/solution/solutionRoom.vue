@@ -33,7 +33,7 @@ export default {
     Envelope
   },
   data() {
-    const days = this.$day().timeQual();
+    const days = this.$day().greeting();
     return {
       days: days,
       aliasName: "",

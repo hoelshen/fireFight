@@ -45,7 +45,7 @@ export default {
       modal: {
         title: "",
         content: "",
-        confirm: "",
+        confirmButtonText: "",
         type: "",
         sure: ""
       }
@@ -82,9 +82,8 @@ export default {
         this.$refs.mymodal.show({
           title: "邮票不足",
           content: "需要消耗 1 邮票，当前余额不足",
-          confirm: "获取邮票",
+          confirmButtonText: "获取邮票",
           type: "CONFIRM",
-          sure: "好的"
         });
         return false;
       }

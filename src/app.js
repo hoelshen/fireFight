@@ -1,5 +1,5 @@
 import App from "./App";
-import './static/sdk/ald-stat'; // 阿拉丁数据统计
+// import './static/sdk/ald-stat'; // 阿拉丁数据统计
 import Vue from "vue";
 import VHtmlPlugin from "@megalo/vhtml-plugin";
 import filters from "./utils/filters";

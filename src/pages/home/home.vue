@@ -115,6 +115,7 @@
     </div>
 
     <Modal ref="mymodal"></Modal>
+    <ImgModal ref="myImgmodal"></ImgModal>
 
     <HomeTabbar @change="onTabChange" :mailCount="unreadMessages"></HomeTabbar>
   </view>
@@ -123,11 +124,15 @@
 import HomeTabbar from "@/components/HomeTabbar";
 import Envelope from "@/components/Envelope";
 import Modal from "@/components/Modal";
+import ImgModal from "@/components/ImgModal";
+
+
 export default {
   components: {
     HomeTabbar,
     Envelope,
-    Modal
+    Modal,
+    ImgModal
   },
   data() {
     return {
@@ -147,7 +152,7 @@ export default {
       modal: {
         title: "",
         content: "",
-        confirm: "",
+        confirmButtonText: "",
         type: "",
         sure: ""
       },
@@ -336,20 +341,14 @@ export default {
     showAddressModal() {
       this.$refs.mymodal.show({
         title: "Tell 住址",
-        content:
-          "这是你在 Tell 的住址，用于收取书信。未来会提供更多相关功能，敬请期待！",
-        type: "",
-        confirm: "no",
-        sure: "好的",
-        isShowModal: true
+        content: "这是你在 Tell 的住址，用于收取书信。未来会提供更多相关功能，敬请期待！"
       });
     },
     joinGroup() {
-      this.$refs.mymodal.show({
+      this.$refs.myImgmodal.show({
         title: "如何加群",
-        confirm: "group",
-        type: "group",
-        sure: "马上开始"
+        type: "ALERT",
+        sureButtonText: "马上开始"
       });
     },
     getTips() {
@@ -357,13 +356,11 @@ export default {
         const { lastTips } = res.data;
         this.unreadMessages = res.data.unreadMessages;
         if (lastTips) {
-          // TODO:需要扩展消息类型，以应对获得票券和徽章的场景
           this.$refs.mymodal.show({
             title: lastTips.title,
             content: lastTips.content,
             type: lastTips.type,
-            confirm: "前往解答室",
-            sure: "好的"
+            confirmButtonText: lastTips.confirmButtonText
           });
         }
       });
@@ -377,11 +374,9 @@ export default {
           });
           break;
         case "WEBVIEW":
-        // TODO: 改为原生方式，否则URL会被转码
-          this.$router.push({
-            query: { url: banner.url, title: banner.title },
-            path: "/pages/webview/index"
-          });
+          wx.navigateTo({
+            url: `/pages/webview/index?url=${banner.url}&title=${banner.title}`
+          })
           break;
         case "PAGE":
           this.$router.push({

@@ -165,22 +165,18 @@ export default {
 .textArea {
   min-height: 400rpx;
   background-color: rgba(189, 189, 192, 0.15);
-  padding-left: 20rpx;
+  padding: 20rpx;
   width: 590rpx;
   font-size: 28rpx;
-  //TODO: 这种布局方式要修改，一般是padding
-  //TODO: 字体间距不对
-  margin-left: 40rpx;
-  margin-right: 40rpx;
-  margin-top: 12rpx;
+  margin: 12rpx 40rpx 0;
   box-sizing: border-box;
+  letter-spacing: 2rpx;
   line-height: 48rpx;
 }
 .textNameSpan {
   margin-left: 40rpx;
   margin-top: 20rpx;
 }
-
 .textAdd {
   padding-bottom: 60rpx;
   padding-top: 32rpx;
@@ -190,10 +186,7 @@ export default {
 }
 .aliasNameInput {
   height: 84rpx;
-  //TODO: 这种布局方式要修改，一般是padding
-  margin-left: 40rpx;
-  margin-right: 40rpx;
-  margin-top: 12rpx;
+  margin: 12rpx 40rpx 0;
   padding-left: 20rpx;
   background-color: rgba(189, 189, 192, 0.15);
 }

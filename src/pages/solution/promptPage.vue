@@ -25,22 +25,24 @@
           <button class="promptBtn flex column center" @click="attention">
             <span>关注服务号</span>
             <span>被感谢时立即收到通知</span>
-            <image class="iconfont darkButton" src="/static/svgs/leftArrow.svg" />
+            <div class="darkIconf">
+                <image class="iconfont" src="/static/svgs/leftArrow.svg" />
+            </div>
           </button>        
       </div>
     </div>
     <button class="lightButton" @click="onsure">好的</button>
 
-    <Modal ref="mymodal"></Modal>
+    <ImgModal ref="myImgmodal"></ImgModal>
   </div>
 </template>
 
 
 <script>
-import Modal from "@/components/Modal";
+import ImgModal from "@/components/ImgModal";
 export default {
   components: {
-    Modal
+    ImgModal
   }, 
   data() {
     return {
@@ -49,7 +51,7 @@ export default {
       modal: {
         title: "",
         content: "",
-        confirm: "",
+        confirmButtonText: "",
         type: "",
         sure: ""
       }
@@ -57,12 +59,10 @@ export default {
   },
   methods: {
     attention(){
-      this.$refs.mymodal.show({
+      this.$refs.myImgmodal.show({
           title: "关注服务号",
-          content: "",
-          confirm: "server",
-          type: "server",
-          sure: "马上开始",
+          type: "ALERT",
+          sureButtonText: "马上开始",
       })
     },
     onsure() {
@@ -99,11 +99,16 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.darkButton {
+.darkIconf {
+  height:64rpx;
   margin-top: 60rpx;
-  text-align: center;
-  line-height: 64rpx;
-  padding: 10rpx 40rpx;
+  background-color: #ffc86d;
+  border-radius:32rpx;
+}
+.iconfont{
+  padding: 20rpx 48rpx;  
+  width: 28rpx;
+  height: 24rpx;
 }
 .targer {
   margin-top: 40rpx;

@@ -64,7 +64,6 @@ function sendBackErrorToCloud(message, status, request) {
     message,
     createdAt: Date()
   };
-  wx.cloud.init();
   db.collection("back-errors").add({ data });
 }
 
@@ -72,6 +71,7 @@ function sendFrontErrorToCloud(error) {
   if (!wx.cloud) {
     return false;
   }
+  wx.cloud.init();
   const systemInfo = wx.getSystemInfoSync();
   const userId = getApp().globalData.user._id;
   const db = wx.cloud.database({
@@ -83,7 +83,6 @@ function sendFrontErrorToCloud(error) {
     error,
     createdAt: Date()
   };
-  wx.cloud.init();
   db.collection("front-errors").add({ data });
 }
 
@@ -106,9 +105,9 @@ function getUser() {
       const user = res.data;
       getApp().globalData.user = user;
       resolve(user);
-    },()=>{
-      // TODO: 失败回调务必处理，结合首页场景，思考为什么？
-      reject({});
+    }).catch(err=>{
+      console.log('err: ', err);
+      reject(err);
     });
   });
 }
