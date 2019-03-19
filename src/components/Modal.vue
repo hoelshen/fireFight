@@ -83,7 +83,8 @@ export default {
         this.$router.push({
           path: "/pages/solution/tags"
         });
-      } else if (this.value.confirm === "佩戴") {
+      } else if (this.value.title.includes("徽章")) {
+        // TODO: 扩展为其他更多页面
         if (typeof this.value.confirmCallbak == "function") {
           this.value.confirmCallbak.call();
         } else {
