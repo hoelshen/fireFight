@@ -78,10 +78,10 @@ export default {
       this.imgUrl = "";
       this.value = {
         title: "",
-        sureButtonText: "",
+        content: "" ,
         type: "",
-        confirm: "",
-        content: ""
+        sureButtonText: "",
+        confirmButtonText: ""
       };
     },
     stopkMask() {}

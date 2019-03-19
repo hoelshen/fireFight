@@ -169,7 +169,7 @@ export default {
   },
   onShow() {
     if (this.toPage) {
-      console.log("this.toPage: ", this.toPage);
+      // console.log("this.toPage: ", this.toPage);
       let toPage = this.toPage;
       this.toPage = null;
       return this.$router.push({

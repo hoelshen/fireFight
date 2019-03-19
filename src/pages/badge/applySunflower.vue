@@ -139,7 +139,9 @@ export default {
       });
     },
     returnBadge() {
-      this.$router.reLaunch({ path: "/pages/badge/badge" });
+      wx.navigateBack({
+        data:2
+      });
     }
   },
   onShow() {

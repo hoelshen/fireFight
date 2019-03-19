@@ -70,6 +70,10 @@ export default {
   },
   onShow() {
     const { user } = getApp().globalData;
+    // this.$request.getUser(()=>{
+    //   const { user } = getApp().globalData;
+    // });
+    // console.log('user: ', user);
     if (!user.aliasName) {
       this.$request.getUser().then(res => {
         this.aliasName = res.aliasName;

@@ -51,21 +51,31 @@ export default {
     };
   },
   onShow(){
-    const now = new Date().getMinutes();
+    const now = parseInt(new Date().getTime() / 1000); //当前时间戳
     let  opts = wx.getLaunchOptionsSync();
     if(!this.time) return;
  
-    if((now - this.time) < 1) return this.$router.reLaunch({path: "/pages/welfare/index", query:{status: "failedTime"}})
+    if((now - this.time) < 60) {
+      getApp().globalData.taskState = "failedTime";
+       wx.navigateBack({
+        data:1
+      });
+      return ;
+    }
     
     return  this.$request.post(`/task/ad/${this.id}`).then(res=>{
                 if(res.success){
-                  this.$router.reLaunch({path: "/pages/welfare/index", query:{status: "success"}})
+                  getApp().globalData.taskState = "success";
+                    wx.navigateBack({
+                      data:1
+                    });
+                    return ;                  
                 }
             })
   },
   onHide(){
     if(this.type === "welfare"){
-      this.time = new Date().getMinutes();
+      this.time = parseInt(new Date().getTime() / 1000); //当前时间戳
     }
   }
 };

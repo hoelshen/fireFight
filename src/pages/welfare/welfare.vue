@@ -115,7 +115,7 @@
           </div>
         </div>
         <div class="exchange  flex center">
-          <button @click="doTask(item)" class="flex center">{{isReceived ? '已完成' : '去领取'}} </button>
+          <button @click="doTask(item)" class="flex center">{{item.isReceived ? '已完成' : '去领取'}} </button>
         </div>
       </div>
       </div>
@@ -146,8 +146,7 @@ export default {
         type: "",
         sureButtonText: ""
       },
-      task:[],
-      status: ""
+      task:[]
     };
   },
   onShareAppMessage(res) {
@@ -239,33 +238,50 @@ export default {
       })
     },
     doTask(task){
+      if(task.isReceived) return;
       wx.navigateTo({
         url: `/pages/webview/index?url=${task.url}&title=${task.name}&type=welfare&id=${task._id}`
       })
     },
+    getTips() {
+      this.$request.get("/tips").then(res => {
+        const { lastTips } = res.data;
+        this.unreadMessages = res.data.unreadMessages;
+        if (lastTips) {
+          this.$refs.mymodal.show({
+            title: lastTips.title,
+            content: lastTips.content,
+            type: lastTips.type,
+            confirmButtonText: lastTips.confirmButtonText
+          });
+        }
+      });
+    },
     taskHandle(status){
         if(!status) return;
+
         if(status === "failedTime" ){
           this.$refs.mymodal.show({
               title: "体验失败",
               content: "抱歉，体验时间过短，无法获得奖励。请重试。",
-              type: "welfare"
           });
-        } 
+        }
         // this.$refs.mymodal.show({
         //     title: "体验失败",
         //     content: "过程中断，请确保体验没有跳转到其它页面。",
         // });
-        this.status = ""
+        getApp().globalData.taskState = "";
     }
 
   },
   onShow() {
     const { currentRoute: { query } } = this.$router;
     this.active = query.active || "solution";
-    this.status = query.status || "";
+
+    const { taskState } = getApp().globalData;
+    this.getTips();
     this.getTask();
-    this.taskHandle(this.status);
+    this.taskHandle(taskState || "");
   }
 };
 </script>
