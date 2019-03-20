@@ -7,7 +7,7 @@
           <div class="textAreafloat_item">· 关键的人物、地点等信息建议使用化名</div>
           <div class="textAreafloat_item">· 落款署名尽量不要使用笔名或微信昵称</div>
         </div>
-        <textarea class="textArea" :auto-height="true"  v-else @blur="onBlur" :focus="isFocus" maxlength="5000" cursor-spacing="30px" :value="content" @input="bindTextAreaInput" />
+        <textarea class="textArea" :auto-height="true" v-else @blur="onBlur" :focus="isFocus" maxlength="5000" cursor-spacing="30px" :value="content" @input="bindTextAreaInput" />
       </div>
       <div class="flex column j-between textName">
         <div class="flex j-end a-center">
@@ -65,11 +65,11 @@ export default {
     async onPush() {
       if (this.ticketCount === 0) {
         this.$refs.mymodal.show({
-            title: "解忧券不足",
-            content: "需要消耗 1 解忧券，当前余额不足",
-            confirmButtonText: "获取解忧券",
-            type: "CONFIRM",
-        })
+          title: "解忧券不足",
+          content: "需要消耗 1 解忧券，当前余额不足",
+          confirmButtonText: "获取解忧券",
+          type: "CONFIRM"
+        });
         try {
           wx.setStorage({
             key: "story",
@@ -103,6 +103,7 @@ export default {
         aliasName: this.aliasName
       };
       if (this.content.match(SENSITIVE_REG)) {
+        this.content = "";
         getApp().globalData.mail = mail; // 敏感词检测
         return wx.navigateTo({
           url: "/pages/help/index"
@@ -151,14 +152,14 @@ export default {
       if (this.content.length === 0) {
         this.isDisplay = true;
       }
-    },
+    }
   },
   onShow() {
     const { user } = getApp().globalData;
     this.ticketCount = user.ticketCount;
-    if(user.signName){
+    if (user.signName) {
       this.aliasName = user.signName;
-    } else{
+    } else {
       this.refresh();
     }
     try {
@@ -182,17 +183,19 @@ export default {
       path
     };
   },
-  onHide(){ //跳转页面
+  onHide() {
+    //跳转页面
     wx.setStorage({
       key: "story",
       data: this.content
     });
   },
-  onUnload(){ //回退
+  onUnload() {
+    //回退
     wx.setStorage({
-          key: "story",
-          data: this.content
-    })
+      key: "story",
+      data: this.content
+    });
   }
 };
 </script>
@@ -200,12 +203,12 @@ export default {
 .appDiv {
   margin: 40rpx 40rpx;
   min-height: 884rpx;
-  background-color:#ffffff
+  background-color: #ffffff;
 }
 .text {
   background-color: #ffffff;
   min-height: 600rpx;
-  padding:40rpx;
+  padding: 40rpx;
   color: rgba(189, 189, 192, 1);
 }
 .textArea {
@@ -237,10 +240,10 @@ export default {
 }
 .textAreafloat {
   min-height: 592rpx;
-  line-height:52rpx;
+  line-height: 52rpx;
   color: rgba(169, 169, 169, 1);
   background-color: #ffffff;
-  & .textAreafloat_item{
+  & .textAreafloat_item {
     margin-bottom: 53rpx;
   }
 }
@@ -266,8 +269,7 @@ export default {
   padding: 26rpx 102rpx;
   text-align: center;
   background-color: #ffc86d;
-  font-size:28rpx;
-
+  font-size: 28rpx;
 }
 .text-ontent {
   margin: auto;
