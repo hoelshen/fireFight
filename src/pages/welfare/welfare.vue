@@ -51,21 +51,7 @@
           </button>
         </div>
       </div>
-      <div class="list_item flex  j-between " v-for="item in tasks" :key="item._id">
-        <div class="flex ">
-          <image class="iconfont" src="/static/svgs/stamp-icon.svg" />
-          <div class="flex column j-start">
-            <div>
-              <span class="list_item_span">{{item.name}}</span>
-              <span class="count">×{{item.rewardCount}}</span>
-            </div>
-            <span class="welfare_content">{{item.tipsText}}</span>
-          </div>
-        </div>
-        <div class="exchange  flex center">
-          <button @click="doTask(item)" :disabled="item.isReceived" class="flex center">{{item.isReceived ? '已完成' : '去领取'}} </button>
-        </div>
-      </div>
+
       <div class="list_item flex  j-between ">
         <div class="flex ">
           <image class="iconfont" src="/static/svgs/ticket.svg" />
@@ -79,6 +65,22 @@
         </div>
         <div class="exchange flex center">
           <button @click="FocusSubscript" class="flex center ">去关注</button>
+        </div>
+      </div>
+
+      <div class="list_item flex  j-between " v-for="item in tasks" :key="item._id">
+        <div class="flex ">
+          <image class="iconfont" src="/static/svgs/stamp-icon.svg" />
+          <div class="flex column j-start">
+            <div>
+              <span class="list_item_span">{{item.name}}</span>
+              <span class="count">×{{item.rewardCount}}</span>
+            </div>
+            <span class="welfare_content">{{item.tipsText}}</span>
+          </div>
+        </div>
+        <div class="exchange  flex center">
+          <button @click="doTask(item)" :disabled="item.isReceived" class="flex center">{{item.isReceived ? '已完成' : '去领取'}} </button>
         </div>
       </div>
 
