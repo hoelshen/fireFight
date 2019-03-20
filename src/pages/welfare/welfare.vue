@@ -1,10 +1,10 @@
 <template>
   <view class="ticket flex column j-between">
     <session class="navigatabar flex j-around">
-      <div @click="toggle('solution')" :class="active == 'solution' ? 'borderColor' :''" class="navigatabar_item   flex center">我要解忧券</div>
-      <div @click="toggle('mail')" :class="active == 'mail' ? 'borderColor' :''" class="navigatabar_item  flex center">我要邮票</div>
+      <div @click="toggle('TICKET')" :class="active == 'TICKET' ? 'borderColor' :''" class="navigatabar_item   flex center">我要解忧券</div>
+      <div @click="toggle('STAMP')" :class="active == 'STAMP' ? 'borderColor' :''" class="navigatabar_item  flex center">我要邮票</div>
     </session>
-    <session class="list" v-if="active === 'solution'">
+    <session class="list" v-if="active === 'TICKET'">
       <div class="list_item flex  j-between ">
         <div class="flex ">
           <image class="iconfont" src="/static/svgs/ticket.svg" />
@@ -26,7 +26,7 @@
           <div class="flex column j-start">
             <div>
               <span class="list_item_span">邮票兑换解忧券</span>
-              <span class="count">×1</span>              
+              <span class="count">×1</span>
             </div>
             <span class="welfare_content">使用10张邮票兑换 1 张解忧券 </span>
           </div>
@@ -41,7 +41,7 @@
           <div class="flex column j-start">
             <div>
               <span class="list_item_span">关注服务号得解忧券</span>
-              <span class="count">×1</span>              
+              <span class="count">×1</span>
             </div>
             <span class="welfare_content">关注后可免费领取 1 张解忧券 </span>
           </div>
@@ -51,13 +51,28 @@
           </button>
         </div>
       </div>
+      <div class="list_item flex  j-between " v-for="item in tasks" :key="item._id">
+        <div class="flex ">
+          <image class="iconfont" src="/static/svgs/stamp-icon.svg" />
+          <div class="flex column j-start">
+            <div>
+              <span class="list_item_span">{{item.name}}</span>
+              <span class="count">×{{item.rewardCount}}</span>
+            </div>
+            <span class="welfare_content">{{item.tipsText}}</span>
+          </div>
+        </div>
+        <div class="exchange  flex center">
+          <button @click="doTask(item)" :disabled="item.isReceived" class="flex center">{{item.isReceived ? '已完成' : '去领取'}} </button>
+        </div>
+      </div>
       <div class="list_item flex  j-between ">
         <div class="flex ">
           <image class="iconfont" src="/static/svgs/ticket.svg" />
           <div class="flex column j-start">
             <div>
               <span class="list_item_span">关注订阅号得解忧券</span>
-              <span class="count">×1</span>              
+              <span class="count">×1</span>
             </div>
             <span class="welfare_content">关注后可免费领取 1 张解忧券 </span>
           </div>
@@ -71,14 +86,14 @@
         解忧券最大持有量为 3 张，超出部分自动销毁
       </div>
     </session>
-    <session class="list" v-if="active === 'mail'">
+    <session class="list" v-if="active === 'STAMP'">
       <div class="list_item flex  j-between ">
         <div class="flex ">
           <image class="iconfont" src="/static/svgs/stamp-icon.svg" />
           <div class="flex column j-start">
             <div>
               <span class="list_item_span">解答咨询得邮票</span>
-              <span class="count">×1</span>              
+              <span class="count">×1</span>
             </div>
             <span class="welfare_content">解答和被感谢均可获得邮票 </span>
           </div>
@@ -95,7 +110,7 @@
               <span class="list_item_span">分享 Tell 得邮票</span>
               <span class="count">×1</span>
             </div>
-            <span class="welfare_content">分享好友加入 Tell  可获得邮票 </span>
+            <span class="welfare_content">分享好友加入 Tell 可获得邮票 </span>
           </div>
         </div>
         <div class="exchange flex center">
@@ -103,21 +118,20 @@
           </button>
         </div>
       </div>
-      <div class="list_item flex  j-between " v-for="item in task" :key="item._id">
+      <div class="list_item flex  j-between " v-for="item in tasks" :key="item._id">
         <div class="flex ">
           <image class="iconfont" src="/static/svgs/stamp-icon.svg" />
           <div class="flex column j-start">
             <div>
               <span class="list_item_span">{{item.name}}</span>
-              <span class="count">×{{item.rewardCount}}</span>              
+              <span class="count">×{{item.rewardCount}}</span>
             </div>
             <span class="welfare_content">{{item.tipsText}}</span>
           </div>
         </div>
         <div class="exchange  flex center">
-          <button @click="doTask(item)"  :class="item.isReceived ?  'doneTask' : '' " :disabled="item.isReceived ? 'true' : 'false'  " class="flex center">{{item.isReceived ? '已完成' : '去领取'}} </button>
+          <button @click="doTask(item)" :disabled="item.isReceived" class="flex center">{{item.isReceived ? '已完成' : '去领取'}} </button>
         </div>
-      </div>
       </div>
     </session>
 
@@ -137,7 +151,7 @@ export default {
   },
   data() {
     return {
-      active: "solution",
+      active: "TICKET",
       isShowModal: false,
       modal: {
         title: "",
@@ -146,7 +160,7 @@ export default {
         type: "",
         sureButtonText: ""
       },
-      task:[]
+      tasks: []
     };
   },
   onShareAppMessage(res) {
@@ -160,7 +174,11 @@ export default {
   },
   methods: {
     toggle(tab) {
-      this.active = tab;
+      if (this.active != tab) {
+        this.active = tab;
+        this.tasks = [];
+        this.getTask();
+      }
     },
     toReply() {
       this.$router.push({ path: "/pages/solution/solutionRoom" });
@@ -219,29 +237,30 @@ export default {
     },
     FocusServer() {
       this.$refs.myImgmodal.show({
-          title: "关注服务号",
-          type: "ALERT",
-          sureButtonText: "马上开始",
-      }) 
+        title: "关注服务号",
+        type: "ALERT",
+        sureButtonText: "马上开始"
+      });
     },
     FocusSubscript() {
       this.$refs.myImgmodal.show({
-          title: "关注订阅号",
-          type: "ALERT",
-          sureButtonText: "马上开始",
-      })
-
+        title: "关注订阅号",
+        type: "ALERT",
+        sureButtonText: "马上开始"
+      });
     },
-    getTask(){
-      this.$request.get('/task/ad').then(res=>{
-        this.task = res.data;
-      })
+    getTask() {
+      this.$request.get(`/task/ad?type=${this.active}`).then(res => {
+        this.tasks = res.data;
+      });
     },
-    doTask(task){
-      if(task.isReceived) return;
+    doTask(task) {
+      if (task.isReceived) return;
       wx.navigateTo({
-        url: `/pages/webview/index?url=${task.url}&title=${task.name}&type=welfare&id=${task._id}`
-      })
+        url: `/pages/webview/index?url=${task.url}&title=${
+          task.name
+        }&type=welfare&id=${task._id}`
+      });
     },
     getTips() {
       this.$request.get("/tips").then(res => {
@@ -257,27 +276,25 @@ export default {
         }
       });
     },
-    taskHandle(status){
-        if(!status) return;
+    taskHandle(status) {
+      if (!status) return;
 
-        if(status === "failedTime" ){
-          this.$refs.mymodal.show({
-              title: "体验失败",
-              content: "抱歉，体验时间过短，无法获得奖励。请重试。",
-          });
-        }
-        // this.$refs.mymodal.show({
-        //     title: "体验失败",
-        //     content: "过程中断，请确保体验没有跳转到其它页面。",
-        // });
-        getApp().globalData.taskState = "";
+      if (status === "failedTime") {
+        this.$refs.mymodal.show({
+          title: "体验失败",
+          content: "抱歉，体验时间过短，无法获得奖励。请重试。"
+        });
+      }
+      // this.$refs.mymodal.show({
+      //     title: "体验失败",
+      //     content: "过程中断，请确保体验没有跳转到其它页面。",
+      // });
+      getApp().globalData.taskState = "";
     }
-
   },
   onShow() {
     const { currentRoute: { query } } = this.$router;
-    this.active = query.active || "solution";
-
+    this.active = query.active || this.active;
     const { taskState } = getApp().globalData;
     this.getTips();
     this.getTask();
@@ -294,7 +311,7 @@ page {
   &_item {
     background-color: #ffffff;
     margin-bottom: 40rpx;
-    margin-top:20rpx;
+    margin-top: 20rpx;
   }
   .count {
     color: #ffc86d;
@@ -328,18 +345,21 @@ page {
 .iconfont {
   margin-right: 20rpx;
 }
-.doneTask{
-  border-color:rgba(255, 200, 109, 0.5);
-  background-color:#ffffff !important;
-}
-.desc{
+
+.desc {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  color: #BDBDC0;
+  color: #bdbdc0;
   font-size: 28rpx;
   padding: 60rpx;
+}
+
+button[disabled] {
+  color: rgba(77, 73, 91, 0.5) !important;
+  border-color: rgba(255, 200, 109, 0.5) !important;
+  background-color: #ffffff !important;
 }
 </style>
 

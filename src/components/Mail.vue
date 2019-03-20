@@ -107,9 +107,11 @@ export default {
   }
 }
 .lightButton {
-  height: 56rpx;
+  height: 64rpx;
   padding: 8rpx 40rpx;
   margin-top: 0;
+  min-height: 0;
+  line-height:normal;
 }
 .mail_weather_name {
   width: 44rpx;
