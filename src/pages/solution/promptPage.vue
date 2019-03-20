@@ -19,6 +19,7 @@
           <div class="flex column targer" v-if="active === 'story'">
             <div class="line">我们会在每日 22:30</div>
             <div class="line">收集咨询箱中的信</div>
+            <div class="line">这封信将于 {{time}} 小时后送到解答室</div>
           </div>
           <image class="home flex center" src="/static/jpg/focusServer.jpg">
           </image>
@@ -54,7 +55,8 @@ export default {
         confirmButtonText: "",
         type: "",
         sure: ""
-      }
+      },
+      time: new Date()
     };
   },
   methods: {
@@ -83,6 +85,10 @@ export default {
       story: "已提交咨询",
       mail: "已回信",
     };
+
+    this.time = this.$day().diff(this.$day().hour(), this.$day().format("23:30"))
+    console.log('this.time: ', this.time);
+
     wx.setNavigationBarTitle({
       title: navigationBar[this.active]
     });
@@ -116,6 +122,7 @@ export default {
   color: #4D495B;
   .line{
     line-height: 52rpx;
+    text-align: center;
   }
 }
 .home{

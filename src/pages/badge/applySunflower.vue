@@ -13,7 +13,7 @@
           <div class="flex j-start a-center">
             <span class="textNameSpan">笔名</span>
           </div>
-          <input class="aliasNameInput" @input="bindAliasName" :value="form.aliasName">
+          <input class="aliasNameInput" @input="bindAliasName" :disabled="true" :value="form.aliasName">
         </div>
 
         <div class="flex column j-between ">
@@ -148,7 +148,7 @@ export default {
     const { currentRoute: { query } } = this.$router;
     this.applying = !(query.applying == 0);
     const { user } = getApp().globalData;
-    this.form.aliasName = user.signName;
+    this.form.aliasName = user.nickName;
   }
 };
 </script>
