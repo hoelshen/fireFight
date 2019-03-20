@@ -517,7 +517,7 @@ export default {
     margin-bottom: 20rpx;
     margin-top: 0rpx;
     height: 64rpx;
-    line-height: 64rpx;
+    // line-height: 64rpx;
   }
 }
 
