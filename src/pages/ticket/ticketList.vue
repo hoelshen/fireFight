@@ -1,7 +1,7 @@
 <template>
   <view class="ticket flex column j-between">
     <div class="list" style="margin-left:0">
-      <div class="ticketList flex j-between" @tap="welfareDetail('mail')">
+      <div class="ticketList flex j-between" @tap="welfareDetail('STAMP')">
         <div class="flex center">
           <image class="iconfont" src="/static/svgs/stamp-icon.svg"/>
           <span class="my_contact_item-text">邮票</span>
@@ -11,7 +11,7 @@
           <image class="iconfont" src="/static/svgs/arrow.svg"/>
         </div>
       </div>
-      <div class="solutionList flex j-between" @tap="welfareDetail('solution')">
+      <div class="solutionList flex j-between" @tap="welfareDetail('TICKET')">
         <div class="flex center">
           <image class="iconfont" src="/static/svgs/ticket.svg"/>
           <span class="my_contact_item-text">解忧券</span>
