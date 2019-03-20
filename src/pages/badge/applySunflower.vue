@@ -25,7 +25,7 @@
 
         <div class="flex column j-between birthday ">
           <div class="flex j-start a-center">
-            <span>出生年月：</span>
+            <span>出生年月</span>
           </div>
           <picker class="birthdayPicker" mode="date" :value="form.bornDate" @change="bindBornDate">
             <div class="flex a-center bornDate"> {{form.bornDate}} </div>
