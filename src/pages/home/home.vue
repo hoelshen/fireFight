@@ -159,7 +159,7 @@ export default {
       unreadMessages: 0,
       toPage: null,
       page: 1,
-      isFlage: false,
+      hasMore: true,
       userInfo: {}
     };
   },
@@ -225,18 +225,17 @@ export default {
       this.wayCount = res.data;
     },
     async getDialogs(page = 1) {
-      if (this.isFlage) return false;
+      if (this.hasMore === false) return false;
       let res = await this.$request.get(`/dialog?page=${page}`);
       if(res.data.length === 0){
-        this.isFlage = true;
+        this.hasMore = false;
         return false;
       }
-      this.dialogs = res.data;
       if (page == 1) {
-        this.Page = 1;
+        this.page = 1;
         this.dialogs = res.data;
       } else if (res.data.length > 0) {
-        this.Page = page;
+        this.page = page;
         this.dialogs = this.dialogs.concat(res.data);
       }
 
