@@ -116,6 +116,7 @@ export default {
   color: #4D495B;
   .line{
     line-height: 52rpx;
+    text-align: center;
   }
 }
 .home{

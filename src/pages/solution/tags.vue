@@ -20,8 +20,7 @@ export default {
       titles: [],
       title: {},
       isFlag: false,
-      activeIndex: -1,
-      islightColor: false
+      activeIndex: -1
     };
   },
   methods: {
@@ -81,10 +80,7 @@ export default {
     margin-bottom: 40rpx;
   }
 }
-.lightColor {
-  border: 2rpx #ffc86d solid;
-  background-color: #ffffff;
-}
+
 .darkButton {
   width: 358rpx;
 }
