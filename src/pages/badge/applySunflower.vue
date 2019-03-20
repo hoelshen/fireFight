@@ -46,11 +46,12 @@
           <textarea class="textArea" :auto-height="true" :focus="isFocus" maxlength="5000" cursor-spacing="30px" :value="form.why" @input="bindWhy" />
         </div>
 
+        <div class="flex column textAdd center">
+          <button class="addMystoryButton flex center" @click="onPush">提交申请</button>
+        </div>
       </div>
 
-      <div class="flex column textAdd center">
-        <button class="addMystoryButton flex center" @click="onPush">提交申请</button>
-      </div>
+
     </div>
 
     <div class="app flex column center" v-if="!applying">
@@ -181,7 +182,7 @@ export default {
 }
 .textAdd {
   padding-bottom: 60rpx;
-  padding-top: 32rpx;
+  padding-top: 80rpx;
   &button {
     padding-bottom: 12rpx;
   }
