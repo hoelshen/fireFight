@@ -115,7 +115,7 @@
           </div>
         </div>
         <div class="exchange  flex center">
-          <button @click="doTask(item)" class="flex center">{{item.isReceived ? '已完成' : '去领取'}} </button>
+          <button @click="doTask(item)"  :class="item.isReceived ?  'doneTask' : '' " :disabled="item.isReceived ? 'true' : 'false'  " class="flex center">{{item.isReceived ? '已完成' : '去领取'}} </button>
         </div>
       </div>
       </div>
@@ -328,7 +328,10 @@ page {
 .iconfont {
   margin-right: 20rpx;
 }
-
+.doneTask{
+  border-color:rgba(255, 200, 109, 0.5);
+  background-color:#ffffff !important;
+}
 .desc{
   position: fixed;
   bottom: 0;

@@ -116,5 +116,8 @@ export default {
   height: 400rpx;
   margin: 80rpx;
 }
+.navigatabar{
+  background-color: #fffefb
+}
 </style>
 

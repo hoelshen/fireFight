@@ -182,6 +182,8 @@ export default {
     this.$request.getUser().then(res => {
       this.user = res;
     });
+
+    this.isFlage = false;
     this.userInfo = getApp().globalData.user;
     this.onTabChange(this.tab);
   },
@@ -224,22 +226,20 @@ export default {
     },
     async getDialogs(page = 1) {
       if (this.isFlage) return false;
-
       let res = await this.$request.get(`/dialog?page=${page}`);
+      if(res.data.length === 0){
+        this.isFlage = true;
+        return false;
+      }
       this.dialogs = res.data;
+      if (page == 1) {
+        this.Page = 1;
+        this.dialogs = res.data;
+      } else if (res.data.length > 0) {
+        this.Page = page;
+        this.dialogs = this.dialogs.concat(res.data);
+      }
 
-      // if(res.data.length === 0){
-      //   this.isFlage = true;
-      //   return false;
-      // }
-
-      // if (page == 1) {
-      //   this.Page = 1;
-      //   this.dialogs = res.data;
-      // } else if (res.data.length > 0) {
-      //   this.Page = page;
-      //   this.dialogs = this.dialogs.concat(res.data);
-      // }
     },
     toConsulting() {
       this.$router.push({ path: "/pages/consultingBox/consultingBox" });
@@ -276,35 +276,50 @@ export default {
       this.$router.push({ path: "/pages/badge/badge" });
     },
     login() {
-      wx.chooseImage({
-        count: 1,
-        sizeType: ["compressed"],
-        sourceType: ["album", "camera"],
-        success: function(res) {
-          wx.showLoading({
-            title: "上传中",
-            mask: true
-          });
-          const tempFilePaths = res.tempFilePaths;
-          this.$request.uploadFile(tempFilePaths[0]).then(
-            function(res) {
-              let data = JSON.parse(res.data);
-              let user = this.user;
-              user.aliasPortrait = data.data;
-              this.user = user;
-              const { aliasName, aliasPortrait } = this.user;
-              this.$request.put("/user", {
-                aliasName,
-                aliasPortrait
+      let sourceType = [];
+      wx.showActionSheet({
+      itemList: ['从相册选择新头像', '拍个新头像'],
+        success(res) {
+          if(res.tapIndex === 0){
+            sourceType = ['album']
+          }
+          if(res.tapIndex === 1){
+            sourceType = ['camera']
+          }
+          wx.chooseImage({
+            count: 1,
+            sizeType: ["compressed"],
+            sourceType: sourceType,
+            success: function(res) {
+              wx.showLoading({
+                title: "上传中",
+                mask: true
               });
-            }.bind(this)
-          );
-          setTimeout(wx.hideLoading, 2000);
-        }.bind(this),
-        fail(e) {
-          wx.hideLoading();
+              const tempFilePaths = res.tempFilePaths;
+              this.$request.uploadFile(tempFilePaths[0]).then(
+                function(res) {
+                  let data = JSON.parse(res.data);
+                  let user = this.user;
+                  user.aliasPortrait = data.data;
+                  this.user = user;
+                  const { aliasName, aliasPortrait } = this.user;
+                  this.$request.put("/user", {
+                    aliasName,
+                    aliasPortrait
+                  });
+                }.bind(this)
+              );
+              setTimeout(wx.hideLoading, 2000);
+            }.bind(this),
+            fail(e) {
+              wx.hideLoading();
+            }
+          });
+        },
+        fail(res) {
+          console.log(res.errMsg)
         }
-      });
+      })
     },
     loginName() {
       this.$router.push({
@@ -322,9 +337,9 @@ export default {
         path: "/pages/faq/index"
       });
     },
-    // scrolltolower() {
-    //   this.getDialogs(this.page + 1);
-    // },
+    scrolltolower() {
+      this.getDialogs(this.page + 1);
+    },
     getScroll() {
       const query = wx.createSelectorQuery();
       const res = query
