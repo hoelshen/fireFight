@@ -17,9 +17,8 @@
             </div>
           </div>
           <div class="flex column targer" v-if="active === 'story'">
-            <div class="line">我们会在每日 22:30</div>
-            <div class="line">收集咨询箱中的信</div>
-            <div class="line">这封信将于 {{time}} 小时后送到解答室</div>
+            <div class="line">我们会在每日 22:30 收集咨询箱中的信</div>
+            <div class="line">这封信将于 {{time}} 送到解答室</div>
           </div>
           <image class="home flex center" src="/static/jpg/focusServer.jpg">
           </image>
@@ -56,7 +55,7 @@ export default {
         type: "",
         sure: ""
       },
-      time: new Date()
+      time: null
     };
   },
   methods: {
@@ -86,8 +85,20 @@ export default {
       mail: "已回信",
     };
 
-    this.time = this.$day().diff(this.$day().hour(), this.$day().format("23:30"))
-    console.log('this.time: ', this.time);
+
+    let date1 =  this.$day().set("hour", 22).set("minute", 30);
+    const date2 = this.$day();
+
+    if(date2.isAfter(date1)){
+      date1 = date1.add(1, 'day');
+    }
+    const timer = date1.diff(date2, 'hour');
+
+    if(timer <= 0){
+      this.time = `1 小时内`
+    } else{
+      this.time = `${timer} 小时后`
+    }
 
     wx.setNavigationBarTitle({
       title: navigationBar[this.active]
