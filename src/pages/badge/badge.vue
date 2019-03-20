@@ -1,50 +1,82 @@
 <template>
   <div class="app flex column j-between">
     <session class="list" v-for="item in list" :key="item._id">
-      <div class="list_item flex  j-between ">
+      <div class="list_item flex j-between">
         <div class="flex">
-          <image class="iconfont" :src="item.imgUrl" />
+          <img class="iconfont" :src="item.imgUrl">
           <div class="flex column j-start">
             <div>
               <span class="list_item_span">{{item.name}}</span>
             </div>
-            <span v-if="item.status === 'CAN_NOT_RECEIVE' " class="badge_content">收到 {{ item.requireLikeCount }} 个感谢后可以领取</span>
+            <span
+              v-if="item.status === 'CAN_NOT_RECEIVE' "
+              class="badge_content"
+            >收到 {{ item.requireLikeCount }} 个感谢后可以领取</span>
             <span v-else-if="item.status === 'CAN_RECEIVE' " class="badge_content">已满足领取条件</span>
             <span v-else class="badge_content">已于 {{item.receivedAt | dateFormat}} 获得</span>
           </div>
         </div>
-        <div class="exchange  flex center">
-          <button v-if="item.status === 'WEARED' " :disabled="true" class="flex center badge_weared">佩戴中</button>
+        <div class="exchange flex center">
+          <button
+            v-if="item.status === 'WEARED' "
+            :disabled="true"
+            class="flex center badge_weared"
+          >佩戴中</button>
           <button v-if="item.status === 'CAN_WEAR' " @click="wearBadge(item)" class="flex center">佩戴</button>
-          <button v-if="item.status === 'CAN_RECEIVE' " @click="receiveBadge(item)" class="flex center">领取</button>
-          <button v-if="item.status === 'CAN_NOT_RECEIVE' " disabled class="flex center badge_noReceive">{{item.currentLikeCount}}/{{item.requireLikeCount}}</button>
+          <button
+            v-if="item.status === 'CAN_RECEIVE' "
+            @click="receiveBadge(item)"
+            class="flex center"
+          >领取</button>
+          <button
+            v-if="item.status === 'CAN_NOT_RECEIVE' "
+            disabled
+            class="flex center badge_noReceive"
+          >{{item.currentLikeCount}}/{{item.requireLikeCount}}</button>
         </div>
       </div>
     </session>
     <session class="list">
-      <div class="list_item flex  j-between ">
+      <div class="list_item flex j-between">
         <div class="flex">
-          <image class="iconfont" :src="sunflower.imgUrl" />
+          <img class="iconfont" :src="sunflower.imgUrl">
           <div class="flex column j-start">
             <div>
               <span class="list_item_span">{{sunflower.name}}</span>
             </div>
-            <span v-if="sunflower.status === 'CAN_APPLY' " class="badge_content">由 Tell 官方运营团队特邀 </span>
-            <span v-if="sunflower.status === 'CAN_WEAR' " class="badge_content">由 Tell 官方运营团队特邀 </span>
-            <span v-if="sunflower.status === 'WEARED' " class="badge_content">已于 {{sunflower.createdAt | dateFormat}} 获得</span>
+            <span v-if="sunflower.status === 'CAN_APPLY' " class="badge_content">由 Tell 官方运营团队特邀</span>
+            <span v-if="sunflower.status === 'CAN_WEAR' " class="badge_content">由 Tell 官方运营团队特邀</span>
+            <span
+              v-if="sunflower.status === 'WEARED' "
+              class="badge_content"
+            >已于 {{sunflower.createdAt | dateFormat}} 获得</span>
           </div>
         </div>
-        <div class="exchange  flex center">
-          <button v-if="sunflower.status === 'CAN_APPLY' " @click="openSunFlower(sunflower._id)" class="flex center">申请</button>
-          <button v-if="sunflower.status === 'APPLYING' " @click="applySunFlower()" class="flex center ">申请中</button>
-          <button v-if="sunflower.status === 'CAN_WEAR' " @click="wearBadge(sunflower)" class="flex center">佩戴</button>
-          <button v-if="sunflower.status === 'WEARED' " :disabled="true" class="flex center badge_weared">佩戴中</button>
+        <div class="exchange flex center">
+          <button
+            v-if="sunflower.status === 'CAN_APPLY' "
+            @click="openSunFlower(sunflower._id)"
+            class="flex center"
+          >申请</button>
+          <button
+            v-if="sunflower.status === 'APPLYING' "
+            @click="applySunFlower()"
+            class="flex center"
+          >申请中</button>
+          <button
+            v-if="sunflower.status === 'CAN_WEAR' "
+            @click="wearBadge(sunflower)"
+            class="flex center"
+          >佩戴</button>
+          <button
+            v-if="sunflower.status === 'WEARED' "
+            :disabled="true"
+            class="flex center badge_weared"
+          >佩戴中</button>
         </div>
       </div>
     </session>
-    <session class="list_notice">
-      
-    </session>
+    <session class="list_notice"></session>
     <Modal ref="mymodal"></Modal>
   </div>
 </template>
@@ -128,7 +160,9 @@ export default {
     }
   },
   onShow() {
-    const { currentRoute: { query } } = this.$router;
+    const {
+      currentRoute: { query }
+    } = this.$router;
     this.getList();
   }
 };

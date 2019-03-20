@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 29,
+			"current": 17,
 			"list": [
 				{
 					"id": -1,
@@ -143,10 +143,10 @@
 					"scene": null
 				},
 				{
-					"id": 18,
+					"id": 17,
 					"name": "回信完成",
 					"pathName": "pages/solution/promptPage",
-					"query": "targetUser=&active=solution",
+					"query": "targetUser=&active=story",
 					"scene": null
 				},
 				{

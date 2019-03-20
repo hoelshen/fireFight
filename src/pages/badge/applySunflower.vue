@@ -2,56 +2,67 @@
   <view>
     <div class="app flex column j-between" v-if="applying">
       <div class="appDiv flex column shadow">
-        <div class="flex column j-between ">
+        <div class="flex column j-between">
           <div class="flex j-start a-center">
             <span class="textNameSpan">姓名</span>
           </div>
           <input class="aliasNameInput" @input="bindName" :value="form.name">
         </div>
 
-        <div class="flex column j-between ">
+        <div class="flex column j-between">
           <div class="flex j-start a-center">
             <span class="textNameSpan">笔名</span>
           </div>
-          <input class="aliasNameInput" @input="bindAliasName" :disabled="true" :value="form.aliasName">
+          <input
+            class="aliasNameInput"
+            @input="bindAliasName"
+            :disabled="true"
+            :value="form.aliasName"
+          >
         </div>
 
-        <div class="flex column j-between ">
+        <div class="flex column j-between">
           <div class="flex j-start a-center">
             <span class="textNameSpan">微信号</span>
           </div>
           <input class="aliasNameInput" @input="bindWechatId" :value="form.wechatId">
         </div>
 
-        <div class="flex column j-between birthday ">
+        <div class="flex column j-between birthday">
           <div class="flex j-start a-center">
             <span>出生年月</span>
           </div>
           <picker class="birthdayPicker" mode="date" :value="form.bornDate" @change="bindBornDate">
-            <div class="flex a-center bornDate"> {{form.bornDate}} </div>
+            <div class="flex a-center bornDate">{{form.bornDate}}</div>
           </picker>
         </div>
 
-        <div class="flex column j-between ">
+        <div class="flex column j-between">
           <div class="flex j-start a-center">
             <span class="textNameSpan">如何知道 Tell 的</span>
           </div>
           <input class="aliasNameInput" @input="bindWhere" :value="form.where">
         </div>
 
-        <div class="flex column j-between ">
+        <div class="flex column j-between">
           <div class="flex j-start a-center">
             <span class="textNameSpan">为什么想要持有向日葵徽章</span>
           </div>
-          <textarea class="textArea" :auto-height="true" :focus="isFocus" maxlength="5000" cursor-spacing="30px" :value="form.why" @input="bindWhy" />
+          <textarea
+            class="textArea"
+            :auto-height="true"
+            :focus="isFocus"
+            maxlength="5000"
+            cursor-spacing="30px"
+            :value="form.why"
+            @input="bindWhy"
+          />
         </div>
 
         <div class="flex column textAdd center">
           <button class="addMystoryButton flex center" @click="onPush">提交申请</button>
         </div>
       </div>
-
-
     </div>
 
     <div class="app flex column center" v-if="!applying">
@@ -141,12 +152,14 @@ export default {
     },
     returnBadge() {
       wx.navigateBack({
-        data:2
+        data: 2
       });
     }
   },
   onShow() {
-    const { currentRoute: { query } } = this.$router;
+    const {
+      currentRoute: { query }
+    } = this.$router;
     this.applying = !(query.applying == 0);
     const { user } = getApp().globalData;
     this.form.aliasName = user.nickName;
