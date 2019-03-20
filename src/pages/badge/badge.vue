@@ -43,9 +43,7 @@
       </div>
     </session>
     <session class="list_notice">
-      <div class="notice">
-        温馨提示：带有「可额外解答的咨询」标记的，收取和解答次数不受该规则限制。
-      </div>
+      
     </session>
     <Modal ref="mymodal"></Modal>
   </div>

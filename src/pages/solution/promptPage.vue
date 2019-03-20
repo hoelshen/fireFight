@@ -24,11 +24,12 @@
           </image>
           <button class="promptBtn flex column center" @click="attention">
             <span>关注服务号</span>
-            <span>被感谢时立即收到通知</span>
+            <span v-if="active === 'solution'">被感谢时立即收到通知</span>
+            <span v-if="active === 'story'">被解答时立即收到通知</span>
             <div class="darkIconf">
                 <image class="iconfont" src="/static/svgs/leftArrow.svg" />
             </div>
-          </button>        
+          </button>
       </div>
     </div>
     <button class="lightButton" @click="onsure">好的</button>
