@@ -26,7 +26,7 @@
           <span v-if="active === 'solution'">被感谢时立即收到通知</span>
           <span v-if="active === 'story'">被解答时立即收到通知</span>
           <div class="darkIconf">
-            <image class="iconfont" src="/static/svgs/leftArrow.svg">
+            <img class="iconfont" src="/static/svgs/leftArrow.svg">
           </div>
         </button>
 

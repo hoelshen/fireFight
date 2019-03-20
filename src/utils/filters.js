@@ -8,9 +8,9 @@ exports.dateFormat = (value) => {
 }
 
 exports.timeIntervalFormat = (value) => {
-    let arrivedTime = dayjs(value).add(6,'hours');
-    if (arrivedTime.minute() != 0){
-        arrivedTime = dayjs(arrivedTime).add(1,'hours').set('minute', 0);;
+    let arrivedTime = dayjs(value).add(6, 'hours');
+    if (arrivedTime.minute() != 0) {
+        arrivedTime = dayjs(arrivedTime).add(1, 'hours').set('minute', 0);;
     }
     return arrivedTime.format('HH:mm');
 

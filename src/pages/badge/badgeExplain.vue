@@ -21,7 +21,7 @@
         :key="item._id"
       >
         <div class="containerBadge flex center">
-          <image class="iconfont" :src="item.imgUrl">
+          <img class="iconfont" :src="item.imgUrl">
           <span>{{item.name}}</span>
         </div>
         <div class="containerBadge flex center">{{item.mailboxLimit}}</div>
