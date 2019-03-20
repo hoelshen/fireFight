@@ -2,7 +2,7 @@
   <view class="app flex column j-between">
     <div class="soDetail">
       <div class="title">选择你最愿意看到的话题</div>
-      <div class="tag box" hover-class="active" :class="activeIndex == index ?'lightColor' :''" v-for="(item,index) in titles" :key="index" @click="select(index)">
+      <div class="tag box" :class="activeIndex == index ?'active' :''" v-for="(item,index) in titles" :key="index" @click="select(index)">
         {{item.name}}
       </div>
     </div>
