@@ -270,5 +270,6 @@ export default {
 .applyText {
   font-size: 32rpx;
   line-height: 52rpx;
+  color:#4D495B;
 }
 </style>

@@ -164,6 +164,8 @@ export default {
   .line {
     line-height: 52rpx;
     text-align: center;
+    font-size:32rpx;
+    color:#4D495B;
   }
 }
 .home {
