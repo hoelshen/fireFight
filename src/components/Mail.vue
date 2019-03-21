@@ -57,7 +57,10 @@ export default {
   props: {
     mail: {
       type: Object,
-      requred: true
+      requred: true,
+      default:()=>{
+        return {};
+      }
     }
   },
   data() {

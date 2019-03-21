@@ -23,8 +23,14 @@
         </button>
       </div>
       <div class="flex j-start a-center">
-        <span class="canSolver" v-if="badgeName === '向日葵徽章'">你今天可以解答全部咨询</span>
-        <span class="canSolver" v-else>你今天还可以解答 {{ replyCount }} 个咨询</span>
+        <span
+          v-if="badgeName === '向日葵徽章'"
+          class="canSolver"
+        >你今天可以解答全部咨询</span>
+        <span
+          v-else
+          class="canSolver"
+        >你今天还可以解答 {{ replyCount }} 个咨询</span>
         <button
           class="canSolverBtn"
           @click="badgeExplain"

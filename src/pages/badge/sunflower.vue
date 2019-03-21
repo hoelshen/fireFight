@@ -43,10 +43,10 @@
       </div>
       <button
         class="darkButton"
-        :disabled="isApply"
+        :disabled="!canApply"
         @click="applySunflower()"
       >
-        提交申请
+        {{ canApply ? '提交申请':'未满足申请条件' }}
       </button>
     </div>
   </view>
@@ -57,7 +57,7 @@ export default {
     return {
       active: "solution",
       isShowModal: false,
-      isApply: true,
+      canApply: false,
       form: {
         name: "",
         alias: "",
@@ -92,7 +92,7 @@ export default {
     },
     getApplyStatus(){
       this.$request.get("/badge/sunflower/access").then(res=>{
-        this.isApply =  res.success;
+        this.canApply =  res.success;
       });
     }
   },

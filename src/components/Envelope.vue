@@ -50,7 +50,10 @@ export default {
   props: {
     mail: {
       type: Object,
-      requred: true
+      requred: true,
+      default:()=>{
+        return {};
+      }
     },
     isRead: {
       type: Boolean,
@@ -66,16 +69,25 @@ export default {
     },
     station:{
       type: String,
+      default:()=>{
+        return {};
+      }
     },
     dialogId: {
-      type: String
+      type: String,
+      default:()=>{
+        return {};
+      }
     },
     showRefer:{
       type: Boolean,
       default: false
     },
     referMail:{
-      type: Object
+      type: Object,
+      default:()=>{
+        return {};
+      }
     }
   },
   data() {
