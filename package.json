@@ -5,7 +5,7 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "lint":"eslint --fix --ext .js,.vue src",
+    "lint": "eslint --fix --ext .js,.vue src",
     "dev": "npm run lint && npm run dev:wechat",
     "dev:alipay": "webpack --config ./build/webpack.config.alipay.js -w",
     "dev:swan": "webpack --config ./build/webpack.config.swan.js -w",
@@ -31,8 +31,7 @@
     "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^1.0.0",
     "eslint": "^5.15.3",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-html": "^5.0.3",
     "eslint-plugin-vue": "^5.2.2",
     "html-webpack-plugin": "^3.2.0",
     "less": "^3.8.1",
@@ -51,6 +50,7 @@
   "dependencies": {
     "@megalo/vhtml-plugin": "^0.1.2",
     "dayjs": "^1.8.0",
+    "eslint-plugin-import": "^2.16.0",
     "flyio": "^0.6.9",
     "megalo": "^0.7.0",
     "megalo-router": "^1.0.3",
