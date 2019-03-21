@@ -39,13 +39,13 @@
 </template>
 
 <script>
-import MailCard from "@/components/Story.vue";
+// import MailCard from "@/components/Story.vue";
 import sRequest from "@/utils/stronger-request";
 export default {
   mpType: "page",
-  components: {
-    MailCard
-  },
+  // components: {
+  //   MailCard
+  // },
   data() {
     return {
       content: ""

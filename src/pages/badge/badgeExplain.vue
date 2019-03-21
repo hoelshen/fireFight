@@ -36,7 +36,10 @@
         <div class="containerBadge flex center">
           {{ item.mailboxLimit }}
         </div>
-        <div class="containerBadge flex center">
+        <div class="containerBadge flex center" v-if="item.name === '向日葵徽章' ">
+          ♾
+        </div>
+        <div class="containerBadge flex center" v-else>
           {{ item.replyLimit }}
         </div>
       </div>

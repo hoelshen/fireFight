@@ -70,9 +70,9 @@ export default {
     }
     this.getList();
   },
-  computed: {
-    tickType() {}
-  },
+  // computed: {
+  //   tickType() {}
+  // },
   methods: {
     toggleticket() {
       this.active = "ticket";

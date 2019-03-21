@@ -23,7 +23,8 @@
         </button>
       </div>
       <div class="flex j-start a-center">
-        <span class="canSolver">你今天还可以解答 {{ replyCount }} 个咨询</span>
+        <span class="canSolver" v-if="badgeName === '向日葵徽章'">你今天可以解答全部咨询</span>
+        <span class="canSolver" v-else>你今天还可以解答 {{ replyCount }} 个咨询</span>
         <button
           class="canSolverBtn"
           @click="badgeExplain"
@@ -71,7 +72,8 @@ export default {
       aliasName: "",
       replyCount: 1,
       mails: [],
-      badgeImgUrl: ""
+      badgeImgUrl: "",
+      badgeName: ""
     };
   },
   methods: {
@@ -98,14 +100,16 @@ export default {
     },
     badgeExplain(){
       this.$router.push({ path: "/pages/badge/badgeExplain"})
+    },
+    getBadge() {
+      this.$request.get("/badge/mine").then(res => {
+        this.badgeImgUrl = res.data.imgUrl;
+        this.badgeName = res.data.name;
+      });
     }
   },
   onShow() {
     const { user } = getApp().globalData;
-    // this.$request.getUser(()=>{
-    //   const { user } = getApp().globalData;
-    // });
-    // console.log('user: ', user);
     if (!user.aliasName) {
       this.$request.getUser().then(res => {
         this.aliasName = res.aliasName;
@@ -113,7 +117,8 @@ export default {
     } else {
       this.aliasName = user.aliasName;
     }
-    this.badgeImgUrl = user.badgeImgUrl;
+
+    this.getBadge();
     this.getStory();
   },
   onShareAppMessage(res) {
