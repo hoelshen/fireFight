@@ -2,43 +2,70 @@
   <view class="app flex column j-between">
     <div class="appDiv flex column shadow">
       <div class="text">
-        <div class="textAreafloat flex column j-start" v-if="isDisplay" @click="hidenMethod">
-          <div class="textAreafloat_item">· 请尽量具体叙述你的故事，便于解答者理解和代入，从而给出具体的解答</div>
-          <div class="textAreafloat_item">· 关键的人物、地点等信息建议使用化名</div>
-          <div class="textAreafloat_item">· 落款署名尽量不要使用笔名或微信昵称</div>
+        <div
+          v-if="isDisplay"
+          class="textAreafloat flex column j-start"
+          @click="hidenMethod"
+        >
+          <div class="textAreafloat_item">
+            · 请尽量具体叙述你的故事，便于解答者理解和代入，从而给出具体的解答
+          </div>
+          <div class="textAreafloat_item">
+            · 关键的人物、地点等信息建议使用化名
+          </div>
+          <div class="textAreafloat_item">
+            · 落款署名尽量不要使用笔名或微信昵称
+          </div>
         </div>
         <textarea
+          v-else
           class="textArea"
           :auto-height="true"
-          v-else
-          @blur="onBlur"
           :focus="isFocus"
           maxlength="5000"
           cursor-spacing="30px"
           :value="content"
+          @blur="onBlur"
           @input="bindTextAreaInput"
         />
       </div>
       <div class="flex column j-between textName">
         <div class="flex j-end a-center">
           <span class="textNameSpan">署名</span>
-          <input class="aliasNameInput" @input="bindKeyInput" :value="aliasName">
-          <div class="refreshBtn" @click="refresh">
-            <img class="iconfont" src="/static/svgs/refresh.svg">
+          <input
+            class="aliasNameInput"
+            :value="aliasName"
+            @input="bindKeyInput"
+          >
+          <div
+            class="refreshBtn"
+            @click="refresh"
+          >
+            <img
+              class="iconfont"
+              src="/static/svgs/refresh.svg"
+            >
           </div>
         </div>
       </div>
       <div class="flex j-end textDay">
-        <span>{{day}} {{weather}}</span>
+        <span>{{ day }} {{ weather }}</span>
       </div>
     </div>
 
     <div class="flex column textAdd center">
-      <button class="addMystoryButton flex center" @click="onPush">提交咨询</button>
-      <p class="text-center">需要使用 1 张解忧券</p>
+      <button
+        class="addMystoryButton flex center"
+        @click="onPush"
+      >
+        提交咨询
+      </button>
+      <p class="text-center">
+        需要使用 1 张解忧券
+      </p>
     </div>
 
-    <Modal ref="mymodal"></Modal>
+    <Modal ref="mymodal" />
   </view>
 </template>
 <script>

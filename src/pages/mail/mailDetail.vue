@@ -1,20 +1,63 @@
 <template>
   <view class="app list">
-    <Mail :mail="item" v-for="item in list" :key="item._id"></Mail>
-    <Mail :mail="replyMail" v-if="replyMail"></Mail>
-    <Reply v-if="isReply" :target="target" tag="mail" :id="id" @submit="submit"></Reply>
-    <div class="flex column center showReply_button" v-if="!isDisabled &&!isReply && !isFromSystem">
-      <button class="reply_button" @click="showReply">回信</button>
+    <Mail
+      v-for="item in list"
+      :key="item._id"
+      :mail="item"
+    />
+    <Mail
+      v-if="replyMail"
+      :mail="replyMail"
+    />
+    <Reply
+      v-if="isReply"
+      :id="id"
+      :target="target"
+      tag="mail"
+      @submit="submit"
+    />
+    <div
+      v-if="!isDisabled &&!isReply && !isFromSystem"
+      class="flex column center showReply_button"
+    >
+      <button
+        class="reply_button"
+        @click="showReply"
+      >
+        回信
+      </button>
       <span class="replay_text">需要使用 1 张邮票</span>
     </div>
-    <div class="btns flex column center" v-if="isFromSystem">
-      <button class="darkButton btn" @click="toConsulting"> 去咨询</button>
+    <div
+      v-if="isFromSystem"
+      class="btns flex column center"
+    >
+      <button
+        class="darkButton btn"
+        @click="toConsulting"
+      >
+        去咨询
+      </button>
 
 
-      <button v-if="!user.unionid" class="lightButton btn" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">去解答</button>
-      <button v-else class="lightButton btn" @click="toSolution">去解答</button>
+      <button
+        v-if="!user.unionid"
+        class="lightButton btn"
+        open-type="getUserInfo"
+        lang="zh_CN"
+        @getuserinfo="onGotUserInfo"
+      >
+        去解答
+      </button>
+      <button
+        v-else
+        class="lightButton btn"
+        @click="toSolution"
+      >
+        去解答
+      </button>
     </div>
-    <Modal ref="mymodal"></Modal>
+    <Modal ref="mymodal" />
   </view>
 </template>
 

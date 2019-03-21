@@ -1,123 +1,327 @@
 <template>
   <view class="page flex column">
     <!-- 首页 -->
-    <div class="pannel grow" v-if="tab == 'home'">
-      <scroll-view class="entries" scroll-y :style='`height: ${scrolHeight}px`'>
-        <swiper class="swiper" :indicator-dots=" banners.length > 1 " autoplay="true" interval="5000" duration="1000" circular="true">
-          <block v-for="item in banners" :key="item">
+    <div
+      v-if="tab == 'home'"
+      class="pannel grow"
+    >
+      <scroll-view
+        class="entries"
+        scroll-y
+        :style="`height: ${scrolHeight}px`"
+      >
+        <swiper
+          class="swiper"
+          :indicator-dots=" banners.length > 1 "
+          autoplay="true"
+          interval="5000"
+          duration="1000"
+          circular="true"
+        >
+          <block
+            v-for="item in banners"
+            :key="item"
+          >
             <swiper-item>
-              <image :src="item.imgUrl" class="img" @click="toBanner(item)" />
+              <image
+                :src="item.imgUrl"
+                class="img"
+                @click="toBanner(item)"
+              />
             </swiper-item>
           </block>
         </swiper>
-        <image class="home flex center" src="/static/jpg/homeBg.jpg"></image>
-        <div class="left" @click="toConsulting" />
-        <div v-if="user.unionid" class="right" @click="toSolution" />
-        <div v-else class="right">
-          <button class="rightButton" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">
-          </button>
+        <image
+          class="home flex center"
+          src="/static/jpg/homeBg.jpg"
+        />
+        <div
+          class="left"
+          @click="toConsulting"
+        />
+        <div
+          v-if="user.unionid"
+          class="right"
+          @click="toSolution"
+        />
+        <div
+          v-else
+          class="right"
+        >
+          <button
+            class="rightButton"
+            open-type="getUserInfo"
+            lang="zh_CN"
+            @getuserinfo="onGotUserInfo"
+          />
         </div>
       </scroll-view>
     </div>
 
     <!-- 信箱 -->
-    <div class="pannel grow" v-else-if="tab == 'mail'">
-      <scroll-view scroll-y :style='`height: ${scrolHeight}px`' @scrolltolower="scrolltolower">
-        <div class="mailbox_title flex center" v-if="wayCount">
-          <button class="flex center" @click="openMail">{{wayCount}} 封信正在邮寄的路上</button>
+    <div
+      v-else-if="tab == 'mail'"
+      class="pannel grow"
+    >
+      <scroll-view
+        scroll-y
+        :style="`height: ${scrolHeight}px`"
+        @scrolltolower="scrolltolower"
+      >
+        <div
+          v-if="wayCount"
+          class="mailbox_title flex center"
+        >
+          <button
+            class="flex center"
+            @click="openMail"
+          >
+            {{ wayCount }} 封信正在邮寄的路上
+          </button>
         </div>
-        <div class="list" v-for="item in dialogs" :key="item._id">
-          <Envelope station="dialogId" :mail="item.toMail" :isRead="item.isRead" :isReplied="item.isReplied" :dialogId="item._id" :showRefer="true" :referMail="item.fromMail" v-if="user._id == item.toUser"></Envelope>
-          <Envelope station="dialogId" :mail="item.fromMail" :isRead="true" :isReplied="true" :dialogId="item._id" :showRefer="true" v-else></Envelope>
+        <div
+          v-for="item in dialogs"
+          :key="item._id"
+          class="list"
+        >
+          <Envelope
+            v-if="user._id == item.toUser"
+            station="dialogId"
+            :mail="item.toMail"
+            :is-read="item.isRead"
+            :is-replied="item.isReplied"
+            :dialog-id="item._id"
+            :show-refer="true"
+            :refer-mail="item.fromMail"
+          />
+          <Envelope
+            v-else
+            station="dialogId"
+            :mail="item.fromMail"
+            :is-read="true"
+            :is-replied="true"
+            :dialog-id="item._id"
+            :show-refer="true"
+          />
         </div>
       </scroll-view>
     </div>
 
     <!-- 我的 -->
-    <div class="pannel grow" v-else>
-      <scroll-view scroll-y :style='`height: ${scrolHeight}px`'>
+    <div
+      v-else
+      class="pannel grow"
+    >
+      <scroll-view
+        scroll-y
+        :style="`height: ${scrolHeight}px`"
+      >
         <div class="my_info flex column">
-          <button v-if="!user.aliasPortrait" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">
-            <img class="my_info_user_avatarUrl" src="https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg" mode="scaleToFill" @click="login" />
+          <button
+            v-if="!user.aliasPortrait"
+            open-type="getUserInfo"
+            lang="zh_CN"
+            @getuserinfo="onGotUserInfo"
+          >
+            <img
+              class="my_info_user_avatarUrl"
+              src="https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg"
+              mode="scaleToFill"
+              @click="login"
+            >
           </button>
-          <img v-else class="my_info_user_avatarUrl" :src="user.aliasPortrait || 'https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg'" mode="scaleToFill" @click="login" />
+          <img
+            v-else
+            class="my_info_user_avatarUrl"
+            :src="user.aliasPortrait || 'https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg'"
+            mode="scaleToFill"
+            @click="login"
+          >
 
-          <div v-if="!user.aliasPortrait" class="flex column center">
-            <button class="lightButton" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">点击登录</button>
-            <div class="my_info_user_address flex wrap">登录后体验完整功能</div>
+          <div
+            v-if="!user.aliasPortrait"
+            class="flex column center"
+          >
+            <button
+              class="lightButton"
+              open-type="getUserInfo"
+              lang="zh_CN"
+              @getuserinfo="onGotUserInfo"
+            >
+              点击登录
+            </button>
+            <div class="my_info_user_address flex wrap">
+              登录后体验完整功能
+            </div>
           </div>
 
-          <div v-else class="flex column center">
+          <div
+            v-else
+            class="flex column center"
+          >
             <div class="flex j-around my_info_user_nickName">
-              <div @click="loginName">{{user.aliasName}}</div>
-              <button @click="openbadge" class="my_info_user_badgeBtn flex center">
-                <image class="my_info_user_badge" v-if="badge" :src="badge.imgUrl" />
+              <div @click="loginName">
+                {{ user.aliasName }}
+              </div>
+              <button
+                class="my_info_user_badgeBtn flex center"
+                @click="openbadge"
+              >
+                <image
+                  v-if="badge"
+                  class="my_info_user_badge"
+                  :src="badge.imgUrl"
+                />
               </button>
             </div>
-            <div class="my_info_user_address flex wrap" @click="showAddressModal">{{user.aliasAddress}}</div>
+            <div
+              class="my_info_user_address flex wrap"
+              @click="showAddressModal"
+            >
+              {{ user.aliasAddress }}
+            </div>
           </div>
         </div>
 
         <session class="my_function flex">
-          <button @tap="memory" class="my_function_item_button flex column center">
-            <image class="iconfont" src="/static/svgs/moment.svg" />
+          <button
+            class="my_function_item_button flex column center"
+            @tap="memory"
+          >
+            <image
+              class="iconfont"
+              src="/static/svgs/moment.svg"
+            />
             <span class="my_function_item_text">记忆</span>
           </button>
 
-          <button @click="ticket" class="my_function_item_button flex column center">
-            <image class="iconfont" src="/static/svgs/ticket.svg" />
+          <button
+            class="my_function_item_button flex column center"
+            @click="ticket"
+          >
+            <image
+              class="iconfont"
+              src="/static/svgs/ticket.svg"
+            />
             <span class="my_function_item_text">票券</span>
           </button>
 
-          <button v-if="!user.unionid" class="my_function_item_button flex column center" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">
-            <image class="iconfont" src="/static/svgs/badge.svg" />
+          <button
+            v-if="!user.unionid"
+            class="my_function_item_button flex column center"
+            open-type="getUserInfo"
+            lang="zh_CN"
+            @getuserinfo="onGotUserInfo"
+          >
+            <image
+              class="iconfont"
+              src="/static/svgs/badge.svg"
+            />
             <span class="my_function_item_text">徽章</span>
           </button>
 
-          <button v-else @click="openbadge" class="my_function_item_button flex column center">
-            <image class="iconfont" src="/static/svgs/badge.svg" />
+          <button
+            v-else
+            class="my_function_item_button flex column center"
+            @click="openbadge"
+          >
+            <image
+              class="iconfont"
+              src="/static/svgs/badge.svg"
+            />
             <span class="my_function_item_text">徽章</span>
           </button>
         </session>
 
         <session class="my_contact flex column">
-          <button v-if="!user.unionid" class="my_contact_item_button flex wrap center grow" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">
-            <image class="iconfont" src="/static/svgs/welfare.svg" />
+          <button
+            v-if="!user.unionid"
+            class="my_contact_item_button flex wrap center grow"
+            open-type="getUserInfo"
+            lang="zh_CN"
+            @getuserinfo="onGotUserInfo"
+          >
+            <image
+              class="iconfont"
+              src="/static/svgs/welfare.svg"
+            />
             <span class="my_contact_item_text grow">福利社</span>
-            <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
+            <image
+              class="iconfont flex center"
+              src="/static/svgs/arrow.svg"
+            />
           </button>
 
-          <button v-else class="my_contact_item_button flex wrap center grow" @click="welfare">
-            <image class="iconfont" src="/static/svgs/welfare.svg" />
+          <button
+            v-else
+            class="my_contact_item_button flex wrap center grow"
+            @click="welfare"
+          >
+            <image
+              class="iconfont"
+              src="/static/svgs/welfare.svg"
+            />
             <span class="my_contact_item_text grow">福利社</span>
-            <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
+            <image
+              class="iconfont flex center"
+              src="/static/svgs/arrow.svg"
+            />
           </button>
 
-          <button class="my_contact_item_button flex wrap center grow" @click="joinGroup">
-            <image class="iconfont" src="/static/svgs/joinGroup.svg" />
+          <button
+            class="my_contact_item_button flex wrap center grow"
+            @click="joinGroup"
+          >
+            <image
+              class="iconfont"
+              src="/static/svgs/joinGroup.svg"
+            />
             <span class="my_contact_item_text grow">加入群聊</span>
-            <image class="group flex center" src="/static/jpg/group.png" />
-            <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
+            <image
+              class="group flex center"
+              src="/static/jpg/group.png"
+            />
+            <image
+              class="iconfont flex center"
+              src="/static/svgs/arrow.svg"
+            />
           </button>
 
-          <button class="my_contact_item_button flex wrap center grow" @click="toFaq">
-            <image class="iconfont" src="/static/svgs/question.svg" />
+          <button
+            class="my_contact_item_button flex wrap center grow"
+            @click="toFaq"
+          >
+            <image
+              class="iconfont"
+              src="/static/svgs/question.svg"
+            />
             <span class="my_contact_item_text grow">问题与反馈</span>
-            <image class="iconfont flex center" src="/static/svgs/arrow.svg" />
+            <image
+              class="iconfont flex center"
+              src="/static/svgs/arrow.svg"
+            />
           </button>
-
         </session>
 
         <session class="my_share flex center">
-          <button class="flex center" hover-class="active" @click="toShare">分享Tell给好友</button>
+          <button
+            class="flex center"
+            hover-class="active"
+            @click="toShare"
+          >
+            分享Tell给好友
+          </button>
         </session>
       </scroll-view>
     </div>
 
-    <Modal ref="mymodal"></Modal>
-    <ImgModal ref="myImgmodal"></ImgModal>
+    <Modal ref="mymodal" />
+    <ImgModal ref="myImgmodal" />
 
-    <HomeTabbar @change="onTabChange" :mailCount="unreadMessages"></HomeTabbar>
+    <HomeTabbar
+      :mail-count="unreadMessages"
+      @change="onTabChange"
+    />
   </view>
 </template>
 <script>

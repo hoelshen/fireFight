@@ -1,11 +1,29 @@
 <template>
   <view class="app box">
-    <Mail :mail="mail"></Mail>
-    <Mail v-if="reMail" :mail="reMail"></Mail>
-    <Reply v-if="canReply" :target="mail.aliasName" tag="solution" :id="id" @submit="submit"></Reply>
-    <div v-if="isReplyButton" class="flex column center showReply_button">
-      <button :disabled="isDisable" class="reply_button flex center" @click="showReply">回信</button>
-      <span class="replay_text">今天还可以回复 {{replyCount}} 次</span>
+    <Mail :mail="mail" />
+    <Mail
+      v-if="reMail"
+      :mail="reMail"
+    />
+    <Reply
+      v-if="canReply"
+      :id="id"
+      :target="mail.aliasName"
+      tag="solution"
+      @submit="submit"
+    />
+    <div
+      v-if="isReplyButton"
+      class="flex column center showReply_button"
+    >
+      <button
+        :disabled="isDisable"
+        class="reply_button flex center"
+        @click="showReply"
+      >
+        回信
+      </button>
+      <span class="replay_text">今天还可以回复 {{ replyCount }} 次</span>
     </div>
   </view>
 </template>

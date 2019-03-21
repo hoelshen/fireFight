@@ -10,11 +10,26 @@
     </div>
 
     <div class="content grow">
-      <textarea :value="content" cursor-spacing="30" class="txt" name="" placeholder="50字以上" maxlength="5000" auto-height @input="onContentChange"></textarea>
+      <textarea
+        :value="content"
+        cursor-spacing="30"
+        class="txt"
+        name=""
+        placeholder="50字以上"
+        maxlength="5000"
+        auto-height
+        @input="onContentChange"
+      />
     </div>
 
     <div class="btns  flex center column">
-      <button class="flex center" hover-class="active" @tap="send">发布</button>
+      <button
+        class="flex center"
+        hover-class="active"
+        @tap="send"
+      >
+        发布
+      </button>
       <div class="desc flex center">
         将发布到
         <span class="em">大家的故事</span>（可能有一定时延）

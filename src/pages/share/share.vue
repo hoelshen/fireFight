@@ -1,15 +1,32 @@
 <template>
   <div class="box page flex center column">
-    <img class="img" :src="imgUrl" alt="">
+    <img
+      class="img"
+      :src="imgUrl"
+      alt=""
+    >
     <div class="btns grow flex a-center column">
-      <button class="btn darkButton" @click="save">生成海报</button>
-      <button class="btn lightButton" open-type="share">发送给好友/群友</button>
+      <button
+        class="btn darkButton"
+        @click="save"
+      >
+        生成海报
+      </button>
+      <button
+        class="btn lightButton"
+        open-type="share"
+      >
+        发送给好友/群友
+      </button>
       <div class="tips">
-        <div class="line">你安利加入 Tell 的好友，将获得 1 张解忧券</div>
-        <div class="line">同时你也将获得 1 张邮票奖励</div>
+        <div class="line">
+          你安利加入 Tell 的好友，将获得 1 张解忧券
+        </div>
+        <div class="line">
+          同时你也将获得 1 张邮票奖励
+        </div>
       </div>
     </div>
-
   </div>
 </template>
 <script>

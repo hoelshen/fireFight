@@ -1,14 +1,30 @@
 <template>
   <view class="app box">
-    <div class="new" v-if="mailList">
-      <Mail :mail="newMail" v-for="newMail in mailList" :key="newMail._id"></Mail>
+    <div
+      v-if="mailList"
+      class="new"
+    >
+      <Mail
+        v-for="newMail in mailList"
+        :key="newMail._id"
+        :mail="newMail"
+      />
     </div>
 
-    <div class="old" v-else>
-      <Mail :mail="oldMail" v-for="oldMail in list" :key="oldMail._id"></Mail>
-      <Mail :mail="currentMail" v-if="currentMail"></Mail>
+    <div
+      v-else
+      class="old"
+    >
+      <Mail
+        v-for="oldMail in list"
+        :key="oldMail._id"
+        :mail="oldMail"
+      />
+      <Mail
+        v-if="currentMail"
+        :mail="currentMail"
+      />
     </div>
-
   </view>
 </template>
 

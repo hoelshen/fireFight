@@ -1,14 +1,34 @@
 <template>
   <view class="app flex column j-between">
     <div class="soDetail">
-      <div class="title">选择你最愿意看到的话题</div>
-      <div class="tag box" :class="activeIndex == index ?'active' :''" v-for="(item,index) in titles" :key="index" @click="select(index)">
-        {{item.name}}
+      <div class="title">
+        选择你最愿意看到的话题
+      </div>
+      <div
+        v-for="(item,index) in titles"
+        :key="index"
+        class="tag box"
+        :class="activeIndex == index ?'active' :''"
+        @click="select(index)"
+      >
+        {{ item.name }}
       </div>
     </div>
     <div class="foot">
-      <button v-if="!isFlag" class="titleButton flex center darkButton" @click="add">提交申请</button>
-      <button v-else class="titleButton flex center darkButton" @click="add">修改</button>
+      <button
+        v-if="!isFlag"
+        class="titleButton flex center darkButton"
+        @click="add"
+      >
+        提交申请
+      </button>
+      <button
+        v-else
+        class="titleButton flex center darkButton"
+        @click="add"
+      >
+        修改
+      </button>
       <span class="titleButtonSpan">你收到的咨询会在一定数量上接近该话题以后你也可以随时修改，并在次日生效</span>
     </div>
   </view>

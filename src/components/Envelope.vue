@@ -1,26 +1,46 @@
 <template>
-  <view class="list_item flex column j-between" :class="isRead ? 'read' :''" @tap="toMail">
+  <view
+    class="list_item flex column j-between"
+    :class="isRead ? 'read' :''"
+    @tap="toMail"
+  >
     <view class="list_item_sendName flex wrap j-between">
       <view class="flex column j-between">
         <view class="list_item_receiverName">
-          <span class="list_item_receiverNameSpan">{{mail.targetUserName}}</span>
+          <span class="list_item_receiverNameSpan">{{ mail.targetUserName }}</span>
           <span v-if="!mail.fromSystem">收</span>
         </view>
         <view class="list_item_content ">
-          <span>{{mail.fromSystem ? mail.title :mail.content}}</span>
+          <span>{{ mail.fromSystem ? mail.title :mail.content }}</span>
         </view>
       </view>
       <view class="flex">
-        <image class="mail-svg" src="/static/svgs/stamp.svg"/>
+        <image
+          class="mail-svg"
+          src="/static/svgs/stamp.svg"
+        />
       </view>
     </view>
-    <view class="flex j-between list_item_alias" >
-      <view v-if="isExtra" :class="isExtra ? 'list_item_extra' : '' ">{{isExtra ? '可额外回复的信' : ''}}</view>
-      <view v-else :class="isReplied ? 'list_item_replied' : '' ">{{isReplied ? '已回复' : ''}}</view>
-      <view >{{mail.aliasName}}</view>
+    <view class="flex j-between list_item_alias">
+      <view
+        v-if="isExtra"
+        :class="isExtra ? 'list_item_extra' : '' "
+      >
+        {{ isExtra ? '可额外回复的信' : '' }}
+      </view>
+      <view
+        v-else
+        :class="isReplied ? 'list_item_replied' : '' "
+      >
+        {{ isReplied ? '已回复' : '' }}
+      </view>
+      <view>{{ mail.aliasName }}</view>
     </view>
-    <view  class="context" v-if="showRefer && remoteReferContent">
-      {{remoteReferContent}}
+    <view
+      v-if="showRefer && remoteReferContent"
+      class="context"
+    >
+      {{ remoteReferContent }}
     </view>
   </view>
 </template>

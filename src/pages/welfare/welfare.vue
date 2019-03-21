@@ -1,13 +1,31 @@
 <template>
   <view class="ticket flex column j-between">
     <session class="navigatabar flex j-around">
-      <div @click="toggle('TICKET')" :class="active == 'TICKET' ? 'borderColor' :''" class="navigatabar_item   flex center">我要解忧券</div>
-      <div @click="toggle('STAMP')" :class="active == 'STAMP' ? 'borderColor' :''" class="navigatabar_item  flex center">我要邮票</div>
+      <div
+        :class="active == 'TICKET' ? 'borderColor' :''"
+        class="navigatabar_item   flex center"
+        @click="toggle('TICKET')"
+      >
+        我要解忧券
+      </div>
+      <div
+        :class="active == 'STAMP' ? 'borderColor' :''"
+        class="navigatabar_item  flex center"
+        @click="toggle('STAMP')"
+      >
+        我要邮票
+      </div>
     </session>
-    <session class="list" v-if="active === 'TICKET'">
+    <session
+      v-if="active === 'TICKET'"
+      class="list"
+    >
       <div class="list_item flex  j-between ">
         <div class="flex ">
-          <image class="iconfont" src="/static/svgs/ticket.svg" />
+          <image
+            class="iconfont"
+            src="/static/svgs/ticket.svg"
+          />
           <div class="flex column j-start">
             <div>
               <span class="list_item_span">购买解忧券</span>
@@ -17,12 +35,20 @@
           </div>
         </div>
         <div class="exchange  flex center">
-          <button @click="toPay" class="flex center">购买</button>
+          <button
+            class="flex center"
+            @click="toPay"
+          >
+            购买
+          </button>
         </div>
       </div>
       <div class="list_item flex  j-between ">
         <div class="flex">
-          <image class="iconfont" src="/static/svgs/ticket.svg" />
+          <image
+            class="iconfont"
+            src="/static/svgs/ticket.svg"
+          />
           <div class="flex column j-start">
             <div>
               <span class="list_item_span">邮票兑换解忧券</span>
@@ -32,12 +58,20 @@
           </div>
         </div>
         <div class="exchange  flex center">
-          <button @click="toExchange" class="flex center">兑换</button>
+          <button
+            class="flex center"
+            @click="toExchange"
+          >
+            兑换
+          </button>
         </div>
       </div>
       <div class="list_item flex  j-between ">
         <div class="flex ">
-          <image class="iconfont" src="/static/svgs/ticket.svg" />
+          <image
+            class="iconfont"
+            src="/static/svgs/ticket.svg"
+          />
           <div class="flex column j-start">
             <div>
               <span class="list_item_span">关注服务号得解忧券</span>
@@ -47,14 +81,21 @@
           </div>
         </div>
         <div class="exchange flex center">
-          <button @click="FocusServer" class="flex center ">去关注
+          <button
+            class="flex center "
+            @click="FocusServer"
+          >
+            去关注
           </button>
         </div>
       </div>
 
       <div class="list_item flex  j-between ">
         <div class="flex ">
-          <image class="iconfont" src="/static/svgs/ticket.svg" />
+          <image
+            class="iconfont"
+            src="/static/svgs/ticket.svg"
+          />
           <div class="flex column j-start">
             <div>
               <span class="list_item_span">关注订阅号得解忧券</span>
@@ -64,23 +105,41 @@
           </div>
         </div>
         <div class="exchange flex center">
-          <button @click="FocusSubscript" class="flex center ">去关注</button>
+          <button
+            class="flex center "
+            @click="FocusSubscript"
+          >
+            去关注
+          </button>
         </div>
       </div>
 
-      <div class="list_item flex  j-between " v-for="item in tasks" :key="item._id">
+      <div
+        v-for="item in tasks"
+        :key="item._id"
+        class="list_item flex  j-between "
+      >
         <div class="flex ">
-          <image class="iconfont" src="/static/svgs/stamp-icon.svg" />
+          <image
+            class="iconfont"
+            src="/static/svgs/stamp-icon.svg"
+          />
           <div class="flex column j-start">
             <div>
-              <span class="list_item_span">{{item.name}}</span>
-              <span class="count">×{{item.rewardCount}}</span>
+              <span class="list_item_span">{{ item.name }}</span>
+              <span class="count">×{{ item.rewardCount }}</span>
             </div>
-            <span class="welfare_content">{{item.tipsText}}</span>
+            <span class="welfare_content">{{ item.tipsText }}</span>
           </div>
         </div>
         <div class="exchange  flex center">
-          <button @click="doTask(item)" :disabled="item.isReceived" class="flex center">{{item.isReceived ? '已完成' : '去领取'}} </button>
+          <button
+            :disabled="item.isReceived"
+            class="flex center"
+            @click="doTask(item)"
+          >
+            {{ item.isReceived ? '已完成' : '去领取' }}
+          </button>
         </div>
       </div>
 
@@ -88,10 +147,16 @@
         解忧券最大持有量为 3 张，超出部分自动销毁
       </div>
     </session>
-    <session class="list" v-if="active === 'STAMP'">
+    <session
+      v-if="active === 'STAMP'"
+      class="list"
+    >
       <div class="list_item flex  j-between ">
         <div class="flex ">
-          <image class="iconfont" src="/static/svgs/stamp-icon.svg" />
+          <image
+            class="iconfont"
+            src="/static/svgs/stamp-icon.svg"
+          />
           <div class="flex column j-start">
             <div>
               <span class="list_item_span">解答咨询得邮票</span>
@@ -101,12 +166,20 @@
           </div>
         </div>
         <div class="exchange  flex center">
-          <button @click="toReply" class="flex center">去解答</button>
+          <button
+            class="flex center"
+            @click="toReply"
+          >
+            去解答
+          </button>
         </div>
       </div>
       <div class="list_item flex  j-between ">
         <div class="flex ">
-          <image class="iconfont" src="/static/svgs/stamp-icon.svg" />
+          <image
+            class="iconfont"
+            src="/static/svgs/stamp-icon.svg"
+          />
           <div class="flex column j-start">
             <div>
               <span class="list_item_span">分享 Tell 得邮票</span>
@@ -116,30 +189,46 @@
           </div>
         </div>
         <div class="exchange flex center">
-          <button @click="toShare" class="flex center ">去分享
+          <button
+            class="flex center "
+            @click="toShare"
+          >
+            去分享
           </button>
         </div>
       </div>
-      <div class="list_item flex  j-between " v-for="item in tasks" :key="item._id">
+      <div
+        v-for="item in tasks"
+        :key="item._id"
+        class="list_item flex  j-between "
+      >
         <div class="flex ">
-          <image class="iconfont" src="/static/svgs/stamp-icon.svg" />
+          <image
+            class="iconfont"
+            src="/static/svgs/stamp-icon.svg"
+          />
           <div class="flex column j-start">
             <div>
-              <span class="list_item_span">{{item.name}}</span>
-              <span class="count">×{{item.rewardCount}}</span>
+              <span class="list_item_span">{{ item.name }}</span>
+              <span class="count">×{{ item.rewardCount }}</span>
             </div>
-            <span class="welfare_content">{{item.tipsText}}</span>
+            <span class="welfare_content">{{ item.tipsText }}</span>
           </div>
         </div>
         <div class="exchange  flex center">
-          <button @click="doTask(item)" :disabled="item.isReceived" class="flex center">{{item.isReceived ? '已完成' : '去领取'}} </button>
+          <button
+            :disabled="item.isReceived"
+            class="flex center"
+            @click="doTask(item)"
+          >
+            {{ item.isReceived ? '已完成' : '去领取' }}
+          </button>
         </div>
       </div>
     </session>
 
-    <Modal ref="mymodal"></Modal>
-    <ImgModal ref="myImgmodal"></ImgModal>
-
+    <Modal ref="mymodal" />
+    <ImgModal ref="myImgmodal" />
   </view>
 </template>
 <script>

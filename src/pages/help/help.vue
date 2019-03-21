@@ -1,71 +1,162 @@
 <template>
   <div class="app flex column center">
-    <div v-if="!showContent" class="prompt flex column center grow">
+    <div
+      v-if="!showContent"
+      class="prompt flex column center grow"
+    >
       <div class="flex column j-between">
         <span class="text">如果需要更及时专业的帮助</span>
         <span class="text">请尽快联系心理救援机构</span>
-        <span class="flex center psychological" hover-class="active" @tap="show">查看心理救援机构</span>
-        <button class="flex center darkButton" hover-class="active" @tap="send">继续投递</button>
+        <span
+          class="flex center psychological"
+          hover-class="active"
+          @tap="show"
+        >查看心理救援机构</span>
+        <button
+          class="flex center darkButton"
+          hover-class="active"
+          @tap="send"
+        >
+          继续投递
+        </button>
       </div>
     </div>
 
-    <scroll-view class="scroll" scroll-y v-else>
+    <scroll-view
+      v-else
+      class="scroll"
+      scroll-y
+    >
       <div class="list">
         <div class="list_item flex column j-between">
           <div class="flex j-start card">
-            <image class="iconfont" src="/static/svgs/psychological.svg" />
-            <div class="title">北京心理危机研究与干预中心</div>
-
+            <image
+              class="iconfont"
+              src="/static/svgs/psychological.svg"
+            />
+            <div class="title">
+              北京心理危机研究与干预中心
+            </div>
           </div>
-          <div class="phone" @tap="makePhone" data-tel="8008101117">8008101117</div>
-          <div class="time">24小时热线</div>
+          <div
+            class="phone"
+            data-tel="8008101117"
+            @tap="makePhone"
+          >
+            8008101117
+          </div>
+          <div class="time">
+            24小时热线
+          </div>
         </div>
 
         <div class="list_item flex column j-between">
           <div class="flex j-start card">
-            <image class="iconfont" src="/static/svgs/psychological.svg" />
-            <div class="title">深圳市心理危机干预中心</div>
-
+            <image
+              class="iconfont"
+              src="/static/svgs/psychological.svg"
+            />
+            <div class="title">
+              深圳市心理危机干预中心
+            </div>
           </div>
-          <div class="phone" @tap="makePhone" data-tel="075525629459 ">0755-25629459</div>
-          <div class="time">8:00 - 23:00</div>
+          <div
+            class="phone"
+            data-tel="075525629459 "
+            @tap="makePhone"
+          >
+            0755-25629459
+          </div>
+          <div class="time">
+            8:00 - 23:00
+          </div>
         </div>
 
         <div class="list_item flex column j-between">
           <div class="flex j-start card">
-            <image class="iconfont" src="/static/svgs/psychological.svg" />
-            <div class="title">长春市心理援助热线</div>
+            <image
+              class="iconfont"
+              src="/static/svgs/psychological.svg"
+            />
+            <div class="title">
+              长春市心理援助热线
+            </div>
           </div>
-          <div class="phone" @tap="makePhone" data-tel="043189685000">0431-89685000 </div>
-          <div class="time">24小时热线</div>
-          <div class="phone" @tap="makePhone" data-tel="043189685333">0431-89685333 </div>
-          <div class="time">8:00 - 16:00</div>
+          <div
+            class="phone"
+            data-tel="043189685000"
+            @tap="makePhone"
+          >
+            0431-89685000
+          </div>
+          <div class="time">
+            24小时热线
+          </div>
+          <div
+            class="phone"
+            data-tel="043189685333"
+            @tap="makePhone"
+          >
+            0431-89685333
+          </div>
+          <div class="time">
+            8:00 - 16:00
+          </div>
         </div>
 
         <div class="list_item flex column j-between">
           <div class="flex j-start card">
-            <image class="iconfont" src="/static/svgs/psychological.svg" />
-            <div class="title">青岛市心理危机干预中心</div>
-
+            <image
+              class="iconfont"
+              src="/static/svgs/psychological.svg"
+            />
+            <div class="title">
+              青岛市心理危机干预中心
+            </div>
           </div>
-          <div class="phone" @tap="makePhone" data-tel="053285669120">0532-85669120 </div>
-          <div class="time">24小时热线</div>
+          <div
+            class="phone"
+            data-tel="053285669120"
+            @tap="makePhone"
+          >
+            0532-85669120
+          </div>
+          <div class="time">
+            24小时热线
+          </div>
         </div>
 
         <div class="list_item flex column j-between">
           <div class="flex j-start card">
-            <image class="iconfont" src="/static/svgs/psychological.svg" />
-            <div class="title">广州市心理危机干预中心热线</div>
-
+            <image
+              class="iconfont"
+              src="/static/svgs/psychological.svg"
+            />
+            <div class="title">
+              广州市心理危机干预中心热线
+            </div>
           </div>
-          <div class="phone" @tap="makePhone" data-tel="02081899120">020-81899120 </div>
-          <div class="time">24小时热线</div>
+          <div
+            class="phone"
+            data-tel="02081899120"
+            @tap="makePhone"
+          >
+            020-81899120
+          </div>
+          <div class="time">
+            24小时热线
+          </div>
         </div>
 
         <div class=" flex center">
-          <button class="flex center darkButton" hover-class="active" @tap="send">继续投递</button>
+          <button
+            class="flex center darkButton"
+            hover-class="active"
+            @tap="send"
+          >
+            继续投递
+          </button>
         </div>
-
       </div>
     </scroll-view>
   </div>

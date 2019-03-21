@@ -1,7 +1,16 @@
 <template>
   <div class="flex column">
-    <img class="bg" src="/static/jpg/becomeSolutor.png" alt>
-    <button class="flex center lightButton" @click="opneSolution">前往解答室</button>
+    <img
+      class="bg"
+      src="/static/jpg/becomeSolutor.png"
+      alt
+    >
+    <button
+      class="flex center lightButton"
+      @click="opneSolution"
+    >
+      前往解答室
+    </button>
   </div>
 </template>
 

@@ -1,8 +1,17 @@
 <template>
   <view class="page">
-    <div class="list shadow" v-for="item in list" :key="item._id">
-      <div class="mailDay flex center" @click="showToast(index)">来自
-        <span class="mailDayName">{{item.aliasName}}</span>的信将于 {{item.createdAt | timeIntervalFormat}} 到达</div>
+    <div
+      v-for="item in list"
+      :key="item._id"
+      class="list shadow"
+    >
+      <div
+        class="mailDay flex center"
+        @click="showToast(index)"
+      >
+        来自
+        <span class="mailDayName">{{ item.aliasName }}</span>的信将于 {{ item.createdAt | timeIntervalFormat }} 到达
+      </div>
     </div>
   </view>
 </template>

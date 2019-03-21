@@ -1,21 +1,37 @@
 <template>
   <div class="faq flex column">
-    <scroll-view class="items grow box" scroll-y>
+    <scroll-view
+      class="items grow box"
+      scroll-y
+    >
       <div class="item">
-        <div class="t">关于咨询箱</div>
-        <div class="q">Q：我写的咨询谁会收到？</div>
-        <div class="a">A：我们会在每晚 22:30 将咨询箱中的信收集到解答室，按照一定规则随机分发给解答者，并利用算法尽量确保每个咨询被若干个适合的解答者看到，以增加被回复的概率。
+        <div class="t">
+          关于咨询箱
+        </div>
+        <div class="q">
+          Q：我写的咨询谁会收到？
+        </div>
+        <div class="a">
+          A：我们会在每晚 22:30 将咨询箱中的信收集到解答室，按照一定规则随机分发给解答者，并利用算法尽量确保每个咨询被若干个适合的解答者看到，以增加被回复的概率。
         </div>
       </div>
 
       <div class="item">
-        <div class="q">Q：我的咨询会被微信好友看到吗？</div>
-        <div class="a">A： 咨询是完全匿名的，你不必使用自己的笔名或微信昵称，而是可以每次使用不同的署名。因此你不必担心自己的咨询会被微信好友看到。同时我们建议在讲述烦恼时，对重要的地点、人物等信息使用化名，以巩固咨询的私密性。</div>
+        <div class="q">
+          Q：我的咨询会被微信好友看到吗？
+        </div>
+        <div class="a">
+          A： 咨询是完全匿名的，你不必使用自己的笔名或微信昵称，而是可以每次使用不同的署名。因此你不必担心自己的咨询会被微信好友看到。同时我们建议在讲述烦恼时，对重要的地点、人物等信息使用化名，以巩固咨询的私密性。
+        </div>
       </div>
 
       <div class="item">
-        <div class="q">Q：为什么我的咨询很久都没人回复？</div>
-        <div class="a"> A：Tell 不是一个即时通讯工具，Tell 是在模拟现实环境的写信沟通场景，是需要一定的投递时间的，所以每一封信收到回复的时间并不相同。目前的 Tell 信件投递机制是按照一定的匹配规则，向与你相近的 Teller 进行投递，Tell 保证每一封正常内容的信都会被投递出去，但是部分因为信件本身的质量原因，并未成功引起他人共鸣进而吸引他人进行回复。</div>
+        <div class="q">
+          Q：为什么我的咨询很久都没人回复？
+        </div>
+        <div class="a">
+          A：Tell 不是一个即时通讯工具，Tell 是在模拟现实环境的写信沟通场景，是需要一定的投递时间的，所以每一封信收到回复的时间并不相同。目前的 Tell 信件投递机制是按照一定的匹配规则，向与你相近的 Teller 进行投递，Tell 保证每一封正常内容的信都会被投递出去，但是部分因为信件本身的质量原因，并未成功引起他人共鸣进而吸引他人进行回复。
+        </div>
       </div>
 
       <div class="item">
@@ -37,7 +53,9 @@
       </div>
 
       <div class="item">
-        <div class="t">关于解答室</div>
+        <div class="t">
+          关于解答室
+        </div>
         <div class="q">
           Q：为什么每天只能在解答室中解答一个咨询？
         </div>
@@ -65,7 +83,9 @@
       </div>
 
       <div class="item">
-        <div class="t">关于其他</div>
+        <div class="t">
+          关于其他
+        </div>
         <div class="q">
           Q：如何获得解忧券？
         </div>
@@ -85,8 +105,16 @@
     </scroll-view>
 
     <div class="btns flex column center box">
-      <button class="flex center darkButton" :session-from="userInfo" open-type="contact">在线客服</button>
-      <div class="tips">问题没有解决？直接联系我们吧！</div>
+      <button
+        class="flex center darkButton"
+        :session-from="userInfo"
+        open-type="contact"
+      >
+        在线客服
+      </button>
+      <div class="tips">
+        问题没有解决？直接联系我们吧！
+      </div>
     </div>
   </div>
 </template>

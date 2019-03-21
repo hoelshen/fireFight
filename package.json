@@ -5,7 +5,8 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "dev": "npm run dev:wechat",
+    "lint":"eslint --fix --ext .js,.vue src",
+    "dev": "npm run lint && npm run dev:wechat",
     "dev:alipay": "webpack --config ./build/webpack.config.alipay.js -w",
     "dev:swan": "webpack --config ./build/webpack.config.swan.js -w",
     "dev:wechat": "webpack --config ./build/webpack.config.wechat.js -w"

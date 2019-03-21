@@ -2,40 +2,67 @@
   <div class="app flex column center">
     <div class="prompt flex column center grow">
       <div class="flex column center">
-        <div class="flex column targer" v-if="active === 'solution'">
+        <div
+          v-if="active === 'solution'"
+          class="flex column targer"
+        >
           <div class="textAlign">
             您已解答
-            <span class="promptSpn">{{targetUser}}</span>的咨询
+            <span class="promptSpn">{{ targetUser }}</span>的咨询
           </div>
           <span class="textAlign">若被对方感谢，还将获得 1 张邮票</span>
         </div>
-        <div class="flex column targer" v-if="active === 'mail'">
+        <div
+          v-if="active === 'mail'"
+          class="flex column targer"
+        >
           <span>此回信将于 6 小时左右后</span>
           <div>
             送到
-            <span class="promptSpn">{{targetUser}}</span>的信箱
+            <span class="promptSpn">{{ targetUser }}</span>的信箱
           </div>
         </div>
-        <div class="flex column targer" v-if="active === 'story'">
-          <div class="line">我们会在每日 22:30 收集咨询箱中的信</div>
-          <div class="line">这封信将于 {{time}} 送到解答室</div>
+        <div
+          v-if="active === 'story'"
+          class="flex column targer"
+        >
+          <div class="line">
+            我们会在每日 22:30 收集咨询箱中的信
+          </div>
+          <div class="line">
+            这封信将于 {{ time }} 送到解答室
+          </div>
         </div>
-        <img class="home flex center" src="/static/jpg/focusServer.jpg">
-        <button class="promptBtn flex column center" @click="attention">
+        <img
+          class="home flex center"
+          src="/static/jpg/focusServer.jpg"
+        >
+        <button
+          class="promptBtn flex column center"
+          @click="attention"
+        >
           <span>关注服务号</span>
           <span v-if="active === 'solution'">被感谢时立即收到通知</span>
           <span v-if="active === 'story'">被解答时立即收到通知</span>
           <div class="darkIconf">
-            <img class="iconfont" src="/static/svgs/leftArrow.svg">
+            <img
+              class="iconfont"
+              src="/static/svgs/leftArrow.svg"
+            >
           </div>
         </button>
 
-        <div class="aslks"></div>
+        <div class="aslks" />
       </div>
     </div>
-    <button class="lightButton" @click="onsure">好的</button>
+    <button
+      class="lightButton"
+      @click="onsure"
+    >
+      好的
+    </button>
 
-    <ImgModal ref="myImgmodal"></ImgModal>
+    <ImgModal ref="myImgmodal" />
   </div>
 </template>
 

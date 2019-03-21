@@ -1,14 +1,34 @@
 <template>
-  <cover-view class="modal" @click="clickMask" v-if="isShowModal">
-    <cover-view class="card flex column center" @tap.stop="stopkMask">
+  <cover-view
+    v-if="isShowModal"
+    class="modal"
+    @click="clickMask"
+  >
+    <cover-view
+      class="card flex column center"
+      @tap.stop="stopkMask"
+    >
       <cover-view class="title">
-        {{value.title}}
+        {{ value.title }}
       </cover-view>
       <cover-view class="content">
-        <cover-image  :src="value.imgSrc" alt="" />
+        <cover-image
+          :src="value.imgSrc"
+          alt=""
+        />
       </cover-view>
       <cover-view class="btn">
-        <button open-type="contact" :show-message-card="true" :send-message-img="imgUrl" :send-message-title="filterTitle" :session-from="`nickName'${user.aliasName}, 'avatarUrl':${user.aliasPortrait}`" class="sure darkButton" @click="enSure">{{value.sureButtonText}}</button>
+        <button
+          open-type="contact"
+          :show-message-card="true"
+          :send-message-img="imgUrl"
+          :send-message-title="filterTitle"
+          :session-from="`nickName'${user.aliasName}, 'avatarUrl':${user.aliasPortrait}`"
+          class="sure darkButton"
+          @click="enSure"
+        >
+          {{ value.sureButtonText }}
+        </button>
       </cover-view>
     </cover-view>
   </cover-view>

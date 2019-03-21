@@ -2,19 +2,37 @@
   <view class="app flex column j-start">
     <div class="container flex grow">
       <div class="photo-circle flex wrap j-start center">
-        <div class="circle" @click="takePhoto">
-          <image class="userinfo-avatar" :src="userInfo.aliasPortrait" alt="选择头像" background-size="cover">
-          </image>
+        <div
+          class="circle"
+          @click="takePhoto"
+        >
+          <image
+            class="userinfo-avatar"
+            :src="userInfo.aliasPortrait"
+            alt="选择头像"
+            background-size="cover"
+          />
         </div>
         <div class="userinfo-name">
-          <div class="set">设置笔名</div>
-          <input type="text" :value="userInfo.aliasName" @input="setName" placeholder="设置笔名" maxlength="10" focus>
+          <div class="set">
+            设置笔名
+          </div>
+          <input
+            type="text"
+            :value="userInfo.aliasName"
+            placeholder="设置笔名"
+            maxlength="10"
+            focus
+            @input="setName"
+          >
           <span class="userinfo-text">你可以随时点击头像和笔名来修改它们</span>
         </div>
       </div>
     </div>
     <div class="saveButton">
-      <button @click="save">保存</button>
+      <button @click="save">
+        保存
+      </button>
     </div>
   </view>
 </template>

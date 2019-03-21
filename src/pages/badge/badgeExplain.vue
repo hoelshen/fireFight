@@ -10,27 +10,42 @@
 
     <session class="list_notice">
       <div class="container flex center">
-        <div class="containerBadge">持有徽章</div>
-        <div class="containerBadge">每日收取</div>
-        <div class="containerBadge">每日可解答</div>
+        <div class="containerBadge">
+          持有徽章
+        </div>
+        <div class="containerBadge">
+          每日收取
+        </div>
+        <div class="containerBadge">
+          每日可解答
+        </div>
       </div>
       <div
-        :class="key % 2 === 0? 'bg' : '' "
-        class="container flex center"
         v-for="(item,key) in list"
         :key="item._id"
+        :class="key % 2 === 0? 'bg' : '' "
+        class="container flex center"
       >
         <div class="containerBadge flex center">
-          <img class="iconfont" :src="item.imgUrl">
-          <span>{{item.name}}</span>
+          <img
+            class="iconfont"
+            :src="item.imgUrl"
+          >
+          <span>{{ item.name }}</span>
         </div>
-        <div class="containerBadge flex center">{{item.mailboxLimit}}</div>
-        <div class="containerBadge flex center">{{item.replyLimit}}</div>
+        <div class="containerBadge flex center">
+          {{ item.mailboxLimit }}
+        </div>
+        <div class="containerBadge flex center">
+          {{ item.replyLimit }}
+        </div>
       </div>
     </session>
 
     <session>
-      <div class="foot">温馨提示：带有「可额外解答的咨询」标记的，收取和解答次数不受该规则限制。</div>
+      <div class="foot">
+        温馨提示：带有「可额外解答的咨询」标记的，收取和解答次数不受该规则限制。
+      </div>
     </session>
   </div>
 </template>

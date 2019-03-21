@@ -2,24 +2,47 @@
   <div class="replay_content">
     <div class="content">
       <div class="flex">
-        <span class="target">{{target}}</span>
-        <span class="target" style="margin-left:10rpx;">收</span>
+        <span class="target">{{ target }}</span>
+        <span
+          class="target"
+          style="margin-left:10rpx;"
+        >收</span>
       </div>
-      <textarea :focus="true" :auto-height="true" class="textArea" maxlength="5000" cursor-spacing="30" :value="reply.content" @input="bindTextAreaInput"/>
+      <textarea
+        :focus="true"
+        :auto-height="true"
+        class="textArea"
+        maxlength="5000"
+        cursor-spacing="30"
+        :value="reply.content"
+        @input="bindTextAreaInput"
+      />
       <div class="reply_weather flex column">
         <div class="flex wrap j-end">
-          <img class="reply_weather_name" :src="reply.aliasPortrait">
-          <span class="replyaliasName">{{reply.aliasName}}</span>
+          <img
+            class="reply_weather_name"
+            :src="reply.aliasPortrait"
+          >
+          <span class="replyaliasName">{{ reply.aliasName }}</span>
         </div>
 
         <div class="reply_weather_weather flex wrap j-end">
-          <div class="days flex j-end">{{days | dateFormat}}</div>
-          <div class="flex j-end">{{reply.weather}}</div>
+          <div class="days flex j-end">
+            {{ days | dateFormat }}
+          </div>
+          <div class="flex j-end">
+            {{ reply.weather }}
+          </div>
         </div>
       </div>
     </div>
     <div class="flex center reply_div">
-        <button class="reply_button flex center" @click="replyMail">发送</button>
+      <button
+        class="reply_button flex center"
+        @click="replyMail"
+      >
+        发送
+      </button>
     </div>
   </div>
 </template>
@@ -51,6 +74,17 @@ export default {
       },
       oldContent:""
     };
+  },
+  async created() {
+    const { user } = getApp().globalData;
+    this.reply.aliasName = user.aliasName;
+    this.reply.aliasPortrait = user.aliasPortrait;
+    this.getWeather();
+
+    this.oldContent = wx.getStorageSync(this.id);
+    if(this.oldContent){
+      this.reply.content = this.oldContent;
+    }
   },
   methods: {
     bindTextAreaInput(e) {
@@ -137,17 +171,6 @@ export default {
           });
         });
       }
-    }
-  },
-  async created() {
-    const { user } = getApp().globalData;
-    this.reply.aliasName = user.aliasName;
-    this.reply.aliasPortrait = user.aliasPortrait;
-    this.getWeather();
-
-    this.oldContent = wx.getStorageSync(this.id);
-    if(this.oldContent){
-      this.reply.content = this.oldContent;
     }
   }
 };

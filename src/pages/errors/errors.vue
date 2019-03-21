@@ -1,19 +1,28 @@
 <template>
-    <div class="errors">
-        <div class="total flex center">
-            共查询到 {{data.length}} 条结果
-        </div>
-        <div class="line" v-for="item in data" :key="item._id">
-            {{item.createdAt | time}} - {{item.message}}
-            <br/>
-        </div>
+  <div class="errors">
+    <div class="total flex center">
+      共查询到 {{ data.length }} 条结果
     </div>
+    <div
+      v-for="item in data"
+      :key="item._id"
+      class="line"
+    >
+      {{ item.createdAt | time }} - {{ item.message }}
+      <br>
+    </div>
+  </div>
 </template>
 
 <script>
 import day from "../../utils/day";
 
 export default {
+  filters: {
+    time: function(value) {
+      return day(value).format("YYYY-MM-DD HH:mm:ss");
+    }
+  },
   data() {
     return {
       data: []
@@ -50,11 +59,6 @@ export default {
   onShow() {
     //this.getAllBackErrors();
     this.getBackErrorsByMessage("信件未找到");
-  },
-  filters: {
-    time: function(value) {
-      return day(value).format("YYYY-MM-DD HH:mm:ss");
-    }
   }
 };
 </script>

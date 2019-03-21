@@ -1,12 +1,19 @@
 <template>
   <view>
-    <div class="app flex column j-between" v-if="applying">
+    <div
+      v-if="applying"
+      class="app flex column j-between"
+    >
       <div class="appDiv flex column shadow">
         <div class="flex column j-between">
           <div class="flex j-start a-center">
             <span class="textNameSpan">姓名</span>
           </div>
-          <input class="aliasNameInput" @input="bindName" :value="form.name">
+          <input
+            class="aliasNameInput"
+            :value="form.name"
+            @input="bindName"
+          >
         </div>
 
         <div class="flex column j-between">
@@ -15,9 +22,9 @@
           </div>
           <input
             class="aliasNameInput"
-            @input="bindAliasName"
             :disabled="true"
             :value="form.aliasName"
+            @input="bindAliasName"
           >
         </div>
 
@@ -25,15 +32,26 @@
           <div class="flex j-start a-center">
             <span class="textNameSpan">微信号</span>
           </div>
-          <input class="aliasNameInput" @input="bindWechatId" :value="form.wechatId">
+          <input
+            class="aliasNameInput"
+            :value="form.wechatId"
+            @input="bindWechatId"
+          >
         </div>
 
         <div class="flex column j-between birthday">
           <div class="flex j-start a-center">
             <span>出生年月</span>
           </div>
-          <picker class="birthdayPicker" mode="date" :value="form.bornDate" @change="bindBornDate">
-            <div class="flex a-center bornDate">{{form.bornDate}}</div>
+          <picker
+            class="birthdayPicker"
+            mode="date"
+            :value="form.bornDate"
+            @change="bindBornDate"
+          >
+            <div class="flex a-center bornDate">
+              {{ form.bornDate }}
+            </div>
           </picker>
         </div>
 
@@ -41,7 +59,11 @@
           <div class="flex j-start a-center">
             <span class="textNameSpan">如何知道 Tell 的</span>
           </div>
-          <input class="aliasNameInput" @input="bindWhere" :value="form.where">
+          <input
+            class="aliasNameInput"
+            :value="form.where"
+            @input="bindWhere"
+          >
         </div>
 
         <div class="flex column j-between">
@@ -60,15 +82,28 @@
         </div>
 
         <div class="flex column textAdd center">
-          <button class="addMystoryButton flex center" @click="onPush">提交申请</button>
+          <button
+            class="addMystoryButton flex center"
+            @click="onPush"
+          >
+            提交申请
+          </button>
         </div>
       </div>
     </div>
 
-    <div class="app flex column center" v-if="!applying">
+    <div
+      v-if="!applying"
+      class="app flex column center"
+    >
       <span class="applyText">申请已提交</span>
       <span class="applyText">Tell 团队会尽快与你联系</span>
-      <button class="flex center lightButton" @click="returnBadge">好的</button>
+      <button
+        class="flex center lightButton"
+        @click="returnBadge"
+      >
+        好的
+      </button>
     </div>
   </view>
 </template>

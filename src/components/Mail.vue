@@ -1,26 +1,53 @@
 <template>
-  <div class="mail box flex column j-between list_item shadow" v-if="mail._id">
+  <div
+    v-if="mail._id"
+    class="mail box flex column j-between list_item shadow"
+  >
     <div class="mail_title">
-      {{mail.targetUserName || 'Tell烦恼咨询中心'}} {{mail.fromSystem ? "" :"收"}}
+      {{ mail.targetUserName || 'Tell烦恼咨询中心' }} {{ mail.fromSystem ? "" :"收" }}
     </div>
-    <div class="mail_content">{{mail.content}}</div>
+    <div class="mail_content">
+      {{ mail.content }}
+    </div>
 
-    <div class="reply_weather_love flex j-bwtween" v-if="mail.type==='REPLY' && user._id == mail.targetUser">
+    <div
+      v-if="mail.type==='REPLY' && user._id == mail.targetUser"
+      class="reply_weather_love flex j-bwtween"
+    >
       <div class="reply_weather_love_button">
-        <button class="lightButton flex center" @click="likeBtn(mail)">
+        <button
+          class="lightButton flex center"
+          @click="likeBtn(mail)"
+        >
           <span class="flex center">感谢</span>
-          <img class="reply_weather_name iconfont" v-if="mail.like" src="/static/svgs/love-active.svg">
-          <img class="reply_weather_name iconfont" v-else src="/static/svgs/love.svg" />
+          <img
+            v-if="mail.like"
+            class="reply_weather_name iconfont"
+            src="/static/svgs/love-active.svg"
+          >
+          <img
+            v-else
+            class="reply_weather_name iconfont"
+            src="/static/svgs/love.svg"
+          >
         </button>
       </div>
     </div>
     <div class="mail_reply flex column j-end">
       <div class="flex wrap j-end">
-        <img class="mail_weather_name" :src="mail.aliasPortrait" v-if="mail.type != 'STORY'">
-        <span class="mail_reply_aliasName">{{mail.aliasName}}</span>
-        <img class="mail_reply_badge" :src="mail.badgeImgUrl" v-if="mail.type != 'STORY' && mail.badgeImgUrl">
+        <img
+          v-if="mail.type != 'STORY'"
+          class="mail_weather_name"
+          :src="mail.aliasPortrait"
+        >
+        <span class="mail_reply_aliasName">{{ mail.aliasName }}</span>
+        <img
+          v-if="mail.type != 'STORY' && mail.badgeImgUrl"
+          class="mail_reply_badge"
+          :src="mail.badgeImgUrl"
+        >
       </div>
-      <span class="flex wrap j-end mail_reply_weather">{{mail.createdAt | dateFormat}} {{mail.weather}}</span>
+      <span class="flex wrap j-end mail_reply_weather">{{ mail.createdAt | dateFormat }} {{ mail.weather }}</span>
     </div>
   </div>
 </template>

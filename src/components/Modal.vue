@@ -1,15 +1,33 @@
 <template>
-  <cover-view class="modal" @click="clickMask" v-if="isShowModal">
-    <cover-view class="card flex column center" @tap.stop="stopkMask">
+  <cover-view
+    v-if="isShowModal"
+    class="modal"
+    @click="clickMask"
+  >
+    <cover-view
+      class="card flex column center"
+      @tap.stop="stopkMask"
+    >
       <cover-view class="title">
-        {{value.title}}
+        {{ value.title }}
       </cover-view>
-      <cover-view  class="content">
-        {{value.content}}
+      <cover-view class="content">
+        {{ value.content }}
       </cover-view>
       <cover-view class="btn">
-        <button v-if="value.type === 'CONFIRM' " class="confirm darkButton" @click="ConfirmButton">{{value.confirmButtonText}}</button>
-        <button  class="sure lightButton" @click="enSure">{{value.sureButtonText}}</button>
+        <button
+          v-if="value.type === 'CONFIRM' "
+          class="confirm darkButton"
+          @click="ConfirmButton"
+        >
+          {{ value.confirmButtonText }}
+        </button>
+        <button
+          class="sure lightButton"
+          @click="enSure"
+        >
+          {{ value.sureButtonText }}
+        </button>
       </cover-view>
     </cover-view>
   </cover-view>
@@ -35,9 +53,9 @@ export default {
         content: "",
         sureButtonText: "好的",
         type: "ALERT",
-        confirmButtonText: "",
-      }
-      this.value = Object.assign(targetObj,value);
+        confirmButtonText: ""
+      };
+      this.value = Object.assign(targetObj, value);
 
       this.isShowModal = true;
     },
@@ -62,7 +80,7 @@ export default {
         if (typeof this.value.confirmCallbak == "function") {
           this.value.confirmCallbak.call();
         } else {
-           this.$router.push({
+          this.$router.push({
             path: "/pages/badge/badge"
           });
         }
@@ -78,7 +96,7 @@ export default {
       this.imgUrl = "";
       this.value = {
         title: "",
-        content: "" ,
+        content: "",
         type: "",
         sureButtonText: "",
         confirmButtonText: ""
@@ -115,8 +133,8 @@ export default {
   font-weight: 600;
   color: #4d495b;
 }
-.btn{
-  margin-top: 64rpx ;
+.btn {
+  margin-top: 64rpx;
 }
 .content {
   margin: 40rpx 40rpx 20rpx;

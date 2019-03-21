@@ -1,28 +1,60 @@
 <template>
-  <scroll-view class="scroll" scroll-y>
+  <scroll-view
+    class="scroll"
+    scroll-y
+  >
     <session class="solutionRoomName">
-      <p class="day">{{days}}</p>
+      <p class="day">
+        {{ days }}
+      </p>
       <div class="flex j-start a-center">
-        <div class="aliasName">{{aliasName}}</div>
-        <button class="aliasNameBtn"  @click="returnBadge">
-            <image class="badgeIconfont" v-if="badgeImgUrl" :src="badgeImgUrl" />
+        <div class="aliasName">
+          {{ aliasName }}
+        </div>
+        <button
+          class="aliasNameBtn"
+          @click="returnBadge"
+        >
+          <image
+            v-if="badgeImgUrl"
+            class="badgeIconfont"
+            :src="badgeImgUrl"
+          />
         </button>
       </div>
       <div class="flex j-start a-center">
-        <span class="canSolver">你今天还可以解答 {{replyCount}} 个咨询</span>
-        <button class="canSolverBtn" @click='badgeExplain'>
-            <image class="iconfont"  src="/static/svgs/question.svg" />
+        <span class="canSolver">你今天还可以解答 {{ replyCount }} 个咨询</span>
+        <button
+          class="canSolverBtn"
+          @click="badgeExplain"
+        >
+          <image
+            class="iconfont"
+            src="/static/svgs/question.svg"
+          />
         </button>
       </div>
     </session>
 
     <session class="list">
-      <Envelope station="solution" :isExtra="item.isExtra" :isRead="item.isRead" :isReplied="item.isReplied" :mail="item.mail" v-for="(item,index) in mails" :key="index">
-      </Envelope>
+      <Envelope
+        v-for="(item,index) in mails"
+        :key="index"
+        station="solution"
+        :is-extra="item.isExtra"
+        :is-read="item.isRead"
+        :is-replied="item.isReplied"
+        :mail="item.mail"
+      />
     </session>
 
     <session class="solutionDetail flex center">
-      <div class="solutionDetailButton flex center" @click="solutionDetail">解答者手册</div>
+      <div
+        class="solutionDetailButton flex center"
+        @click="solutionDetail"
+      >
+        解答者手册
+      </div>
     </session>
   </scroll-view>
 </template>

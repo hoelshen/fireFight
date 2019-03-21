@@ -1,6 +1,5 @@
 <template>
-  <web-view :src="url"></web-view>
-
+  <web-view :src="url" />
 </template>
 <script>
 const URL_MAP = {
