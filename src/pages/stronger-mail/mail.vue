@@ -1,8 +1,8 @@
 <template>
   <div class="page">
     <div
-      class="s-mask flex center column"
       v-if="showMask"
+      class="s-mask flex center column"
       @tap="hideMask"
     >
       <div class="m-layer box">
@@ -13,7 +13,7 @@
         >
         <div class="down flex">
           <div class="text">
-            {{mail.content}}
+            {{ mail.content }}
           </div>
           <img
             class="qr"
@@ -28,8 +28,12 @@
           class="flex center"
           hover-class="active"
           @tap.stop="savePhoto"
-        >保存到相册</button>
-        <div class="desc">保存到相册可以手动发朋友圈</div>
+        >
+          保存到相册
+        </button>
+        <div class="desc">
+          保存到相册可以手动发朋友圈
+        </div>
       </div>
     </div>
 
@@ -38,11 +42,11 @@
       :class="showMask?'lock':''"
     >
       <div
-        class="tips box  flex a-center j-between"
         v-if="showMsg && newAddedHug"
+        class="tips box  flex a-center j-between"
       >
         <div class="text">
-          新收到 {{newAddedHug}} 个拥抱
+          新收到 {{ newAddedHug }} 个拥抱
         </div>
         <img
           class="close"
@@ -53,10 +57,12 @@
       </div>
 
       <div
-        class="share flex a-center j-between"
         v-if="!showMask"
+        class="share flex a-center j-between"
       >
-        <div class="text">分享故事，让更多人看到</div>
+        <div class="text">
+          分享故事，让更多人看到
+        </div>
         <div class="s-btns flex">
           <button
             class="btn flex column center box"
@@ -91,40 +97,48 @@
         >
         <div class="right flex j-center column">
           <div class="name">
-            {{mail.aliasName}}
+            {{ mail.aliasName }}
           </div>
           <div class="number">
-            {{mail.readCount}} 次查看
+            {{ mail.readCount }} 次查看
           </div>
         </div>
       </div>
 
-      <div class="content">{{mail.content}} </div>
+      <div class="content">
+        {{ mail.content }}
+      </div>
 
       <div
-        class="btns flex center"
         v-if="!creatorFlag"
+        class="btns flex center"
       >
         <button
+          v-if="hugFlag"
           class="flex center"
           hover-class="active"
           :disabled="true"
-          v-if="hugFlag"
           @tap="hung"
-        >您已拥抱</button>
+        >
+          您已拥抱
+        </button>
         <button
+          v-else-if="!isAuth"
           class="flex center"
           open-type="getUserInfo"
           hover-class="active"
           @getuserinfo="onGetUserInfo"
-          v-else-if="!isAuth"
-        >给个拥抱</button>
+        >
+          给个拥抱
+        </button>
         <button
+          v-else
           class="flex center"
           hover-class="active"
           @tap="hung"
-          v-else
-        >给个拥抱</button>
+        >
+          给个拥抱
+        </button>
       </div>
 
       <div class="hungs">
@@ -134,34 +148,32 @@
             alt=""
             class="icon"
           > 得到
-          <span class="em">{{mail.hugCount}}</span> 个拥抱
+          <span class="em">{{ mail.hugCount }}</span> 个拥抱
         </div>
 
         <div
-          class="users"
           v-if="mail.hugs"
+          class="users"
         >
           <img
+            v-for="hug in mail.hugs"
+            :key="hug._id"
             class="avator"
             :src="hug.aliasPortrait"
             alt=""
-            v-for="hug in mail.hugs"
-            :key="hug._id"
           >
         </div>
       </div>
 
       <button
+        v-if="showBackBtn"
         class="back-btn flex center"
         hover-class="active"
-        v-if="showBackBtn"
         @tap="toIndex"
       >
         前往感恩节主题馆
       </button>
-
     </div>
-
   </div>
 </template>
 

@@ -1,26 +1,77 @@
 <template>
-  <div class="bar box flex a-center j-between shadow" :class=" isIpx ? 'fix-iphonex-icon' : '' ">
-    <form @submit="mail" report-submit="true">
-      <button :class="mailCount ? 'leftMail' : '' " class="flex center mailBtn" form-type="submit" hover-class="active">
-        <image class="icon mail" v-show="tab == 'mail'" src="/static/svgs/mail-active.svg">
-        </image>
-        <image  class="icon mail" v-show="tab != 'mail'" src="/static/svgs/mail.svg">
-        </image>
-        <div class="flex center" :class="mailCount  > 10 ? 'mailCountTwo' : 'mailCountOne' " v-if="mailCount">{{mailCount}}</div>
+  <div
+    class="bar box flex a-center j-between shadow"
+    :class=" isIpx ? 'fix-iphonex-icon' : '' "
+  >
+    <form
+      report-submit="true"
+      @submit="mail"
+    >
+      <button
+        :class="mailCount ? 'leftMail' : '' "
+        class="flex center mailBtn"
+        form-type="submit"
+        hover-class="active"
+      >
+        <image
+          v-show="tab == 'mail'"
+          class="icon mail"
+          src="/static/svgs/mail-active.svg"
+        />
+        <image
+          v-show="tab != 'mail'"
+          class="icon mail"
+          src="/static/svgs/mail.svg"
+        />
+        <div
+          v-if="mailCount"
+          class="flex center"
+          :class="mailCount > 10 ? 'mailCountTwo' : 'mailCountOne' "
+        >
+          {{ mailCount }}
+        </div>
       </button>
     </form>
-    <form @submit="home" report-submit="true">
-      <button class="flex center" form-type="submit" hover-class="active">
-        <image class="icon" v-show="tab == 'home'" src="/static/svgs/tell-active.svg">
-        </image>
-        <image class="icon" v-show="tab != 'home'" src="/static/svgs/tell.svg">
-        </image>
+    <form
+      report-submit="true"
+      @submit="home"
+    >
+      <button
+        class="flex center"
+        form-type="submit"
+        hover-class="active"
+      >
+        <image
+          v-show="tab == 'home'"
+          class="icon"
+          src="/static/svgs/tell-active.svg"
+        />
+        <image
+          v-show="tab != 'home'"
+          class="icon"
+          src="/static/svgs/tell.svg"
+        />
       </button>
     </form>
-    <form @submit="myInfo" report-submit="true">
-      <button class="flex center" form-type="submit" hover-class="active">
-        <image class="icon" v-show="tab == 'mine'" src="/static/svgs/myinfo-active.svg"></image>
-        <image class="icon" v-show="tab != 'mine'"  src="/static/svgs/myinfo.svg"></image>
+    <form
+      report-submit="true"
+      @submit="myInfo"
+    >
+      <button
+        class="flex center"
+        form-type="submit"
+        hover-class="active"
+      >
+        <image
+          v-show="tab == 'mine'"
+          class="icon"
+          src="/static/svgs/myinfo-active.svg"
+        />
+        <image
+          v-show="tab != 'mine'"
+          class="icon"
+          src="/static/svgs/myinfo.svg"
+        />
       </button>
     </form>
   </div>
@@ -39,18 +90,18 @@ export default {
       default: 0
     }
   },
-  created() {
-    this.tab = this.active;
-    const model = wx.getSystemInfoSync().model;
-     if(model.match("iPhone X")){
-      this.isIpx = true;
-     }
-  },
   data() {
     return {
       tab: "home" ,
       isIpx: false
     };
+  },
+  created() {
+    this.tab = this.active;
+    const model = wx.getSystemInfoSync().model;
+    if(model.match("iPhone X")){
+      this.isIpx = true;
+    }
   },
   methods: {
     myInfo(e) {
@@ -63,7 +114,6 @@ export default {
       wx.setNavigationBarTitle({ title: "Tell" });
       this.tab = "home";
       this.$emit("change", this.tab);
-
       this.$request.saveFormid(e.detail.formId);
     },
     mail(e) {

@@ -1,14 +1,12 @@
 import App from "./App";
-import './static/sdk/ald-stat';
+import './static/sdk/ald-stat'; // 阿拉丁数据统计
 import Vue from "vue";
 import VHtmlPlugin from "@megalo/vhtml-plugin";
 import filters from "./utils/filters";
 import megaloRouter from "megalo-router";
 import request from "./utils/request";
 import day from "./utils/day";
-import {
-  checkAuth,
-} from "./utils/index";
+
 Vue.use(VHtmlPlugin);
 
 Object.keys(filters).forEach(key => Vue.filter(key, filters[key]));
@@ -19,19 +17,21 @@ Vue.use(megaloRouter, {
 
 Vue.prototype.$request = request;
 Vue.prototype.$day = day;
-Vue.prototype.$checkAuth = checkAuth;
-//Vue.prototype.$compareVersion = compareVersion;
+
 const app = new Vue(App);
 app.$mount();
 
 export default {
   config: {
     cloud: true,
-    // pages 的首个页面会被编译成首页
     pages: [
       "pages/home/index", //首页
       "pages/mail/mailDay", //正在路上的信
       "pages/mail/mailDetail", //回信
+      "pages/badge/badge", //徽章
+      "pages/badge/sunflower", //向日葵
+      "pages/badge/applySunflower",  //申请向日葵
+      "pages/badge/badgeExplain", //申请向日葵
       "pages/consultingBox/consultingBox", //咨询箱
       "pages/solution/tags", //成为解答者
       "pages/solution/solutionRoom", //解答室
@@ -46,7 +46,6 @@ export default {
       "pages/welfare/index", //福利社
       "pages/memory/memory", //记忆
       "pages/memory/detail", //记忆
-      "pages/login/index", //授权
       "pages/help/index", //情感援助
       "pages/stronger-home/index", // MYS首页
       "pages/stronger-mail/index", //MYS故事

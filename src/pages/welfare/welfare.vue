@@ -1,61 +1,145 @@
 <template>
   <view class="ticket flex column j-between">
     <session class="navigatabar flex j-around">
-      <div @click="toggle('solution')" :class="active == 'solution' ? 'borderColor' :''" class="navigatabar_item   flex center">我要解忧券</div>
-      <div @click="toggle('mail')" :class="active == 'mail' ? 'borderColor' :''" class="navigatabar_item  flex center">我要邮票</div>
+      <div
+        :class="active == 'TICKET' ? 'borderColor' :''"
+        class="navigatabar_item   flex center"
+        @click="toggle('TICKET')"
+      >
+        我要解忧券
+      </div>
+      <div
+        :class="active == 'STAMP' ? 'borderColor' :''"
+        class="navigatabar_item  flex center"
+        @click="toggle('STAMP')"
+      >
+        我要邮票
+      </div>
     </session>
-    <session class="list" v-if="active === 'solution'">
+    <session
+      v-if="active === 'TICKET'"
+      class="list"
+    >
       <div class="list_item flex  j-between ">
-        <div class="flex column">
-          <div class="flex a-center">
-            <span class="list_item_span">购买解忧券</span>
-            <image class="iconfont" src="/static/svgs/ticket.svg" />
-            <span class="count">×1</span>
+        <div class="flex ">
+          <image
+            class="iconfont"
+            src="/static/svgs/ticket.svg"
+          />
+          <div class="flex column j-start">
+            <div>
+              <span class="list_item_span">购买解忧券</span>
+              <span class="count">×1</span>
+            </div>
+            <span class="welfare_content">使用 9.9 元人民币购买 1 张解忧券 </span>
           </div>
-          <span class="welfare_content">使用 9.9 元人民币购买 1 张解忧券 </span>
         </div>
         <div class="exchange  flex center">
-          <button @click="toPay" class="flex center">购买</button>
-        </div>
-      </div>
-      <div class="list_item flex  j-between ">
-        <div class="flex column">
-          <div class="flex a-center">
-            <span class="list_item_span">邮票兑换解忧券</span>
-            <image class="iconfont" src="/static/svgs/ticket.svg" />
-            <span class="count">×1</span>
-          </div>
-          <span class="welfare_content">使用10张邮票兑换 1 张解忧券 </span>
-        </div>
-        <div class="exchange  flex center">
-          <button @click="toExchange" class="flex center">兑换</button>
-        </div>
-      </div>
-      <div class="list_item flex  j-between ">
-        <div class="flex column">
-          <div class="flex a-center">
-            <span class="list_item_span">关注服务号得解忧券</span>
-            <image class="iconfont" src="/static/svgs/ticket.svg" />
-            <span class="count">×1</span>
-          </div>
-          <span class="welfare_content">关注后可免费领取 1 张解忧券 </span>
-        </div>
-        <div class="exchange flex center">
-          <button @click="FocusServer" class="flex center ">去关注
+          <button
+            class="flex center"
+            @click="toPay"
+          >
+            购买
           </button>
         </div>
       </div>
       <div class="list_item flex  j-between ">
-        <div class="flex column">
-          <div class="flex a-center">
-            <span class="list_item_span">关注订阅号得解忧券</span>
-            <image class="iconfont" src="/static/svgs/ticket.svg" />
-            <span class="count">×1</span>
+        <div class="flex">
+          <image
+            class="iconfont"
+            src="/static/svgs/ticket.svg"
+          />
+          <div class="flex column j-start">
+            <div>
+              <span class="list_item_span">邮票兑换解忧券</span>
+              <span class="count">×1</span>
+            </div>
+            <span class="welfare_content">使用10张邮票兑换 1 张解忧券 </span>
           </div>
-          <span class="welfare_content">关注后可免费领取 1 张解忧券 </span>
+        </div>
+        <div class="exchange  flex center">
+          <button
+            class="flex center"
+            @click="toExchange"
+          >
+            兑换
+          </button>
+        </div>
+      </div>
+      <div class="list_item flex  j-between ">
+        <div class="flex ">
+          <image
+            class="iconfont"
+            src="/static/svgs/ticket.svg"
+          />
+          <div class="flex column j-start">
+            <div>
+              <span class="list_item_span">关注服务号得解忧券</span>
+              <span class="count">×1</span>
+            </div>
+            <span class="welfare_content">关注后可免费领取 1 张解忧券 </span>
+          </div>
         </div>
         <div class="exchange flex center">
-          <button @click="FocusSubscript" class="flex center ">去关注</button>
+          <button
+            class="flex center "
+            @click="FocusServer"
+          >
+            去关注
+          </button>
+        </div>
+      </div>
+
+      <div class="list_item flex  j-between ">
+        <div class="flex ">
+          <image
+            class="iconfont"
+            src="/static/svgs/ticket.svg"
+          />
+          <div class="flex column j-start">
+            <div>
+              <span class="list_item_span">关注订阅号得解忧券</span>
+              <span class="count">×1</span>
+            </div>
+            <span class="welfare_content">关注后可免费领取 1 张解忧券 </span>
+          </div>
+        </div>
+        <div class="exchange flex center">
+          <button
+            class="flex center "
+            @click="FocusSubscript"
+          >
+            去关注
+          </button>
+        </div>
+      </div>
+
+      <div
+        v-for="item in tasks"
+        :key="item._id"
+        class="list_item flex  j-between "
+      >
+        <div class="flex ">
+          <image
+            class="iconfont"
+            src="/static/svgs/stamp-icon.svg"
+          />
+          <div class="flex column j-start">
+            <div>
+              <span class="list_item_span">{{ item.name }}</span>
+              <span class="count">×{{ item.rewardCount }}</span>
+            </div>
+            <span class="welfare_content">{{ item.tipsText }}</span>
+          </div>
+        </div>
+        <div class="exchange  flex center">
+          <button
+            :disabled="item.isReceived"
+            class="flex center"
+            @click="doTask(item)"
+          >
+            {{ item.isReceived ? '已完成' : '去领取' }}
+          </button>
         </div>
       </div>
 
@@ -63,57 +147,111 @@
         解忧券最大持有量为 3 张，超出部分自动销毁
       </div>
     </session>
-    <session class="list" v-if="active === 'mail'">
+    <session
+      v-if="active === 'STAMP'"
+      class="list"
+    >
       <div class="list_item flex  j-between ">
-        <div class="flex column">
-          <div class="flex a-center">
-            <span class="list_item_span">解答咨询得邮票</span>
-            <image class="iconfont" src="/static/svgs/stamp-icon.svg" />
-            <span class="count">×1</span>
+        <div class="flex ">
+          <image
+            class="iconfont"
+            src="/static/svgs/stamp-icon.svg"
+          />
+          <div class="flex column j-start">
+            <div>
+              <span class="list_item_span">解答咨询得邮票</span>
+              <span class="count">×1</span>
+            </div>
+            <span class="welfare_content">解答和被感谢均可获得邮票 </span>
           </div>
-          <span class="welfare_content">解答和被感谢均可获得邮票 </span>
         </div>
         <div class="exchange  flex center">
-          <button @click="toReply" class="flex center">去解答</button>
+          <button
+            class="flex center"
+            @click="toReply"
+          >
+            去解答
+          </button>
         </div>
       </div>
       <div class="list_item flex  j-between ">
-        <div class="flex column">
-          <div class="flex a-center">
-            <span class="list_item_span">分享 Tell 得邮票</span>
-            <image class="iconfont" src="/static/svgs/stamp-icon.svg" />
-            <span class="count">×1</span>
+        <div class="flex ">
+          <image
+            class="iconfont"
+            src="/static/svgs/stamp-icon.svg"
+          />
+          <div class="flex column j-start">
+            <div>
+              <span class="list_item_span">分享 Tell 得邮票</span>
+              <span class="count">×1</span>
+            </div>
+            <span class="welfare_content">分享好友加入 Tell 可获得邮票 </span>
           </div>
-          <span class="welfare_content">分享好友加入 Tell  可获得邮票 </span>
         </div>
         <div class="exchange flex center">
-          <button @click="toShare" class="flex center ">去分享
+          <button
+            class="flex center "
+            @click="toShare"
+          >
+            去分享
+          </button>
+        </div>
+      </div>
+      <div
+        v-for="item in tasks"
+        :key="item._id"
+        class="list_item flex  j-between "
+      >
+        <div class="flex ">
+          <image
+            class="iconfont"
+            src="/static/svgs/stamp-icon.svg"
+          />
+          <div class="flex column j-start">
+            <div>
+              <span class="list_item_span">{{ item.name }}</span>
+              <span class="count">×{{ item.rewardCount }}</span>
+            </div>
+            <span class="welfare_content">{{ item.tipsText }}</span>
+          </div>
+        </div>
+        <div class="exchange  flex center">
+          <button
+            :disabled="item.isReceived"
+            class="flex center"
+            @click="doTask(item)"
+          >
+            {{ item.isReceived ? '已完成' : '去领取' }}
           </button>
         </div>
       </div>
     </session>
 
-    <Modal ref="mymodal"></Modal>
+    <Modal ref="mymodal" />
+    <ImgModal ref="myImgmodal" />
   </view>
 </template>
 <script>
 import Modal from "@/components/Modal";
+import ImgModal from "@/components/ImgModal";
 
 export default {
   components: {
-    Modal
+    Modal,
+    ImgModal
   },
   data() {
     return {
-      active: "solution",
+      active: "TICKET",
       isShowModal: false,
       modal: {
         title: "",
         content: "",
-        confirm: "",
+        confirmButtonText: "",
         type: "",
-        sure: ""
-      }
+        sureButtonText: ""
+      },
+      tasks: []
     };
   },
   onShareAppMessage(res) {
@@ -127,7 +265,11 @@ export default {
   },
   methods: {
     toggle(tab) {
-      this.active = tab;
+      if (this.active != tab) {
+        this.active = tab;
+        this.tasks = [];
+        this.getTask();
+      }
     },
     toReply() {
       this.$router.push({ path: "/pages/solution/solutionRoom" });
@@ -185,40 +327,82 @@ export default {
       }
     },
     FocusServer() {
-      this.$refs.mymodal.show({
-          title: "关注服务号",
-          content: "",
-          confirm: "server",
-          type: "server",
-          sure: "马上开始",
-      }) 
+      this.$refs.myImgmodal.show({
+        title: "关注服务号",
+        type: "ALERT",
+        sureButtonText: "马上开始"
+      });
     },
     FocusSubscript() {
-      this.$refs.mymodal.show({
-          title: "关注订阅号",
-          content: "",
-          confirm: "subscript",
-          type: "subscript",
-          sure: "马上开始",
-      })
+      this.$refs.myImgmodal.show({
+        title: "关注订阅号",
+        type: "ALERT",
+        sureButtonText: "马上开始"
+      });
+    },
+    getTask() {
+      this.$request.get(`/task/ad?type=${this.active}`).then(res => {
+        this.tasks = res.data;
+      });
+    },
+    doTask(task) {
+      if (task.isReceived) return;
+      wx.navigateTo({
+        url: `/pages/webview/index?url=${task.url}&title=${
+          task.name
+        }&type=welfare&id=${task._id}`
+      });
+    },
+    getTips() {
+      this.$request.get("/tips").then(res => {
+        const { lastTips } = res.data;
+        this.unreadMessages = res.data.unreadMessages;
+        if (lastTips) {
+          this.$refs.mymodal.show({
+            title: lastTips.title,
+            content: lastTips.content,
+            type: lastTips.type,
+            confirmButtonText: lastTips.confirmButtonText
+          });
+        }
+      });
+    },
+    taskHandle(status) {
+      if (!status) return;
 
+      if (status === "failedTime") {
+        this.$refs.mymodal.show({
+          title: "体验失败",
+          content: "抱歉，体验时间过短，无法获得奖励。请重试。"
+        });
+      }
+      // this.$refs.mymodal.show({
+      //     title: "体验失败",
+      //     content: "过程中断，请确保体验没有跳转到其它页面。",
+      // });
+      getApp().globalData.taskState = "";
     }
   },
   onShow() {
     const { currentRoute: { query } } = this.$router;
-    this.active = query.active || "solution";
+    this.active = query.active || this.active;
+    const { taskState } = getApp().globalData;
+    this.getTips();
+    this.getTask();
+    this.taskHandle(taskState || "");
   }
 };
 </script>
 <style lang="less" scope>
-page{
+page {
   background-color: #ffffff;
 }
 .list {
-  padding: 0 60rpx;
+  padding: 0 40rpx;
   &_item {
     background-color: #ffffff;
-    margin-top: 40rpx;
+    margin-bottom: 40rpx;
+    margin-top: 20rpx;
   }
   .count {
     color: #ffc86d;
@@ -227,7 +411,7 @@ page{
   }
 }
 .list_item_span {
-  font-size: 34rpx;
+  font-size: 32rpx;
   color: #4d495b;
 }
 .exchange {
@@ -250,17 +434,23 @@ page{
 }
 
 .iconfont {
-  margin-left: 20rpx;
+  margin-right: 20rpx;
 }
 
-.desc{
+.desc {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  color: #BDBDC0;
+  color: #bdbdc0;
   font-size: 28rpx;
   padding: 60rpx;
+}
+
+button[disabled] {
+  color: rgba(77, 73, 91, 0.5) !important;
+  border-color: rgba(255, 200, 109, 0.5) !important;
+  background-color: #ffffff !important;
 }
 </style>
 

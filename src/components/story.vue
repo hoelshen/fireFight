@@ -1,30 +1,63 @@
 <template>
-  <div class="card" @tap="toMail">
-    <div class="lock-mask flex center column" v-if="lock">
-      <img src="https://cdn.tellers.cn/stronger/icon_lock.svg" alt class="lock">
+  <div
+    class="card"
+    @tap="toMail"
+  >
+    <div
+      v-if="lock"
+      class="lock-mask flex center column"
+    >
+      <img
+        src="https://cdn.tellers.cn/stronger/icon_lock.svg"
+        alt
+        class="lock"
+      >
       <div class="text">
-        <div class="line">需分享自己的故事</div>
-        <div class="line">并获得至少10次查看</div>
+        <div class="line">
+          需分享自己的故事
+        </div>
+        <div class="line">
+          并获得至少10次查看
+        </div>
       </div>
     </div>
-    <div class="content" :class="lock ? 'lock':''">
+    <div
+      class="content"
+      :class="lock ? 'lock':''"
+    >
       <div class="user flex a-center">
-        <img :src="mail.aliasPortrait" alt class="left">
-        <div class="right flex j-center column">{{mail.aliasName}}</div>
+        <img
+          :src="mail.aliasPortrait"
+          alt
+          class="left"
+        >
+        <div class="right flex j-center column">
+          {{ mail.aliasName }}
+        </div>
       </div>
 
-      <div class="summary">{{mail.content}}</div>
+      <div class="summary">
+        {{ mail.content }}
+      </div>
 
       <div class="data">
         <div class="number flex j-end">
           <div class="item flex a-center">
-            <img src="https://cdn.tellers.cn/stronger/icon_view.svg" alt class="icon view">
-            {{mail.readCount}}
+            <img
+              src="https://cdn.tellers.cn/stronger/icon_view.svg"
+              alt
+              class="icon view"
+            >
+            {{ mail.readCount }}
           </div>
 
           <div class="item flex a-center">
-            <img src="https://cdn.tellers.cn/stronger/icon_hungs.svg" alt class="icon hungs">
-            {{mail.hugCount}}
+            <img
+              src="https://cdn.tellers.cn/stronger/icon_hungs.svg"
+              alt
+              class="icon hungs"
+            >
+            {{ mail.hugCount }}
           </div>
         </div>
       </div>

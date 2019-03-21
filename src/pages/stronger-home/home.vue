@@ -2,13 +2,21 @@
   <view class="page">
     <div class="intros box">
       <div class="title flex a-around">
-        <div class="left txt flex j-start a-center">MAKE YOU</div>
-        <div class="right txt flex center">STRONGER</div>
+        <div class="left txt flex j-start a-center">
+          MAKE YOU
+        </div>
+        <div class="right txt flex center">
+          STRONGER
+        </div>
       </div>
 
       <div class="sub-title">
-        <div class="up">感恩生命中的磨难</div>
-        <div class="bottom">使我们变成更好的自己</div>
+        <div class="up">
+          感恩生命中的磨难
+        </div>
+        <div class="bottom">
+          使我们变成更好的自己
+        </div>
       </div>
       <div class="content">
         Make You Stronger，来自 What doesn’t kill you makes you stronger，意为“杀不死你的，会让你更强大”。 生活中，总会面对各种挫折和磨难。我们希望通过叙述和分享彼此的故事，帮助每一个人更好地认识挫折和磨难——它们并不可怕，当它们无法击败你时，你会变得更强大。
@@ -18,52 +26,51 @@
     <div class="tabs flex j-around box relative">
       <div
         class="tab flex j-start grow"
-        @tap="onTabChange('everyone')"
         :class="tab == 'everyone'?'active':''"
+        @tap="onTabChange('everyone')"
       >
         大家的故事
       </div>
 
       <div
         class="tab flex j-start grow"
-        @tap="onTabChange('friends')"
         :class="tab == 'friends'?'active':''"
+        @tap="onTabChange('friends')"
       >
         来自可能认识的人
       </div>
     </div>
 
     <div
-      class="tips flex a-center j-start"
       v-if="tab=='friends'"
+      class="tips flex a-center j-start"
     >
       立于阳光之下，才可环视四周。
     </div>
 
     <div
-      class="tips-more"
       v-if="tab=='friends'"
+      class="tips-more"
     >
       MYS 不提倡朋友之间窥私，因此以下内容只对分享过故事的用户开放。
     </div>
 
     <div
-      class="mails grow"
       v-if="tab=='everyone'"
+      class="mails grow"
     >
-
       <div
         v-for="mail in everyoneMails"
         :key="mail._id"
       >
-        <MailCard :mail="mail"></MailCard>
+        <MailCard :mail="mail" />
       </div>
 
       <img
+        v-if="everyoneMails.length > 0"
         class="tell-card"
         src="https://cdn.tellers.cn/stronger/tell_card.svg"
         alt=""
-        v-if="everyoneMails.length > 0"
         @tap="toHome"
       >
 
@@ -72,21 +79,27 @@
           class="change"
           hover-class="active"
           @tap="refresh"
-        >换一批</button>
+        >
+          换一批
+        </button>
         <div
-          class="desc"
           v-if="countdownMinute==0"
-        >当前可以立即刷新</div>
-        <div
           class="desc"
+        >
+          当前可以立即刷新
+        </div>
+        <div
           v-else
-        >{{countdownMinute}}分钟后可以刷新</div>
+          class="desc"
+        >
+          {{ countdownMinute }}分钟后可以刷新
+        </div>
       </div>
     </div>
 
     <div
-      class="mails grow"
       v-if="tab=='friends'"
+      class="mails grow"
     >
       <div
         v-for="mail in friendsMails"
@@ -95,23 +108,27 @@
         <MailCard
           :mail="mail"
           :lock="!isMonmentOpened"
-        ></MailCard>
+        />
       </div>
     </div>
 
     <button
+      v-if="isStoryWrote"
       class="btns flex center"
       hover-class="active"
       @tap="toMyStory"
-      v-if="isStoryWrote"
-    >我的故事</button>
+    >
+      我的故事
+    </button>
     <button
+      v-else
       class="btns flex center"
       open-type="getUserInfo"
       hover-class="active"
       @getuserinfo="onGetUserInfo"
-      v-else
-    >写我的故事</button>
+    >
+      写我的故事
+    </button>
   </view>
 </template>
 

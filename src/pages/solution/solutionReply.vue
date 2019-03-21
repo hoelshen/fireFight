@@ -1,11 +1,29 @@
 <template>
   <view class="app box">
-    <Mail :mail="mail"></Mail>
-    <Mail v-if="reMail" :mail="reMail"></Mail>
-    <Reply v-if="isReply" :target="mail.aliasName" tag="solution" :id="id" @submit="submit"></Reply>
-    <div v-else class="flex column center showReply_button">
-      <button :disabled="isDisable" class="reply_button flex center" @click="showReply">回信</button>
-      <span class="replay_text">今天还可以回复 {{replyCount}} 次</span>
+    <Mail :mail="mail" />
+    <Mail
+      v-if="reMail"
+      :mail="reMail"
+    />
+    <Reply
+      v-if="canReply"
+      :id="id"
+      :target="mail.aliasName"
+      tag="solution"
+      @submit="submit"
+    />
+    <div
+      v-if="isReplyButton"
+      class="flex column center showReply_button"
+    >
+      <button
+        :disabled="isDisable"
+        class="reply_button flex center"
+        @click="showReply"
+      >
+        回信
+      </button>
+      <span class="replay_text">今天还可以回复 {{ replyCount }} 次</span>
     </div>
   </view>
 </template>
@@ -25,8 +43,9 @@ export default {
       mail: {},
       reMail: {},
       replyCount: 1,
-      isReply: false,
-      isDisable:true
+      canReply: false,
+      isReplyButton: false,
+      isDisable:false,
     };
   },
   methods: {
@@ -35,21 +54,22 @@ export default {
       let Res = await this.$request.get(`/mail/detail/${id}/reply`);
       this.mail = res.data;
       this.reMail = Res.data;
-      if(this.isDisable && this.reMail){
-        return this.isDisable = true
-      } 
-      if(this.isDisable && !this.reMail) {
-        return this.isDisable = true
+      //如果有回过信件 不显示回信框和回信按钮
+      if(this.reMail){
+        this.canReply = false;
+        this.isReplyButton = false;
+      } else {
+        this.canReply = false;
+        this.isReplyButton = true;
+        //判断有没有回信次数
+        this.isDisable = this.replyCount > 0 ? false : true;
       }
-      return this.isDisable = false
     },
     showReply() {
-      this.isReply = true;
+      this.canReply = true;
+      this.isReplyButton = false;
     },
     submit(){
-      this.isReply = false;
-      this.isDisable = true;
-      this.replyCount = 0;
     }
   },
   async onShow() {
@@ -58,7 +78,6 @@ export default {
     const { replyCount } = getApp().globalData;
     this.replyCount = replyCount;
     this.getContent(this.id);
-    this.isDisable = replyCount > 0 ? false : true;
   },
   onShareAppMessage(res) {
     let { title, imageUrl, path, user } = getApp().globalData;

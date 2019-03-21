@@ -1,35 +1,71 @@
 <template>
   <view class="app flex column j-between">
-    <div class="appDiv flex column">
-      <div class="text shadow">
-        <div class="textAreafloat flex column j-start" v-if="isDisplay" @click="hidenMethod">
-          <div class="textAreafloat_item">· 请尽量具体叙述你的故事，便于解答者理解和代入，从而给出具体的解答</div>
-          <div class="textAreafloat_item">· 关键的人物、地点等信息建议使用化名</div>
-          <div class="textAreafloat_item">· 落款署名尽量不要使用笔名或微信昵称</div>
+    <div class="appDiv flex column shadow">
+      <div class="text">
+        <div
+          v-if="isDisplay"
+          class="textAreafloat flex column j-start"
+          @click="hidenMethod"
+        >
+          <div class="textAreafloat_item">
+            · 请尽量具体叙述你的故事，便于解答者理解和代入，从而给出具体的解答
+          </div>
+          <div class="textAreafloat_item">
+            · 关键的人物、地点等信息建议使用化名
+          </div>
+          <div class="textAreafloat_item">
+            · 落款署名尽量不要使用笔名或微信昵称
+          </div>
         </div>
-        <textarea class="textArea" :auto-height="true"  v-else @blur="onBlur" :focus="isFocus" maxlength="5000" cursor-spacing="30px" :value="content" @input="bindTextAreaBlur" />
+        <textarea
+          v-else
+          class="textArea"
+          :auto-height="true"
+          :focus="isFocus"
+          maxlength="5000"
+          cursor-spacing="30px"
+          :value="content"
+          @blur="onBlur"
+          @input="bindTextAreaInput"
+        />
       </div>
       <div class="flex column j-between textName">
         <div class="flex j-end a-center">
           <span class="textNameSpan">署名</span>
-          <input class="aliasNameInput" @input="bindKeyInput" :value="aliasName">
-          <div class="refreshBtn" @click="refresh">
-            <image class="iconfont" src="/static/svgs/refresh.svg"></image>
+          <input
+            class="aliasNameInput"
+            :value="aliasName"
+            @input="bindKeyInput"
+          >
+          <div
+            class="refreshBtn"
+            @click="refresh"
+          >
+            <img
+              class="iconfont"
+              src="/static/svgs/refresh.svg"
+            >
           </div>
         </div>
       </div>
       <div class="flex j-end textDay">
-        <span>{{day}}</span>
-        <span>{{weather}}</span>
+        <span>{{ day }} {{ weather }}</span>
       </div>
     </div>
 
     <div class="flex column textAdd center">
-      <button class="addMystoryButton flex center" @click="onPush">提交咨询</button>
-      <p class="text-center">需要使用 1 张解忧券</p>
+      <button
+        class="addMystoryButton flex center"
+        @click="onPush"
+      >
+        提交咨询
+      </button>
+      <p class="text-center">
+        需要使用 1 张解忧券
+      </p>
     </div>
 
-    <Modal ref="mymodal"></Modal>
+    <Modal ref="mymodal" />
   </view>
 </template>
 <script>
@@ -66,12 +102,11 @@ export default {
     async onPush() {
       if (this.ticketCount === 0) {
         this.$refs.mymodal.show({
-            title: "解忧券不足",
-            content: "需要消耗 1 解忧券，当前余额不足",
-            confirm: "获取解忧券",
-            type: "CONFIRM",
-            sure: "好的",
-        })
+          title: "解忧券不足",
+          content: "需要消耗 1 解忧券，当前余额不足",
+          confirmButtonText: "获取解忧券",
+          type: "CONFIRM"
+        });
         try {
           wx.setStorage({
             key: "story",
@@ -105,6 +140,7 @@ export default {
         aliasName: this.aliasName
       };
       if (this.content.match(SENSITIVE_REG)) {
+        this.content = "";
         getApp().globalData.mail = mail; // 敏感词检测
         return wx.navigateTo({
           url: "/pages/help/index"
@@ -125,7 +161,7 @@ export default {
         });
       }
     },
-    bindTextAreaBlur(e) {
+    bindTextAreaInput(e) {
       this.content = e.detail.value;
     },
     bindKeyInput(e) {
@@ -153,14 +189,14 @@ export default {
       if (this.content.length === 0) {
         this.isDisplay = true;
       }
-    },
+    }
   },
   onShow() {
     const { user } = getApp().globalData;
     this.ticketCount = user.ticketCount;
-    if(user.signName){
+    if (user.signName) {
       this.aliasName = user.signName;
-    } else{
+    } else {
       this.refresh();
     }
     try {
@@ -184,33 +220,36 @@ export default {
       path
     };
   },
-  onHide(){ //跳转页面
+  onHide() {
+    //跳转页面
     wx.setStorage({
       key: "story",
       data: this.content
     });
   },
-  onUnload(){ //回退
+  onUnload() {
+    //回退
     wx.setStorage({
-          key: "story",
-          data: this.content
-    })
+      key: "story",
+      data: this.content
+    });
   }
 };
 </script>
 <style lang="less" scoped>
 .appDiv {
-  margin: 40rpx 60rpx;
-  min-height: 1042rpx;
+  margin: 40rpx 40rpx;
+  min-height: 884rpx;
+  background-color: #ffffff;
 }
 .text {
   background-color: #ffffff;
-  min-height: 830rpx;
-  padding:40rpx;
+  min-height: 600rpx;
+  padding: 40rpx;
   color: rgba(189, 189, 192, 1);
 }
 .textArea {
-  min-height: 750rpx;
+  min-height: 400rpx;
   background-color: #ffffff;
   color: #4d495b;
   width: 100%;
@@ -222,24 +261,26 @@ export default {
   margin-right: 20rpx;
 }
 .textName {
-  margin-top: 60rpx;
-  margin-bottom: 24rpx;
+  margin-right: 40rpx;
 }
 .textDay {
-  margin-top: 24rpx 0rpx;
+  margin-top: 28rpx;
+  margin-bottom: 60rpx;
+  margin-right: 40rpx;
 }
 .textAdd {
   margin-bottom: 60rpx;
+  margin-top: 32rpx;
   &button {
     margin-bottom: 12rpx;
   }
 }
 .textAreafloat {
-  min-height: 750rpx;
-  line-height:52rpx;
+  min-height: 592rpx;
+  line-height: 52rpx;
   color: rgba(169, 169, 169, 1);
   background-color: #ffffff;
-  & .textAreafloat_item{
+  & .textAreafloat_item {
     margin-bottom: 53rpx;
   }
 }
@@ -265,8 +306,7 @@ export default {
   padding: 26rpx 102rpx;
   text-align: center;
   background-color: #ffc86d;
-  font-size:28rpx;
-
+  font-size: 28rpx;
 }
 .text-ontent {
   margin: auto;

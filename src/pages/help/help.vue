@@ -1,49 +1,164 @@
 <template>
-  <div class="container">
-    <div class="hello animated fadeInDown">
-      HI Teller,
-    </div>
-    <img v-if="!showContent" class="card animated bounceInDown" src="/static/svgs/help-card.svg" alt="">
-    <div v-if="!showContent" class="bottom box  animated fadeInUp">
-      <div class="btns flex j-between">
-        <button class="flex center read box" hover-class="active" @tap="show">查看心理救援机构</button>
-        <button class="flex center send box" hover-class="active" @tap="send">继续发送</button>
-      </div>
-      <div class="tips flex center">
-        阳光常在，希望常在
-      </div>
-    </div>
-    <div class="content" v-if="showContent">
-      <div class="item">
-        <div class="title">北京心理危机研究与干预中心</div>
-        <div class="phone" @tap="makePhone" data-tel="8008101117">8008101117 (24小时)</div>
-      </div>
-
-      <div class="item">
-        <div class="title">深圳市心理危机干预中心</div>
-        <div class="phone" @tap="makePhone" data-tel="075525629459 ">0755-25629459 (8:00 - 23:00)</div>
-      </div>
-
-      <div class="item">
-        <div class="title">长春市心理援助热线</div>
-        <div class="phone" @tap="makePhone" data-tel="043189685000">0431-89685000 (24小时)</div>
-        <div class="phone" @tap="makePhone" data-tel="043189685333">0431-89685333（8:00 - 16:00）</div>
-      </div>
-
-      <div class="item">
-        <div class="title">青岛市心理危机干预中心</div>
-        <div class="phone" @tap="makePhone" data-tel="053285669120">0532-85669120（24小时）</div>
-      </div>
-
-      <div class="item">
-        <div class="title">广州市心理危机干预中心热线</div>
-        <div class="phone" @tap="makePhone" data-tel="02081899120">020-81899120（24小时）</div>
-      </div>
-
-      <div class="bottom flex center box">
-        <button class="flex center read box" hover-class="active" @tap="back">返回</button>
+  <div class="app flex column center">
+    <div
+      v-if="!showContent"
+      class="prompt flex column center grow"
+    >
+      <div class="flex column j-between">
+        <span class="text">如果需要更及时专业的帮助</span>
+        <span class="text">请尽快联系心理救援机构</span>
+        <span
+          class="flex center psychological"
+          hover-class="active"
+          @tap="show"
+        >查看心理救援机构</span>
+        <button
+          class="flex center darkButton"
+          hover-class="active"
+          @tap="send"
+        >
+          继续投递
+        </button>
       </div>
     </div>
+
+    <scroll-view
+      v-else
+      class="scroll"
+      scroll-y
+    >
+      <div class="list">
+        <div class="list_item flex column j-between">
+          <div class="flex j-start card">
+            <image
+              class="iconfont"
+              src="/static/svgs/psychological.svg"
+            />
+            <div class="title">
+              北京心理危机研究与干预中心
+            </div>
+          </div>
+          <div
+            class="phone"
+            data-tel="8008101117"
+            @tap="makePhone"
+          >
+            8008101117
+          </div>
+          <div class="time">
+            24小时热线
+          </div>
+        </div>
+
+        <div class="list_item flex column j-between">
+          <div class="flex j-start card">
+            <image
+              class="iconfont"
+              src="/static/svgs/psychological.svg"
+            />
+            <div class="title">
+              深圳市心理危机干预中心
+            </div>
+          </div>
+          <div
+            class="phone"
+            data-tel="075525629459 "
+            @tap="makePhone"
+          >
+            0755-25629459
+          </div>
+          <div class="time">
+            8:00 - 23:00
+          </div>
+        </div>
+
+        <div class="list_item flex column j-between">
+          <div class="flex j-start card">
+            <image
+              class="iconfont"
+              src="/static/svgs/psychological.svg"
+            />
+            <div class="title">
+              长春市心理援助热线
+            </div>
+          </div>
+          <div
+            class="phone"
+            data-tel="043189685000"
+            @tap="makePhone"
+          >
+            0431-89685000
+          </div>
+          <div class="time">
+            24小时热线
+          </div>
+          <div
+            class="phone"
+            data-tel="043189685333"
+            @tap="makePhone"
+          >
+            0431-89685333
+          </div>
+          <div class="time">
+            8:00 - 16:00
+          </div>
+        </div>
+
+        <div class="list_item flex column j-between">
+          <div class="flex j-start card">
+            <image
+              class="iconfont"
+              src="/static/svgs/psychological.svg"
+            />
+            <div class="title">
+              青岛市心理危机干预中心
+            </div>
+          </div>
+          <div
+            class="phone"
+            data-tel="053285669120"
+            @tap="makePhone"
+          >
+            0532-85669120
+          </div>
+          <div class="time">
+            24小时热线
+          </div>
+        </div>
+
+        <div class="list_item flex column j-between">
+          <div class="flex j-start card">
+            <image
+              class="iconfont"
+              src="/static/svgs/psychological.svg"
+            />
+            <div class="title">
+              广州市心理危机干预中心热线
+            </div>
+          </div>
+          <div
+            class="phone"
+            data-tel="02081899120"
+            @tap="makePhone"
+          >
+            020-81899120
+          </div>
+          <div class="time">
+            24小时热线
+          </div>
+        </div>
+
+        <div class=" flex center">
+          <button
+            class="flex center darkButton"
+            hover-class="active"
+            @tap="send"
+          >
+            继续投递
+          </button>
+        </div>
+      </div>
+    </scroll-view>
   </div>
 </template>
 
@@ -51,7 +166,8 @@
 export default {
   data() {
     return {
-      showContent: false
+      showContent: false,
+      scrolHeight: 562
     };
   },
   methods: {
@@ -63,15 +179,23 @@ export default {
     },
     async send() {
       let { content, weather, aliasName } = getApp().globalData.mail;
-      let sendRes = this.$request.post("/mail/story", {
+      let res = await this.$request.post("/mail/story", {
         content,
         weather,
         aliasName
       });
-      this.$router.push({
-        query: { active: "consultative" },
-        path: "/pages/manual/index"
-      });
+      if (res.success) {
+        wx.removeStorage({
+          key: "story"
+        });
+        this.$router.push({
+          query: {
+            active: "story",
+            targetUser: this.target
+          },
+          path: "/pages/solution/promptPage"
+        });
+      }
     },
     makePhone(e) {
       wx.makePhoneCall({
@@ -79,9 +203,7 @@ export default {
       });
     }
   },
-  onShow() {
-    this.showContent = false;
-  },
+  onLoad() {},
   onShareAppMessage(res) {
     let { title, imageUrl, path, user } = getApp().globalData;
     path = user._id ? `${path}&refer=${user._id}` : path;
@@ -95,157 +217,49 @@ export default {
 </script>
 
 <style scoped lang="less">
-.container {
-    height:100vh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  background: url(https://tellers.oss-cn-shenzhen.aliyuncs.com/static/v1/help-house.svg)
-      no-repeat,
-    linear-gradient(#fe5c6b, #ffbe72);
-  background-size: contain;
-  background-position: center center;
+.scroll {
+  height: 100vh;
+}
+.app {
+  padding-bottom: 40rpx;
+}
+.text {
+  font-size: 32rpx;
+}
+.psychological {
+  font-size: 28rpx;
+  color: #ffc86d;
+  font-weight: 600;
+  margin-top: 60rpx;
 }
 .card {
-  width: 750rpx;
-  height: 828rpx;
+  margin: 40rpx 40rpx 20rpx 40rpx;
 }
-.hello {
-  position: fixed;
-  top: 136rpx;
-  left: 60rpx;
-  font-size: 60rpx;
-  color: #fff;
+.darkButton {
+  padding: 0rpx 102rpx;
+  margin-top: 60rpx;
 }
-.bottom {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 60rpx;
-  .btns {
-    margin-bottom: 30rpx;
-  }
-
-  .tips {
-    font-size: 30rpx;
-    color: #fff;
-  }
+.title {
+  margin-left: 20rpx;
+  font-size: 32rpx;
+  font-weight: 600;
 }
-
-button {
-  width: 286rpx;
-  height: 92rpx;
-  border-radius: 16rpx;
-  color: #fff;
+.phone {
   font-size: 28rpx;
-  &.read {
-    background: #fb9e6e;
-    &.active {
-      background: darken(#fb9e6e, 10%);
-    }
-  }
-  &.send {
-    background: transparent;
-    border: 6rpx #fb9e6e solid;
-    &.active {
-      border: 6rpx darken(#fb9e6e, 10%) solid;
-    }
-  }
+  margin: 20rpx 40rpx;
+  color: #ffc86d;
 }
-
-.content {
-  font-size: 36rpx;
-  line-height: 1.5;
-  padding: 250rpx 60rpx 30rpx 60rpx;
-  .item {
-    margin-bottom: 30rpx;
-    .title {
-      color: #2d2d2d;
-    }
-    .phone {
-      color: #fff;
-    }
-  }
-  .continue {
-    margin-top: 40rpx;
-  }
+.time {
+  font-size: 24rpx;
+  margin: 20rpx 40rpx 40rpx;
+  color: #bdbdc0;
 }
-.animated {
-  -webkit-animation-duration: 2s;
-  animation-duration: 2s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-}
-@keyframes bounceInDown {
-  from,
-  60%,
-  75%,
-  90%,
-  to {
-    -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-  }
-  0% {
-    opacity: 0;
-    -webkit-transform: translate3d(0, -3000px, 0);
-    transform: translate3d(0, -3000px, 0);
-  }
-  60% {
-    opacity: 1;
-    -webkit-transform: translate3d(0, 25px, 0);
-    transform: translate3d(0, 25px, 0);
-  }
-  75% {
-    -webkit-transform: translate3d(0, -10px, 0);
-    transform: translate3d(0, -10px, 0);
-  }
-  90% {
-    -webkit-transform: translate3d(0, 5px, 0);
-    transform: translate3d(0, 5px, 0);
-  }
-  to {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-}
-.bounceInDown {
-  -webkit-animation-name: bounceInDown;
-  animation-name: bounceInDown;
-}
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
-  }
-  to {
-    opacity: 1;
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-}
-.fadeInDown {
-  -webkit-animation-name: fadeInDown;
-  animation-name: fadeInDown;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    -webkit-transform: translate3d(0, 100%, 0);
-    transform: translate3d(0, 100%, 0);
-  }
-
-  to {
-    opacity: 1;
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-.fadeInUp {
-  -webkit-animation-name: fadeInUp;
-  animation-name: fadeInUp;
+.list_item {
+  width: 670rpx;
+  margin: 40rpx 40rpx;
+  background-color: #ffffff;
+  box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
+  color: #4d495b;
+  border-radius: 4rpx;
 }
 </style>

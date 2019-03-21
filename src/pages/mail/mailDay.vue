@@ -1,8 +1,17 @@
 <template>
   <view class="page">
-    <div class="list shadow" v-for="item in list" :key="item._id">
-      <div class="mailDay flex center" @click="showToast(index)">来自
-        <span class="mailDayName">{{item.aliasName}}</span>的信将于 {{item.createdAt | momentFormat}} 到达</div>
+    <div
+      v-for="item in list"
+      :key="item._id"
+      class="list shadow"
+    >
+      <div
+        class="mailDay flex center"
+        @click="showToast(index)"
+      >
+        来自
+        <span class="mailDayName">{{ item.aliasName }}</span>的信将于 {{ item.createdAt | timeIntervalFormat }} 到达
+      </div>
     </div>
   </view>
 </template>
@@ -45,7 +54,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .page{
-  padding: 40rpx 60rpx;
+  padding: 40rpx 40rpx;
   background-color: #fffefb;
   height:100vh;
 }
@@ -55,13 +64,12 @@ export default {
 }
 .mailDay {
   height: 120rpx;
-  margin-top: 10rpx;
-  margin-bottom: 10rpx;
   font-size: 28rpx;
 }
 .mailDayName {
-  font-size: 34rpx;
+  font-size: 32rpx;
   color: #2b2b2b;
+  font-weight: 600;
   margin: 0 12rpx;
 }
 </style>

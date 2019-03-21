@@ -1,20 +1,63 @@
 <template>
   <view class="app">
-    <session class="navigatabar flex" id="navigatabar">
-      <div @click="toggleQuestion" :class="active =='question' ? 'borderColor': ''" class="navigatabar_item  flex center">我的咨询</div>
-      <div @click="toggleAnswer" :class="active =='answer' ? 'borderColor': ''" class="navigatabar_item flex center">我的解答</div>
+    <session
+      id="navigatabar"
+      class="navigatabar flex"
+    >
+      <div
+        :class="active =='question' ? 'borderColor': ''"
+        class="navigatabar_item  flex center"
+        @click="toggleQuestion"
+      >
+        我的咨询
+      </div>
+      <div
+        :class="active =='answer' ? 'borderColor': ''"
+        class="navigatabar_item flex center"
+        @click="toggleAnswer"
+      >
+        我的解答
+      </div>
     </session>
-    <scroll-view class="list  box" scroll-y lower-threshold="200" :style='`height: ${scrolHeight}px`' @scrolltolower="scrolltolower" v-if="active =='question' ">
-      <Envelope station="memory" :mail="story" v-for="story in List" :key="story._id">
-      </Envelope>
-      <div v-if="List.length === 0" class="noMail flex center">
+    <scroll-view
+      v-if="active =='question' "
+      class="list  box"
+      scroll-y
+      lower-threshold="200"
+      :style="`height: ${scrolHeight}px`"
+      @scrolltolower="scrolltolower"
+    >
+      <Envelope
+        v-for="story in List"
+        :key="story._id"
+        station="memory"
+        :mail="story"
+      />
+      <div
+        v-if="List.length === 0"
+        class="noMail flex center"
+      >
         暂无咨询
       </div>
     </scroll-view>
-    <scroll-view class="list  box" scroll-y lower-threshold="200" :style='`height: ${scrolHeight}px`' @scrolltolower="scrolltolower" v-else>
-      <Envelope station="memory" :mail="reply" v-for="reply in List" :key="reply._id">
-      </Envelope>
-      <div v-if="List.length === 0" class="noMail flex center">
+    <scroll-view
+      v-else
+      class="list  box"
+      scroll-y
+      lower-threshold="200"
+      :style="`height: ${scrolHeight}px`"
+      @scrolltolower="scrolltolower"
+    >
+      <Envelope
+        v-for="reply in List"
+        :key="reply._id"
+        station="memory"
+        :mail="reply"
+      />
+      <div
+        v-if="List.length === 0"
+        class="noMail flex center"
+      >
         暂无解答
       </div>
     </scroll-view>
@@ -108,12 +151,16 @@ export default {
 };
 </script>
 <style lang="less" scope>
-.list {
+.list{
   padding-bottom: 80rpx;
+  margin-top: -40rpx;
 }
 .noMail {
   height: 400rpx;
   margin: 80rpx;
+}
+.navigatabar{
+  background-color: #fffefb
 }
 </style>
 

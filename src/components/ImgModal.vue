@@ -12,18 +12,19 @@
         {{ value.title }}
       </cover-view>
       <cover-view class="content">
-        {{ value.content }}
+        <cover-image
+          :src="value.imgSrc"
+          alt=""
+        />
       </cover-view>
       <cover-view class="btn">
         <button
-          v-if="value.type === 'CONFIRM' "
-          class="confirm darkButton"
-          @click="ConfirmButton"
-        >
-          {{ value.confirmButtonText }}
-        </button>
-        <button
-          class="sure lightButton"
+          open-type="contact"
+          :show-message-card="true"
+          :send-message-img="imgUrl"
+          :send-message-title="filterTitle"
+          :session-from="`nickName'${user.aliasName}, 'avatarUrl':${user.aliasPortrait}`"
+          class="sure darkButton"
           @click="enSure"
         >
           {{ value.sureButtonText }}
@@ -39,10 +40,10 @@ export default {
   name: "Modal",
   data() {
     return {
-      img: false,
       isShowModal: false,
       filterTitle: "",
       imgUrl: "",
+      user: {},
       value: {}
     };
   },
@@ -50,56 +51,45 @@ export default {
     show(value) {
       const targetObj = {
         title: "",
-        content: "",
-        sureButtonText: "好的",
+        sureButtonText: "马上开始",
         type: "ALERT",
-        confirmButtonText: ""
-      };
+        imgSrc: ""
+      }
       this.value = Object.assign(targetObj, value);
 
-      this.isShowModal = true;
-    },
-    ConfirmButton() {
-      this.isShowModal = false;
-
-      if (this.value.confirmButtonText === "获取邮票") {
-        this.$router.push({
-          query: { active: "mail" },
-          path: "/pages/welfare/index"
-        });
-      } else if (this.value.confirmButtonText === "获取解忧券") {
-        this.$router.push({
-          query: { active: "solution" },
-          path: "/pages/welfare/index"
-        });
-      } else if (this.value.confirmButtonText === "前往解答室") {
-        this.$router.push({
-          path: "/pages/solution/tags"
-        });
-      } else if (this.value.title.includes("徽章")) {
-        if (typeof this.value.confirmCallbak == "function") {
-          this.value.confirmCallbak.call();
-        } else {
-          this.$router.push({
-            path: "/pages/badge/badge"
-          });
-        }
+      const { user } = getApp().globalData;
+      this.user.aliasName = user.aliasName;
+      this.user.aliasPortrait = user.aliasPortrait;
+      if (this.value.title === "关注服务号") {
+        this.filterTitle = "关注服务号";
+        this.value.imgSrc= "/static/jpg/server_guide.jpg"
+        this.imgUrl =
+          "https://cdn.tellers.cn/tell_v2/static/service_accout.jpg";
       }
+      if (this.value.title === "关注订阅号") {
+        this.filterTitle = "关注订阅号";
+        this.value.imgSrc= "/static/jpg/subscript_guide.jpg"
+        this.imgUrl =
+          "https://cdn.tellers.cn/tell_v2/static/subscribe_accout.jpg";
+      }
+      if (this.value.title === "如何加群") {
+        this.filterTitle = "加群";
+        this.value.imgSrc= "/static/jpg/join_group_guide.jpg"
+        this.imgUrl = "https://cdn.tellers.cn/tell_v2/static/join_group.jpg";
+      }
+      this.isShowModal = true;
     },
     enSure() {
       this.isShowModal = false;
-      this.img = false;
     },
     clickMask() {
       this.isShowModal = false;
-      this.img = false;
       this.imgUrl = "";
       this.value = {
         title: "",
-        content: "",
-        type: "",
         sureButtonText: "",
-        confirmButtonText: ""
+        type: "",
+        imgSrc: ""
       };
     },
     stopkMask() {}
@@ -133,11 +123,8 @@ export default {
   font-weight: 600;
   color: #4d495b;
 }
-.btn {
-  margin-top: 64rpx;
-}
 .content {
-  margin: 40rpx 40rpx 20rpx;
+  margin: 40rpx 40rpx 20rpx 40rpx;
   white-space: normal;
   line-height: 52rpx;
   font-size: 28rpx;

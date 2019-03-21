@@ -2,20 +2,41 @@
   <div class="box page flex center column">
     <div class="img flex column">
       <div class="up">
-        <div class="title flex center">送你一张解忧券</div>
-        <div class="desc  flex center">让 {{answerers}} 位解答者为你解忧</div>
+        <div class="title flex center">
+          送你一张解忧券
+        </div>
+        <div class="desc  flex center">
+          让 {{ answerers }} 位解答者为你解忧
+        </div>
       </div>
       <div class="down flex grow center">
-        <div class="txt" v-if="isReceived">
+        <div
+          v-if="isReceived"
+          class="txt"
+        >
           <span>你已领取解忧券 </span>
-          <span class="highlight" @click="toHome">去使用 &gt;&gt;</span>
+          <span
+            class="highlight"
+            @click="toHome"
+          >去使用 &gt;&gt;</span>
         </div>
-        <button class="darkButton" @click="receiveGift" :disabled="!isLoadSuccess" v-else>领取</button>
+        <button
+          v-else
+          class="darkButton"
+          :disabled="!isLoadSuccess"
+          @click="receiveGift"
+        >
+          领取
+        </button>
       </div>
     </div>
     <div class=" tips grow ">
-      <div class="title flex center ">解忧券有什么用？</div>
-      <div class="desc ">这是一张帮你解除烦恼的神奇票券，我们生而为人，总在不经意间遇到种种烦恼。你可以凭解忧券来使用 Tell 的烦恼咨询服务，让有缘的解答者为你分忧。</div>
+      <div class="title flex center ">
+        解忧券有什么用？
+      </div>
+      <div class="desc ">
+        这是一张帮你解除烦恼的神奇票券，我们生而为人，总在不经意间遇到种种烦恼。你可以凭解忧券来使用 Tell 的烦恼咨询服务，让有缘的解答者为你分忧。
+      </div>
     </div>
   </div>
 </template>

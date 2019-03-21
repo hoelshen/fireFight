@@ -1,22 +1,46 @@
 <template>
-  <view class="list_item flex column j-between" :class="isRead ? 'read' :''" @tap="toMail">
-    <view class="list_item-sendName flex wrap j-between">
+  <view
+    class="list_item flex column j-between"
+    :class="isRead ? 'read' :''"
+    @tap="toMail"
+  >
+    <view class="list_item_sendName flex wrap j-between">
       <view class="flex column j-between">
-        <view class="list_item-receiverName">
-          <span class="list_item-receiverNameSpan">{{mail.targetUserName}}</span>
+        <view class="list_item_receiverName">
+          <span class="list_item_receiverNameSpan">{{ mail.targetUserName }}</span>
           <span v-if="!mail.fromSystem">收</span>
         </view>
-        <view class="list_item-content ">
-          <span>{{mail.fromSystem ? mail.title :mail.content}}</span>
+        <view class="list_item_content ">
+          <span>{{ mail.fromSystem ? mail.title :mail.content }}</span>
         </view>
       </view>
       <view class="flex">
-        <image class="mail-svg" src="/static/svgs/stamp.svg"/>
+        <image
+          class="mail-svg"
+          src="/static/svgs/stamp.svg"
+        />
       </view>
     </view>
-    <view class="list_item-sendName flex j-between">
-      <view>{{isReplied ? '已回复' : ''}}</view>
-      <view>{{mail.aliasName}}</view>
+    <view class="flex j-between list_item_alias">
+      <view
+        v-if="isExtra"
+        :class="isExtra ? 'list_item_extra' : '' "
+      >
+        {{ isExtra ? '可额外回复的信' : '' }}
+      </view>
+      <view
+        v-else
+        :class="isReplied ? 'list_item_replied' : '' "
+      >
+        {{ isReplied ? '已回复' : '' }}
+      </view>
+      <view>{{ mail.aliasName }}</view>
+    </view>
+    <view
+      v-if="showRefer && remoteReferContent"
+      class="context"
+    >
+      {{ remoteReferContent }}
     </view>
   </view>
 </template>
@@ -26,9 +50,16 @@ export default {
   props: {
     mail: {
       type: Object,
-      requred: true
+      requred: true,
+      default:()=>{
+        return {};
+      }
     },
     isRead: {
+      type: Boolean,
+      default: false
+    },
+    isExtra:{
       type: Boolean,
       default: false
     },
@@ -38,13 +69,41 @@ export default {
     },
     station:{
       type: String,
+      default:()=>{
+        return {};
+      }
     },
     dialogId: {
-      type: String
+      type: String,
+      default:()=>{
+        return {};
+      }
+    },
+    showRefer:{
+      type: Boolean,
+      default: false
+    },
+    referMail:{
+      type: Object,
+      default:()=>{
+        return {};
+      }
     }
   },
   data() {
-    return {};
+    return {
+      remoteReferContent:""
+    };
+  },
+  created(){
+    if (!this.mail.targetMail){
+      return true;
+    }
+    if(this.referMail) return this.remoteReferContent = this.referMail.content;
+    let referMailId = this.mail.targetMail;
+    this.$request.get(`/mail/detail/${referMailId}`).then((res)=>{
+      this.remoteReferContent = res.data.content;
+    })
   },
   methods: {
     toMail() {
@@ -73,37 +132,62 @@ export default {
 
 <style lang="less" scoped>
 .list_item {
-  margin: 40rpx 60rpx;
-  padding: 20rpx;
+  margin: 40rpx 40rpx;
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
   color: #4d495b;
   &.read {
     color: #bdbdc0;
   }
-  &-receiverName {
+  &_receiverName {
     display: inline-block;
   }
-  &-receiverNameSpan {
-    margin-right: 10rpx;
-    margin-top: 20rpx;
+  &_receiverNameSpan {
+    margin-right: 20rpx;
   }
-  &-content {
-    margin-top: 18rpx;
-    font-size: 34rpx;
+  &_content {
+    margin-top: 40rpx;
+    font-size: 32rpx;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     font-weight: bold;
     width: 350rpx;
   }
-  &-sendName {
-    margin-top: 18rpx;
+  &_sendName {
     font-size: 28rpx;
-    margin: 20rpx;
+    padding: 40rpx
+  }
+  &_replied{
+    border-radius: 4rpx;
+    font-size: 24rpx;
+    padding: 4rpx 12rpx;
+    background-color: #BDBDC0;
+    color: #ffffff;
+  }
+  &_extra{
+    border-radius: 4rpx;
+    font-size: 24rpx;
+    padding: 4rpx 12rpx;
+    background-color: #ffc86d;
+    color: #ffffff;
+  }
+  &_alias{
+    margin:40rpx 0;
+    padding: 0 40rpx
   }
 }
-
+.context{
+  font-size:28rpx;
+  overflow:hidden;
+  padding:40rpx 40rpx;
+  border-top-color: rgba(189,189,192,0.15);
+  border-top-style: solid;
+  border-top-width: 2rpx;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  color: #BDBDC0;
+}
 .mail-svg {
   width: 120rpx;
   height: 120rpx;

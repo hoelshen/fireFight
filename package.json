@@ -5,12 +5,17 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "dev": "npm run dev:wechat",
+    "lint": "eslint --fix --ext .js,.vue src",
+    "dev": "npm run lint && npm run dev:wechat",
     "dev:alipay": "webpack --config ./build/webpack.config.alipay.js -w",
     "dev:swan": "webpack --config ./build/webpack.config.swan.js -w",
     "dev:wechat": "webpack --config ./build/webpack.config.wechat.js -w"
   },
-  "keywords": [],
+  "keywords": [
+    "vue",
+    "wxapp",
+    "tell"
+  ],
   "author": "sjh <1039460820@qq.com>",
   "license": "ISC",
   "devDependencies": {
@@ -25,6 +30,9 @@
     "babel-preset-stage-0": "^6.24.1",
     "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^1.0.0",
+    "eslint": "^5.15.3",
+    "eslint-plugin-html": "^5.0.3",
+    "eslint-plugin-vue": "^5.2.2",
     "html-webpack-plugin": "^3.2.0",
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
@@ -35,9 +43,14 @@
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.5"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/tellers/tell2.0_megalo.git"
+  },
   "dependencies": {
     "@megalo/vhtml-plugin": "^0.1.2",
     "dayjs": "^1.8.0",
+    "eslint-plugin-import": "^2.16.0",
     "flyio": "^0.6.9",
     "megalo": "^0.7.0",
     "megalo-router": "^1.0.3",

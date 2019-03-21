@@ -1,23 +1,51 @@
 <template>
   <view class="ticket flex column j-between">
     <session class="navigatabar flex">
-      <div @click="toggleticket" :class="{borderColor:isActive}" class="navigatabar_item flex center">解忧券</div>
-      <div @click="toggleMail" :class="{borderColor:!isActive}" class="navigatabar_item flex center">邮票</div>
-    </session>
-    <session class="list" v-if="list.length > 0">
-      <div class="list_item flex j-between" v-for="(item,index) in list" :key="index">
-        <div class="flex j-between center">
-          <image class="iconfont ifImage" :src="`/static/svgs/${photo}.svg`" />
-          <div class="flex column">
-            <span class="message">{{item.message}}</span>
-            <span class="ticket_day">{{item.createdAt | dayFormat}}</span>
-          </div>
-        </div>
-        <span class="count flex center">{{(item.count > 0) ? '+' : ' ' }} {{ item.count }}</span>
+      <div
+        :class="{borderColor:isActive}"
+        class="navigatabar_item flex center"
+        @click="toggleticket"
+      >
+        解忧券
+      </div>
+      <div
+        :class="{borderColor:!isActive}"
+        class="navigatabar_item flex center"
+        @click="toggleMail"
+      >
+        邮票
       </div>
     </session>
-    <div v-if="list.length === 0" class=" noMail flex center">
-          暂无明细
+    <session
+      v-if="list.length > 0"
+      class="list"
+    >
+      <div
+        v-for="(item,index) in list"
+        :key="index"
+        class="list_item flex j-between"
+      >
+        <div class="flex j-between center">
+          <image
+            class="iconfont ifImage"
+            :src="`/static/svgs/${photo}.svg`"
+          />
+          <div class="flex column">
+            <span class="message">{{ item.message }}</span>
+            <span class="ticket_day">{{ item.createdAt | dateFormat }}</span>
+          </div>
+        </div>
+        <span
+          class="count flex center"
+          :class=" (item.count > 0) ? 'yellowCount' : ''"
+        >{{ (item.count > 0) ? '+' : ' ' }}{{ item.count }}</span>
+      </div>
+    </session>
+    <div
+      v-if="list.length === 0"
+      class=" noMail flex center"
+    >
+      暂无明细
     </div>
   </view>
 </template>
@@ -39,18 +67,23 @@ export default {
       this.photo = "stamp-icon"
     } else{
       this.photo = "ticket"
-      }
+    }
     this.getList();
   },
+  // computed: {
+  //   tickType() {}
+  // },
   methods: {
     toggleticket() {
       this.active = "ticket";
       this.isActive = !this.isActive;
+      this.photo = "ticket"
       this.getList();
     },
     toggleMail() {
       this.active = "stamp";
       this.isActive = !this.isActive;
+      this.photo = "stamp-icon"
       this.getList();
     },
     async getList() {
@@ -63,9 +96,6 @@ export default {
       }
       this.list = res.data;
     }
-  },
-  computed: {
-    tickType() {}
   },
   onShareAppMessage(res) {
     let { title, imageUrl, path, user } = getApp().globalData;
@@ -93,18 +123,18 @@ page{
     margin-top: 16rpx;
     margin-left: 60rpx;
     & .message{
-      font-size: 34rpx;
+      font-size: 32rpx;
     }
     & .ticket_day {
       color: #a9a9a9;
-      font-size:22rpx;
-      margin-top:12rpx;
+      font-size:28rpx;
+      margin-top:8rpx;
     }
   }
 }
 .ifImage{
   margin-right:20rpx;
-  top:-16rpx;
+  top:-22rpx;
   position:relative;
 }
 .noMail{
@@ -112,8 +142,11 @@ page{
   margin: 80rpx
 }
 .count{
-  font-size: 34rpx;
-  font-weight: 600
+  font-size: 32rpx;
+  color: #4D495B;
+}
+.yellowCount{
+  color: #FFC86D
 }
 </style>
 

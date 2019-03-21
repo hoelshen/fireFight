@@ -1,22 +1,67 @@
 <template>
-  <scroll-view class="scroll" scroll-y>
+  <scroll-view
+    class="scroll"
+    scroll-y
+  >
     <session class="solutionRoomName">
-      <div class="solutionRoomName-name">
-        <p class="solutionRoomName-day">{{days}}</p>
-        <p class="solutionRoomName-aliasName">{{aliasName}}</p>
+      <p class="day">
+        {{ days }}
+      </p>
+      <div class="flex j-start a-center">
+        <div class="aliasName">
+          {{ aliasName }}
+        </div>
+        <button
+          class="aliasNameBtn"
+          @click="returnBadge"
+        >
+          <image
+            v-if="badgeImgUrl"
+            class="badgeIconfont"
+            :src="badgeImgUrl"
+          />
+        </button>
       </div>
-      <div clss="solutionRoomName_question flex j-between">
-        <span class="solutionRoomName_question_mail">你今天还可以解答 {{replyCount}} 个咨询</span>
+      <div class="flex j-start a-center">
+        <span
+          v-if="badgeName === '向日葵徽章'"
+          class="canSolver"
+        >你今天可以解答全部咨询</span>
+        <span
+          v-else
+          class="canSolver"
+        >你今天还可以解答 {{ replyCount }} 个咨询</span>
+        <button
+          class="canSolverBtn"
+          @click="badgeExplain"
+        >
+          <image
+            class="iconfont"
+            src="/static/svgs/question.svg"
+          />
+        </button>
       </div>
     </session>
 
     <session class="list">
-      <Envelope station="solution" :isRead="item.isRead" :isReplied="item.isReplied" :mail="item.mail" v-for="(item,index) in mails" :key="index">
-      </Envelope>
+      <Envelope
+        v-for="(item,index) in mails"
+        :key="index"
+        station="solution"
+        :is-extra="item.isExtra"
+        :is-read="item.isRead"
+        :is-replied="item.isReplied"
+        :mail="item.mail"
+      />
     </session>
 
     <session class="solutionDetail flex center">
-      <div class="solutionDetailButton flex center" @click="solutionDetail">解答者手册</div>
+      <div
+        class="solutionDetailButton flex center"
+        @click="solutionDetail"
+      >
+        解答者手册
+      </div>
     </session>
   </scroll-view>
 </template>
@@ -27,19 +72,21 @@ export default {
     Envelope
   },
   data() {
-    const days = this.$day().timeQual();
+    const days = this.$day().greeting();
     return {
       days: days,
       aliasName: "",
       replyCount: 1,
-      mails: []
+      mails: [],
+      badgeImgUrl: "",
+      badgeName: ""
     };
   },
   methods: {
     async getStory() {
       let res = await this.$request.get("/mail/story");
       this.mails = res.data.list;
-      this.replyCount = res.data.lastRepliedAt ? 0 : 1;
+      this.replyCount = res.data.replyCount;
       getApp().globalData.replyCount = this.replyCount;
     },
     onSolutionLimit() {
@@ -53,6 +100,18 @@ export default {
         query: { page: "Solver-Manual" },
         path: "/pages/webview/index"
       });
+    },
+    returnBadge(){
+      this.$router.push({ path: "/pages/badge/badge"});
+    },
+    badgeExplain(){
+      this.$router.push({ path: "/pages/badge/badgeExplain"})
+    },
+    getBadge() {
+      this.$request.get("/badge/mine").then(res => {
+        this.badgeImgUrl = res.data.imgUrl;
+        this.badgeName = res.data.name;
+      });
     }
   },
   onShow() {
@@ -64,6 +123,8 @@ export default {
     } else {
       this.aliasName = user.aliasName;
     }
+
+    this.getBadge();
     this.getStory();
   },
   onShareAppMessage(res) {
@@ -82,22 +143,15 @@ export default {
   height: 100vh;
 }
 
-.solutionRoomName {
-  display: block;
-  border: 1px solid #ffffff;
-  margin: 20rpx 60rpx;
-  &_question {
-    &-img {
-      height: 44rpx;
-      width: 44rpx;
-    }
-  }
-}
-
 .solutionDetail {
   padding-bottom: 60rpx;
 }
 
+.solutionRoomName{
+  display: block;
+  border: 1px solid #ffffff;
+  margin: 40rpx 40rpx;
+}
 .solutionDetailButton {
   margin-top: 16rpx;
   border-radius: 23px;
@@ -105,20 +159,39 @@ export default {
   height: 92rpx;
   border: 1px solid #ffc86d;
 }
-.solutionRoomName-day {
-  margin-top: 40rpx;
+.day {
   color: #4D495B;
-  font-size: 34rpx;
+  font-size: 32rpx;
   font-weight:600;
 }
-.solutionRoomName-aliasName {
+.aliasName {
   margin: 24rpx 0;
   font-size: 60rpx;
   font-weight:600;
   color:#4D495B;
+
 }
-.solutionRoomName_question_mail {
+.aliasNameBtn{
+    margin:0;
+    padding:0;
+    line-height:0;
+    margin-left: 20rpx;
+
+}
+.badgeIconfont{
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.canSolver {
   color: #a9a9a9;
-  margin-top: 20rpx;
+  margin-right: 20rpx;
 }
+.canSolverBtn{
+  padding:0;
+  margin:0;
+  line-height:0;
+}
+
+
 </style>

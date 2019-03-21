@@ -1,17 +1,26 @@
 <template>
   <div class="noFound flex column">
-
     <div class="tips flex center column">
-      <div class="desc">邮差迷路了，正在重新导航...</div>
-      <img src="/static/svgs/nofound.svg" alt="">
+      <div class="desc">
+        邮差迷路了，正在重新导航...
+      </div>
+      <img
+        src="/static/svgs/nofound.svg"
+        alt=""
+      >
     </div>
     <div class="btns flex column center box">
-      <button class="flex center" :class="isDisable ? 'disable' :''" @tap="toBack">返回首页</button>
+      <button
+        class="flex center"
+        :class="isDisable ? 'disable' :''"
+        @tap="toBack"
+      >
+        返回首页
+      </button>
       <div class="time">
-        <span v-if="isDisable">{{time}}秒</span>
+        <span v-if="isDisable">{{ time }}秒</span>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -37,7 +46,6 @@ export default {
       if (this.isDisable) {
         return false;
       }
-      this.$request.setRelogin();
       wx.reLaunch({
         url: "/pages/home/index"
       });

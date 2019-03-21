@@ -1,20 +1,36 @@
 <template>
   <view class="app">
-    <div class="solverDetailStyle flex column center" v-if="active === 'solverDetail'">
+    <div
+      v-if="active === 'solverDetail'"
+      class="solverDetailStyle flex column center"
+    >
       <div class="flex center column grow">
         <p>需要先成为解答者，才能查阅这里的信件</p>
         <p>你可以阅读手册来了解相关约定</p>
-        <button class="flex center solverDetailStyleBtn" @click="onDetail">
+        <button
+          class="flex center solverDetailStyleBtn"
+          @click="onDetail"
+        >
           <span class="solverDetailStyleBtnSpan">解答者手册</span>
-          <image class="iconfont" src="/static/svgs/left_arrow.svg">
-          </image>
+          <image
+            class="iconfont"
+            src="/static/svgs/left_arrow.svg"
+          />
         </button>
       </div>
 
       <div class="flex j-end solverDetailBtn column">
-        <button class="darkButton" @click="onSoluter">申请成为解答者</button>
+        <button
+          class="darkButton"
+          @click="onSoluter"
+        >
+          申请成为解答者
+        </button>
         <div class="flex center solverDetailcheck">
-          <checkbox :checked="checked" @click="ensure" />
+          <checkbox
+            :checked="checked"
+            @click="ensure"
+          />
           <span class="flex solverDetailspan">同意并遵守《解答者手册》的约定</span>
         </div>
       </div>
@@ -102,12 +118,15 @@ export default {
 .solverDetailspan {
   color: #a9a9a9;
   font-size: 28rpx;
+  margin-left: 10rpx;
 }
 .solverDetailStyleBtn {
   margin-top: 60rpx;
 }
 .solverDetailStyleBtnSpan {
   margin-right: 20rpx;
+  font-size:28rpx;
+  font-weight:600;
 }
 
 .solutionLimit {
@@ -117,37 +136,5 @@ export default {
     margin: 20rpx 60rpx 20rpx 60rpx;
   }
 }
-.table {
-  width: 670rpx;
-  height: 80rpx;
-  margin: 20rpx 60rpx 20rpx 60rpx;
-  background: #ffffff;
-}
-.tr {
-  display: flex;
-  justify-content: center;
-  height: 3rem;
-  align-items: center;
-  border: 1px solid #000000;
-}
-.td {
-  width: 250rpx;
-  justify-content: center;
-  text-align: center;
-  height: 3rem;
-  border: 1rpx solid #000000;
-}
-.bg-w {
-  background: #ffffff;
-}
-.th {
-  width: 424rpx;
-  justify-content: center;
-  border: 1px solid #000000;
-  background: #ffffff;
-  color: #000000;
-  display: flex;
-  height: 3rem;
-  align-items: center;
-}
+
 </style>

@@ -1,17 +1,63 @@
 <template>
   <view class="app list">
-    <Mail :mail="item" v-for="item in list" :key="item._id"></Mail>
-    <Mail :mail="replyMail" v-if="replyMail"></Mail>
-    <Reply v-if="isReply" :target="target" tag="mail" :id="id" @submit="submit"></Reply>
-    <div class="flex column center showReply_button" v-if="!isDisabled &&!isReply && !isFromSystem">
-      <button class="reply_button" @click="showReply"> 回信</button>
+    <Mail
+      v-for="item in list"
+      :key="item._id"
+      :mail="item"
+    />
+    <Mail
+      v-if="replyMail"
+      :mail="replyMail"
+    />
+    <Reply
+      v-if="isReply"
+      :id="id"
+      :target="target"
+      tag="mail"
+      @submit="submit"
+    />
+    <div
+      v-if="!isDisabled &&!isReply && !isFromSystem"
+      class="flex column center showReply_button"
+    >
+      <button
+        class="reply_button"
+        @click="showReply"
+      >
+        回信
+      </button>
       <span class="replay_text">需要使用 1 张邮票</span>
     </div>
-    <div class="btns flex column center" v-if="isFromSystem">
-      <button class="darkButton btn" @click="toConsulting"> 去咨询</button>
-      <button class="lightButton btn" @click="toSolution"> 去解答</button>
+    <div
+      v-if="isFromSystem"
+      class="btns flex column center"
+    >
+      <button
+        class="darkButton btn"
+        @click="toConsulting"
+      >
+        去咨询
+      </button>
+
+
+      <button
+        v-if="!user.unionid"
+        class="lightButton btn"
+        open-type="getUserInfo"
+        lang="zh_CN"
+        @getuserinfo="onGotUserInfo"
+      >
+        去解答
+      </button>
+      <button
+        v-else
+        class="lightButton btn"
+        @click="toSolution"
+      >
+        去解答
+      </button>
     </div>
-    <Modal ref="mymodal"></Modal>
+    <Modal ref="mymodal" />
   </view>
 </template>
 
@@ -31,6 +77,7 @@ export default {
     return {
       id: "",
       userId: "",
+      user:{},
       list: [],
       replyMail: {},
       target: {},
@@ -41,7 +88,7 @@ export default {
       modal: {
         title: "",
         content: "",
-        confirm: "",
+        confirmButtonText: "",
         type: "",
         sure: ""
       }
@@ -69,7 +116,7 @@ export default {
           this.replyMail = res.data;
           this.isDisabled = true;
         } else {
-          this.isDisabled = dialog.fromUser === this.userId ? true : false;
+          this.isDisabled = dialog.fromUser === getApp().globalData.user._id ? true : false;
         }
       });
     },
@@ -78,18 +125,18 @@ export default {
         this.$refs.mymodal.show({
           title: "邮票不足",
           content: "需要消耗 1 邮票，当前余额不足",
-          confirm: "获取邮票",
+          confirmButtonText: "获取邮票",
           type: "CONFIRM",
-          sure: "好的"
         });
         return false;
       }
       this.isReply = true;
     },
+    onGotUserInfo(e) {
+      this.$request.auth(e.detail);
+    },
     toSolution() {
-      const { user } = getApp().globalData;
-      const status = this.$checkAuth(user);
-      if (status) {
+        const { user } = getApp().globalData;
         if (!user.becomeAnswererAt) {
           return this.$router.push({
             query: { active: "solverDetail" },
@@ -97,7 +144,6 @@ export default {
           });
         }
         return this.$router.push({ path: "/pages/solution/solutionRoom" });
-      }
     },
     toConsulting() {
       this.$router.push({ path: "/pages/consultingBox/consultingBox" });
@@ -112,6 +158,7 @@ export default {
     this.id = query.id;
     this.getContent(this.id);
     const { user } = getApp().globalData;
+    this.user = user;
     this.userId = user._id;
     this.stampCount = user.stampCount;
   },
@@ -138,7 +185,7 @@ export default {
 }
 .replay_text {
   color: #a9a9a9;
-  font-size: 24rpx;
+  font-size: 28rpx;
   margin-top: 24rpx;
 }
 

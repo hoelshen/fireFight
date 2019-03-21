@@ -4,20 +4,22 @@ import { promisify } from "@/utils/index";
 const environment = "prod"; // 配置环境
 
 const fly = new flyio();
+const loginFly = new flyio();
 
-let cookies = [],
-  token = "",
-  tryCount = 0;
-let isRelogin = false;
+let token = "";
 
 fly.config.baseURL = getBaseURL(environment);
 fly.config.headers["Accept"] = "application/json";
 fly.config.headers["Content-Type"] = "application/json; charset=utf-8";
 
+loginFly.config.baseURL = getBaseURL(environment);
+loginFly.config.headers["Accept"] = "application/json";
+loginFly.config.headers["Content-Type"] = "application/json; charset=utf-8";
+
 function getBaseURL(env) {
   switch (env) {
     case "local":
-      return "http://localhost:10701";
+      return "http://192.168.118.149:10701";
     case "mock":
       return "http://www.amusingcode.com:8001/mock/24/tell_v2";
     case "test":
@@ -25,10 +27,6 @@ function getBaseURL(env) {
     default:
       return "https://api.tellers.cn/teller-v2";
   }
-}
-
-function setRelogin() {
-  isRelogin = true;
 }
 
 function showError(message, status, request) {
@@ -88,37 +86,17 @@ function sendFrontErrorToCloud(error) {
   db.collection("front-errors").add({ data });
 }
 
-function normalizeUserCookie(cookiesArray) {
-  let _cookies = [];
-  cookiesArray = cookiesArray + "";
-  (cookiesArray.match(/([\w\-.]*)=([^\s=]+);/g) || []).forEach(str => {
-    _cookies.push(str);
+async function logLogin() {
+  if (!getApp()) {
+    // 等待实例初始化完成
+    return setTimeout(logLogin, 100);
+  }
+  const lauchOpts = getApp().globalData.options;
+  const systemInfo = wx.getSystemInfoSync();
+  fly.put("/record/login", {
+    lauchOpts,
+    systemInfo
   });
-  return _cookies.join(" ");
-}
-
-function getToken(cookiesArray) {
-  if (cookiesArray.indexOf("csrfToken") >= 0) {
-    let cookies = cookiesArray.split(";");
-    return cookies[0].replace("csrfToken=", "");
-  }
-  return "";
-}
-
-async function login() {
-  isRelogin = false;
-  tryCount = 0;
-  let wxRes = await promisify(wx.login, wx)();
-  let loginUrl = `/login?code=${wxRes.code}`;
-  let query = getApp().globalData.options.query;
-  if (query.scene) {
-    loginUrl += `&scene=${query.scene}`;
-  } else if (query.refer) {
-    loginUrl += `&refer=${query.refer}`;
-  }
-  let logRes = await fly.get(loginUrl);
-  logLogin(); // 上报登陆信息
-  return (getApp().globalData.user = logRes.data);
 }
 
 function getUser() {
@@ -127,6 +105,8 @@ function getUser() {
       const user = res.data;
       getApp().globalData.user = user;
       resolve(user);
+    }).catch(err=>{
+      reject(err);
     });
   });
 }
@@ -138,7 +118,6 @@ function uploadFile(path) {
       filePath: path,
       name: "img",
       header: {
-        Cookie: cookies,
         "x-csrf-token": token
       },
       success: function(res) {
@@ -158,86 +137,108 @@ async function saveFormid(formId) {
   });
 }
 
-async function logLogin() {
-  const lauchOpts = getApp().globalData.options;
-  const systemInfo = wx.getSystemInfoSync();
-  fly.put("/record/login", {
-    lauchOpts,
-    systemInfo
-  });
+async function login(userId) {
+  if (userId) {
+    logLogin();
+    return (fly.config.headers["x-csrf-token"] = token = userId);
+  }
+  const wxRes = await promisify(wx.login, wx)();
+  const loginUrl = concatUrl(wxRes);
+  const user = await fetchLogin(loginUrl);
+  logLogin();
+  return (getApp().globalData.user = user);
 }
 
-async function waitingLogin() {
-  return new Promise(function(resolve, reject) {
-    var hash = setInterval(function() {
-      if (tryCount >= 100) {
-        clearInterval(hash);
-        wx.reLaunch({
-          url: "/pages/noFound/index"
-        });
-        reject("登陆超时"); // 10秒超时时间
-      }
-      if (cookies.length > 0) {
-        clearInterval(hash);
-        resolve("登陆成功");
-      } else {
-        tryCount++;
-        console.log("正在等候登陆结果，请稍后");
-      }
-    }, 200);
+async function auth(detail) {
+  let { iv, userInfo, encryptedData } = detail;
+  if (!userInfo) {
+    return false;
+  }
+  const wxRes = await promisify(wx.login, wx)();
+  wx.showLoading({
+    title: "授权中",
+    mask: true
   });
+  fly
+    .post("/auth", {
+      code: wxRes.code,
+      iv,
+      userInfo,
+      encryptedData
+    })
+    .then(
+      function() {
+        wx.hideLoading();
+        wx.navigateTo({
+          url: "/pages/penName/index"
+        });
+      }.bind(this)
+    )
+    .catch(err => {
+      wx.hideLoading();
+    });
+}
+
+function concatUrl(wxRes) {
+  let url = `/login?code=${wxRes.code}`;
+  let query = getApp().globalData.options.query;
+  if (query.scene) {
+    url += `&scene=${query.scene}`;
+  } else if (query.refer) {
+    url += `&refer=${query.refer}`;
+  }
+  return url;
+}
+
+async function fetchLogin(loginUrl) {
+  const res = await loginFly.get(loginUrl);
+  const user = res.data.data;
+  fly.config.headers["x-csrf-token"] = token = user._id;
+  fly.unlock();
+  wx.setStorage({
+    key: "token",
+    data: token
+  });
+  return user;
 }
 
 fly.interceptors.request.use(async function(request) {
-  if (/login\?code=/.test(request.url)) {
-    return request;
+  if (!token) {
+    return fly.lock(); //登录登录完成
+  } else {
+    fly.unlock();
   }
-  if (isRelogin) {
-    await login();
-  } else if (!token) {
-    await waitingLogin();
-  }
-  request.headers["Cookie"] = cookies;
   request.headers["x-csrf-token"] = token;
   return request;
 });
 
 fly.interceptors.response.use(
   response => {
-    if (cookies && token) {
-      return response.data;
-    }
-    if (response && response.headers && response.headers["set-cookie"]) {
-      cookies = normalizeUserCookie(response.headers["set-cookie"]);
-      token =  getToken(response.headers["set-cookie"][0]);
-    }
     return response.data;
   },
   async err => {
-    if (err.status == 504) {
-      await login();
-      return await fly.request(err.request);;
-    } else if (err.status == 502 || err.status == 404) {
+    if (err.status == 502 || err.status == 404) {
       showError("服务器抽风啦，请稍后重试", err.status, err.request); // 生产环境：服务器正在重启
       wx.reLaunch({
         url: "/pages/noFound/index"
       });
     } else if (!err.response) {
       showError("服务器抽风啦，请稍后重试", err.status, err.request); // 本地环境：服务器正在重启
-      rwx.reLaunch({
+      wx.reLaunch({
         url: "/pages/noFound/index"
       });
     } else {
       showError(err.response.data.message, err.status);
     }
-    return {};
+    return Promise.reject(err);;
   }
 );
 
 fly.login = login;
+fly.auth = auth;
 fly.saveFormid = saveFormid;
 fly.uploadFile = uploadFile;
 fly.getUser = getUser;
-fly.setRelogin = setRelogin;
 fly.sendFrontErrorToCloud = sendFrontErrorToCloud;
-export default fly;
+
+export default fly

@@ -34,14 +34,8 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 24,
+			"current": 17,
 			"list": [
-				{
-					"id": -1,
-					"name": "授权登录",
-					"pathName": "pages/login/index",
-					"query": ""
-				},
 				{
 					"id": -1,
 					"name": "设置笔名",
@@ -149,10 +143,10 @@
 					"scene": null
 				},
 				{
-					"id": 18,
+					"id": 17,
 					"name": "回信完成",
 					"pathName": "pages/solution/promptPage",
-					"query": "targetUser=&active=solution",
+					"query": "targetUser=&active=story",
 					"scene": null
 				},
 				{
@@ -194,6 +188,48 @@
 					"id": -1,
 					"name": "错误页面",
 					"pathName": "pages/errors/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 24,
+					"name": "个人中心页面",
+					"pathName": "pages/home/index",
+					"query": "tab=mine",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "正在路上的信",
+					"pathName": "pages/mail/mailDay",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "徽章",
+					"pathName": "pages/badge/badge",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 27,
+					"name": "向日葵说明",
+					"pathName": "pages/badge/sunflower",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "申请向日葵",
+					"pathName": "pages/badge/applySunflower",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "徽章说明",
+					"pathName": "pages/badge/badgeExplain",
 					"query": "",
 					"scene": null
 				}

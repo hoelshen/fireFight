@@ -3,19 +3,43 @@
     <div class="flex consultingBox column center">
       <div class="conDiv column flex center grow">
         <span class="consultingBox_title">咨询箱</span>
-
+        
         <span class="consultingBox_detail">
           <p class="text-center">你可以在这里咨询你的烦恼</p>
           <p class="text-center">每次使用 1 张解忧券</p>
         </span>
-        <span class="consultingBox_content" @click="onDetail">查看详细说明</span>
+        <span
+          class="consultingBox_content"
+          @click="onDetail"
+        >查看详细说明</span>
       </div>
-      <button class="myStoryButton" @click="onMyStory">讲述我的故事</button>
+      <div v-if="!user.unionid">
+        <button
+          class="myStoryButton"
+          open-type="getUserInfo"
+          lang="zh_CN"
+          @getuserinfo="onGotUserInfo"
+        >
+          讲述我的故事
+        </button>
+      </div>
+      <button
+        v-else
+        class="myStoryButton"
+        @click="onMyStory"
+      >
+        讲述我的故事
+      </button>
     </div>
 
     <div class="foot flex center">
-      当前持有 {{tickets}} 张解忧券
-      <div class="foot_div" @click="returnWelfare">获取更多</div>
+      当前持有 {{ tickets }} 张解忧券
+      <div
+        class="foot_div"
+        @click="returnWelfare"
+      >
+        获取更多
+      </div>
     </div>
   </view>
 </template>
@@ -23,16 +47,13 @@
 export default {
   data() {
     return {
-      tickets: 0
+      tickets: 0,
+      user: {}
     };
   },
   methods: {
     onMyStory() {
-      const { user } = getApp().globalData;
-      const status = this.$checkAuth(user);
-      if (status) {
-        this.$router.push({ path: "/pages/consultingBox/myStory" });
-      }
+      this.$router.push({ path: "/pages/consultingBox/myStory" });
     },
     onDetail() {
       this.$router.push({
@@ -41,15 +62,15 @@ export default {
       });
     },
     returnWelfare() {
-      const { user } = getApp().globalData;
-      const status = this.$checkAuth(user);
-      if(status){
-        this.$router.push({ path: "/pages/welfare/index" });
-      }
+      this.$router.push({ path: "/pages/welfare/index" });
+    },
+    onGotUserInfo(e) {
+      this.$request.auth(e.detail);
     }
   },
   onShow() {
     const { user } = getApp().globalData;
+    this.user = user;
     this.tickets = user.ticketCount;
   },
   onShareAppMessage(res) {
@@ -108,5 +129,4 @@ export default {
     font-weight: 600;
   }
 }
-
 </style>

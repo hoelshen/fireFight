@@ -2,24 +2,47 @@
   <div class="replay_content">
     <div class="content">
       <div class="flex">
-        <span class="target">{{target}}</span>
-        <span class="target" style="margin-left:10rpx;">收</span>
+        <span class="target">{{ target }}</span>
+        <span
+          class="target"
+          style="margin-left:10rpx;"
+        >收</span>
       </div>
-      <textarea :focus="true" :auto-height="true" class="textArea" maxlength="5000" cursor-spacing="30" :value="reply.content" @input="bindTextAreaBlur"/>
+      <textarea
+        :focus="true"
+        :auto-height="true"
+        class="textArea"
+        maxlength="5000"
+        cursor-spacing="30"
+        :value="reply.content"
+        @input="bindTextAreaInput"
+      />
       <div class="reply_weather flex column">
         <div class="flex wrap j-end">
-          <img class="reply_weather_name" :src="reply.aliasPortrait">
-          <span class="replyaliasName">{{reply.aliasName}}</span>
+          <img
+            class="reply_weather_name"
+            :src="reply.aliasPortrait"
+          >
+          <span class="replyaliasName">{{ reply.aliasName }}</span>
         </div>
 
         <div class="reply_weather_weather flex wrap j-end">
-          <div class="days flex j-end">{{days | dayFormat}}</div>
-          <div class="flex j-end">{{reply.weather}}</div>
+          <div class="days flex j-end">
+            {{ days | dateFormat }}
+          </div>
+          <div class="flex j-end">
+            {{ reply.weather }}
+          </div>
         </div>
       </div>
     </div>
     <div class="flex center reply_div">
-        <button class="reply_button flex center" @click="replyMail">发送</button>
+      <button
+        class="reply_button flex center"
+        @click="replyMail"
+      >
+        发送
+      </button>
     </div>
   </div>
 </template>
@@ -49,11 +72,51 @@ export default {
         aliasPortrait: "",
         aliasName: ""
       },
+      oldContent:""
     };
   },
+  async created() {
+    const { user } = getApp().globalData;
+    this.reply.aliasName = user.aliasName;
+    this.reply.aliasPortrait = user.aliasPortrait;
+    this.getWeather();
+
+    this.oldContent = wx.getStorageSync(this.id);
+    if(this.oldContent){
+      this.reply.content = this.oldContent;
+    }
+  },
   methods: {
-    bindTextAreaBlur(e) {
+    bindTextAreaInput(e) {
       this.reply.content = e.detail.value;
+
+      const newLength = e.detail.value.length;
+    
+      let oldLength = this.oldContent.length || 0;
+
+      if(e.detail.value.length === 0){
+        wx.removeStorage({
+          key: this.id,
+          success(res) {
+            //
+          }
+        })
+      }
+      // if(this.oldContent){
+      //   this.reply.content = this.oldContent || "";
+      //   oldLength = this.oldContent.length || 0;
+      // }
+
+      // console.log('this.oldContent : ', this.oldContent );
+
+      if((newLength - oldLength) > 10){
+          wx.setStorage({
+            key: this.id,
+            data: e.detail.value
+          })
+      }
+      
+      // console.log('e.detail.value: ', e.detail.value.length);
     },
     async getWeather() {
       let res = await this.$request.get("/weather");
@@ -76,7 +139,13 @@ export default {
       const obj = { content: this.reply.content, weather: this.reply.weather };
       if (this.tag === "mail") {
         this.$request.put(`/dialog/${this.id}`, obj).then(() => {
-          this.$emit("submit", false);
+          this.$emit("submit", true);
+          wx.removeStorage({
+            key: this.id,
+            success(res) {
+              //
+            }
+          })          
           this.$router.push({
             query: { tag: this.tag, active: "mail", targetUser: this.target },
             path: "/pages/solution/promptPage"
@@ -85,7 +154,13 @@ export default {
       }
       if (this.tag === "solution") {
         this.$request.post(`/mail/story/${this.id}`, obj).then(() => {
-          this.$emit("submit", false);
+          this.$emit("submit", true);
+          wx.removeStorage({
+            key: this.id,
+            success(res) {
+              //
+            }
+          })            
           this.$router.push({
             query: {
               tag: this.tag,
@@ -97,15 +172,6 @@ export default {
         });
       }
     }
-  },
-  async created() {
-    const { user } = getApp().globalData;
-    this.reply.aliasName = user.aliasName;
-    this.reply.aliasPortrait = user.aliasPortrait;
-    this.getWeather();
-  },
-  onHide(){
-    this.reply.content = '';
   }
 };
 </script>
@@ -126,7 +192,7 @@ export default {
   background-color: #ffffff;
   width: 100%;
   color: #4D495B;
-  font-size: 34rpx;
+  font-size: 28rpx;
   box-sizing: border-box;
   line-height:52rpx;
 }
@@ -151,7 +217,7 @@ export default {
 .target {
   margin-top: 60rpx;
   margin-left:  40rpx;
-  font-size: 34rpx;
+  font-size: 32rpx;
   color: #4D495B;
   font-weight: 600;
   box-sizing: border-box

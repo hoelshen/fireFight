@@ -1,6 +1,5 @@
 <template>
-  <web-view :src="url"></web-view>
-
+  <web-view :src="url" />
 </template>
 <script>
 const URL_MAP = {
@@ -12,25 +11,31 @@ const URL_MAP = {
     url:
       "https://api.tellers.cn/static-pages/v2/Trouble-Consultaion-Service-Description.html",
     title: "烦恼咨询服务说明"
-  },
+  }
 };
 export default {
   data() {
     return {
-      url: ""
+      url: "",
+      type: "",
+      time: null,
+      id: "" //福利社任务id
     };
   },
   onLoad(opts) {
-    let url, title;
+    let url, title, type;
     if (opts.url) {
       url = opts.url;
       title = opts.title;
+      type = opts.type;
     } else {
       let page = opts.page || "Solver-Manual";
       url = URL_MAP[page].url;
       title = URL_MAP[page].title;
     }
     this.url = url;
+    this.type = type;
+    this.id = opts.id;
     wx.setNavigationBarTitle({
       title: title
     });
@@ -43,6 +48,34 @@ export default {
       imageUrl,
       path
     };
+  },
+  onShow(){
+    const now = parseInt(new Date().getTime() / 1000); //当前时间戳
+    let  opts = wx.getLaunchOptionsSync();
+    if(!this.time) return;
+ 
+    if((now - this.time) < 60) {
+      getApp().globalData.taskState = "failedTime";
+       wx.navigateBack({
+        data:1
+      });
+      return ;
+    }
+    
+    return  this.$request.post(`/task/ad/${this.id}`).then(res=>{
+                if(res.success){
+                  getApp().globalData.taskState = "success";
+                    wx.navigateBack({
+                      data:1
+                    });
+                    return ;                  
+                }
+            })
+  },
+  onHide(){
+    if(this.type === "welfare"){
+      this.time = parseInt(new Date().getTime() / 1000); //当前时间戳
+    }
   }
 };
 </script>
