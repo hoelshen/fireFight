@@ -43,6 +43,7 @@
       </div>
       <button
         class="darkButton"
+        :disabled="isApply"
         @click="applySunflower()"
       >
         提交申请
@@ -56,6 +57,7 @@ export default {
     return {
       active: "solution",
       isShowModal: false,
+      isApply: true,
       form: {
         name: "",
         alias: "",
@@ -87,6 +89,11 @@ export default {
     },
     applySunflower() {
       this.$router.push({ path: "/pages/badge/applySunflower" });
+    },
+    getApplyStatus(){
+      this.$request.get("/badge/sunflower/access").then(res=>{
+        this.isApply =  res.success;
+      });
     }
   },
   onShow() {
@@ -94,6 +101,7 @@ export default {
       currentRoute: { query }
     } = this.$router;
     this.id = query.id;
+    this.getApplyStatus();
   }
 };
 </script>
