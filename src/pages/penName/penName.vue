@@ -43,35 +43,55 @@ export default {
       userInfo: {
         aliasName: "",
         aliasPortrait: ""
-      }
+      },
+      getPhoto: false
     };
   },
   methods: {
     takePhoto() {
-      wx.chooseImage({
-        count: 1,
-        sizeType: ["compressed"],
-        sourceType: ["album", "camera"],
-        success: function(res) {
-          wx.showLoading({
-            title: "上传中",
-            mask: true
-          });          
-          const tempFilePaths = res.tempFilePaths;
-          this.$request.uploadFile(tempFilePaths[0]).then(
-            function(res) {
-              let data = JSON.parse(res.data);
-              let userInfo = this.userInfo;
-              userInfo.aliasPortrait = data.data;
-              this.userinfo = userInfo;
-            }.bind(this)
-          );
-          setTimeout(wx.hideLoading, 2000)
-        }.bind(this),
-        fail(e) {
-          wx.hideLoading();
+      let sourceType = [];
+      const that = this;
+      wx.showActionSheet({
+      itemList: ['从相册选择新头像', '拍个新头像', '取消'],
+        success(res) {
+          if(res.tapIndex === 0){
+            sourceType = ['album']
+          }
+          if(res.tapIndex === 1){
+            sourceType = ['camera']
+          }
+          if(res.tapIndex === 2){
+            return;
+          }         
+          that.getPhoto = true;
+          wx.chooseImage({
+            count: 1,
+            sizeType: ["compressed"],
+            sourceType: sourceType,
+            success: function(res) {
+              wx.showLoading({
+                title: "上传中",
+                mask: true
+              });
+              console.log('that: ', that);
+              const tempFilePaths = res.tempFilePaths;
+              that.$request.uploadFile(tempFilePaths[0]).then(
+                function(res) {
+                  let data = JSON.parse(res.data);
+                  this.userInfo.aliasPortrait = data.data;     
+                  wx.hideLoading();
+                }.bind(that)
+              );
+            }.bind(this),
+            fail(e) {
+              wx.hideLoading();
+            }
+          });
+        },
+        fail(res) {
+          console.log(res.errMsg)
         }
-      });
+      })      
     },
     save() {
       const route = this.$router.currentRoute;
@@ -102,12 +122,14 @@ export default {
       if (!aliasName) {
         wx.showToast({ title: "请设置笔名", icon: "none" });
       }
+      this.getPhoto = false;
     },
     setName(e) {
       this.userInfo.aliasName = e.detail.value;
     }
   },
   onShow() {
+    if(this.getPhoto) return;
     this.$request.getUser().then(() => {
       const { user } = getApp().globalData;
       this.userInfo.aliasPortrait = user.aliasPortrait;
@@ -121,7 +143,10 @@ export default {
       title,
       imageUrl,
       path
-    };
+    }
+  },
+  onUnload() {
+    this.getPhoto = false;
   }
 };
 </script>

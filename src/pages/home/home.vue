@@ -364,7 +364,7 @@ export default {
       toPage: null,
       page: 1,
       hasMore: true,
-      userInfo: {}
+      getPhoto: false
     };
   },
   onLoad(opt) {
@@ -373,7 +373,6 @@ export default {
   },
   onShow() {
     if (this.toPage) {
-      // console.log("this.toPage: ", this.toPage);
       let toPage = this.toPage;
       this.toPage = null;
       return this.$router.push({
@@ -383,12 +382,12 @@ export default {
     }
     this.getTips();
     this.getScroll();
+    if(this.getPhoto) return;
     this.$request.getUser().then(res => {
       this.user = res;
     });
 
     this.isFlage = false;
-    this.userInfo = getApp().globalData.user;
     this.onTabChange(this.tab);
   },
   onShareAppMessage(res) {
@@ -480,6 +479,7 @@ export default {
     },
     login() {
       let sourceType = [];
+      const that = this;
       wx.showActionSheet({
       itemList: ['从相册选择新头像', '拍个新头像'],
         success(res) {
@@ -489,6 +489,10 @@ export default {
           if(res.tapIndex === 1){
             sourceType = ['camera']
           }
+          if(res.tapIndex === 2){
+            return;
+          } 
+          that.getPhoto = true;
           wx.chooseImage({
             count: 1,
             sizeType: ["compressed"],
@@ -499,7 +503,7 @@ export default {
                 mask: true
               });
               const tempFilePaths = res.tempFilePaths;
-              this.$request.uploadFile(tempFilePaths[0]).then(
+              that.$request.uploadFile(tempFilePaths[0]).then(
                 function(res) {
                   let data = JSON.parse(res.data);
                   let user = this.user;
@@ -510,9 +514,9 @@ export default {
                     aliasName,
                     aliasPortrait
                   });
-                }.bind(this)
+                  wx.hideLoading();
+                }.bind(that)
               );
-              setTimeout(wx.hideLoading, 2000);
             }.bind(this),
             fail(e) {
               wx.hideLoading();
