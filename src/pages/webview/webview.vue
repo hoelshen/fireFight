@@ -25,7 +25,11 @@ export default {
   onLoad(opts) {
     let url, title, type;
     if (opts.url) {
-      url = opts.url;
+      if(opts.id){
+        url = `${opts.url}?id=${opts.id}`;
+      } else{
+        url = opts.url;
+      }
       title = opts.title;
       type = opts.type;
     } else {
