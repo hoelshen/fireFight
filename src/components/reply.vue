@@ -137,6 +137,10 @@ export default {
         });
       }
       const obj = { content: this.reply.content, weather: this.reply.weather };
+      wx.showLoading({
+        title: "请稍等",
+        mask: true
+      });      
       if (this.tag === "mail") {
         this.$request.put(`/dialog/${this.id}`, obj).then(() => {
           this.$emit("submit", true);
@@ -145,7 +149,8 @@ export default {
             success(res) {
               //
             }
-          })          
+          })
+          wx.hideLoading();
           this.$router.push({
             query: { tag: this.tag, active: "mail", targetUser: this.target },
             path: "/pages/solution/promptPage"
@@ -160,7 +165,8 @@ export default {
             success(res) {
               //
             }
-          })            
+          })
+          wx.hideLoading();
           this.$router.push({
             query: {
               tag: this.tag,

@@ -146,12 +146,17 @@ export default {
           url: "/pages/help/index"
         });
       }
+      wx.showLoading({
+        title: "请稍等",
+        mask: true
+      });
       let res = await this.$request.post("/mail/story", mail);
       if (res.success) {
         wx.removeStorage({
           key: "story"
         }); // 清空缓存
         this.content = "";
+        wx.hideLoading();
         this.$router.push({
           query: {
             active: "story",
@@ -160,6 +165,7 @@ export default {
           path: "/pages/solution/promptPage"
         });
       }
+      wx.hideLoading();
     },
     bindTextAreaInput(e) {
       this.content = e.detail.value;

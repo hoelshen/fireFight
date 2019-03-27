@@ -5,7 +5,7 @@
         邮差迷路了，正在重新导航...
       </div>
       <img
-        src="/static/svgs/nofound.svg"
+        src="/static/svgs/nofound.png"
         alt=""
       >
     </div>
@@ -52,10 +52,6 @@ export default {
     }
   },
   onLoad() {
-    wx.setNavigationBarColor({
-      frontColor: "#ffffff",
-      backgroundColor: "#81cbe2"
-    });
   },
   onUnload() {
     this.time = 9;
@@ -71,8 +67,8 @@ export default {
 <style scoped lang="less">
 .noFound {
   height: 100vh;
-  background: #81cbe2;
-  color: #fff;
+  background: #fff;
+  color: #4d495b;
   .tips {
     font-size: 44rpx;
     margin: 200rpx 0;
@@ -81,8 +77,8 @@ export default {
     margin-bottom: 80rpx;
   }
   img {
-    width: 750rpx;
-    height: 420rpx;
+    width: 400rpx;
+    height: 400rpx;
   }
   .btns {
     .tips {
