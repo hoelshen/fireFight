@@ -313,7 +313,32 @@
           </button>
         </session>
       </scroll-view>
+      <div
+        v-if="showSetName"
+        class="modal"
+        @click="clickMask"
+      >
+        <div class="modalCard">
+          <div class="set">
+            设置笔名
+          </div>
+          <input
+            type="text"
+            :value="setName"
+            placeholder="设置笔名"
+            maxlength="10"
+            focus
+            @input="setNameFun"
+          >
+          <div class="saveButton">
+            <button @click="saveNameFun">
+              保存
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
+
 
     <Modal ref="mymodal" />
     <ImgModal ref="myImgmodal" />
@@ -364,7 +389,9 @@ export default {
       toPage: null,
       page: 1,
       hasMore: true,
-      getPhoto: false
+      getPhoto: false,
+      showSetName: false,
+      setName: ""
     };
   },
   onLoad(opt) {
@@ -380,6 +407,7 @@ export default {
         query: this.$mp.query
       });
     }
+    this.sjh = "ss";
     this.getTips();
     this.getScroll();
     if(this.getPhoto) return;
@@ -529,10 +557,40 @@ export default {
       })
     },
     loginName() {
-      this.$router.push({
-        query: { id: 1 },
-        path: "/pages/penName/index"
-      });
+      this.setName = this.user.aliasName;
+      this.showSetName = true;
+    },
+    clickMask(){
+      this.showSetName = false;
+    },
+    setNameFun(e) {
+      this.setName = e.detail.value;
+    },
+    saveNameFun(){
+      const aliasName = this.setName;
+      const aliasPortrait = this.user.aliasPortrait;
+      if (aliasName) {
+        if (aliasName.length < 2) {
+          return wx.showToast({ title: "请设置大于2个字符的笔名" });
+        }
+
+        if(aliasName.length > 10){
+          return wx.showToast({ title: "请设置小于10个字符的笔名" });
+        }
+        if(!aliasName){
+          return wx.showToast({ title: "请设置头像" });
+        }
+        this.$request
+          .put("/user", {
+            aliasName,
+            aliasPortrait
+          })
+          .then(res => {
+            this.user.aliasName = this.setName;
+            this.showSetName = false;
+          });
+      }
+      
     },
     getBadge() {
       this.$request.get("/badge/mine").then(res => {
@@ -794,5 +852,50 @@ export default {
     }
   }
 }
+
+.modal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index:99;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(77, 73, 91, 0.3);
+}
+.modalCard{
+  width: 630rpx;
+  max-height: 598rpx;
+  min-height: 402rpx;
+  background-color: #ffffff;
+  border-radius: 4rpx;
+  box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);  
+  & .set{
+    margin: 40rpx;
+    color: #4d495b;
+  }
+  & input {
+    margin:40rpx;
+    border-radius: 4rpx;
+    height: 84rpx;
+    width: 500rpx;
+    padding-left: 20rpx;
+    background-color: rgba(189, 189, 192, 0.15);
+  }
+}
+.saveButton {
+  width: 316rpx;
+  height: 92rpx;
+  margin: auto;
+  margin-bottom: 60rpx;
+  & button {
+    background-color: #ffc86d;
+    color: #ffffff;
+    border-radius: 23px;
+  }
+}
+
 </style>
 
