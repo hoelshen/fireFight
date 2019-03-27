@@ -5,7 +5,7 @@
         邮差迷路了，正在重新导航...
       </div>
       <img
-        src="/static/jpg/nofound.png"
+        src="/static/jpg/noFound.png"
         alt=""
       >
     </div>
