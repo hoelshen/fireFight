@@ -66,14 +66,25 @@ export default {
       this.$router.push({ path: "/pages/solution/becomeSolutor" });
     }
   },
-  onShow() {
+  async onShow() {
     const { currentRoute: { query } } = this.$router;
     const { user } = getApp().globalData;
     if (user.becomeAnswererAt) {
       this.isFlag = true;
     }
-    this.active = query.active;
-    this.tiltes = this.getTags();
+    let tagName = null;
+    await this.getTags();
+
+    if(query.name){
+      tagName = query.name;
+      this.titles.forEach((item, index) => {
+          if(item.name === tagName){
+            this.title = item;
+            this.activeIndex = index;
+            return;
+          }
+      });
+    }
   },
   onShareAppMessage(res) {
     let { title, imageUrl, path, user } = getApp().globalData;

@@ -55,6 +55,22 @@
       />
     </session>
 
+    <session class="solutionRoomName">
+      <div class="tagTitle">
+        明天最想看到的话题
+      </div>
+      <div class="tag">
+        {{ tag.name }}
+        <div @click="setName(tag)">
+          <img
+            class="iconfont"
+            src="/static/svgs/setName.svg"
+            alt=""
+          >
+        </div>
+      </div>
+    </session>
+
     <session class="solutionDetail flex center">
       <div
         class="solutionDetailButton flex center"
@@ -79,7 +95,8 @@ export default {
       replyCount: 1,
       mails: [],
       badgeImgUrl: "",
-      badgeName: ""
+      badgeName: "",
+      tag: {}
     };
   },
   methods: {
@@ -112,7 +129,16 @@ export default {
         this.badgeImgUrl = res.data.imgUrl;
         this.badgeName = res.data.name;
       });
-    }
+    },
+    setName(tag){
+     this.$router.push({
+        query: {
+            id: tag._id,
+            name: tag.name
+        },
+        path: "/pages/solution/tags"
+      });
+    },
   },
   onShow() {
     const { user } = getApp().globalData;
@@ -123,7 +149,7 @@ export default {
     } else {
       this.aliasName = user.aliasName;
     }
-
+    this.tag = user.tag;
     this.getBadge();
     this.getStory();
   },
@@ -193,5 +219,12 @@ export default {
   line-height:0;
 }
 
-
+.tagTitle{
+  font-size: 28rpx;
+  color: #4D495B;
+}
+.tag{
+  font-size: 24rpx;
+  color: #BDBDC0;
+}
 </style>

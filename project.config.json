@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 17,
+			"current": 30,
 			"list": [
 				{
 					"id": -1,
@@ -55,10 +55,11 @@
 					"query": ""
 				},
 				{
-					"id": 7,
+					"id": 3,
 					"name": "解答室说明",
 					"pathName": "pages/solution/tags",
-					"query": "active='solutionLimit’"
+					"query": "id=5bc058bb5647747e17feca45",
+					"scene": null
 				},
 				{
 					"id": 7,
@@ -230,6 +231,13 @@
 					"id": -1,
 					"name": "徽章说明",
 					"pathName": "pages/badge/badgeExplain",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "店铺清扫",
+					"pathName": "pages/cleanStore/index",
 					"query": "",
 					"scene": null
 				}

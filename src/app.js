@@ -51,6 +51,7 @@ export default {
       "pages/stronger-mail/index", //MYS故事
       "pages/stronger-write/index", //MYS写故事
       "pages/noFound/index", //404,
+      "pages/cleanStore/index", //店铺清扫
       "pages/faq/index", //FAQ,
       "pages/webview/index", //内嵌网页
       "pages/share/share", //安利给好友
