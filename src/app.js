@@ -47,9 +47,6 @@ export default {
       "pages/memory/memory", //记忆
       "pages/memory/detail", //记忆
       "pages/help/index", //情感援助
-      "pages/stronger-home/index", // MYS首页
-      "pages/stronger-mail/index", //MYS故事
-      "pages/stronger-write/index", //MYS写故事
       "pages/noFound/index", //404,
       "pages/cleanStore/index", //店铺清扫
       "pages/faq/index", //FAQ,
@@ -57,6 +54,17 @@ export default {
       "pages/share/share", //安利给好友
       "pages/share/receive", //领取解忧券
       "pages/errors/index" //错误页面
+    ],
+    subPackages: [
+      {
+        root: "stronger",
+        pages: [
+          "pages/home/index",// MYS首页
+          "pages/write/index",//MYS写故事
+          "pages/mail/index" //MYS故事
+        ],
+        independent: true
+      }
     ],
     window: {
       backgroundTextStyle: "light",

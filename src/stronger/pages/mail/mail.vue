@@ -178,8 +178,8 @@
 </template>
 
 <script>
-import { promisify, rpx2px } from "@/utils/index";
-import sRequest from "@/utils/stronger-request";
+import { promisify, rpx2px } from "../../utils/index";
+import sRequest from "../../utils/stronger-request";
 export default {
   mpType: "page",
   data() {
@@ -210,7 +210,7 @@ export default {
     let index = Math.floor(Math.random() * shareImgs.length);
     return {
       title: "分享了一段经历",
-      path: `pages/stronger-mail/index?refer=${userId}&_id=${id}&back=1`,
+      path: `/stronger/pages/mail/index?refer=${userId}&_id=${id}&back=1`,
       imageUrl: shareImgs[index]
     };
   },
@@ -324,7 +324,7 @@ export default {
     },
     toIndex() {
       wx.navigateTo({
-        url: "/pages/stronger-home/index"
+        url: "/stronger/pages/home/index"
       });
     },
     getMail() {
@@ -356,6 +356,10 @@ export default {
   }
 };
 </script>
+
+<style lang="less">
+@import url("../../styles/common.less");
+</style>
 
 <style lang="less" scoped>
 button {

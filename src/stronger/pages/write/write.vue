@@ -39,13 +39,9 @@
 </template>
 
 <script>
-// import MailCard from "@/components/Story.vue";
-import sRequest from "@/utils/stronger-request";
+import sRequest from "../../utils/stronger-request";
 export default {
   mpType: "page",
-  // components: {
-  //   MailCard
-  // },
   data() {
     return {
       content: ""
@@ -60,22 +56,16 @@ export default {
     let index = Math.floor(Math.random() * shareImgs.length);
     return {
       title: "分享了一段经历",
-      path: `pages/stronger-home/index?refer=${userId}`,
+      path: `/stronger/pages/home/index?refer=${userId}`,
       imageUrl: shareImgs[index]
     };
   },
   onLoad: function(options) {},
-  beforeCreate() {},
-  created() {},
-  beforeMount() {},
-  mounted() {},
-  onReady() {},
-  onShow() {},
-  onHide() {},
-  onUnload() {},
+
 
   methods: {
     onContentChange(e) {
+      console.log('e:232323 ', e);
       this.content = e.detail.value;
     },
     async send(e) {
@@ -85,6 +75,7 @@ export default {
         mask: true
       });
       let content = this.content.trim();
+      console.log(' this.content: ',  this.content);
       if (content.length < 50) {
         return wx.showToast({ icon: "none", title: "认真的讲述更容易获得解答，多谢几句吧" });
       }
@@ -99,12 +90,18 @@ export default {
       });
       wx.hideLoading();
       wx.reLaunch({
-        url: "/pages/stronger-mail/index?back=1"
+        url: "/stronger/pages/mail/index?back=1"
       });
     }
   }
 };
 </script>
+
+
+<style lang="less">
+@import url("../../styles/common.less");
+</style>
+
 
 <style lang="less" scoped>
 .page {

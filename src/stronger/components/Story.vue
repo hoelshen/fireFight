@@ -87,7 +87,7 @@ export default {
       }
       let _id = this.mail._id;
       wx.navigateTo({
-        url: `/pages/stronger-mail/index?_id=${_id}`
+        url: `/stronger/pages/mail/index?_id=${_id}`
       });
     }
   }

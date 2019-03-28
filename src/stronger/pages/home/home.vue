@@ -133,8 +133,8 @@
 </template>
 
 <script>
-import MailCard from "@/components/Story.vue";
-import sRequest from "@/utils/stronger-request";
+import MailCard from "../../components/Story";
+import sRequest from "../../utils/stronger-request";
 
 export default {
   mpType: "page",
@@ -162,7 +162,7 @@ export default {
     let index = Math.floor(Math.random() * shareImgs.length);
     return {
       title: "分享了一段经历",
-      path: `pages/stronger-home/index?refer=${userId}`,
+      path: `/stronger/pages/home/index?refer=${userId}`,
       imageUrl: shareImgs[index]
     };
   },
@@ -203,12 +203,12 @@ export default {
   methods: {
     toWrite() {
       wx.navigateTo({
-        url: "/pages/stronger-write/index"
+        url: "/stronger/pages/write/index"
       });
     },
     toMyStory() {
       wx.navigateTo({
-        url: "/pages/stronger-mail/index?own=1"
+        url: "/stronger/pages/mail/index?own=1"
       });
     },
     checkRefreshTime() {},
@@ -277,6 +277,10 @@ export default {
   }
 };
 </script>
+
+<style lang="less">
+@import url("../../styles/common.less");
+</style>
 
 <style lang="less" scoped>
 .page {
