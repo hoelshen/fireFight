@@ -23,13 +23,18 @@
           讲述我的故事
         </button>
       </div>
-      <button
+      <form
         v-else
-        class="myStoryButton"
-        @click="onMyStory"
-      >
-        讲述我的故事
-      </button>
+        report-submit="true"
+        @submit="onMyStory"
+      > 
+        <button
+          class="myStoryButton"
+          form-type="submit"
+        >
+          讲述我的故事
+        </button>
+      </form>
     </div>
 
     <div class="foot flex center">
@@ -52,7 +57,8 @@ export default {
     };
   },
   methods: {
-    onMyStory() {
+    onMyStory(e) {
+      this.$request.saveFormid(e.detail.formId);
       this.$router.push({ path: "/pages/consultingBox/myStory" });
     },
     onDetail() {

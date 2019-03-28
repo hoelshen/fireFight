@@ -37,12 +37,17 @@
       </div>
     </div>
     <div class="flex center reply_div">
-      <button
-        class="reply_button flex center"
-        @click="replyMail"
-      >
-        发送
-      </button>
+      <form
+        report-submit="true"
+        @submit="replyMail"
+      >       
+        <button
+          class="reply_button flex center"
+          form-type="submit"
+        >
+          发送
+        </button>
+      </form>
     </div>
   </div>
 </template>
@@ -122,7 +127,7 @@ export default {
       let res = await this.$request.get("/weather");
       this.reply.weather = res.data;
     },
-    replyMail() {
+    replyMail(e) {
       if (this.reply.content.length < 30) {
         return wx.showToast({
           title: "认真的讲述更容易获得解答，多谢几句吧",
@@ -147,9 +152,9 @@ export default {
           wx.removeStorage({
             key: this.id,
             success(res) {
-              //
-            }
+              }
           })
+          this.$request.saveFormid(e.detail.formId);
           wx.hideLoading();
           this.$router.push({
             query: { tag: this.tag, active: "mail", targetUser: this.target },
@@ -166,6 +171,7 @@ export default {
               //
             }
           })
+          this.$request.saveFormid(e.detail.formId);
           wx.hideLoading();
           this.$router.push({
             query: {

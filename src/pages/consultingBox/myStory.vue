@@ -54,15 +54,20 @@
     </div>
 
     <div class="flex column textAdd center">
-      <button
-        class="addMystoryButton flex center"
-        @click="onPush"
-      >
-        提交咨询
-      </button>
-      <p class="text-center">
-        需要使用 1 张解忧券
-      </p>
+      <form
+        report-submit="true"
+        @submit="onPush"
+      >        
+        <button
+          class="addMystoryButton flex center"
+          form-type="submit"
+        >
+          提交咨询
+        </button>
+        <p class="text-center">
+          需要使用 1 张解忧券
+        </p>
+      </form>
     </div>
 
     <Modal ref="mymodal" />
@@ -99,7 +104,7 @@ export default {
     };
   },
   methods: {
-    async onPush() {
+    async onPush(e) {
       if (this.ticketCount === 0) {
         this.$refs.mymodal.show({
           title: "解忧券不足",
@@ -139,6 +144,7 @@ export default {
         weather: this.weather,
         aliasName: this.aliasName
       };
+      this.$request.saveFormid(e.detail.formId);
       if (this.content.match(SENSITIVE_REG)) {
         this.content = "";
         getApp().globalData.mail = mail; // 敏感词检测

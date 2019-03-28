@@ -11,16 +11,21 @@
         <div class="aliasName">
           {{ aliasName }}
         </div>
-        <button
-          class="aliasNameBtn"
-          @click="returnBadge"
-        >
-          <image
-            v-if="badgeImgUrl"
-            class="badgeIconfont"
-            :src="badgeImgUrl"
-          />
-        </button>
+        <form
+          report-submit="true"
+          @submit="returnBadge"
+        > 
+          <button
+            class="aliasNameBtn"
+            form-type="submit"
+          >
+            <image
+              v-if="badgeImgUrl"
+              class="badgeIconfont"
+              :src="badgeImgUrl"
+            />
+          </button>
+        </form>
       </div>
       <div class="flex j-start a-center">
         <span
@@ -118,7 +123,8 @@ export default {
         path: "/pages/webview/index"
       });
     },
-    returnBadge(){
+    returnBadge(e){
+      this.$request.saveFormid(e.detail.formId);
       this.$router.push({ path: "/pages/badge/badge"});
     },
     badgeExplain(){
