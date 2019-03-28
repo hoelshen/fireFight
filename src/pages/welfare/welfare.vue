@@ -58,7 +58,8 @@
           </div>
         </div>
         <div class="exchange  flex center">
-          <button
+          <button           
+            :disabled="canExchange"
             class="flex center"
             @click="toExchange"
           >
@@ -141,10 +142,6 @@
             {{ item.isReceived ? '已完成' : '去领取' }}
           </button>
         </div>
-      </div>
-
-      <div class="desc box flex center">
-        解忧券最大持有量为 3 张，超出部分自动销毁
       </div>
     </session>
     <session
@@ -251,7 +248,8 @@ export default {
         type: "",
         sureButtonText: ""
       },
-      tasks: []
+      tasks: [],
+      canExchange: false //邮票兑换解忧券
     };
   },
   onShareAppMessage(res) {
@@ -387,6 +385,8 @@ export default {
     const { currentRoute: { query } } = this.$router;
     this.active = query.active || this.active;
     const { taskState } = getApp().globalData;
+    const { user } = getApp().globalData;
+    this.canExchange = user.ticketCount > 0 ;
     this.getTips();
     this.getTask();
     this.taskHandle(taskState || "");
@@ -446,7 +446,6 @@ page {
   font-size: 28rpx;
   padding: 60rpx;
 }
-
 button[disabled] {
   color: rgba(77, 73, 91, 0.5) !important;
   border-color: rgba(255, 200, 109, 0.5) !important;
