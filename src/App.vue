@@ -14,6 +14,8 @@ export default {
     this.$request.get("/image/default").then(res => {
       this.globalData.imageUrl = res.data;
     });
+
+
     if (!wx.createSelectorQuery) {
       // 首页Tabbar组件依赖此API
       wx.showModal({
@@ -25,9 +27,17 @@ export default {
   },
   onPageNotFound(res) {
     // 需要兼容历史版本，避免扫码进入不存在的页面
-    wx.reLaunch({
-      url: "/pages/home/index"
-    });
+    const {query, path} = res;
+
+    if(/stronger-mail\/index/.test(path)){
+      wx.navigateTo({
+        url:`/stronger/pages/mail/index?_id=${query._id}&back=${query.back}`
+      })
+    } else {
+      wx.reLaunch({
+        url: "/pages/home/index"
+      });
+    }
   },
   onError(error) {
     this.$request.sendFrontErrorToCloud(error);
