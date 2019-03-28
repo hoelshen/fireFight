@@ -18,7 +18,9 @@
           使我们变成更好的自己
         </div>
       </div>
-      <div class="content">
+      <div
+        class="content"
+      >
         Make You Stronger，来自 What doesn’t kill you makes you stronger，意为“杀不死你的，会让你更强大”。 生活中，总会面对各种挫折和磨难。我们希望通过叙述和分享彼此的故事，帮助每一个人更好地认识挫折和磨难——它们并不可怕，当它们无法击败你时，你会变得更强大。
       </div>
     </div>
@@ -70,7 +72,7 @@
         v-if="everyoneMails.length > 0"
         class="tell-card"
         src="https://cdn.tellers.cn/stronger/tell_card.svg"
-        alt=""
+        alt
         @tap="toHome"
       >
 
@@ -167,10 +169,15 @@ export default {
     };
   },
   async onLoad() {
-    let loginRes = await sRequest.login(
-      getApp().globalData.options.query.refer
-    );
     let userInfo = getApp().globalData.mys;
+    if (!userInfo._id) {
+      let loginRes = await sRequest.login(
+        getApp().globalData.options.query.refer
+      );
+      userInfo = getApp().globalData.mys;
+    }else{
+       console.log('已登录');
+    }
     this.isStoryWrote = userInfo.isStoryWrote;
     this.isMonmentOpened = userInfo.isMonmentOpened;
     this.userId = userInfo._id;
