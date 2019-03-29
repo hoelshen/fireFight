@@ -89,7 +89,8 @@
             station="dialogId"
             :mail="item.toMail"
             :is-read="item.isRead"
-            :is-replied="item.isReplied"
+            :is-special="item.special"
+            :is-replied="item.isSpecial"
             :dialog-id="item._id"
             :show-refer="true"
             :refer-mail="item.fromMail"
@@ -99,7 +100,7 @@
             station="dialogId"
             :mail="item.fromMail"
             :is-read="true"
-            :is-replied="true"
+            :is-replied="true"            
             :dialog-id="item._id"
             :show-refer="true"
           />

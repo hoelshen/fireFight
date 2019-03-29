@@ -197,7 +197,7 @@ export default {
     } = this.$router;
     this.applying = !(query.applying == 0);
     const { user } = getApp().globalData;
-    this.form.aliasName = user.nickName;
+    this.form.aliasName = user.aliasName;
   }
 };
 </script>

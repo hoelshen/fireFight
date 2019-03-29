@@ -4,9 +4,28 @@
     scroll-y
   >
     <session class="solutionRoomName">
-      <p class="day">
-        {{ days }}
-      </p>
+      <div class="flex j-between">
+        <p class="day">
+          {{ days }}
+        </p>
+        <button
+          class="bell"
+          @click="bellMessage"
+        >
+          <image
+            v-show="isRemind"
+            class="badgeIconfont"
+            src="/static/svgs/bell.svg"
+          />   
+          <image
+            v-if="!isRemind"
+            class="badgeIconfont"
+            src="/static/svgs/bell_active.svg"
+          >
+            <!-- https://www.amusingcode.com/static/img/mailCancel.png -->
+          </image>     
+        </button>
+      </div>
       <div class="flex j-start a-center">
         <div class="aliasName">
           {{ aliasName }}
@@ -56,17 +75,26 @@
         :is-extra="item.isExtra"
         :is-read="item.isRead"
         :is-replied="item.isReplied"
+        :is-special="item.isSpecial"
         :mail="item.mail"
       />
     </session>
 
-    <session class="solutionRoomName">
+    <session
+      v-if="tag.name"
+      class="solutionRoomName"
+    >
       <div class="tagTitle">
         明天最想看到的话题
       </div>
-      <div class="tag">
-        {{ tag.name }}
-        <div @click="setName(tag)">
+      <div class=" flex tag">
+        <div class="tagName">
+          {{ tag.name }}
+        </div>
+        <div
+          class="changeTag"
+          @click="setName(tag)"
+        >
           <img
             class="iconfont"
             src="/static/svgs/setName.svg"
@@ -101,7 +129,8 @@ export default {
       mails: [],
       badgeImgUrl: "",
       badgeName: "",
-      tag: {}
+      tag: {},
+      isRemind: true
     };
   },
   methods: {
@@ -145,6 +174,18 @@ export default {
         path: "/pages/solution/tags"
       });
     },
+    bellMessage(){
+      this.isRemind = !this.isRemind;
+      const showTitle = this.isRemind ? "有新咨询时将会收到通知" : "已关闭新咨询通知"
+      wx.showToast({
+        title: showTitle,
+        mask: true,
+        icon: "none"
+      });
+      this.$request.put("/user",{isRemind: this.isRemind}).then(res=>{
+        // console.log(res);
+      })
+    }
   },
   onShow() {
     const { user } = getApp().globalData;
@@ -155,7 +196,10 @@ export default {
     } else {
       this.aliasName = user.aliasName;
     }
-    this.tag = user.tag;
+    if( user.tag){
+      this.tag = user.tag;
+    }
+    this.isRemind = user.isRemind;
     this.getBadge();
     this.getStory();
   },
@@ -224,13 +268,27 @@ export default {
   margin:0;
   line-height:0;
 }
+.tag{
+  margin-top:40rpx;
+  font-size: 24rpx;
+  color: #BDBDC0;
+}
 
 .tagTitle{
   font-size: 28rpx;
   color: #4D495B;
 }
-.tag{
-  font-size: 24rpx;
-  color: #BDBDC0;
+.tagName{
+  background-color: rgba(189, 189, 192, 0.05);
+  border-radius: 29rpx;
+  padding:12rpx 40rpx 
+}
+.changeTag{
+  margin-left:20rpx;
+}
+.bell{
+  padding:0;
+  margin:0;
+  line-height: 0;
 }
 </style>

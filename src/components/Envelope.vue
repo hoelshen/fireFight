@@ -1,5 +1,6 @@
 <template>
   <view
+    v-show="mail.riskLevel !== 'FORBIDEN' "
     class="list_item flex column j-between"
     :class="isRead ? 'read' :''"
     @tap="toMail"
@@ -26,8 +27,14 @@
         v-if="isExtra"
         :class="isExtra ? 'list_item_extra' : '' "
       >
-        {{ isExtra ? '可额外回复的信' : '' }}
+        {{ isExtra ? '可额外回复的' : '' }}
       </view>
+      <view
+        v-else-if="isSpecial"
+        :class="isSpecial ? 'list_item_special' : '' "
+      >
+        {{ isSpecial ? '只投递给你的' : '' }}
+      </view>      
       <view
         v-else
         :class="isReplied ? 'list_item_replied' : '' "
@@ -64,6 +71,10 @@ export default {
       default: false
     },
     isReplied: {
+      type: Boolean,
+      default: false
+    },
+    isSpecial: { //是否专属投档
       type: Boolean,
       default: false
     },
@@ -114,8 +125,9 @@ export default {
         });
       } 
       if (this.station === 'solution') {
+        this.isSpecial = this.isSpecial ? 1 : 0
         this.$router.push({
-          query: { id: this.mail._id },
+          query: { id: this.mail._id, isSpecial: this.isSpecial },
           path: "/pages/solution/solutionReply"
         });
       } 
@@ -164,6 +176,13 @@ export default {
     padding: 4rpx 12rpx;
     background-color: #BDBDC0;
     color: #ffffff;
+  }
+  &_special{
+    border-radius: 4rpx;
+    font-size: 24rpx;
+    padding: 4rpx 12rpx;
+    background-color: #FF7C4F;
+    color: #ffffff;    
   }
   &_extra{
     border-radius: 4rpx;

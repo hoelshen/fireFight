@@ -73,7 +73,6 @@ export default {
                 title: "上传中",
                 mask: true
               });
-              console.log('that: ', that);
               const tempFilePaths = res.tempFilePaths;
               that.$request.uploadFile(tempFilePaths[0]).then(
                 function(res) {

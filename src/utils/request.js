@@ -1,7 +1,7 @@
 import flyio from "flyio/dist/npm/wx";
 import { promisify } from "@/utils/index";
 
-const environment = "prod"; // 配置环境
+const environment = "test"; // 配置环境
 
 const fly = new flyio();
 const loginFly = new flyio();
