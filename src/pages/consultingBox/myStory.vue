@@ -75,6 +75,9 @@
 </template>
 <script>
 import Modal from "@/components/Modal";
+import shareMix from "@/mixins/mixin";
+
+
 var WORDS =
   "自杀|迫害|家暴|不想活|不活了|生无可恋|抑郁症|十分压抑|非常压抑|没有希望|死了算了|跳楼|自尽";
 const SENSITIVE_REG = new RegExp(WORDS, "i");
@@ -83,6 +86,7 @@ export default {
   components: {
     Modal
   },
+  mixins: [shareMix],
   data() {
     const day = this.$day().format("YYYY/MM/DD"); ///.format('YYYY-MM-DD') // 展示
     return {
@@ -222,15 +226,6 @@ export default {
       // Do something when catch error
     }
     this.getWeather();
-  },
-  onShareAppMessage(res) {
-    let { title, imageUrl, path, user } = getApp().globalData;
-    path = user._id ? `${path}&refer=${user._id}` : path;
-    return {
-      title,
-      imageUrl,
-      path
-    };
   },
   onHide() {
     //跳转页面

@@ -34,7 +34,9 @@
   </view>
 </template>
 <script>
+import shareMix from "@/mixins/mixin";
 export default {
+  mixins: [shareMix],
   data() {
     return {
       titles: [],
@@ -85,15 +87,6 @@ export default {
           }
       });
     }
-  },
-  onShareAppMessage(res) {
-    let { title, imageUrl, path, user } = getApp().globalData;
-    path = user._id ? `${path}&refer=${user._id}` : path;
-    return {
-      title,
-      imageUrl,
-      path
-    };
   }
 };
 </script>

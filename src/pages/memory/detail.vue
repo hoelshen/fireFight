@@ -31,11 +31,12 @@
 
 <script>
 import Mail from "@/components/Mail";
-
+import shareMix from "@/mixins/mixin";
 export default {
   components: {
     Mail
   },
+  mixins: [shareMix],
   data() {
     return {
       currentMail: {},
@@ -72,15 +73,6 @@ export default {
   onShow() {
     const { currentRoute: { query } } = this.$router;
     this.getCurrentMail(query.id);
-  },
-  onShareAppMessage(res) {
-    let { title, imageUrl, path, user } = getApp().globalData;
-    path = user._id ? `${path}&refer=${user._id}` : path;
-    return {
-      title,
-      imageUrl,
-      path
-    };
   }
 };
 </script>

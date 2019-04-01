@@ -125,23 +125,16 @@
 <script>
 import Modal from "@/components/Modal";
 
+import shareMix from "@/mixins/mixin";
 export default {
   components: {
     Modal
   },
+  mixins: [shareMix],
   data() {
     return {
       list: [],
       sunflower: {}
-    };
-  },
-  onShareAppMessage(res) {
-    let { title, imageUrl, path, user } = getApp().globalData;
-    path = user._id ? `${path}&refer=${user._id}` : path;
-    return {
-      title,
-      imageUrl,
-      path
     };
   },
   methods: {

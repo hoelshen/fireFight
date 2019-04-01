@@ -356,7 +356,7 @@ import Envelope from "@/components/Envelope";
 import Modal from "@/components/Modal";
 import ImgModal from "@/components/ImgModal";
 
-
+import shareMix from "@/mixins/mixin";
 export default {
   components: {
     HomeTabbar,
@@ -364,6 +364,7 @@ export default {
     Modal,
     ImgModal
   },
+  mixins: [shareMix],
   data() {
     return {
       tab: "home",
@@ -418,15 +419,6 @@ export default {
 
     this.isFlage = false;
     this.onTabChange(this.tab);
-  },
-  onShareAppMessage(res) {
-    let { title, imageUrl, path, user } = getApp().globalData;
-    path = user._id ? `${path}&refer=${user._id}` : path;
-    return {
-      title,
-      imageUrl,
-      path
-    };
   },
   methods: {
     onTabChange(tab = "home") {

@@ -16,7 +16,9 @@
 
 
 <script>
+import shareMix from "@/mixins/mixin";
 export default {
+  mixins: [shareMix],
   methods: {
     opneSolution() {
       this.$router.reLaunch({

@@ -37,7 +37,9 @@
   </view>
 </template>
 <script>
+import shareMix from "@/mixins/mixin";
 export default {
+  mixins: [shareMix],
   data() {
     return {
       userInfo: {
@@ -134,15 +136,6 @@ export default {
       this.userInfo.aliasPortrait = user.aliasPortrait;
       this.userInfo.aliasName = user.nickName;
     });
-  },
-  onShareAppMessage(res) {
-    let { title, imageUrl, path, user } = getApp().globalData;
-    path = user._id ? `${path}&refer=${user._id}` : path;
-    return {
-      title,
-      imageUrl,
-      path
-    }
   },
   onUnload() {
     this.getPhoto = false;

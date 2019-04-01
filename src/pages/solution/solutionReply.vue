@@ -41,11 +41,13 @@
 <script>
 import Mail from "@/components/Mail";
 import Reply from "@/components/Reply";
+import shareMix from "@/mixins/mixin";
 export default {
   components: {
     Mail,
     Reply
   },
+  mixins: [shareMix],
   data() {
     return {
       id: "",
@@ -89,15 +91,6 @@ export default {
     const { replyCount } = getApp().globalData;
     this.replyCount = replyCount;
     this.getContent(this.id);
-  },
-  onShareAppMessage(res) {
-    let { title, imageUrl, path, user } = getApp().globalData;
-    path = user._id ? `${path}&refer=${user._id}` : path;
-    return {
-      title,
-      imageUrl,
-      path
-    };
   }
 };
 </script>

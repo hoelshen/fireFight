@@ -67,12 +67,14 @@ import Mail from "@/components/Mail";
 import Reply from "@/components/Reply";
 import Modal from "@/components/Modal";
 
+import shareMix from "@/mixins/mixin";
 export default {
   components: {
     Mail,
     Reply,
     Modal
   },
+  mixins: [shareMix],
   data() {
     return {
       id: "",
@@ -161,15 +163,6 @@ export default {
     this.user = user;
     this.userId = user._id;
     this.stampCount = user.stampCount;
-  },
-  onShareAppMessage(res) {
-    let { title, imageUrl, path, user } = getApp().globalData;
-    path = user._id ? `${path}&refer=${user._id}` : path;
-    return {
-      title,
-      imageUrl,
-      path
-    };
   }
 };
 </script>

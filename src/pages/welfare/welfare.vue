@@ -232,11 +232,13 @@
 import Modal from "@/components/Modal";
 import ImgModal from "@/components/ImgModal";
 
+import shareMix from "@/mixins/mixin";
 export default {
   components: {
     Modal,
     ImgModal
   },
+  mixins: [shareMix],
   data() {
     return {
       active: "TICKET",
@@ -250,15 +252,6 @@ export default {
       },
       tasks: [],
       canExchange: false //邮票兑换解忧券
-    };
-  },
-  onShareAppMessage(res) {
-    let { title, imageUrl, path, user } = getApp().globalData;
-    path = user._id ? `${path}&refer=${user._id}` : path;
-    return {
-      title,
-      imageUrl,
-      path
     };
   },
   methods: {

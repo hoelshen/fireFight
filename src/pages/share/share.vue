@@ -31,8 +31,9 @@
 </template>
 <script>
 import { promisify } from "@/utils/index";
-
+import shareMix from "@/mixins/mixin";
 export default {
+  mixins: [shareMix],
   data() {
     return {
       //imgUrl:"https://cdn.tellers.cn/tell_v2/share/share_mine_1550547962111.jpeg"
@@ -82,15 +83,6 @@ export default {
       }
       return null;
     }
-  },
-  onShareAppMessage(res) {
-    let { title, imageUrl, path, user } = getApp().globalData;
-    path = user._id ? `${path}&refer=${user._id}` : path;
-    return {
-      title,
-      imageUrl,
-      path
-    };
   }
 };
 </script>

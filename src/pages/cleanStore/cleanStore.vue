@@ -18,7 +18,9 @@
 </template>
 
 <script>
+import shareMix from "@/mixins/mixin";
 export default {
+  mixins: [shareMix],
   data() {
     return {
       time: "13:00"

@@ -43,7 +43,9 @@
 <script>
 import { promisify } from "@/utils/index";
 
+import shareMix from "@/mixins/mixin";
 export default {
+  mixins: [shareMix],
   data() {
     return {
       isLoadSuccess: false,
@@ -76,15 +78,6 @@ export default {
     toHome() {
       this.$router.reLaunch({ path: "/pages/home/index" });
     }
-  },
-  onShareAppMessage(res) {
-    let { title, imageUrl, path, user } = getApp().globalData;
-    path = user._id ? `${path}&refer=${user._id}` : path;
-    return {
-      title,
-      imageUrl,
-      path
-    };
   }
 };
 </script>

@@ -2,6 +2,7 @@
   <web-view :src="url" />
 </template>
 <script>
+import shareMix from "@/mixins/mixin";
 const URL_MAP = {
   "Solver-Manual": {
     url: "https://api.tellers.cn/static-pages/v2/Solver-Manual.html",
@@ -14,6 +15,7 @@ const URL_MAP = {
   }
 };
 export default {
+  mixins: [shareMix],
   data() {
     return {
       url: "",
@@ -43,15 +45,6 @@ export default {
     wx.setNavigationBarTitle({
       title: title
     });
-  },
-  onShareAppMessage(res) {
-    let { title, imageUrl, path, user } = getApp().globalData;
-    path = user._id ? `${path}&refer=${user._id}` : path;
-    return {
-      title,
-      imageUrl,
-      path
-    };
   },
   onShow(){
     const now = parseInt(new Date().getTime() / 1000); //当前时间戳

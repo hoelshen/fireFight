@@ -65,10 +65,12 @@
 </template>
 <script>
 import Envelope from "@/components/Envelope";
+import shareMix from "@/mixins/mixin";
 export default {
   components: {
     Envelope
   },
+  mixins: [shareMix],
   data() {
     return {
       active: "question",
@@ -138,15 +140,6 @@ export default {
         this.List = this.List.concat(res.data);
       }
     }
-  },
-  onShareAppMessage(res) {
-    let { title, imageUrl, path, user } = getApp().globalData;
-    path = user._id ? `${path}&refer=${user._id}` : path;
-    return {
-      title,
-      imageUrl,
-      path
-    };
   }
 };
 </script>

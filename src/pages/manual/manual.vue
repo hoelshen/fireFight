@@ -39,8 +39,10 @@
 </template>
 
 <script>
+import shareMix from "@/mixins/mixin";
 export default {
   name: "Manual",
+  mixins: [shareMix],
   data() {
     return {
       active: "solverDetail",
@@ -88,15 +90,6 @@ export default {
     async bade() {
       const bade = await this.$request.get("/badge");
       this.listData = bade.data;
-    },
-    onShareAppMessage(res) {
-      let { title, imageUrl, path, user } = getApp().globalData;
-      path = user._id ? `${path}&refer=${user._id}` : path;
-      return {
-        title,
-        imageUrl,
-        path
-      };
     }
   }
 };

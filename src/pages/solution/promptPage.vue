@@ -69,10 +69,12 @@
 
 <script>
 import ImgModal from "@/components/ImgModal";
+import shareMix from "@/mixins/mixin";
 export default {
   components: {
     ImgModal
   },
+  mixins: [shareMix],
   data() {
     return {
       targetUser: "",
@@ -133,15 +135,6 @@ export default {
     wx.setNavigationBarTitle({
       title: navigationBar[this.active]
     });
-  },
-  onShareAppMessage(res) {
-    let { title, imageUrl, path, user } = getApp().globalData;
-    path = user._id ? `${path}&refer=${user._id}` : path;
-    return {
-      title,
-      imageUrl,
-      path
-    };
   }
 };
 </script>

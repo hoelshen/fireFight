@@ -25,7 +25,9 @@
 </template>
 
 <script>
+import shareMix from "@/mixins/mixin";
 export default {
+  mixins: [shareMix],
   data() {
     return {
       isDisable: true,
