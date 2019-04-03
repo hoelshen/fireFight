@@ -248,7 +248,7 @@
             />
             <span class="my_contact_item_text grow">福利社</span>
             <image
-              class="iconfont flex center"
+              class="iconfont_sixteen flex center"
               src="/static/svgs/arrow.svg"
             />
           </button>
@@ -264,7 +264,7 @@
             />
             <span class="my_contact_item_text grow">福利社</span>
             <image
-              class="iconfont flex center"
+              class="iconfont_sixteen flex center"
               src="/static/svgs/arrow.svg"
             />
           </button>
@@ -283,7 +283,7 @@
               src="/static/jpg/group.png"
             />
             <image
-              class="iconfont flex center"
+              class="iconfont_sixteen flex center"
               src="/static/svgs/arrow.svg"
             />
           </button>
@@ -298,7 +298,7 @@
             />
             <span class="my_contact_item_text grow">问题与反馈</span>
             <image
-              class="iconfont flex center"
+              class="iconfont_sixteen flex center"
               src="/static/svgs/arrow.svg"
             />
           </button>
@@ -889,6 +889,9 @@ export default {
     border-radius: 23px;
   }
 }
-
+.iconfont_sixteen{
+  width: 32rpx;
+  height: 32rpx;
+}
 </style>
 
