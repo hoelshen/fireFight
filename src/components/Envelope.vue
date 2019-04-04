@@ -125,7 +125,7 @@ export default {
         });
       } 
       if (this.station === 'solution') {
-        this.isSpecial = this.isSpecial ? 1 : 0
+        this.isSpecial = this.isSpecial ? 'true' : 'false'
         this.$router.push({
           query: { id: this.mail._id, isSpecial: this.isSpecial },
           path: "/pages/solution/solutionReply"

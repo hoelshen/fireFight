@@ -87,7 +87,7 @@ export default {
   async onShow() {
     const { currentRoute: { query } } = this.$router;
     this.id = query.id;
-    this.isSpecial = (query.isSpecial === 1 );
+    this.isSpecial = (query.isSpecial === 'true' );
     const { replyCount } = getApp().globalData;
     this.replyCount = replyCount;
     this.getContent(this.id);

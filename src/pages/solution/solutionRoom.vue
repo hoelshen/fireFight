@@ -190,14 +190,13 @@ export default {
     }
   },
   onShow() {
-    const { user } = getApp().globalData;
     this.$request.getUser().then(res => {
         this.aliasName = res.aliasName;
+        this.isRemind = res.isRemind;
         if( res.tag){
           this.tag = res.tag;
         }
     });
-    this.isRemind = user.isRemind;
     this.getBadge();
     this.getStory();
   }
