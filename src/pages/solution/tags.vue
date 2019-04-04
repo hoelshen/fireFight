@@ -54,7 +54,7 @@ export default {
       this.title = this.titles[index];
       this.activeIndex = index;
     },
-    add() {
+    async add() {
       if (!this.title._id) {
         return wx.showToast({
           title: "请选择标签",
@@ -64,12 +64,20 @@ export default {
           mask: false
         });
       }
-      this.$request.put("/tag", { _id: this.title._id });
-      this.$router.push({ path: "/pages/solution/becomeSolutor" });
+      await this.$request.put("/tag", { _id: this.title._id });
+      if (this.isFlag) {
+        wx.navigateBack({
+          data: 1
+        });
+      } else {
+        this.$router.push({ path: "/pages/solution/becomeSolutor" });
+      }
     }
   },
   async onShow() {
-    const { currentRoute: { query } } = this.$router;
+    const {
+      currentRoute: { query }
+    } = this.$router;
     const { user } = getApp().globalData;
     if (user.becomeAnswererAt) {
       this.isFlag = true;
@@ -77,14 +85,14 @@ export default {
     let tagName = null;
     await this.getTags();
 
-    if(query.name){
+    if (query.name) {
       tagName = query.name;
       this.titles.forEach((item, index) => {
-          if(item.name === tagName){
-            this.title = item;
-            this.activeIndex = index;
-            return;
-          }
+        if (item.name === tagName) {
+          this.title = item;
+          this.activeIndex = index;
+          return;
+        }
       });
     }
   }
@@ -126,14 +134,14 @@ export default {
   line-height: 64rpx;
   text-align: center;
   border-radius: 4rpx;
-  color: #BDBDC0;
+  color: #bdbdc0;
   background: transparent;
   background-color: rgba(189, 189, 192, 0.05);
   margin-right: 24rpx;
   margin-bottom: 24rpx;
   padding: 0 26rpx;
   font-size: 32rpx;
-  border:2rpx transparent solid;
+  border: 2rpx transparent solid;
   &.active {
     border: 2rpx #ffc86d solid;
   }
