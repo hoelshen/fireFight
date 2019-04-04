@@ -1,6 +1,6 @@
 <template>
   <view
-    v-show="mail.riskLevel !== 'FORBIDEN' "
+  
     class="list_item flex column j-between"
     :class="isRead ? 'read' :''"
     @tap="toMail"
@@ -125,9 +125,8 @@ export default {
         });
       } 
       if (this.station === 'solution') {
-        this.isSpecial = this.isSpecial ? 'true' : 'false'
         this.$router.push({
-          query: { id: this.mail._id, isSpecial: this.isSpecial },
+          query: { id: this.mail._id, isSpecial:this.isSpecial},
           path: "/pages/solution/solutionReply"
         });
       } 
