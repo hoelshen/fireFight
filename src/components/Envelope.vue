@@ -24,22 +24,22 @@
     </view>
     <view class="flex j-between list_item_alias">
       <view
-        v-if="isExtra"
-        :class="isExtra ? 'list_item_extra' : '' "
+        v-if="isReplied"
+        :class="isReplied ? 'list_item_replied' : '' "
       >
-        {{ isExtra ? '可额外回复的' : '' }}
+        {{ isReplied ? '已回复' : '' }}
       </view>
       <view
         v-else-if="isSpecial"
         :class="isSpecial ? 'list_item_special' : '' "
       >
         {{ isSpecial ? '只投递给你的' : '' }}
-      </view>      
+      </view>
       <view
-        v-else
-        :class="isReplied ? 'list_item_replied' : '' "
+        v-else-if="isExtra"
+        :class="isExtra ? 'list_item_extra' : '' "
       >
-        {{ isReplied ? '已回复' : '' }}
+        {{ isExtra ? '可额外回复的' : '' }}
       </view>
       <view>{{ mail.aliasName }}</view>
     </view>

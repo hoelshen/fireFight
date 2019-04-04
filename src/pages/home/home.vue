@@ -409,7 +409,6 @@ export default {
         query: this.$mp.query
       });
     }
-    this.sjh = "ss";
     this.getTips();
     this.getScroll();
     if(this.getPhoto) return;

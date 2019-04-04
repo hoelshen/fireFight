@@ -22,7 +22,7 @@
           >
             <span class="flex center">感谢</span>
             <img
-              v-if="mail.like"
+              v-if="mail.like === 'OWNER' "
               class="reply_weather_name iconfont"
               src="/static/svgs/love-active.svg"
             >
@@ -86,13 +86,13 @@ export default {
   },
   methods: {
     likeBtn(mail) {
-      if (mail.like) {
+      if (mail.like === 'OWNER') {
         return wx.showToast({
           title: "不能重复感谢喔",
           icon: "none"
         });
       }
-      mail.like = true;
+      mail.like = 'OWNER';
       this.mail = {...mail};
       this.$request.put(`/mail/reply/${this.mail._id}`).then(res => {});
       wx.showToast({

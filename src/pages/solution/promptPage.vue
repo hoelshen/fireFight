@@ -44,6 +44,7 @@
           <span>关注服务号</span>
           <span v-if="active === 'solution'">被感谢时立即收到通知</span>
           <span v-if="active === 'story'">被解答时立即收到通知</span>
+          <span v-if="active === 'mail'">对方回信时立即收到通知</span>
           <div class="darkIconf">
             <img
               class="iconfont"
