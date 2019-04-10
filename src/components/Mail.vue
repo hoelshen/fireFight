@@ -83,7 +83,7 @@ export default {
   },
   created() {
     const { user }= getApp().globalData; 
-    if(!user){
+    if(!user._id){
       return this.$request.getUser().then(res => {
         this.user = res;
       });

@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 30,
+			"current": 18,
 			"list": [
 				{
 					"id": -1,
@@ -152,10 +152,10 @@
 					"scene": null
 				},
 				{
-					"id": 24,
+					"id": 18,
 					"name": "首页跳到信件详情",
-					"pathName": "pages/home/index",
-					"query": "toPage=pages/solution/solutionReply&id=5c07caf6d22a465b72f0ac74",
+					"pathName": "pages/mail/mailDetail",
+					"query": "id=5c9211981b405743a280e53e",
 					"scene": null
 				},
 				{
@@ -239,6 +239,7 @@
 					"id": -1,
 					"name": "MYS首页",
 					"pathName": "stronger/pages/home/index",
+					"query": "",
 					"scene": null
 				}
 			]
