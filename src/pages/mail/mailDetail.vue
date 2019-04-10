@@ -21,7 +21,7 @@
       class="flex column center showReply_button"
     >
       <button
-        class="reply_button"
+        class="reply_button flex center"
         @click="showReply"
       >
         回信
@@ -169,11 +169,12 @@ export default {
 <style lang="less" scoped>
 .reply_button {
   margin-top: 16rpx;
-  border-radius: 23px;
+  border-radius: 46rpx;
   width: 316rpx;
   height: 92rpx;
   color: #ffffff;
   border: 1 solid #a9a9a9;
+  font-size: 28rpx;
   background-color: #ffc86d;
 }
 .replay_text {
