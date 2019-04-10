@@ -82,7 +82,13 @@ export default {
     };
   },
   created() {
-    this.user = getApp().globalData.user;
+    const { user }= getApp().globalData; 
+    if(!user){
+      return this.$request.getUser().then(res => {
+        this.user = res;
+      });
+    }
+    return this.user = user;
   },
   methods: {
     likeBtn(mail) {
@@ -96,7 +102,7 @@ export default {
       this.mail = {...mail};
       this.$request.put(`/mail/reply/${this.mail._id}`).then(res => {});
       wx.showToast({
-        title: "已感谢，对方会获得解忧券",
+        title: "已感谢，对方会获得邮票",
         icon: "none"
       });
     }
