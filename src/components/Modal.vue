@@ -64,12 +64,12 @@ export default {
 
       if (this.value.confirmButtonText === "获取邮票") {
         this.$router.push({
-          query: { active: "mail" },
+          query: { active: "STAMP" },
           path: "/pages/welfare/index"
         });
       } else if (this.value.confirmButtonText === "获取解忧券") {
         this.$router.push({
-          query: { active: "solution" },
+          query: { active: "TICKET" },
           path: "/pages/welfare/index"
         });
       } else if (this.value.confirmButtonText === "前往解答室") {
