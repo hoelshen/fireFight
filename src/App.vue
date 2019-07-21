@@ -5,17 +5,10 @@ export default {
   onLaunch(opts) {
     this.globalData.options = opts;
     let userId = wx.getStorageSync('token') //永久保存用户账号
-    this.$request.login(userId);
-    this.globalData.path = opts.query.scene
-      ? this.globalData.path + `scene=${opts.scene}`
-      : this.globalData.path;
+    this.$request.getOpenid();
+    // this.$request.login(userId);
   },
   onShow() {
-    this.$request.get("/image/default").then(res => {
-      this.globalData.imageUrl = res.data;
-    });
-
-
     if (!wx.createSelectorQuery) {
       // 首页Tabbar组件依赖此API
       wx.showModal({
@@ -26,21 +19,10 @@ export default {
     }
   },
   onPageNotFound(res) {
-    // 需要兼容历史版本，避免扫码进入不存在的页面
-    const {query, path} = res;
 
-    if(/stronger-mail\/index/.test(path)){
-      wx.navigateTo({
-        url:`/stronger/pages/mail/index?_id=${query._id}&back=${query.back}`
-      })
-    } else {
-      wx.reLaunch({
-        url: "/pages/home/index"
-      });
-    }
   },
   onError(error) {
-    this.$request.sendFrontErrorToCloud(error);
+
   },
   globalData() {
     return {

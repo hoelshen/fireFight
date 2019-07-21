@@ -1,5 +1,4 @@
 import App from "./App";
-import './static/sdk/ald-stat'; // 阿拉丁数据统计
 import Vue from "vue";
 import VHtmlPlugin from "@megalo/vhtml-plugin";
 import filters from "./utils/filters";
@@ -54,17 +53,6 @@ export default {
       "pages/share/share", //安利给好友
       "pages/share/receive", //领取解忧券
       "pages/errors/index" //错误页面
-    ],
-    subPackages: [
-      {
-        root: "stronger",
-        pages: [
-          "pages/home/index",// MYS首页
-          "pages/write/index",//MYS写故事
-          "pages/mail/index" //MYS故事
-        ],
-        independent: true
-      }
     ],
     window: {
       backgroundTextStyle: "light",

@@ -31,30 +31,88 @@
             </swiper-item>
           </block>
         </swiper>
-        <image
-          class="home flex center"
-          src="/static/jpg/homeBg.jpg"
-        />
-        <div
-          class="left"
-          @click="toConsulting"
-        />
-        <div
-          v-if="user.unionid"
-          class="right"
-          @click="toSolution"
-        />
-        <div
-          v-else
-          class="right"
-        >
+        <session class="my_function flex">
           <button
-            class="rightButton"
+            class="my_function_item_button flex column center"
+            @tap="memory"
+          >
+            <image
+              class="iconfont"
+              src="/static/svgs/moment.svg"
+            />
+            <span class="my_function_item_text">钱包</span>
+          </button>
+
+          <button
+            class="my_function_item_button flex column center"
+            @click="ticket"
+          >
+            <image
+              class="iconfont"
+              src="/static/svgs/ticket.svg"
+            />
+            <span class="my_function_item_text">停车券</span>
+          </button>
+
+          <button
+            class="my_function_item_button flex column center"
             open-type="getUserInfo"
             lang="zh_CN"
             @getuserinfo="onGotUserInfo"
-          />
-        </div>
+          >
+            <image
+              class="iconfont"
+              src="/static/svgs/badge.svg"
+            />
+            <span class="my_function_item_text">积分</span>
+          </button>
+          <button
+            class="my_function_item_button flex column center"
+            @click="openbadge"
+          >
+            <image
+              class="iconfont"
+              src="/static/svgs/badge.svg"
+            />
+            <span class="my_function_item_text">缴费</span>
+          </button>
+        </session>
+
+        <session class="my_contact flex column">
+          <button
+            v-if="!user.unionid"
+            class="my_contact_item_button flex wrap center grow"
+            open-type="getUserInfo"
+            lang="zh_CN"
+            @getuserinfo="onGotUserInfo"
+          >
+            <image
+              class="iconfont"
+              src="/static/svgs/welfare.svg"
+            />
+            <span class="my_contact_item_text grow">积分兑换</span>
+            <image
+              class="iconfont_sixteen flex center"
+              src="/static/svgs/arrow.svg"
+            />
+          </button>
+
+          <button
+            v-else
+            class="my_contact_item_button flex wrap center grow"
+            @click="welfare"
+          >
+            <image
+              class="iconfont"
+              src="/static/svgs/welfare.svg"
+            />
+            <span class="my_contact_item_text grow">积分兑换</span>
+            <image
+              class="iconfont_sixteen flex center"
+              src="/static/svgs/arrow.svg"
+            />
+          </button>
+        </session>
       </scroll-view>
     </div>
 
@@ -117,7 +175,7 @@
         scroll-y
         :style="`height: ${scrolHeight}px`"
       >
-        <div class="my_info flex column">
+        <div class="my_info flex ">
           <button
             v-if="!user.aliasPortrait"
             open-type="getUserInfo"
@@ -131,57 +189,6 @@
               @click="login"
             >
           </button>
-          <img
-            v-else
-            class="my_info_user_avatarUrl"
-            :src="user.aliasPortrait || 'https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg'"
-            mode="scaleToFill"
-            @click="login"
-          >
-
-          <div
-            v-if="!user.aliasPortrait"
-            class="flex column center"
-          >
-            <button
-              class="lightButton"
-              open-type="getUserInfo"
-              lang="zh_CN"
-              @getuserinfo="onGotUserInfo"
-            >
-              点击登录
-            </button>
-            <div class="my_info_user_address flex wrap">
-              登录后体验完整功能
-            </div>
-          </div>
-
-          <div
-            v-else
-            class="flex column center"
-          >
-            <div class="flex j-around my_info_user_nickName">
-              <div @click="loginName">
-                {{ user.aliasName }}
-              </div>
-              <button
-                class="my_info_user_badgeBtn flex center"
-                @click="openbadge"
-              >
-                <image
-                  v-if="badge"
-                  class="my_info_user_badge"
-                  :src="badge.imgUrl"
-                />
-              </button>
-            </div>
-            <div
-              class="my_info_user_address flex wrap"
-              @click="showAddressModal"
-            >
-              {{ user.aliasAddress }}
-            </div>
-          </div>
         </div>
 
         <session class="my_function flex">
@@ -193,7 +200,7 @@
               class="iconfont"
               src="/static/svgs/moment.svg"
             />
-            <span class="my_function_item_text">记忆</span>
+            <span class="my_function_item_text">账户余额</span>
           </button>
 
           <button
@@ -204,11 +211,10 @@
               class="iconfont"
               src="/static/svgs/ticket.svg"
             />
-            <span class="my_function_item_text">票券</span>
+            <span class="my_function_item_text">停车券</span>
           </button>
 
           <button
-            v-if="!user.unionid"
             class="my_function_item_button flex column center"
             open-type="getUserInfo"
             lang="zh_CN"
@@ -218,11 +224,9 @@
               class="iconfont"
               src="/static/svgs/badge.svg"
             />
-            <span class="my_function_item_text">徽章</span>
+            <span class="my_function_item_text">积分</span>
           </button>
-
           <button
-            v-else
             class="my_function_item_button flex column center"
             @click="openbadge"
           >
@@ -230,7 +234,7 @@
               class="iconfont"
               src="/static/svgs/badge.svg"
             />
-            <span class="my_function_item_text">徽章</span>
+            <span class="my_function_item_text">我的钱包</span>
           </button>
         </session>
 
@@ -246,7 +250,7 @@
               class="iconfont"
               src="/static/svgs/welfare.svg"
             />
-            <span class="my_contact_item_text grow">福利社</span>
+            <span class="my_contact_item_text grow">积分兑换</span>
             <image
               class="iconfont_sixteen flex center"
               src="/static/svgs/arrow.svg"
@@ -262,7 +266,7 @@
               class="iconfont"
               src="/static/svgs/welfare.svg"
             />
-            <span class="my_contact_item_text grow">福利社</span>
+            <span class="my_contact_item_text grow">积分兑换</span>
             <image
               class="iconfont_sixteen flex center"
               src="/static/svgs/arrow.svg"
@@ -277,7 +281,7 @@
               class="iconfont"
               src="/static/svgs/joinGroup.svg"
             />
-            <span class="my_contact_item_text grow">加入群聊</span>
+            <span class="my_contact_item_text grow">停车记录</span>
             <image
               class="group flex center"
               src="/static/jpg/group.png"
@@ -287,6 +291,30 @@
               src="/static/svgs/arrow.svg"
             />
           </button>
+
+
+          <button
+            class="my_contact_item_button flex wrap center grow"
+            @click="joinGroup"
+          >
+            <image
+              class="iconfont"
+              src="/static/svgs/joinGroup.svg"
+            />
+            <span class="my_contact_item_text grow">车辆管理</span>
+            <image
+              class="group flex center"
+              src="/static/jpg/group.png"
+            />
+            <image
+              class="iconfont_sixteen flex center"
+              src="/static/svgs/arrow.svg"
+            />
+          </button>
+
+
+
+
 
           <button
             class="my_contact_item_button flex wrap center grow"
@@ -302,15 +330,23 @@
               src="/static/svgs/arrow.svg"
             />
           </button>
-        </session>
-
-        <session class="my_share flex center">
           <button
-            class="flex center"
-            hover-class="active"
-            @click="toShare"
+            class="my_contact_item_button flex wrap center grow"
+            @click="joinGroup"
           >
-            分享Tell给好友
+            <image
+              class="iconfont"
+              src="/static/svgs/joinGroup.svg"
+            />
+            <span class="my_contact_item_text grow">发票</span>
+            <image
+              class="group flex center"
+              src="/static/jpg/group.png"
+            />
+            <image
+              class="iconfont_sixteen flex center"
+              src="/static/svgs/arrow.svg"
+            />
           </button>
         </session>
       </scroll-view>
@@ -412,9 +448,9 @@ export default {
     this.getTips();
     this.getScroll();
     if(this.getPhoto) return;
-    this.$request.getUser().then(res => {
-      this.user = res;
-    });
+    // this.$request.getUser().then(res => {
+    //   this.user = res;
+    // });
 
     this.isFlage = false;
     this.onTabChange(this.tab);
@@ -430,7 +466,6 @@ export default {
         this.getDialogs();
       }
       if (this.tab === "mine") {
-        this.getBadge();
       }
     },
     onGotUserInfo(e) {
@@ -440,7 +475,7 @@ export default {
       this.$router.push({ path: "/pages/mail/mailDay" });
     },
     async getBanners() {
-      const res = await this.$request.get("/banner");
+      const res = await this.$request.post("/index.html");
       this.banners = res.data;
     },
     async getWayCount() {
@@ -584,11 +619,6 @@ export default {
       }
       
     },
-    getBadge() {
-      this.$request.get("/badge/mine").then(res => {
-        this.badge = res.data;
-      });
-    },
     toFaq() {
       this.$router.push({
         path: "/pages/faq/index"
@@ -624,18 +654,18 @@ export default {
       });
     },
     getTips() {
-      this.$request.get("/tips").then(res => {
-        const { lastTips } = res.data;
-        this.unreadMessages = res.data.unreadMessages;
-        if (lastTips) {
-          this.$refs.mymodal.show({
-            title: lastTips.title,
-            content: lastTips.content,
-            type: lastTips.type,
-            confirmButtonText: lastTips.confirmButtonText
-          });
-        }
-      });
+      // this.$request.get("/tips").then(res => {
+      //   const { lastTips } = res.data;
+      //   this.unreadMessages = res.data.unreadMessages;
+      //   if (lastTips) {
+      //     this.$refs.mymodal.show({
+      //       title: lastTips.title,
+      //       content: lastTips.content,
+      //       type: lastTips.type,
+      //       confirmButtonText: lastTips.confirmButtonText
+      //     });
+      //   }
+      // });
     },
     toBanner(banner) {
       switch (banner.type) {
@@ -751,8 +781,8 @@ export default {
     &_avatarUrl {
       display: block;
       border-radius: 50%;
-      height: 216rpx;
-      width: 216rpx;
+      height: 88rpx;
+      width: 88rpx;
       margin: 60rpx auto 44rpx;
     }
     &_nickName {
@@ -800,7 +830,7 @@ export default {
   }
 }
 .my_contact {
-  height: 324rpx;
+  height: 424rpx;
   margin: 40rpx 40rpx;
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
