@@ -154,35 +154,11 @@ export default {
             success(res) {
               }
           })
-          this.$request.saveFormid(e.detail.formId);
           wx.hideLoading();
-          this.$router.push({
-            query: { tag: this.tag, active: "mail", targetUser: this.target },
-            path: "/pages/solution/promptPage"
-          });
+  
         });
       }
-      if (this.tag === "solution") {
-        this.$request.post(`/mail/story/${this.id}`, obj).then(() => {
-          this.$emit("submit", true);
-          wx.removeStorage({
-            key: this.id,
-            success(res) {
-              //
-            }
-          })
-          this.$request.saveFormid(e.detail.formId);
-          wx.hideLoading();
-          this.$router.push({
-            query: {
-              tag: this.tag,
-              active: "solution",
-              targetUser: this.target
-            },
-            path: "/pages/solution/promptPage"
-          });
-        });
-      }
+
     }
   }
 };

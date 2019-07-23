@@ -8,7 +8,7 @@ export default {
   config: {
     navigationBarBackgroundColor: '#fbfbfd',
     navigationBarTextStyle: 'black',
-    navigationBarTitleText: '问题与反馈',
+    navigationBarTitleText: '车辆管理',
     backgroundColor: '#fbfbfd'  
   }
 };

@@ -124,18 +124,7 @@ export default {
           path: "/pages/mail/mailDetail"
         });
       } 
-      if (this.station === 'solution') {
-        this.$router.push({
-          query: { id: this.mail._id, isSpecial:this.isSpecial},
-          path: "/pages/solution/solutionReply"
-        });
-      } 
-      if(this.station === 'memory') {
-        this.$router.push({
-          query:{id: this.mail._id},
-          path: "/pages/memory/detail"
-        })
-      }
+
     }
   }
 };

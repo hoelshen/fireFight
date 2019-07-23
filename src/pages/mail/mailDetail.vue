@@ -138,18 +138,9 @@ export default {
       this.$request.auth(e.detail);
     },
     toSolution() {
-        const { user } = getApp().globalData;
-        if (!user.becomeAnswererAt) {
-          return this.$router.push({
-            query: { active: "solverDetail" },
-            path: "/pages/manual/index"
-          });
-        }
-        return this.$router.push({ path: "/pages/solution/solutionRoom" });
+
     },
-    toConsulting() {
-      this.$router.push({ path: "/pages/consultingBox/consultingBox" });
-    },
+
     submit(){
       this.isReply = false;
       this.isDisable = true;

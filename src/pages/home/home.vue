@@ -12,7 +12,7 @@
       >
         <swiper
           class="swiper"
-          :indicator-dots=" banners.length > 1 "
+          :indicator-dots="banners.length > 1"
           autoplay="true"
           interval="5000"
           duration="1000"
@@ -79,39 +79,27 @@
         </session>
 
         <session class="my_contact flex column">
-          <button
-            v-if="!user.unionid"
-            class="my_contact_item_button flex wrap center grow"
-            open-type="getUserInfo"
-            lang="zh_CN"
-            @getuserinfo="onGotUserInfo"
-          >
-            <image
-              class="iconfont"
-              src="/static/svgs/welfare.svg"
-            />
-            <span class="my_contact_item_text grow">积分兑换</span>
-            <image
-              class="iconfont_sixteen flex center"
-              src="/static/svgs/arrow.svg"
-            />
-          </button>
-
-          <button
-            v-else
-            class="my_contact_item_button flex wrap center grow"
-            @click="welfare"
-          >
-            <image
-              class="iconfont"
-              src="/static/svgs/welfare.svg"
-            />
-            <span class="my_contact_item_text grow">积分兑换</span>
-            <image
-              class="iconfont_sixteen flex center"
-              src="/static/svgs/arrow.svg"
-            />
-          </button>
+          <div class="flex j-between">
+            <div class="flex a-center ">
+              <img
+                class="my_info_user_avatarUrl"
+                src="https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg"
+                mode="scaleToFill"
+                @click="login"
+              >
+              <span class="carPhone">8G079</span>
+            </div>
+            <switch
+              class="flex center"
+              checked
+              @change="switch1Change"
+            >
+              自动支付
+            </switch>
+          </div>
+          <div class="flex center carPark">
+            您尚未驶入停车场
+          </div>
         </session>
       </scroll-view>
     </div>
@@ -126,42 +114,71 @@
         :style="`height: ${scrolHeight}px`"
         @scrolltolower="scrolltolower"
       >
-        <div
-          v-if="wayCount"
-          class="mailbox_title flex center"
-        >
-          <button
-            class="flex center"
-            @click="openMail"
+        <div class="flex car_block">
+          <input
+            class="input"
+            maxlength="1"
+            type="number"
+            :focus="focusInput"
+            :value="name"
+            @input="bindCarNumber"
           >
-            {{ wayCount }} 封信正在邮寄的路上
+          <input
+            class="input"
+            maxlength="1"
+            type="number"
+            :focus="focusInput"
+            :value="letter"
+            @input="bindCarNumber"
+          >
+          <input
+            class="input"
+            maxlength="1"
+            :focus="focusInput"
+            :value="oneNumber"
+            @input="bindCarNumber"
+          >
+          <input
+            class="input"
+            maxlength="1"
+            type="number"
+            :focus="focusInput"
+            :value="twoNumber"
+            @input="bindCarNumber"
+          >
+          <input
+            class="input"
+            maxlength="1"
+            type="number"
+            :focus="focusInput"
+            :value="threeNumber"
+            @input="bindCarNumber"
+          >
+          <input
+            class="input"
+            maxlength="1"
+            type="number"
+            :focus="focusInput"
+            :value="fourNumber"
+            @input="bindCarNumber"
+          >
+          <input
+            class="input"
+            maxlength="1"
+            type="number"
+            :focus="focusInput"
+            :value="fiveNumber"
+            @input="bindCarNumber"
+          >
+          <button class="newButton">
+            +新能源
           </button>
         </div>
         <div
-          v-for="item in dialogs"
-          :key="item._id"
-          class="list"
+          class="flex center lightButton"
+          @click="continu"
         >
-          <Envelope
-            v-if="user._id == item.toUser"
-            station="dialogId"
-            :mail="item.toMail"
-            :is-read="item.isRead"
-            :is-special="item.special"
-            :is-replied="item.isSpecial"
-            :dialog-id="item._id"
-            :show-refer="true"
-            :refer-mail="item.fromMail"
-          />
-          <Envelope
-            v-else
-            station="dialogId"
-            :mail="item.fromMail"
-            :is-read="true"
-            :is-replied="true"            
-            :dialog-id="item._id"
-            :show-refer="true"
-          />
+          查询缴费
         </div>
       </scroll-view>
     </div>
@@ -175,7 +192,7 @@
         scroll-y
         :style="`height: ${scrolHeight}px`"
       >
-        <div class="my_info flex ">
+        <div class="my_info flex a-center">
           <button
             v-if="!user.aliasPortrait"
             open-type="getUserInfo"
@@ -189,6 +206,8 @@
               @click="login"
             >
           </button>
+          <span class="my_function_item_text">18664306047</span>
+          <button>退出</button>
         </div>
 
         <session class="my_function flex">
@@ -282,16 +301,12 @@
               src="/static/svgs/joinGroup.svg"
             />
             <span class="my_contact_item_text grow">停车记录</span>
-            <image
-              class="group flex center"
-              src="/static/jpg/group.png"
-            />
+
             <image
               class="iconfont_sixteen flex center"
               src="/static/svgs/arrow.svg"
             />
           </button>
-
 
           <button
             class="my_contact_item_button flex wrap center grow"
@@ -302,19 +317,12 @@
               src="/static/svgs/joinGroup.svg"
             />
             <span class="my_contact_item_text grow">车辆管理</span>
-            <image
-              class="group flex center"
-              src="/static/jpg/group.png"
-            />
+
             <image
               class="iconfont_sixteen flex center"
               src="/static/svgs/arrow.svg"
             />
           </button>
-
-
-
-
 
           <button
             class="my_contact_item_button flex wrap center grow"
@@ -339,10 +347,7 @@
               src="/static/svgs/joinGroup.svg"
             />
             <span class="my_contact_item_text grow">发票</span>
-            <image
-              class="group flex center"
-              src="/static/jpg/group.png"
-            />
+
             <image
               class="iconfont_sixteen flex center"
               src="/static/svgs/arrow.svg"
@@ -376,7 +381,6 @@
       </div>
     </div>
 
-
     <Modal ref="mymodal" />
     <ImgModal ref="myImgmodal" />
 
@@ -388,7 +392,7 @@
 </template>
 <script>
 import HomeTabbar from "@/components/HomeTabbar";
-import Envelope from "@/components/Envelope";
+
 import Modal from "@/components/Modal";
 import ImgModal from "@/components/ImgModal";
 
@@ -396,7 +400,7 @@ import shareMix from "@/mixins/mixin";
 export default {
   components: {
     HomeTabbar,
-    Envelope,
+
     Modal,
     ImgModal
   },
@@ -429,7 +433,15 @@ export default {
       hasMore: true,
       getPhoto: false,
       showSetName: false,
-      setName: ""
+      setName: "",
+      focusInput: false,
+      name: '浙',
+      letter: 'B',
+      oneNumber: '1', //车牌号码
+      twoNumber: '2',
+      threeNumber: '3',
+      fourNumber: '4',
+      fiveNumber: '5',
     };
   },
   onLoad(opt) {
@@ -447,7 +459,7 @@ export default {
     }
     this.getTips();
     this.getScroll();
-    if(this.getPhoto) return;
+    if (this.getPhoto) return;
     // this.$request.getUser().then(res => {
     //   this.user = res;
     // });
@@ -462,8 +474,6 @@ export default {
         this.getBanners();
       }
       if (this.tab === "mail") {
-        this.getWayCount();
-        this.getDialogs();
       }
       if (this.tab === "mine") {
       }
@@ -471,21 +481,15 @@ export default {
     onGotUserInfo(e) {
       this.$request.auth(e.detail);
     },
-    openMail() {
-      this.$router.push({ path: "/pages/mail/mailDay" });
-    },
     async getBanners() {
       const res = await this.$request.post("/index.html");
       this.banners = res.data;
     },
-    async getWayCount() {
-      const res = await this.$request.get("/dialog/way/count");
-      this.wayCount = res.data;
-    },
+    async getWayCount() {},
     async getDialogs(page = 1) {
       if (this.hasMore === false) return false;
       let res = await this.$request.get(`/dialog?page=${page}`);
-      if(res.data.length === 0){
+      if (res.data.length === 0) {
         this.hasMore = false;
         return false;
       }
@@ -496,20 +500,6 @@ export default {
         this.page = page;
         this.dialogs = this.dialogs.concat(res.data);
       }
-
-    },
-    toConsulting() {
-      this.$router.push({ path: "/pages/consultingBox/consultingBox" });
-    },
-    toSolution() {
-      const { user } = getApp().globalData;
-      if (!user.becomeAnswererAt) {
-        return this.$router.push({
-          query: { active: "solverDetail" },
-          path: "/pages/manual/index"
-        });
-      }
-      return this.$router.push({ path: "/pages/solution/solutionRoom" });
     },
     toShare() {
       this.$router.push({ path: "/pages/share/share" });
@@ -529,24 +519,22 @@ export default {
         path: "/pages/welfare/index"
       });
     },
-    openbadge() {
-      this.$router.push({ path: "/pages/badge/badge" });
-    },
+
     login() {
       let sourceType = [];
       const that = this;
       wx.showActionSheet({
-      itemList: ['从相册选择新头像', '拍个新头像'],
+        itemList: ["从相册选择新头像", "拍个新头像"],
         success(res) {
-          if(res.tapIndex === 0){
-            sourceType = ['album']
+          if (res.tapIndex === 0) {
+            sourceType = ["album"];
           }
-          if(res.tapIndex === 1){
-            sourceType = ['camera']
+          if (res.tapIndex === 1) {
+            sourceType = ["camera"];
           }
-          if(res.tapIndex === 2){
+          if (res.tapIndex === 2) {
             return;
-          } 
+          }
           that.getPhoto = true;
           wx.chooseImage({
             count: 1,
@@ -579,46 +567,21 @@ export default {
           });
         },
         fail(res) {
-          console.log(res.errMsg)
+          console.log(res.errMsg);
         }
-      })
+      });
     },
     loginName() {
       this.setName = this.user.aliasName;
       this.showSetName = true;
     },
-    clickMask(){
+    clickMask() {
       this.showSetName = false;
     },
     setNameFun(e) {
       this.setName = e.detail.value;
     },
-    saveNameFun(){
-      const aliasName = this.setName;
-      const aliasPortrait = this.user.aliasPortrait;
-      if (aliasName) {
-        if (aliasName.length < 2) {
-          return wx.showToast({ title: "请设置大于2个字符的笔名" });
-        }
-
-        if(aliasName.length > 10){
-          return wx.showToast({ title: "请设置小于10个字符的笔名" });
-        }
-        if(!aliasName){
-          return wx.showToast({ title: "请设置头像" });
-        }
-        this.$request
-          .put("/user", {
-            aliasName,
-            aliasPortrait
-          })
-          .then(res => {
-            this.user.aliasName = this.setName;
-            this.showSetName = false;
-          });
-      }
-      
-    },
+    saveNameFun() {},
     toFaq() {
       this.$router.push({
         path: "/pages/faq/index"
@@ -643,30 +606,16 @@ export default {
     showAddressModal() {
       this.$refs.mymodal.show({
         title: "Tell 住址",
-        content: "这是你在 Tell 的住址，用于收取书信。未来会提供更多相关功能，敬请期待！"
+        content:
+          "这是你在 Tell 的住址，用于收取书信。未来会提供更多相关功能，敬请期待！"
       });
     },
     joinGroup() {
-      this.$refs.myImgmodal.show({
-        title: "如何加群",
-        type: "ALERT",
-        sureButtonText: "马上开始"
+      this.$router.push({
+        path: "/pages/faq/index"
       });
     },
-    getTips() {
-      // this.$request.get("/tips").then(res => {
-      //   const { lastTips } = res.data;
-      //   this.unreadMessages = res.data.unreadMessages;
-      //   if (lastTips) {
-      //     this.$refs.mymodal.show({
-      //       title: lastTips.title,
-      //       content: lastTips.content,
-      //       type: lastTips.type,
-      //       confirmButtonText: lastTips.confirmButtonText
-      //     });
-      //   }
-      // });
-    },
+    getTips() {},
     toBanner(banner) {
       switch (banner.type) {
         case "MINI":
@@ -678,7 +627,7 @@ export default {
         case "WEBVIEW":
           wx.navigateTo({
             url: `/pages/webview/index?url=${banner.url}&title=${banner.title}`
-          })
+          });
           break;
         case "PAGE":
           this.$router.push({
@@ -687,6 +636,12 @@ export default {
           });
           break;
       }
+    },
+    bindCarNumber(){
+
+    },
+    continu(){
+
     }
   }
 };
@@ -764,7 +719,7 @@ export default {
 }
 
 .my_info {
-  height: 526rpx;
+  height: 326rpx;
   margin: 40rpx 40rpx;
   border-radius: 2px;
   background-color: #ffffff;
@@ -783,7 +738,7 @@ export default {
       border-radius: 50%;
       height: 88rpx;
       width: 88rpx;
-      margin: 60rpx auto 44rpx;
+      margin: 60rpx auto 44rpx 40rpx;
     }
     &_nickName {
       font-weight: 600;
@@ -815,12 +770,9 @@ export default {
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
   &_item {
-    height: 172rpx;
-    width: 210rpx;
     background-color: #ffffff;
     &_button {
       height: 172rpx;
-      width: 222rpx;
       color: #4d495b;
     }
     &_text {
@@ -830,10 +782,19 @@ export default {
   }
 }
 .my_contact {
-  height: 424rpx;
+  height: 524rpx;
   margin: 40rpx 40rpx;
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
+  .carPark {
+    margin-top: 80rpx;
+    border-top-color: rgba(191, 189, 192, 0.15);
+    border-top-style: solid;
+    border-top-width: 2rpx;
+  }
+    .carPhone{
+    margin-left: 40rpx;
+  }
   &_item {
     &_button {
       width: 100%;
@@ -880,26 +841,26 @@ export default {
   left: 0;
   right: 0;
   top: 0;
-  z-index:99;
+  z-index: 99;
   bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgba(77, 73, 91, 0.3);
 }
-.modalCard{
+.modalCard {
   width: 630rpx;
   max-height: 598rpx;
   min-height: 402rpx;
   background-color: #ffffff;
   border-radius: 4rpx;
-  box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);  
-  & .set{
+  box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
+  & .set {
     margin: 40rpx;
     color: #4d495b;
   }
   & input {
-    margin:40rpx;
+    margin: 40rpx;
     border-radius: 4rpx;
     height: 84rpx;
     width: 500rpx;
@@ -918,9 +879,27 @@ export default {
     border-radius: 23px;
   }
 }
-.iconfont_sixteen{
+.iconfont_sixteen {
   width: 32rpx;
   height: 32rpx;
+}
+
+.newButton{
+  box-sizing: border-box;
+  border: 2rpx solid  rgba(189, 189, 192, 0.1);;
+}
+.input {
+  width: 50rpx;
+
+  height: 84rpx;
+  padding-left: 20rpx;
+  background-color: rgba(189, 189, 192, 0.1);
+}
+.wait {
+  font-size: 32rpx;
+}
+.car_block{
+  padding-left: 40rpx;
 }
 </style>
 

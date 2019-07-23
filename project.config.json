@@ -44,49 +44,13 @@
 					"pathName": "pages/penName/index",
 					"query": ""
 				},
-				{
-					"id": 4,
-					"name": "讲述我的故事",
-					"pathName": "pages/consultingBox/myStory",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "咨询箱",
-					"pathName": "pages/consultingBox/consultingBox",
-					"query": ""
-				},
-				{
-					"id": 3,
-					"name": "解答室说明",
-					"pathName": "pages/solution/tags",
-					"query": "id=5bc058bb5647747e17feca45",
-					"scene": null
-				},
+
 				{
 					"id": 7,
 					"name": "记忆",
 					"pathName": "pages/memory/memory",
 					"query": "",
 					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "解答室",
-					"pathName": "pages/solution/solutionRoom",
-					"query": ""
-				},
-				{
-					"id": 11,
-					"name": "详情页面-每日解答上限说明",
-					"pathName": "pages/manual/index",
-					"query": "active=solutionLimit"
-				},
-				{
-					"id": 12,
-					"name": "解答室——咨询信",
-					"pathName": "pages/solution/solutionReply",
-					"query": "id=5c458a3a0a868a16f8377223"
 				},
 				{
 					"id": 14,
@@ -108,12 +72,6 @@
 				},
 				{
 					"id": -1,
-					"name": "情感援助",
-					"pathName": "pages/help/index",
-					"query": ""
-				},
-				{
-					"id": -1,
 					"name": "邮差迷路",
 					"pathName": "pages/noFound/index",
 					"query": "",
@@ -126,26 +84,7 @@
 					"query": "",
 					"scene": null
 				},
-				{
-					"id": 22,
-					"name": "解答室-说明",
-					"pathName": "pages/manual/index",
-					"query": "active=solverDetail"
-				},
-				{
-					"id": 21,
-					"name": "回复咨询",
-					"pathName": "pages/solution/solutionReply",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 17,
-					"name": "回信完成",
-					"pathName": "pages/solution/promptPage",
-					"query": "targetUser=&active=story",
-					"scene": null
-				},
+
 				{
 					"id": 23,
 					"name": "安利给好友",
@@ -174,13 +113,7 @@
 					"query": "id=5c6bbe1905e055778984f8f1",
 					"scene": null
 				},
-				{
-					"id": -1,
-					"name": "申请解答者成功",
-					"pathName": "pages/solution/becomeSolutor",
-					"query": "",
-					"scene": null
-				},
+
 				{
 					"id": -1,
 					"name": "错误页面",
@@ -199,34 +132,6 @@
 					"id": -1,
 					"name": "正在路上的信",
 					"pathName": "pages/mail/mailDay",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "徽章",
-					"pathName": "pages/badge/badge",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 27,
-					"name": "向日葵说明",
-					"pathName": "pages/badge/sunflower",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "申请向日葵",
-					"pathName": "pages/badge/applySunflower",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "徽章说明",
-					"pathName": "pages/badge/badgeExplain",
 					"query": "",
 					"scene": null
 				},

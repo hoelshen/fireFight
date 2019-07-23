@@ -72,11 +72,7 @@ export default {
           query: { active: "TICKET" },
           path: "/pages/welfare/index"
         });
-      } else if (this.value.confirmButtonText === "前往解答室") {
-        this.$router.push({
-          path: "/pages/solution/tags"
-        });
-      } else if (this.value.title.includes("徽章")) {
+      }else if (this.value.title.includes("徽章")) {
         if (typeof this.value.confirmCallbak == "function") {
           this.value.confirmCallbak.call();
         } else {

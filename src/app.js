@@ -27,25 +27,12 @@ export default {
       "pages/home/index", //首页
       "pages/mail/mailDay", //正在路上的信
       "pages/mail/mailDetail", //回信
-      "pages/badge/badge", //徽章
-      "pages/badge/sunflower", //向日葵
-      "pages/badge/applySunflower",  //申请向日葵
-      "pages/badge/badgeExplain", //申请向日葵
-      "pages/consultingBox/consultingBox", //咨询箱
-      "pages/solution/tags", //成为解答者
-      "pages/solution/solutionRoom", //解答室
-      "pages/solution/solutionReply", //信件
-      "pages/solution/becomeSolutor", //信件
-      "pages/solution/promptPage", //回信之后的提示页
-      "pages/consultingBox/myStory", //我的故事
       "pages/penName/index", //设置笔名
-      "pages/manual/index", //详细说明
       "pages/ticket/ticketDetail", //票券明细
       "pages/ticket/ticketList", //票券
       "pages/welfare/index", //福利社
       "pages/memory/memory", //记忆
       "pages/memory/detail", //记忆
-      "pages/help/index", //情感援助
       "pages/noFound/index", //404,
       "pages/cleanStore/index", //店铺清扫
       "pages/faq/index", //FAQ,
@@ -57,7 +44,7 @@ export default {
     window: {
       backgroundTextStyle: "light",
       navigationBarBackgroundColor: "#fffefb",
-      navigationBarTitleText: "Tell",
+      navigationBarTitleText: "美停",
       navigationBarTextStyle: "black",
       backgroundColor: "#fffefb"
     },

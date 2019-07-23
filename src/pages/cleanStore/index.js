@@ -8,7 +8,7 @@ export default {
     config: {
         navigationBarBackgroundColor: '#fffefb',
         navigationBarTextStyle: 'black',
-        navigationBarTitleText: 'Tell',
+        navigationBarTitleText: '添加车辆',
         backgroundColor: '#FFFEFB'
     }
 };
