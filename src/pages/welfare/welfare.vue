@@ -258,31 +258,10 @@ export default {
       }
     },
     toReply() {
-      this.$router.push({ path: "/pages/solution/solutionRoom" });
+
     },
     async toExchange() {
-      let res = await this.$request.post("/task/exchange");
-      wx.showModal({
-        title: "提示",
-        content: "确定要兑换？",
-        showCancel: true,
-        cancelText: "取消",
-        cancelColor: "#000000",
-        confirmText: "确定",
-        confirmColor: "#3CC51F",
-        success: result => {
-          if (result.confirm) {
-            if (res.success) {
-              wx.hideLoading();
-              wx.showToast({ title: "兑换成功" });
-            } else {
-              wx.showToast({ title: res.message, icon: "none" });
-            }
-          }
-        },
-        fail: () => {},
-        complete: () => {}
-      });
+
     },
     async toPay() {
       wx.showLoading({
@@ -315,24 +294,12 @@ export default {
     FocusSubscript() {
 
     },
-    getTask() {
-      this.$request.get(`/task/ad?type=${this.active}`).then(res => {
-        this.tasks = res.data;
-      });
-    },
+
     doTask(task) {
       if (task.isReceived) return;
-      wx.navigateTo({
-        url: `/pages/webview/index?url=${task.url}&title=${
-          task.name
-        }&type=welfare&id=${task._id}`
-      });
     },
-    getTips() {
 
-    },
-   
-
+  
   },
   onShow() {
     const { currentRoute: { query } } = this.$router;
@@ -340,8 +307,7 @@ export default {
     const { taskState } = getApp().globalData;
     const { user } = getApp().globalData;
     this.canExchange = user.ticketCount > 0 ;
-    this.getTips();
-    this.getTask();
+
     this.taskHandle(taskState || "");
   }
 };

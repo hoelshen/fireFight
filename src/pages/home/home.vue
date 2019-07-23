@@ -34,7 +34,7 @@
         <session class="my_function flex">
           <button
             class="my_function_item_button flex column center"
-            @tap="wallet"
+            @tap="joinGroup"
           >
             <image
               class="iconfont"
@@ -456,9 +456,6 @@ export default {
     toShare() {
       this.$router.push({ path: "/pages/share/share" });
     },
-    wallet() {
-      this.$router.push({ query: { id: 1 }, path: "/pages/error/index" });
-    },
     ticket() {
       this.$router.push({
         query: { id: 1 },
@@ -558,11 +555,6 @@ export default {
           wx.navigateToMiniProgram({
             appId: banner.appId,
             path: banner.path
-          });
-          break;
-        case "WEBVIEW":
-          wx.navigateTo({
-            url: `/pages/webview/index?url=${banner.url}&title=${banner.title}`
           });
           break;
         case "PAGE":

@@ -35,28 +35,8 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 5,
 			"list": [
-				{
-					"id": 0,
-					"name": "设置笔名",
-					"pathName": "pages/home/index",
-					"query": "active=\"mine\"",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "福利社",
-					"pathName": "pages/welfare/index",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "内嵌网页",
-					"pathName": "pages/webview/index",
-					"query": "",
-					"scene": null
-				},
 				{
 					"id": -1,
 					"name": "错误页面",
@@ -65,7 +45,7 @@
 					"scene": null
 				},
 				{
-					"id": 4,
+					"id": 3,
 					"name": "个人中心页面",
 					"pathName": "pages/home/index",
 					"query": "tab=mine",
@@ -75,6 +55,27 @@
 					"id": -1,
 					"name": "增加车辆",
 					"pathName": "pages/addCar/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "首页",
+					"pathName": "pages/home/index",
+					"query": "tab=home",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "停车缴费",
+					"pathName": "pages/home/index",
+					"query": "tab=mail",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "车辆管理",
+					"pathName": "pages/carManage/index",
 					"query": "",
 					"scene": null
 				}

@@ -1,4 +1,4 @@
-import App from './penName'
+import App from './payMent'
 import Vue from 'vue'
 
 const app = new Vue(App)

@@ -91,7 +91,7 @@ export default {
 
     },
     continu(){
-
+      this.$router.push({ path: "/pages/home/index" })
     }
   }
 };

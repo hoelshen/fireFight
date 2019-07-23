@@ -25,12 +25,10 @@ export default {
     cloud: true,
     pages: [
       "pages/home/index", //首页
-      "pages/penName/index", //设置笔名
+      "pages/payMent/index", //设置笔名
       "pages/welfare/index", //福利社
       "pages/addCar/index", //店铺清扫
       "pages/carManage/index", //carManage,
-      "pages/webview/index", //内嵌网页
-  
       "pages/errors/index" //错误页面
     ],
     window: {
