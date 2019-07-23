@@ -223,20 +223,15 @@
         </div>
       </div>
     </session>
-
-    <Modal ref="mymodal" />
-    <ImgModal ref="myImgmodal" />
   </view>
 </template>
 <script>
-import Modal from "@/components/Modal";
-import ImgModal from "@/components/ImgModal";
+
 
 import shareMix from "@/mixins/mixin";
 export default {
   components: {
-    Modal,
-    ImgModal
+ 
   },
   mixins: [shareMix],
   data() {
@@ -264,9 +259,6 @@ export default {
     },
     toReply() {
       this.$router.push({ path: "/pages/solution/solutionRoom" });
-    },
-    toShare() {
-      this.$router.push({ path: "/pages/share/share" });
     },
     async toExchange() {
       let res = await this.$request.post("/task/exchange");
@@ -318,18 +310,10 @@ export default {
       }
     },
     FocusServer() {
-      this.$refs.myImgmodal.show({
-        title: "关注服务号",
-        type: "ALERT",
-        sureButtonText: "马上开始"
-      });
+
     },
     FocusSubscript() {
-      this.$refs.myImgmodal.show({
-        title: "关注订阅号",
-        type: "ALERT",
-        sureButtonText: "马上开始"
-      });
+
     },
     getTask() {
       this.$request.get(`/task/ad?type=${this.active}`).then(res => {
@@ -345,34 +329,10 @@ export default {
       });
     },
     getTips() {
-      this.$request.get("/tips").then(res => {
-        const { lastTips } = res.data;
-        this.unreadMessages = res.data.unreadMessages;
-        if (lastTips) {
-          this.$refs.mymodal.show({
-            title: lastTips.title,
-            content: lastTips.content,
-            type: lastTips.type,
-            confirmButtonText: lastTips.confirmButtonText
-          });
-        }
-      });
-    },
-    taskHandle(status) {
-      if (!status) return;
 
-      if (status === "failedTime") {
-        this.$refs.mymodal.show({
-          title: "体验失败",
-          content: "抱歉，体验时间过短，无法获得奖励。请重试。"
-        });
-      }
-      // this.$refs.mymodal.show({
-      //     title: "体验失败",
-      //     content: "过程中断，请确保体验没有跳转到其它页面。",
-      // });
-      getApp().globalData.taskState = "";
-    }
+    },
+   
+
   },
   onShow() {
     const { currentRoute: { query } } = this.$router;

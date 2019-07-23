@@ -25,20 +25,12 @@ export default {
     cloud: true,
     pages: [
       "pages/home/index", //首页
-      "pages/mail/mailDay", //正在路上的信
-      "pages/mail/mailDetail", //回信
       "pages/penName/index", //设置笔名
-      "pages/ticket/ticketDetail", //票券明细
-      "pages/ticket/ticketList", //票券
       "pages/welfare/index", //福利社
-      "pages/memory/memory", //记忆
-      "pages/memory/detail", //记忆
-      "pages/noFound/index", //404,
-      "pages/cleanStore/index", //店铺清扫
-      "pages/faq/index", //FAQ,
+      "pages/addCar/index", //店铺清扫
+      "pages/carManage/index", //carManage,
       "pages/webview/index", //内嵌网页
-      "pages/share/share", //安利给好友
-      "pages/share/receive", //领取解忧券
+  
       "pages/errors/index" //错误页面
     ],
     window: {

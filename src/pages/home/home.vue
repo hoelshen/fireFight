@@ -34,7 +34,7 @@
         <session class="my_function flex">
           <button
             class="my_function_item_button flex column center"
-            @tap="memory"
+            @tap="wallet"
           >
             <image
               class="iconfont"
@@ -56,9 +56,7 @@
 
           <button
             class="my_function_item_button flex column center"
-            open-type="getUserInfo"
-            lang="zh_CN"
-            @getuserinfo="onGotUserInfo"
+            @click="ticket"
           >
             <image
               class="iconfont"
@@ -68,7 +66,7 @@
           </button>
           <button
             class="my_function_item_button flex column center"
-            @click="openbadge"
+            @click="joinGroup"
           >
             <image
               class="iconfont"
@@ -213,7 +211,7 @@
         <session class="my_function flex">
           <button
             class="my_function_item_button flex column center"
-            @tap="memory"
+            @tap="joinGroup"
           >
             <image
               class="iconfont"
@@ -235,9 +233,7 @@
 
           <button
             class="my_function_item_button flex column center"
-            open-type="getUserInfo"
-            lang="zh_CN"
-            @getuserinfo="onGotUserInfo"
+            @click="ticket"
           >
             <image
               class="iconfont"
@@ -247,7 +243,7 @@
           </button>
           <button
             class="my_function_item_button flex column center"
-            @click="openbadge"
+            @click="joinGroup"
           >
             <image
               class="iconfont"
@@ -259,27 +255,8 @@
 
         <session class="my_contact flex column">
           <button
-            v-if="!user.unionid"
             class="my_contact_item_button flex wrap center grow"
-            open-type="getUserInfo"
-            lang="zh_CN"
-            @getuserinfo="onGotUserInfo"
-          >
-            <image
-              class="iconfont"
-              src="/static/svgs/welfare.svg"
-            />
-            <span class="my_contact_item_text grow">积分兑换</span>
-            <image
-              class="iconfont_sixteen flex center"
-              src="/static/svgs/arrow.svg"
-            />
-          </button>
-
-          <button
-            v-else
-            class="my_contact_item_button flex wrap center grow"
-            @click="welfare"
+            @click="joinGroup"
           >
             <image
               class="iconfont"
@@ -310,7 +287,7 @@
 
           <button
             class="my_contact_item_button flex wrap center grow"
-            @click="joinGroup"
+            @click="carManage"
           >
             <image
               class="iconfont"
@@ -326,7 +303,7 @@
 
           <button
             class="my_contact_item_button flex wrap center grow"
-            @click="toFaq"
+            @click="joinGroup"
           >
             <image
               class="iconfont"
@@ -381,9 +358,6 @@
       </div>
     </div>
 
-    <Modal ref="mymodal" />
-    <ImgModal ref="myImgmodal" />
-
     <HomeTabbar
       :mail-count="unreadMessages"
       @change="onTabChange"
@@ -393,16 +367,10 @@
 <script>
 import HomeTabbar from "@/components/HomeTabbar";
 
-import Modal from "@/components/Modal";
-import ImgModal from "@/components/ImgModal";
-
 import shareMix from "@/mixins/mixin";
 export default {
   components: {
-    HomeTabbar,
-
-    Modal,
-    ImgModal
+    HomeTabbar
   },
   mixins: [shareMix],
   data() {
@@ -435,13 +403,13 @@ export default {
       showSetName: false,
       setName: "",
       focusInput: false,
-      name: '浙',
-      letter: 'B',
-      oneNumber: '1', //车牌号码
-      twoNumber: '2',
-      threeNumber: '3',
-      fourNumber: '4',
-      fiveNumber: '5',
+      name: "浙",
+      letter: "B",
+      oneNumber: "1", //车牌号码
+      twoNumber: "2",
+      threeNumber: "3",
+      fourNumber: "4",
+      fiveNumber: "5"
     };
   },
   onLoad(opt) {
@@ -457,7 +425,7 @@ export default {
         query: this.$mp.query
       });
     }
-    this.getTips();
+
     this.getScroll();
     if (this.getPhoto) return;
     // this.$request.getUser().then(res => {
@@ -485,41 +453,18 @@ export default {
       const res = await this.$request.post("/index.html");
       this.banners = res.data;
     },
-    async getWayCount() {},
-    async getDialogs(page = 1) {
-      if (this.hasMore === false) return false;
-      let res = await this.$request.get(`/dialog?page=${page}`);
-      if (res.data.length === 0) {
-        this.hasMore = false;
-        return false;
-      }
-      if (page == 1) {
-        this.page = 1;
-        this.dialogs = res.data;
-      } else if (res.data.length > 0) {
-        this.page = page;
-        this.dialogs = this.dialogs.concat(res.data);
-      }
-    },
     toShare() {
       this.$router.push({ path: "/pages/share/share" });
     },
-    memory() {
-      this.$router.push({ query: { id: 1 }, path: "/pages/memory/memory" });
+    wallet() {
+      this.$router.push({ query: { id: 1 }, path: "/pages/error/index" });
     },
     ticket() {
       this.$router.push({
         query: { id: 1 },
-        path: "/pages/ticket/ticketList"
+        path: "/pages/errors/index"
       });
     },
-    welfare() {
-      this.$router.push({
-        query: { id: 1 },
-        path: "/pages/welfare/index"
-      });
-    },
-
     login() {
       let sourceType = [];
       const that = this;
@@ -582,14 +527,7 @@ export default {
       this.setName = e.detail.value;
     },
     saveNameFun() {},
-    toFaq() {
-      this.$router.push({
-        path: "/pages/faq/index"
-      });
-    },
-    scrolltolower() {
-      this.getDialogs(this.page + 1);
-    },
+    scrolltolower() {},
     getScroll() {
       const query = wx.createSelectorQuery();
       const res = query
@@ -603,19 +541,17 @@ export default {
           }.bind(this)
         );
     },
-    showAddressModal() {
-      this.$refs.mymodal.show({
-        title: "Tell 住址",
-        content:
-          "这是你在 Tell 的住址，用于收取书信。未来会提供更多相关功能，敬请期待！"
-      });
-    },
     joinGroup() {
       this.$router.push({
-        path: "/pages/faq/index"
+        path: "/pages/errors/index"
       });
     },
-    getTips() {},
+    carManage() {
+      this.$router.push({
+        path: "/pages/carManage/index"
+      });
+    },
+
     toBanner(banner) {
       switch (banner.type) {
         case "MINI":
@@ -637,12 +573,8 @@ export default {
           break;
       }
     },
-    bindCarNumber(){
-
-    },
-    continu(){
-
-    }
+    bindCarNumber() {},
+    continu() {}
   }
 };
 </script>
@@ -792,7 +724,7 @@ export default {
     border-top-style: solid;
     border-top-width: 2rpx;
   }
-    .carPhone{
+  .carPhone {
     margin-left: 40rpx;
   }
   &_item {
@@ -884,9 +816,9 @@ export default {
   height: 32rpx;
 }
 
-.newButton{
+.newButton {
   box-sizing: border-box;
-  border: 2rpx solid  rgba(189, 189, 192, 0.1);;
+  border: 2rpx solid rgba(189, 189, 192, 0.1);
 }
 .input {
   width: 50rpx;
@@ -898,7 +830,7 @@ export default {
 .wait {
   font-size: 32rpx;
 }
-.car_block{
+.car_block {
   padding-left: 40rpx;
 }
 </style>

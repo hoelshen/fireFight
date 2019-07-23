@@ -1,5 +1,5 @@
 {
-  "name": "tell2.0_megalo",
+  "name": "Meistop2.0_megalo",
   "version": "0.0.0",
   "description": "a megalo project",
   "main": "index.js",
@@ -14,7 +14,7 @@
   "keywords": [
     "vue",
     "wxapp",
-    "tell"
+    "meistop"
   ],
   "author": "sjh <1039460820@qq.com>",
   "license": "ISC",
@@ -45,7 +45,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/tellers/tell2.0_megalo.git"
+    "url": "https://github.com/JH46666/meistop.git"
   },
   "dependencies": {
     "@megalo/vhtml-plugin": "^0.1.2",

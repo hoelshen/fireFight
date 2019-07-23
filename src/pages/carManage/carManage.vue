@@ -61,9 +61,8 @@ export default {
       console.log(e)
     },
     addCar(e){
-      console.log('addCar: ', e);
       this.$router.push({
-        path: "/pages/cleanStore/index"
+        path: "/pages/addCar/index"
       });
     },
     cancel(e){

@@ -11,10 +11,9 @@
 		"uglifyFileName": false
 	},
 	"miniprogramRoot": "dist-wechat/",
-	"cloudfunctionRoot": "src/server/cloudFunctions/",
 	"compileType": "miniprogram",
 	"appid": "wx0af73175e644dbfc",
-	"projectname": "tell2.0_megalo",
+	"projectname": "Meistop2.0_megalo",
 	"libVersion": "2.5.2",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
@@ -36,33 +35,14 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 18,
+			"current": 4,
 			"list": [
 				{
-					"id": -1,
+					"id": 0,
 					"name": "设置笔名",
-					"pathName": "pages/penName/index",
-					"query": ""
-				},
-
-				{
-					"id": 7,
-					"name": "记忆",
-					"pathName": "pages/memory/memory",
-					"query": "",
+					"pathName": "pages/home/index",
+					"query": "active=\"mine\"",
 					"scene": null
-				},
-				{
-					"id": 14,
-					"name": "票券列表",
-					"pathName": "pages/ticket/ticketList",
-					"query": ""
-				},
-				{
-					"id": 16,
-					"name": "票券明细",
-					"pathName": "pages/ticket/ticketDetail",
-					"query": ""
 				},
 				{
 					"id": -1,
@@ -72,48 +52,11 @@
 				},
 				{
 					"id": -1,
-					"name": "邮差迷路",
-					"pathName": "pages/noFound/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
 					"name": "内嵌网页",
 					"pathName": "pages/webview/index",
 					"query": "",
 					"scene": null
 				},
-
-				{
-					"id": 23,
-					"name": "安利给好友",
-					"pathName": "pages/share/share",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 18,
-					"name": "首页跳到信件详情",
-					"pathName": "pages/mail/mailDetail",
-					"query": "id=5c9211981b405743a280e53e",
-					"scene": null
-				},
-				{
-					"id": 25,
-					"name": "领取解忧券 - 服务号",
-					"pathName": "pages/share/receive",
-					"query": "type=service",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "私信详情",
-					"pathName": "pages/mail/mailDetail",
-					"query": "id=5c6bbe1905e055778984f8f1",
-					"scene": null
-				},
-
 				{
 					"id": -1,
 					"name": "错误页面",
@@ -122,7 +65,7 @@
 					"scene": null
 				},
 				{
-					"id": 24,
+					"id": 4,
 					"name": "个人中心页面",
 					"pathName": "pages/home/index",
 					"query": "tab=mine",
@@ -130,15 +73,8 @@
 				},
 				{
 					"id": -1,
-					"name": "正在路上的信",
-					"pathName": "pages/mail/mailDay",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "店铺清扫",
-					"pathName": "pages/cleanStore/index",
+					"name": "增加车辆",
+					"pathName": "pages/addCar/index",
 					"query": "",
 					"scene": null
 				}

@@ -5,6 +5,27 @@
   >
     <form
       report-submit="true"
+      @submit="home"
+    >
+      <button
+        class="flex center"
+        form-type="submit"
+        hover-class="active"
+      >
+        <image
+          v-show="tab == 'home'"
+          class="icon"
+          src="/static/svgs/tell-active.svg"
+        />
+        <image
+          v-show="tab != 'home'"
+          class="icon"
+          src="/static/svgs/tell.svg"
+        />
+      </button>
+    </form>
+    <form
+      report-submit="true"
       @submit="mail"
     >
       <button
@@ -30,27 +51,6 @@
         >
           {{ mailCount }}
         </div>
-      </button>
-    </form>
-    <form
-      report-submit="true"
-      @submit="home"
-    >
-      <button
-        class="flex center"
-        form-type="submit"
-        hover-class="active"
-      >
-        <image
-          v-show="tab == 'home'"
-          class="icon"
-          src="/static/svgs/tell-active.svg"
-        />
-        <image
-          v-show="tab != 'home'"
-          class="icon"
-          src="/static/svgs/tell.svg"
-        />
       </button>
     </form>
     <form

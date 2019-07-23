@@ -9,7 +9,7 @@ export default {
     config: {
         navigationBarBackgroundColor: '#fffefb',
         navigationBarTextStyle: 'black',
-        navigationBarTitleText: 'Tell',
+        navigationBarTitleText: '美停',
         backgroundColor: '#FFFEFB',
         disableScroll: false
     }

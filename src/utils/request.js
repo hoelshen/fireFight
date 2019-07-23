@@ -110,14 +110,9 @@ fly.interceptors.response.use(
   async err => {
     if (err.status == 502 || err.status == 404) {
       // 生产环境：服务器正在重启
-      wx.reLaunch({
-        url: "/pages/noFound/index"
-      });
+   
     } else if (!err.response) {
-   // 本地环境：服务器正在重启
-      // wx.reLaunch({
-      //   url: "/pages/noFound/index"
-      // });
+  
     }
     return Promise.reject(err);;
   }
