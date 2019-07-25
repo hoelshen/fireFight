@@ -29,8 +29,13 @@ export default {
       "pages/welfare/index", //福利社
       "pages/addCar/index", //店铺清扫
       "pages/carManage/index", //carManage,
-      "pages/errors/index" //错误页面
+      "pages/errors/index" //错误页面, 
     ],
+    "permission": {
+      "scope.userLocation": {
+        "desc": "你的位置信息将用于小程序的位置展示"
+      }
+    },
     window: {
       backgroundTextStyle: "light",
       navigationBarBackgroundColor: "#fffefb",

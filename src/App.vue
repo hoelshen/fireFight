@@ -4,8 +4,49 @@ export default {
   mpType: "app",
   onLaunch(opts) {
     this.globalData.options = opts;
-    let userId = wx.getStorageSync('token') //永久保存用户账号
-    this.$request.getOpenid();
+    // this.$request.getOpenid();
+    wx.getSetting({
+      success (res){
+        console.log('res: ', res);
+        if (res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+          wx.getUserInfo({
+            success: function(res) {
+              console.log(res.userInfo)
+            }
+          })
+        }
+      },
+      fail(err){
+        console.log(err)
+      }
+    })
+
+
+
+    wx.getLocation({
+      type: 'wgs84',
+      success: (res) => {
+        var latitude = res.latitude // 纬度
+        var longitude = res.longitude // 经度
+        console.log('lsldlsd', latitude, longitude)
+      }
+    })
+
+    // wx.request({
+    //   url: "https://www.meitingpark.com/mobile/user/openid.html", 
+    //   data: {
+    //   code: "011YSWax0LhJFa1b1yax0uKebx0YSWa6"
+    //   },
+    //   dataType: 'json',
+    //   method:"post",
+    //   header: {
+    //     "content-type": "application/json" // 默认值
+    //   },
+    //   success(res) {
+    //     console.log(res.data);
+    //   }
+    // });
     // this.$request.login(userId);
   },
   onShow() {
@@ -18,12 +59,8 @@ export default {
       });
     }
   },
-  onPageNotFound(res) {
-
-  },
-  onError(error) {
-
-  },
+  onPageNotFound(res) {},
+  onError(error) {},
   globalData() {
     return {
       options: {}, // 启动参数

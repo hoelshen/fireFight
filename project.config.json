@@ -12,7 +12,7 @@
 	},
 	"miniprogramRoot": "dist-wechat/",
 	"compileType": "miniprogram",
-	"appid": "wx0af73175e644dbfc",
+	"appid": "wx70677f7a3878565b",
 	"projectname": "Meistop2.0_megalo",
 	"libVersion": "2.5.2",
 	"simulatorType": "wechat",

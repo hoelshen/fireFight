@@ -450,7 +450,20 @@ export default {
       this.$request.auth(e.detail);
     },
     async getBanners() {
-      const res = await this.$request.post("/index.html");
+      wx.request({
+        url: "https://www.meitingpark.com/mobile/index.html", 
+        dataType: 'json',
+        data:{},
+        method:"get",
+        header: {
+          "content-type": "application/json" // 默认值
+        },
+        success(res) {
+          console.log(res.data);
+        }
+      });
+
+      // const res = await this.$request.post("/index.html");
       this.banners = res.data;
     },
     toShare() {

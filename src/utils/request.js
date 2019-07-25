@@ -11,8 +11,8 @@ const loginFly = new flyio();
 let token = "";
 
 fly.config.baseURL = getBaseURL(environment);
-fly.config.headers["Accept"] = "application/json";
-fly.config.headers["Content-Type"] = "application/json; charset=utf-8";
+// fly.config.headers["Accept"] = "application/json";
+// fly.config.headers["Content-Type"] = "application/json; charset=utf-8";
 
 loginFly.config.baseURL = getBaseURL(environment);
 loginFly.config.headers["Accept"] = "application/json";
@@ -25,7 +25,7 @@ function getBaseURL(env) {
     case "mock":
       return "http://www.amusingcode.com:8001/mock/24/tell_v2";
     case "test":
-      return "http://serpro/mobile";
+      return "https://www.meitingpark.com/mobile/";
     default:
       return "https://api.tellers.cn/teller-v2";
   }
@@ -72,7 +72,7 @@ async function login(userId) {
   // if (userId) {
   //   return (fly.config.headers["x-csrf-token"] = token = userId);
   // }
-  const wxRes = await promisify(wx.login, wx)();
+  // const wxRes = await promisify(wx.login, wx)();
 
   // return (getApp().globalData.user = user);
 }
@@ -82,6 +82,7 @@ async function getOpenid() {
   const wxRes = await promisify(wx.login, wx)();
   console.log('wxRes: ', wxRes);
 
+  console.log(fly);
   fly.post("/user/openid.html", { code: wxRes.code })
     .then(res=>{
       console.log('res',res);
@@ -94,12 +95,7 @@ async function getOpenid() {
 
 
 fly.interceptors.request.use(async function (request) {
-  // if (!token) {
-  //   return fly.lock(); //登录登录完成
-  // } else {
-  //   fly.unlock();
-  // }
-  // request.headers["x-csrf-token"] = token;
+  request.headers["x-csrf-token"] = token;
   return request;
 });
 

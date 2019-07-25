@@ -9,7 +9,7 @@ export default {
   config: {
     navigationBarBackgroundColor: '#ffffff',
     navigationBarTextStyle: 'black',
-    navigationBarTitleText: '设置笔名和头像',
+    navigationBarTitleText: '停车缴费',
     backgroundColor: '#ffffff'
   }
 }
