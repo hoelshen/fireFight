@@ -6,9 +6,18 @@
 		"postcss": true,
 		"minified": false,
 		"newFeature": true,
+		"coverView": true,
 		"nodeModules": false,
 		"autoAudits": false,
-		"uglifyFileName": false
+		"uglifyFileName": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
 	},
 	"miniprogramRoot": "dist-wechat/",
 	"compileType": "miniprogram",

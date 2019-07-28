@@ -362,15 +362,18 @@
       :mail-count="unreadMessages"
       @change="onTabChange"
     />
+
+    <Modal ref="mymodal" />
   </view>
 </template>
 <script>
 import HomeTabbar from "@/components/HomeTabbar";
-
+import Modal from "@/components/Modal";
 import shareMix from "@/mixins/mixin";
 export default {
   components: {
-    HomeTabbar
+    HomeTabbar,
+    Modal
   },
   mixins: [shareMix],
   data() {
@@ -387,19 +390,10 @@ export default {
         aliasName: ""
       },
       scrolHeight: 541,
-      isShowModal: false,
-      modal: {
-        title: "",
-        content: "",
-        confirmButtonText: "",
-        type: "",
-        sure: ""
-      },
       unreadMessages: 0,
       toPage: null,
       page: 1,
       hasMore: true,
-      getPhoto: false,
       showSetName: false,
       setName: "",
       focusInput: false,
@@ -427,13 +421,27 @@ export default {
     }
 
     this.getScroll();
-    if (this.getPhoto) return;
     // this.$request.getUser().then(res => {
     //   this.user = res;
     // });
 
     this.isFlage = false;
     this.onTabChange(this.tab);
+
+    wx.getSetting({
+      success: function(res) {
+        if (res.authSetting["scope.userInfo"]) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+          wx.getUserInfo({
+            success: function(res) {
+              console.log(res.userInfo);
+            }
+          });
+        } else {
+          this.$refs.mymodal.show();
+        }
+      }.bind(this)
+    });
   },
   methods: {
     onTabChange(tab = "home") {
@@ -450,20 +458,7 @@ export default {
       this.$request.auth(e.detail);
     },
     async getBanners() {
-      wx.request({
-        url: "https://www.meitingpark.com/mobile/index.html", 
-        dataType: 'json',
-        data:{},
-        method:"get",
-        header: {
-          "content-type": "application/json" // 默认值
-        },
-        success(res) {
-          console.log(res.data);
-        }
-      });
-
-      // const res = await this.$request.post("/index.html");
+      const res = await this.$request.post("/index.html");
       this.banners = res.data;
     },
     toShare() {
@@ -490,7 +485,6 @@ export default {
           if (res.tapIndex === 2) {
             return;
           }
-          that.getPhoto = true;
           wx.chooseImage({
             count: 1,
             sizeType: ["compressed"],

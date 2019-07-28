@@ -25,7 +25,7 @@ function getBaseURL(env) {
     case "mock":
       return "http://www.amusingcode.com:8001/mock/24/tell_v2";
     case "test":
-      return "https://www.meitingpark.com/mobile/";
+      return "https://mt.xmpush.com/mobile/";
     default:
       return "https://api.tellers.cn/teller-v2";
   }
@@ -35,13 +35,13 @@ function getBaseURL(env) {
 
 
 function getUser() {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     fly.post("user/info").then(res => {
       // const user = res.data;
       // getApp().globalData.user = user;
       // resolve(user);
       resolve();
-    }).catch(err=>{
+    }).catch(err => {
       reject(err);
     });
   });
@@ -60,38 +60,52 @@ function uploadFile(path) {
         typeof resolve == "function" && resolve(res);
       },
       fail: function (err) {
-      
+
         typeof reject == "function" && reject(err);
       }
     });
   });
 }
 
-
-async function login(userId) {
-  // if (userId) {
-  //   return (fly.config.headers["x-csrf-token"] = token = userId);
-  // }
-  // const wxRes = await promisify(wx.login, wx)();
-
-  // return (getApp().globalData.user = user);
-}
-
 async function getOpenid() {
-
   const wxRes = await promisify(wx.login, wx)();
-  console.log('wxRes: ', wxRes);
-
-  console.log(fly);
-  fly.post("/user/openid.html", { code: wxRes.code })
-    .then(res=>{
-      console.log('res',res);
-      resolve(res);
+  return fly.post("/user/openid.html", {
+      code: wxRes.code
+    })
+    .then(res => {
+      return res;
     })
     .catch(err => {
       wx.hideLoading();
     });
 }
+
+
+async function login(data) {
+  getApp().globalData.user = data.userInfo;
+  let openid= "";
+  let  portrait= "";
+  let  nickName= "";
+  let lat= "";
+  let lng = "";
+  const res = await promisify(wx.getLocation, wx)({
+    type: 'wgs84',
+  });
+  lat = res.latitude // 纬度
+  lng = res.longitude // 经度
+
+  openid = getApp().globalData.openid;
+  portrait = data.userInfo.avatarUrl
+  nickName = data.userInfo.nickName
+  fly.post("/user/login.html", { openid,portrait,nickName ,lat ,lng})
+  .then(res=>{
+    return res;
+  })
+  .catch(err => {
+    wx.hideLoading();
+  });
+}
+
 
 
 fly.interceptors.request.use(async function (request) {
@@ -106,9 +120,9 @@ fly.interceptors.response.use(
   async err => {
     if (err.status == 502 || err.status == 404) {
       // 生产环境：服务器正在重启
-   
+
     } else if (!err.response) {
-  
+
     }
     return Promise.reject(err);;
   }
