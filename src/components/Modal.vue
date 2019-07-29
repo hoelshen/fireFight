@@ -1,6 +1,6 @@
 <template>
   <cover-view
-    v-if="true"
+    v-if="isShowModal"
     class="modal"
     @click="clickMask"
   >
@@ -33,6 +33,7 @@ export default {
   },
   methods: {
     onGotUserInfo(e) {
+      this.isShowModal = false
       console.log('e: ', e);
       this.$request.login(e.detail);
     },
@@ -44,6 +45,7 @@ export default {
       this.isShowModal = false;
     },
     enSure() {
+      
       this.isShowModal = false;
     },
     clickMask() {

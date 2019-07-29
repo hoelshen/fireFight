@@ -8,11 +8,12 @@ const environment = "test"; // 配置环境
 const fly = new flyio();
 const loginFly = new flyio();
 
-let token = "";
+let tokenCode = "",
+  tokenInfo = "";
 
 fly.config.baseURL = getBaseURL(environment);
-// fly.config.headers["Accept"] = "application/json";
-// fly.config.headers["Content-Type"] = "application/json; charset=utf-8";
+fly.config.headers["Accept"] = "application/json";
+fly.config.headers["Content-Type"] = "application/json; charset=utf-8";
 
 loginFly.config.baseURL = getBaseURL(environment);
 loginFly.config.headers["Accept"] = "application/json";
@@ -36,10 +37,10 @@ function getBaseURL(env) {
 
 function getUser() {
   return new Promise(function (resolve, reject) {
-    fly.post("user/info").then(res => {
-      // const user = res.data;
+    fly.post("user/info.html").then(res => {
+      const user = res.data;
       // getApp().globalData.user = user;
-      // resolve(user);
+      resolve(user);
       resolve();
     }).catch(err => {
       reject(err);
@@ -80,40 +81,86 @@ async function getOpenid() {
     });
 }
 
+async function fetchLogin(loginUrl) {
+  const res = await loginFly.get(loginUrl)
+  const user = res.data.data
+  fly.config.headers['x-csrf-token'] = token = user._id
+  fly.unlock()
+  wx.setStorage({
+    key: 'token',
+    data: token
+  })
+  return user
+}
 
 async function login(data) {
   getApp().globalData.user = data.userInfo;
-  let openid= "";
-  let  portrait= "";
-  let  nickName= "";
-  let lat= "";
+  let openid = "";
+  let portrait = "";
+  let nickname = "";
+  let lat = "";
   let lng = "";
   const res = await promisify(wx.getLocation, wx)({
     type: 'wgs84',
   });
-  lat = res.latitude // 纬度
-  lng = res.longitude // 经度
+  lat = (res.latitude).toFixed(2).toString() // 纬度
+  lng = (res.longitude).toFixed(2).toString() // 经度
 
   openid = getApp().globalData.openid;
   portrait = data.userInfo.avatarUrl
-  nickName = data.userInfo.nickName
-  fly.post("/user/login.html", { openid,portrait,nickName ,lat ,lng})
-  .then(res=>{
-    return res;
-  })
-  .catch(err => {
-    wx.hideLoading();
-  });
+  nickname = data.userInfo.nickname
+  fly.post("/user/login.html", {
+      openid,
+      portrait,
+      nickname,
+      lat,
+      lng
+    })
+    .then(res => {
+      console.log('res: ', res.result);
+      fly.config.headers["tokenCode"] = tokenCode = res.result.tokenCode;
+      fly.config.headers["tokenInfo"] = tokenInfo = res.result.tokenInfo;
+
+      wx.setStorage({
+        key: 'tokenCode',
+        data: tokenCode
+      })
+      wx.setStorage({
+        key: 'tokenInfo',
+        data: tokenInfo
+      })
+
+      return getApp().globalData.user = res.result;
+    })
+    .catch(err => {
+      wx.hideLoading();
+    });
 }
 
 
 
 fly.interceptors.request.use(async function (request) {
-  request.headers["x-csrf-token"] = token;
+  console.log('request: ', request);
+  if ((request.url).includes('index')) {
+    request.headers["tokenCode"] = tokenCode = wx.getStorageSync('tokenCode') //永久保存用户账号
+
+    request.headers["tokenInfo"] = tokenInfo = wx.getStorageSync('tokenInfo') //永久保存用户账号
+
+
+    if (!tokenCode) {
+      return fly.lock() // 登录完成
+    } else {
+      fly.unlock()
+    }
+
+  }
+
+
   return request;
 });
 
 fly.interceptors.response.use(
+
   response => {
     return response.data;
   },

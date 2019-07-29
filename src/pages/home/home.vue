@@ -204,7 +204,22 @@
               @click="login"
             >
           </button>
-          <span class="my_function_item_text">18664306047</span>
+          <div class="flex center">
+            <button
+              v-if="showSetPhone"
+              class="autoPhone"
+              open-type="getPhoneNumber"
+              @getphonenumber="getPhoneNumber"
+            >
+              <span class="my_function_item_text" />{{ user.iphone }}
+            </button>
+            <button
+              v-else
+              onclik="setPhone"
+            >
+              ssss
+            </button>
+          </div>
           <button>退出</button>
         </div>
 
@@ -309,7 +324,7 @@
               class="iconfont"
               src="/static/svgs/question.svg"
             />
-            <span class="my_contact_item_text grow">问题与反馈</span>
+            <span class="my_contact_item_text grow">问题与反馈</span>∏
             <image
               class="iconfont_sixteen flex center"
               src="/static/svgs/arrow.svg"
@@ -356,6 +371,30 @@
           </div>
         </div>
       </div>
+      <div
+        v-if="showSetPhone"
+        class="modal"
+        @click="clickMask"
+      >
+        <div class="modalCard">
+          <div class="set">
+            设置手机号
+          </div>
+          <input
+            class="input grow"
+            maxlength="11"
+            type="number"
+            :focus="focusInput"
+            :value="form.phoneNumber"
+            @input="bindPhoneNumber"
+          >
+          <div class="saveButton">
+            <button @click="hold">
+              保存
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <HomeTabbar
@@ -387,8 +426,18 @@ export default {
       },
       user: {
         aliasPortrait: "",
-        aliasName: ""
+        aliasName: "",
+        phoneNumber: "18664306047"
       },
+      form:{
+        code: "", // 临时授权码
+        encryptedData: "",// 加密数据
+        iv: "",// 初始向量
+        phoneNumber: "", //手机号，
+        purePhoneNumber: 18664306047, //没有区号的手机号
+        countryCode: "", //区号,
+      },
+      showSetPhone: false,
       scrolHeight: 541,
       unreadMessages: 0,
       toPage: null,
@@ -403,7 +452,8 @@ export default {
       twoNumber: "2",
       threeNumber: "3",
       fourNumber: "4",
-      fiveNumber: "5"
+      fiveNumber: "5",
+      autoPhone: true
     };
   },
   onLoad(opt) {
@@ -421,9 +471,7 @@ export default {
     }
 
     this.getScroll();
-    // this.$request.getUser().then(res => {
-    //   this.user = res;
-    // });
+
 
     this.isFlage = false;
     this.onTabChange(this.tab);
@@ -438,20 +486,23 @@ export default {
             }
           });
         } else {
+          }
           this.$refs.mymodal.show();
-        }
       }.bind(this)
     });
+    console.log(this.showSetPhone)
   },
   methods: {
     onTabChange(tab = "home") {
       this.tab = tab;
       if (this.tab === "home") {
         this.getBanners();
+        console.log('soos')
       }
       if (this.tab === "mail") {
       }
       if (this.tab === "mine") {
+        this.$request.getUser()
       }
     },
     onGotUserInfo(e) {
@@ -459,7 +510,8 @@ export default {
     },
     async getBanners() {
       const res = await this.$request.post("/index.html");
-      this.banners = res.data;
+      console.log('res: ', res);
+      // this.banners = res.data;
     },
     toShare() {
       this.$router.push({ path: "/pages/share/share" });
@@ -469,6 +521,46 @@ export default {
         query: { id: 1 },
         path: "/pages/errors/index"
       });
+    },
+    async getPhoneNumber(e) {
+      if(!e.detail.iv) {
+         this.autoPhone = false;
+         this.focusInput = true;
+         return 
+      }
+      let { iv, userInfo, encryptedData } = e.detail;
+      this.$request.post("/user/phone/query", {
+        code: this.code,
+        iv,
+        encryptedData
+      }).then((res)=>{
+        this.autoPhone = false
+        this.form.countryCode = res.data.countryCode;
+        this.form.purePhoneNumber = res.data.purePhoneNumber;
+        this.form.phoneNumber = res.data.phoneNumber;
+        this.$request.put('/user/phone', { phoneNumber:this.form.phoneNumber}).then((res) => {
+          wx.showToast({
+            title: "绑定成功"
+          });
+          return this.$router.push({
+            path: "/pages/security/completion"
+          })          
+        }).catch(err=>{
+          console.log('err: ', err);
+          return
+        })
+      }).catch(err=>{
+        return wx.showToast({
+          title: '获取手机号失败',
+          icon: 'none'
+        }) 
+      })
+    },
+    bindPhoneNumber(e) {
+      this.form.phoneNumber = e.detail.value;
+    },
+    setPhone(){
+      this.showSetPhone = true
     },
     login() {
       let sourceType = [];
@@ -546,9 +638,10 @@ export default {
         );
     },
     joinGroup() {
-      this.$router.push({
-        path: "/pages/errors/index"
-      });
+      this.$request.getUser();
+      // this.$router.push({
+      //   path: "/pages/errors/index"
+      // });
     },
     carManage() {
       this.$router.push({
