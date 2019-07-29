@@ -45,7 +45,6 @@ export default {
       this.isShowModal = false;
     },
     enSure() {
-      
       this.isShowModal = false;
     },
     clickMask() {

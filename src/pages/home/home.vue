@@ -24,7 +24,7 @@
           >
             <swiper-item>
               <image
-                :src="item.imgUrl"
+                :src="item.image"
                 class="img"
                 @click="toBanner(item)"
               />
@@ -176,7 +176,7 @@
           class="flex center lightButton"
           @click="continu"
         >
-          查询缴费
+          查询缴费2323
         </div>
       </scroll-view>
     </div>
@@ -206,18 +206,18 @@
           </button>
           <div class="flex center">
             <button
-              v-if="showSetPhone"
+              v-if="true"
               class="autoPhone"
               open-type="getPhoneNumber"
               @getphonenumber="getPhoneNumber"
             >
-              <span class="my_function_item_text" />{{ user.iphone }}
+              <span class="my_function_item_text" />{{ user.phoneNumber }}
             </button>
             <button
               v-else
-              onclik="setPhone"
+              @click="hold"
             >
-              ssss
+              ssss1239183
             </button>
           </div>
           <button>退出</button>
@@ -429,13 +429,13 @@ export default {
         aliasName: "",
         phoneNumber: "18664306047"
       },
-      form:{
+      form: {
         code: "", // 临时授权码
-        encryptedData: "",// 加密数据
-        iv: "",// 初始向量
-        phoneNumber: "", //手机号，
-        purePhoneNumber: 18664306047, //没有区号的手机号
-        countryCode: "", //区号,
+        encryptedData: "", // 加密数据
+        iv: "", // 初始向量
+        phoneNumber: 18664306047, //手机号，
+        purePhoneNumber: "", //没有区号的手机号
+        countryCode: "" //区号,
       },
       showSetPhone: false,
       scrolHeight: 541,
@@ -472,7 +472,6 @@ export default {
 
     this.getScroll();
 
-
     this.isFlage = false;
     this.onTabChange(this.tab);
 
@@ -486,23 +485,22 @@ export default {
             }
           });
         } else {
-          }
-          this.$refs.mymodal.show();
+        }
       }.bind(this)
     });
-    console.log(this.showSetPhone)
+    // this.$refs.mymodal.show();
+    console.log(this.showSetPhone);
   },
   methods: {
     onTabChange(tab = "home") {
       this.tab = tab;
       if (this.tab === "home") {
         this.getBanners();
-        console.log('soos')
       }
       if (this.tab === "mail") {
       }
       if (this.tab === "mine") {
-        this.$request.getUser()
+        this.$request.getUser();
       }
     },
     onGotUserInfo(e) {
@@ -510,8 +508,8 @@ export default {
     },
     async getBanners() {
       const res = await this.$request.post("/index.html");
-      console.log('res: ', res);
-      // this.banners = res.data;
+      console.log("banner: ", res.result);
+      this.banners = res.result.banners;
     },
     toShare() {
       this.$router.push({ path: "/pages/share/share" });
@@ -522,45 +520,68 @@ export default {
         path: "/pages/errors/index"
       });
     },
+    hold() {
+      const { phoneNumber, code } = this.form;
+      if (/^1[3|4|5|7|8]\d{9}$/.test(phoneNumber) == false) {
+        return wx.showToast({
+          icon: "none",
+          title: "请输入正确的手机号"
+        });
+      }
+      this.$request
+        .post("/user/bind.html", { mobile: phoneNumber })
+        .then(res => {
+          console.log("res32423423: ", res);
+          wx.showToast({
+            title: "发送成功"
+          });
+        });
+    },
     async getPhoneNumber(e) {
-      if(!e.detail.iv) {
-         this.autoPhone = false;
-         this.focusInput = true;
-         return 
+      if (!e.detail.iv) {
+        this.autoPhone = false;
+        this.focusInput = true;
+        return;
       }
       let { iv, userInfo, encryptedData } = e.detail;
-      this.$request.post("/user/phone/query", {
-        code: this.code,
-        iv,
-        encryptedData
-      }).then((res)=>{
-        this.autoPhone = false
-        this.form.countryCode = res.data.countryCode;
-        this.form.purePhoneNumber = res.data.purePhoneNumber;
-        this.form.phoneNumber = res.data.phoneNumber;
-        this.$request.put('/user/phone', { phoneNumber:this.form.phoneNumber}).then((res) => {
-          wx.showToast({
-            title: "绑定成功"
-          });
-          return this.$router.push({
-            path: "/pages/security/completion"
-          })          
-        }).catch(err=>{
-          console.log('err: ', err);
-          return
+      this.$request
+        .post("/user/phone/query", {
+          code: this.code,
+          iv,
+          encryptedData
         })
-      }).catch(err=>{
-        return wx.showToast({
-          title: '获取手机号失败',
-          icon: 'none'
-        }) 
-      })
+        .then(res => {
+          this.autoPhone = false;
+          this.form.countryCode = res.data.countryCode;
+          this.form.purePhoneNumber = res.data.purePhoneNumber;
+          this.form.phoneNumber = res.data.phoneNumber;
+          this.$request
+            .put("/user/phone", { phoneNumber: this.form.phoneNumber })
+            .then(res => {
+              wx.showToast({
+                title: "绑定成功"
+              });
+              return this.$router.push({
+                path: "/pages/security/completion"
+              });
+            })
+            .catch(err => {
+              console.log("err: ", err);
+              return;
+            });
+        })
+        .catch(err => {
+          return wx.showToast({
+            title: "获取手机号失败",
+            icon: "none"
+          });
+        });
     },
     bindPhoneNumber(e) {
       this.form.phoneNumber = e.detail.value;
     },
-    setPhone(){
-      this.showSetPhone = true
+    setPhone() {
+      this.showSetPhone = true;
     },
     login() {
       let sourceType = [];
@@ -666,7 +687,27 @@ export default {
       }
     },
     bindCarNumber() {},
-    continu() {}
+    continu() {
+      const carnumber = function(...arg){
+        console.log('arg: ', arg);
+        return arg
+      }
+      const carno = carnumber(this.name,this.letter,this.oneNumber, this.twoNumber,this.threeNumber,this.fourNumber,this.fiveNumber)
+      this.$router.push({ path: "/pages/payMent/index" });
+
+      // this.$request
+      //   .put("/bindcar", { carno:"浙B12345" })
+      //   .then(res => {
+      //     wx.showToast({
+      //       title: "绑定成功"
+      //     });
+      //     this.$router.push({ path: "/pages/payMent/index" });
+      //   })
+      //   .catch(err => {
+      //     console.log("err: ", err);
+      //     return;
+      //   });
+    }
   }
 };
 </script>
@@ -730,7 +771,7 @@ export default {
   & button {
     height: 92rpx;
     padding: 0 40rpx;
-    border: 1px solid #ffc86d;
+    border: 1px solid #6eff92;
     border-radius: 46px;
     font-size: 28rpx;
   }
@@ -848,7 +889,7 @@ export default {
 .my_share {
   margin: 40rpx 60rpx;
   & button {
-    border: 2rpx #ffc86d solid;
+    border: 2rpx #6eff92 solid;
     border-radius: 46px;
     height: 92rpx;
     width: 316rpx;
@@ -898,7 +939,7 @@ export default {
   margin: auto;
   margin-bottom: 60rpx;
   & button {
-    background-color: #ffc86d;
+    background-color: #6eff92;
     color: #ffffff;
     border-radius: 23px;
   }

@@ -141,10 +141,10 @@ async function login(data) {
 
 fly.interceptors.request.use(async function (request) {
   console.log('request: ', request);
-  if ((request.url).includes('index')) {
-    request.headers["tokenCode"] = tokenCode = wx.getStorageSync('tokenCode') //永久保存用户账号
+  request.headers["tokenCode"] = tokenCode = wx.getStorageSync('tokenCode') //永久保存用户账号
 
-    request.headers["tokenInfo"] = tokenInfo = wx.getStorageSync('tokenInfo') //永久保存用户账号
+  request.headers["tokenInfo"] = tokenInfo = wx.getStorageSync('tokenInfo') //永久保存用户账号
+  if (!(request.url).includes('login') || !(request.url).includes('openid')) {
 
 
     if (!tokenCode) {

@@ -4,17 +4,26 @@
       <session class="my_function flex">
         <div>
           <span>停车场</span>  
+          {{ car.address }}
         </div>
         <div>
           <span>入场时间</span>
-          <span>{{ timer }}</span>
+          <span>{{ car.times }}</span>
         </div>
       </session>
     </div>
     <div class="saveButton">
-      <button @click="save">
-        保存
+      <button @click="pay">
+        确认支付
       </button>
+      <div class="flex">
+        <div class="contact">
+          联系客服
+        </div>
+        <div class="">
+          不在场内
+        </div>
+      </div>
     </div>
   </view>
 </template>
@@ -28,6 +37,16 @@ export default {
         aliasName: "",
         aliasPortrait: ""
       },
+      car:{
+        address: "",
+        startts: "",
+        times:"",
+        autopay:"",
+        money:"",
+        status:"",
+        d: "",
+        carno:""
+      },
       timer: "7 月 8 日 09:29:32",
       getPhoto: false
     };
@@ -39,18 +58,34 @@ export default {
     },
     setName(e) {
       this.userInfo.aliasName = e.detail.value;
+    },
+    pay(e){
+      this.$request
+        .put("/pay", { orderid,formid })
+        .then(res => {
+          wx.showToast({
+            title: "绑定成功"
+          });
+          this.$router.push({ path: "/pages/payMent/index" });
+        })
+        .catch(err => {
+          console.log("err: ", err);
+          return;
+        });
     }
   },
   onShow() {
-    if(this.getPhoto) return;
-    this.$request.getUser().then(() => {
-      const { user } = getApp().globalData;
-      this.userInfo.aliasPortrait = user.aliasPortrait;
-      this.userInfo.aliasName = user.nickName;
-    });
+      this.$request
+        .put("/orderinfo", { carno:"浙B12345" })
+        .then(res => {
+          console.log('res: ', res);
+        })
+        .catch(err => {
+          console.log("err: ", err);
+          return;
+        });
   },
   onUnload() {
-    this.getPhoto = false;
   }
 };
 </script>
@@ -68,11 +103,14 @@ page {
     margin: auto;
     margin-bottom: 60rpx;
     & button {
-      background-color: #ffc86d;
+      background-color: #6eff92;
       color: #ffffff;
       border-radius: 23px;
     }
   }
+}
+.contact{
+  margin-right: 10rpx;
 }
 </style>
 

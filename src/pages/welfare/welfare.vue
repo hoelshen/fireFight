@@ -324,7 +324,7 @@ page {
     margin-top: 20rpx;
   }
   .count {
-    color: #ffc86d;
+    color: #6eff92;
     margin-left: 8rpx;
     font-weight: 600;
   }
@@ -337,7 +337,7 @@ page {
   margin-left: 40rpx;
   & button {
     box-sizing: border-box;
-    border: #ffc86d 2rpx solid;
+    border: #6eff92 2rpx solid;
     border-radius: 32rpx;
     height: 64rpx;
     width: 168rpx;
