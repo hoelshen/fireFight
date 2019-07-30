@@ -3,7 +3,7 @@
     <div class="container flex grow">
       <session class="my_function flex">
         <div>
-          <span>停车场</span>  
+          <span>停车场</span>
           {{ car.address }}
         </div>
         <div>
@@ -13,9 +13,18 @@
       </session>
     </div>
     <div class="saveButton">
-      <button @click="pay">
-        确认支付
-      </button>
+      <form
+        report-submit="true"
+        @submit="paySubmit"
+      >
+        <button
+          form-type="submit"
+          @click="pay"
+        >
+          确认支付
+        </button>
+      </form>
+
       <div class="flex">
         <div class="contact">
           联系客服
@@ -37,16 +46,18 @@ export default {
         aliasName: "",
         aliasPortrait: ""
       },
-      car:{
+      car: {
         address: "",
         startts: "",
-        times:"",
-        autopay:"",
-        money:"",
-        status:"",
+        times: "",
+        autopay: "",
+        money: "",
+        status: "",
         d: "",
-        carno:""
+        carno: ""
       },
+      formid: "",
+      orderid: "",
       timer: "7 月 8 日 09:29:32",
       getPhoto: false
     };
@@ -56,37 +67,65 @@ export default {
       const route = this.$router.currentRoute;
       this.getPhoto = false;
     },
+    paySubmit(e) {
+      this.formid = e.detail.formId;
+    },
     setName(e) {
       this.userInfo.aliasName = e.detail.value;
     },
-    pay(e){
-      this.$request
-        .put("/pay", { orderid,formid })
-        .then(res => {
-          wx.showToast({
-            title: "绑定成功"
-          });
-          this.$router.push({ path: "/pages/payMent/index" });
-        })
-        .catch(err => {
-          console.log("err: ", err);
-          return;
+    async pay(e) {
+      wx.showLoading({
+        title: "",
+        mask: true
+      });
+      let openid = "";
+      console.log("getApp().globalData.user: ", getApp().globalData.user);
+      if (getApp().globalData.user) {
+        openid = getApp().globalData.user.openid;
+        let prepayid = await this.$request.post(
+          "https://api.mch.weixin.qq.com/pay/unifiedorder",
+          {
+            openid
+          }
+        );
+      }
+      const formid = this.formid;
+      const orderid = this.orderid;
+      let orederRes = await this.$request.post("pay.html", { orderid, formid });
+      console.log("orederRes: ", orederRes);
+      if (orederRes.pay) {
+        let order = orederRes.data;
+        wx.requestPayment({
+          timeStamp: order.timeStamp, //时间戳
+          nonceStr: order.nonceStr, //随即串
+          package: order.package, //数据包
+          signType: order.signType, //签名方式
+          paySign: order.prepayid,
+          success(res) {},
+          fail(res) {}
         });
+      }
     }
   },
   onShow() {
-      this.$request
-        .put("/orderinfo", { carno:"浙B12345" })
-        .then(res => {
-          console.log('res: ', res);
-        })
-        .catch(err => {
-          console.log("err: ", err);
-          return;
-        });
+    const {
+      currentRoute: { query }
+    } = this.$router;
+    const carno = query.carno || '';
+    this.$request
+      .put("/orderinfo.html", { carno })
+      .then(res => {
+        console.log('res: ', res.result);
+        const length = (res.result.items.length)-1;
+        console.log('length: ', length);
+        this.orderid = (res.result.items[length]).id;
+      })
+      .catch(err => {
+        console.log("err: ", err);
+        return;
+      });
   },
-  onUnload() {
-  }
+  onUnload() {}
 };
 </script>
 <style lang="less" scoped>
@@ -109,7 +148,7 @@ page {
     }
   }
 }
-.contact{
+.contact {
   margin-right: 10rpx;
 }
 </style>

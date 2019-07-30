@@ -77,25 +77,40 @@
         </session>
 
         <session class="my_contact flex column">
-          <div class="flex j-between">
-            <div class="flex a-center ">
-              <img
-                class="my_info_user_avatarUrl"
-                src="https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg"
-                mode="scaleToFill"
-                @click="login"
-              >
-              <span class="carPhone">8G079</span>
-            </div>
-            <switch
-              class="flex center"
-              checked="autopay"
-              @change="switch1Change"
+          <div
+            v-if="cars.length > 1"
+            class="flex column"
+          >
+            <div
+              v-for="item in cars"
+              :key="item"
+              class="flex column "
             >
-              自动支付
-            </switch>
+              <div
+                class="flex a-center "
+                @click="toPayMent(item)"
+              >
+                <img
+                  class="my_info_user_avatarUrl"
+                  src="https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg"
+                  mode="scaleToFill"
+                  @click="login"
+                >
+                <span class="carPhone">{{ item.carno }}</span>
+                <switch
+                  class="flex center"
+                  :checked="item.autoplay"
+                  @change="switch1Change"
+                >
+                  自动支付
+                </switch>
+              </div>
+            </div>
           </div>
-          <div class="flex center carPark">
+          <div
+            v-else
+            class="flex center carPark"
+          >
             您尚未驶入停车场
           </div>
         </session>
@@ -168,7 +183,19 @@
             :value="fiveNumber"
             @input="bindCarNumber"
           >
-          <button class="newButton">
+          <input
+            v-if="showNumber"
+            class="input"
+            maxlength="1"
+            type="number"
+            :focus="focusInput"
+            :value="sixNumber"
+            @input="bindCarNumber"
+          >
+          <button
+            class="newButton"
+            @click="showSixNumber"
+          >
             +新能源
           </button>
         </div>
@@ -207,15 +234,16 @@
           <img
             v-else
             class="my_info_user_avatarUrl"
-            :src="user.aliasPortrait || 'https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg'"
+            :src="
+              user.aliasPortrait ||
+                'https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg'
+            "
             mode="scaleToFill"
             @click="login"
           >
           <div class="flex center">
-            <button
-              @click="hold"
-            >
-              {{ user.phoneNumber || '绑定你的手机号' }} 
+            <button @click="hold">
+              {{ user.phoneNumber || "绑定你的手机号" }}
             </button>
           </div>
           <button>退出</button>
@@ -393,6 +421,7 @@ export default {
     return {
       tab: "home",
       banners: [],
+      cars: [],
       wayCount: 0,
       dialogs: [],
       badge: {
@@ -427,6 +456,8 @@ export default {
       threeNumber: "3",
       fourNumber: "4",
       fiveNumber: "5",
+      sixNumber: "6",
+      showNumber: false,
       autoPhone: true
     };
   },
@@ -462,8 +493,7 @@ export default {
         }
       }.bind(this)
     });
-    // this.$refs.mymodal.show();
-    // console.log(this.showSetPhone);
+    this.$refs.mymodal.show();
   },
   methods: {
     onTabChange(tab = "home") {
@@ -474,9 +504,9 @@ export default {
       if (this.tab === "mail") {
       }
       if (this.tab === "mine") {
-        this.$request.getUser().then(res=>{
-          this.user.aliasPortrait = res.portrait
-          this.user.phoneNumber = res.mobile
+        this.$request.getUser().then(res => {
+          this.user.aliasPortrait = res.portrait;
+          this.user.phoneNumber = res.mobile;
         });
       }
     },
@@ -485,8 +515,10 @@ export default {
     },
     async getBanners() {
       const res = await this.$request.post("/index.html");
-      console.log("banner: ", res.result);
-      this.banners = res.result.banners;
+      if (res) {
+        this.banners = res.result.banners;
+        this.cars = res.result.items;
+      }
     },
     toShare() {
       this.$router.push({ path: "/pages/share/share" });
@@ -560,6 +592,15 @@ export default {
     setNameFun(e) {
       this.setName = e.detail.value;
     },
+    showSixNumber() {
+      this.showNumber = true;
+    },
+    toPayMent(item) {
+      this.$router.push({
+        query: { 'carno': item.carno },
+        path: "/pages/payMent/index"
+      });
+    },
     saveNameFun() {},
     scrolltolower() {},
     getScroll() {
@@ -605,25 +646,32 @@ export default {
     },
     bindCarNumber() {},
     continu() {
-      const carnumber = function(...arg){
-        console.log('arg: ', arg);
-        return arg
-      }
-      const carno = carnumber(this.name,this.letter,this.oneNumber, this.twoNumber,this.threeNumber,this.fourNumber,this.fiveNumber)
-      this.$router.push({ path: "/pages/payMent/index" });
+      const carnumber = function(...arg) {
+        console.log("arg: ", arg);
+        return arg;
+      };
+      const carno = carnumber(
+        this.name,
+        this.letter,
+        this.oneNumber,
+        this.twoNumber,
+        this.threeNumber,
+        this.fourNumber,
+        this.fiveNumber
+      );
 
-      // this.$request
-      //   .put("/bindcar", { carno:"浙B12345" })
-      //   .then(res => {
-      //     wx.showToast({
-      //       title: "绑定成功"
-      //     });
-      //     this.$router.push({ path: "/pages/payMent/index" });
-      //   })
-      //   .catch(err => {
-      //     console.log("err: ", err);
-      //     return;
-      //   });
+      this.$request
+        .post("/bindcar.html", { carno: carno.join('') })
+        .then(res => {
+          wx.showToast({
+            title: "绑定成功"
+          });
+          this.$router.push({ path: "/pages/payMent/index" });
+        })
+        .catch(err => {
+          console.log("err: ", err);
+          return;
+        });
     }
   }
 };
@@ -720,7 +768,7 @@ export default {
       border-radius: 50%;
       height: 88rpx;
       width: 88rpx;
-      margin: 60rpx auto 44rpx 40rpx;
+      margin: 40rpx;
     }
     &_nickName {
       font-weight: 600;
@@ -775,7 +823,7 @@ export default {
     border-top-width: 2rpx;
   }
   .carPhone {
-    margin-left: 40rpx;
+    // margin-left: 40rpx;
   }
   &_item {
     &_button {

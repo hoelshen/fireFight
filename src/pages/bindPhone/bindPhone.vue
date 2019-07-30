@@ -69,21 +69,21 @@ export default {
           encryptedData
         })
         .then(res => {
-          // this.autoPhone = false
-          // this.form.countryCode = res.data.countryCode;
-          // this.form.purePhoneNumber = res.data.purePhoneNumber;
-          // this.form.phoneNumber = res.data.phoneNumber;
-          // this.$request.put('/user/phone', { phoneNumber:this.form.phoneNumber}).then((res) => {
-          //   wx.showToast({
-          //     title: "绑定成功"
-          //   });
-          //   return this.$router.push({
-          //     path: "/pages/home/index"
-          //   })
-          // }).catch(err=>{
-          //   console.log('err: ', err);
-          //   return
-          // })
+          this.autoPhone = false
+          this.form.countryCode = res.data.countryCode;
+          this.form.purePhoneNumber = res.data.purePhoneNumber;
+          this.form.phoneNumber = res.data.phoneNumber;
+          this.$request.put('/user/phone', { phoneNumber:this.form.phoneNumber}).then((res) => {
+            wx.showToast({
+              title: "绑定成功"
+            });
+            return this.$router.push({
+              path: "/pages/home/index"
+            })
+          }).catch(err=>{
+            console.log('err: ', err);
+            return
+          })
         })
         .catch(err => {
           return wx.showToast({
@@ -103,7 +103,7 @@ export default {
           title: "请输入正确的手机号"
         });
       }
-      this.$request.post("/user/bind.html", { phoneNumber }).then(res => {
+      this.$request.post("/user/bind.html", { mobile: phoneNumber }).then(res => {
         wx.showToast({
           title: "发送成功"
         });

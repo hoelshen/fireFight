@@ -144,11 +144,11 @@ fly.interceptors.request.use(async function (request) {
   if (!(request.url).includes('login') || !(request.url).includes('openid')) {
 
 
-    if (!tokenCode) {
-      return fly.lock() // 登录完成
-    } else {
-      fly.unlock()
-    }
+    // if (!tokenCode) {
+    //   return fly.lock() // 登录完成
+    // } else {
+    //   fly.unlock()
+    // }
 
   }
 

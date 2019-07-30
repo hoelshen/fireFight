@@ -23,7 +23,7 @@
           src="/static/svgs/tell.svg"
         />
       </button>
-      首页
+      <span class="flex center">首页</span>
     </form>
     <form
       report-submit="true"
@@ -38,12 +38,12 @@
         <image
           v-show="tab == 'mail'"
           class="icon mail"
-          src="/static/svgs/bell_active.svg"
+          src="/static/svgs/carpay_active.svg"
         />
         <image
           v-show="tab != 'mail'"
           class="icon mail"
-          src="/static/svgs/joinGroup.svg"
+          src="/static/svgs/carpay.svg"
         />
         <div
           v-if="mailCount"
@@ -53,7 +53,7 @@
           {{ mailCount }}
         </div>
       </button>
-      我要缴费
+      <span class="flex center">我要缴费</span>
     </form>
     <form
       report-submit="true"
@@ -75,7 +75,7 @@
           src="/static/svgs/myinfo.svg"
         />
       </button>
-      我的
+      <span class="flex center">我的</span>
     </form>
   </div>
 </template>
