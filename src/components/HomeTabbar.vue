@@ -23,6 +23,7 @@
           src="/static/svgs/tell.svg"
         />
       </button>
+      首页
     </form>
     <form
       report-submit="true"
@@ -37,12 +38,12 @@
         <image
           v-show="tab == 'mail'"
           class="icon mail"
-          src="/static/svgs/mail-active.svg"
+          src="/static/svgs/bell_active.svg"
         />
         <image
           v-show="tab != 'mail'"
           class="icon mail"
-          src="/static/svgs/mail.svg"
+          src="/static/svgs/joinGroup.svg"
         />
         <div
           v-if="mailCount"
@@ -52,6 +53,7 @@
           {{ mailCount }}
         </div>
       </button>
+      我要缴费
     </form>
     <form
       report-submit="true"
@@ -73,6 +75,7 @@
           src="/static/svgs/myinfo.svg"
         />
       </button>
+      我的
     </form>
   </div>
 </template>

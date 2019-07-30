@@ -89,7 +89,7 @@
             </div>
             <switch
               class="flex center"
-              checked
+              checked="autopay"
               @change="switch1Change"
             >
               自动支付
@@ -176,7 +176,7 @@
           class="flex center lightButton"
           @click="continu"
         >
-          查询缴费2323
+          查询缴费
         </div>
       </scroll-view>
     </div>
@@ -204,11 +204,18 @@
               @click="login"
             >
           </button>
+          <img
+            v-else
+            class="my_info_user_avatarUrl"
+            :src="user.aliasPortrait || 'https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg'"
+            mode="scaleToFill"
+            @click="login"
+          >
           <div class="flex center">
             <button
               @click="hold"
             >
-              {{ user.phoneNumber }}
+              {{ user.phoneNumber || '绑定你的手机号' }} 
             </button>
           </div>
           <button>退出</button>
@@ -362,30 +369,6 @@
           </div>
         </div>
       </div>
-      <div
-        v-if="showSetPhone"
-        class="modal"
-        @click="clickMask"
-      >
-        <div class="modalCard">
-          <div class="set">
-            设置手机号
-          </div>
-          <input
-            class="input grow"
-            maxlength="11"
-            type="number"
-            :focus="focusInput"
-            :value="form.phoneNumber"
-            @input="bindPhoneNumber"
-          >
-          <div class="saveButton">
-            <button @click="hold">
-              保存
-            </button>
-          </div>
-        </div>
-      </div>
     </div>
 
     <HomeTabbar
@@ -418,7 +401,7 @@ export default {
       user: {
         aliasPortrait: "",
         aliasName: "",
-        phoneNumber: "18664306047"
+        phoneNumber: ""
       },
       form: {
         code: "", // 临时授权码
@@ -480,7 +463,7 @@ export default {
       }.bind(this)
     });
     // this.$refs.mymodal.show();
-    console.log(this.showSetPhone);
+    // console.log(this.showSetPhone);
   },
   methods: {
     onTabChange(tab = "home") {
@@ -491,7 +474,10 @@ export default {
       if (this.tab === "mail") {
       }
       if (this.tab === "mine") {
-        this.$request.getUser();
+        this.$request.getUser().then(res=>{
+          this.user.aliasPortrait = res.portrait
+          this.user.phoneNumber = res.mobile
+        });
       }
     },
     onGotUserInfo(e) {

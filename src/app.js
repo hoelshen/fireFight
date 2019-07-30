@@ -30,7 +30,9 @@ export default {
       "pages/addCar/index", //店铺清扫
       "pages/carManage/index", //carManage,
       "pages/errors/index", //错误页面,
-      "pages/bindPhone/index" // 绑定手机 
+      "pages/bindPhone/index", // 绑定手机 
+      "pages/bindPhone/detail" // 绑定手机 
+
     ],
     "permission": {
       "scope.userLocation": {

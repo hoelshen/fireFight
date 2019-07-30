@@ -38,10 +38,7 @@ function getBaseURL(env) {
 function getUser() {
   return new Promise(function (resolve, reject) {
     fly.post("user/info.html").then(res => {
-      const user = res.data;
-      // getApp().globalData.user = user;
-      resolve(user);
-      resolve();
+      resolve(res.result);
     }).catch(err => {
       reject(err);
     });
