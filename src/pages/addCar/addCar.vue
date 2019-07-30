@@ -2,14 +2,20 @@
   <div class="noFound flex column">
     <span class="flex center">请添加真实有效的车牌号码</span>
     <div class="flex car_block">
-      <input
+      <!-- <input
         class="input"
         maxlength="1"
         type="number"
         :focus="focusInput"
         :value="name"
         @input="bindCarNumber"
-      >
+      > -->
+      <plate-number-keyboard
+        :show="showKeyboard"
+        :get-result="bindCarNumber"
+        :init-value="name"
+      />
+
       <input
         class="input"
         maxlength="1"
@@ -72,26 +78,29 @@
 
 <script>
 import shareMix from "@/mixins/mixin";
+import plateNumberkeyboard from "@/components/province_number_keyboard";
 export default {
   mixins: [shareMix],
+  component: {
+    plateNumberkeyboard
+  },
   data() {
     return {
-      name: '浙',
-      letter: 'B',
-      oneNumber: '1', //车牌号码
-      twoNumber: '2',
-      threeNumber: '3',
-      fourNumber: '4',
-      fiveNumber: '5',
-      focusInput: true
+      name: "浙",
+      letter: "B",
+      oneNumber: "1", //车牌号码
+      twoNumber: "2",
+      threeNumber: "3",
+      fourNumber: "4",
+      fiveNumber: "5",
+      focusInput: true,
+      showKeyboard: true
     };
   },
-  methods:{
-    bindCarNumber(){
-
-    },
-    continu(){
-      this.$router.push({ path: "/pages/home/index" })
+  methods: {
+    bindCarNumber() {},
+    continu() {
+      this.$router.push({ path: "/pages/home/index" });
     }
   }
 };
@@ -114,9 +123,9 @@ export default {
     height: 400rpx;
   }
 }
-.newButton{
+.newButton {
   box-sizing: border-box;
-  border: 2rpx solid  rgba(189, 189, 192, 0.1);;
+  border: 2rpx solid rgba(189, 189, 192, 0.1);
 }
 .input {
   width: 50rpx;
@@ -128,7 +137,7 @@ export default {
 .wait {
   font-size: 32rpx;
 }
-.car_block{
+.car_block {
   padding-left: 40rpx;
 }
 </style>

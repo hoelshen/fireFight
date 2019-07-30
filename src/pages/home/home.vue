@@ -117,7 +117,7 @@
       </scroll-view>
     </div>
 
-    <!-- 信箱 -->
+    <!-- 我要缴费 -->
     <div
       v-else-if="tab == 'mail'"
       class="pannel grow"
@@ -246,7 +246,6 @@
               {{ user.phoneNumber || "绑定你的手机号" }}
             </button>
           </div>
-          <button>退出</button>
         </div>
 
         <session class="my_function flex">
@@ -451,12 +450,12 @@ export default {
       focusInput: false,
       name: "浙",
       letter: "B",
-      oneNumber: "1", //车牌号码
-      twoNumber: "2",
-      threeNumber: "3",
-      fourNumber: "4",
-      fiveNumber: "5",
-      sixNumber: "6",
+      oneNumber: "", //车牌号码
+      twoNumber: "",
+      threeNumber: "",
+      fourNumber: "",
+      fiveNumber: "",
+      sixNumber: "",
       showNumber: false,
       autoPhone: true
     };

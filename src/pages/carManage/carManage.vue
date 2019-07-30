@@ -11,23 +11,35 @@
         >
           解除绑定
         </div>
-        <div class="flex j-between">
-          <div class="flex a-center ">
-            <img
-              class="my_info_user_avatarUrl"
-              src="https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg"
-              mode="scaleToFill"
-              @click="login"
-            >
-            <span class="carPhone">8G079</span>
-          </div>
-          <switch
-            class="flex center"
-            checked
-            @change="switch1Change"
+        <div
+          v-if="cars.length > 1"
+          class="flex column"
+        >
+          <div
+            v-for="item in cars"
+            :key="item"
+            class="flex column "
           >
-            自动支付
-          </switch>
+            <div
+              class="flex a-center "
+              @click="toPayMent(item)"
+            >
+              <img
+                class="my_info_user_avatarUrl"
+                src="https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg"
+                mode="scaleToFill"
+                @click="login"
+              >
+              <span class="carPhone">{{ item.carno }}</span>
+              <switch
+                class="flex center"
+                :checked="item.autoplay"
+                @change="switch1Change"
+              >
+                自动支付
+              </switch>
+            </div>
+          </div>
         </div>
       </div>
       <div
@@ -46,28 +58,28 @@ export default {
   mixins: [shareMix],
   data() {
     return {
-      userInfo: ""
+      userInfo: "",
+      cars:[]
     };
   },
   onShow() {
     const { user } = getApp().globalData;
-    this.userInfo = JSON.stringify({
-      nickName: user.nickName,
-      avatarUrl: user.avatarUrl
+    this.$request.post("/cars.html").then(res => {
+      if (res) {
+        this.cars = res.result.items;
+      }
     });
   },
-  methods:{
-    switch1Change(e){
-      console.log(e)
+  methods: {
+    switch1Change(e) {
+      console.log(e);
     },
-    addCar(e){
+    addCar(e) {
       this.$router.push({
         path: "/pages/addCar/index"
       });
     },
-    cancel(e){
-
-    }
+    cancel(e) {}
   }
 };
 </script>
@@ -114,11 +126,10 @@ export default {
 
   .lightButton {
     height: 64rpx;
-    margin: 40rpx !important
+    margin: 40rpx !important;
   }
-  .carPhone{
+  .carPhone {
     margin-left: 40rpx;
   }
 }
-
 </style>

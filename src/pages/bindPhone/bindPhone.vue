@@ -62,10 +62,11 @@ export default {
         return;
       }
       let { iv, userInfo, encryptedData } = e.detail;
+      const session_key = getApp().globalData.sessionkey;
       this.$request
-        .post("/user/bind/query", {
-          code: this.code,
-          iv,
+        .post("/user/bind.html", {
+          session_key,
+          ivstr:iv,
           encryptedData
         })
         .then(res => {
