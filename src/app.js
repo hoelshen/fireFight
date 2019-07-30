@@ -29,7 +29,8 @@ export default {
       "pages/welfare/index", //福利社
       "pages/addCar/index", //店铺清扫
       "pages/carManage/index", //carManage,
-      "pages/errors/index" //错误页面, 
+      "pages/errors/index", //错误页面,
+      "pages/bindPhone/index" // 绑定手机 
     ],
     "permission": {
       "scope.userLocation": {
@@ -44,15 +45,7 @@ export default {
       backgroundColor: "#fffefb"
     },
     navigateToMiniProgramAppIdList: [
-      "wxa7053e55658fc6f3", // 晓析心理评测
-      "wx52504c3e7b919aee", // 芝麻说说
-      "wx42d12a5790960727", // 十一光年
-      "wxfe8c23f10384aed8", // 全民派乐
-      "wx1a345f06686eb283", // 财智阅读
-      "wxef889a07b9e2ed4a", // 天天遛猫
-      "wx202b5ab43b47f616", // 校品会
-      "wx7ae14e1cef6c33d4", // 好物省钱
-      "wxb4529fa3b645fa62" // 打脸星人
+      
     ]
   }
 };
