@@ -6,7 +6,7 @@
     >
       <div class="my_info flex column">
         <div
-          class="flex j-end"
+          class="flex cancel j-end"
           @click="cancel"
         >
           解除绑定
@@ -18,12 +18,10 @@
           <div
             v-for="item in cars"
             :key="item"
-            class="flex column "
+            class="flex carItem j-between"
+            @click="toPayMent(item)"
           >
-            <div
-              class="flex a-center "
-              @click="toPayMent(item)"
-            >
+            <div class="flex center">
               <img
                 class="my_info_user_avatarUrl"
                 src="https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg"
@@ -31,14 +29,14 @@
                 @click="login"
               >
               <span class="carPhone">{{ item.carno }}</span>
-              <switch
-                class="flex center"
-                :checked="item.autoplay"
-                @change="switch1Change"
-              >
-                自动支付
-              </switch>
             </div>
+            <switch
+              class="flex center"
+              :checked="item.autoplay"
+              @change="switch1Change"
+            >
+              自动支付
+            </switch>
           </div>
         </div>
       </div>
@@ -79,14 +77,20 @@ export default {
         path: "/pages/addCar/index"
       });
     },
-    cancel(e) {}
+    cancel(e) {
+      this.$request.post("/unbindcar.html",{carno}).then(res => {
+      if (res) {
+        this.cars = res.result.items;
+      }
+    });
+    }
   }
 };
 </script>
 
 <style scoped lang="less">
 .my_info {
-  height: 326rpx;
+  min-height: 326rpx;
   margin: 40rpx 40rpx;
   border-radius: 2px;
   background-color: #ffffff;
@@ -105,7 +109,6 @@ export default {
       border-radius: 50%;
       height: 88rpx;
       width: 88rpx;
-      margin: 60rpx auto 44rpx 40rpx;
     }
     &_nickName {
       font-weight: 600;
@@ -123,13 +126,18 @@ export default {
       margin-bottom: 60rpx;
     }
   }
-
-  .lightButton {
-    height: 64rpx;
-    margin: 40rpx !important;
+  .cancel{
+    margin:40rpx;
+  }
+  .carItem{
+    margin: 40rpx;
   }
   .carPhone {
     margin-left: 40rpx;
   }
 }
+  .lightButton {
+    height: 64rpx;
+    margin: 40rpx ;
+  }
 </style>

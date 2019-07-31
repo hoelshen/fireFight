@@ -84,12 +84,10 @@
             <div
               v-for="item in cars"
               :key="item"
-              class="flex column "
+              class="flex carItem j-between"
+              @click="toPayMent(item)"
             >
-              <div
-                class="flex a-center "
-                @click="toPayMent(item)"
-              >
+              <div class="flex center">
                 <img
                   class="my_info_user_avatarUrl"
                   src="https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg"
@@ -97,14 +95,14 @@
                   @click="login"
                 >
                 <span class="carPhone">{{ item.carno }}</span>
-                <switch
-                  class="flex center"
-                  :checked="item.autoplay"
-                  @change="switch1Change"
-                >
-                  自动支付
-                </switch>
               </div>
+              <switch
+                class="flex center"
+                :checked="item.autoplay"
+                @change="switch1Change"
+              >
+                自动支付
+              </switch>
             </div>
           </div>
           <div
@@ -349,7 +347,7 @@
               class="iconfont"
               src="/static/svgs/question.svg"
             />
-            <span class="my_contact_item_text grow">问题与反馈</span>∏
+            <span class="my_contact_item_text grow">问题与反馈</span>
             <image
               class="iconfont_sixteen flex center"
               src="/static/svgs/arrow.svg"
@@ -748,11 +746,12 @@ export default {
 }
 
 .my_info {
-  height: 326rpx;
+  height: 126rpx;
   margin: 40rpx 40rpx;
   border-radius: 2px;
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
+
   &_user {
     &_badgeBtn {
       padding: 0;
@@ -767,7 +766,6 @@ export default {
       border-radius: 50%;
       height: 88rpx;
       width: 88rpx;
-      margin: 40rpx;
     }
     &_nickName {
       font-weight: 600;
@@ -821,8 +819,12 @@ export default {
     border-top-style: solid;
     border-top-width: 2rpx;
   }
+  .carItem{
+      margin: 40rpx;
+
+  }
   .carPhone {
-    // margin-left: 40rpx;
+    margin-left: 40rpx;
   }
   &_item {
     &_button {

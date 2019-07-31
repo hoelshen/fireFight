@@ -47,8 +47,6 @@ export default {
         encryptedData: "", // 加密数据
         iv: "", // 初始向量
         phoneNumber: "", //手机号，
-        purePhoneNumber: "", //没有区号的手机号
-        countryCode: "" //区号,
       },
       code: "",
       user: {}
@@ -71,10 +69,8 @@ export default {
         })
         .then(res => {
           this.autoPhone = false
-          this.form.countryCode = res.data.countryCode;
-          this.form.purePhoneNumber = res.data.purePhoneNumber;
-          this.form.phoneNumber = res.data.phoneNumber;
-          this.$request.put('/user/phone', { phoneNumber:this.form.phoneNumber}).then((res) => {
+          this.form.phoneNumber = res.result.mobile;
+          this.$request.post('/user/phone', { mobile:this.form.phoneNumber}).then((res) => {
             wx.showToast({
               title: "绑定成功"
             });

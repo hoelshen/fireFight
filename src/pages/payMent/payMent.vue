@@ -79,30 +79,25 @@ export default {
         mask: true
       });
       let openid = "";
-      console.log("getApp().globalData.user: ", getApp().globalData.user);
-      if (getApp().globalData.user) {
-        openid = getApp().globalData.user.openid;
-        let prepayid = await this.$request.post(
-          "https://api.mch.weixin.qq.com/pay/unifiedorder",
-          {
-            openid
-          }
-        );
-      }
       const formid = this.formid;
       const orderid = this.orderid;
       let orederRes = await this.$request.post("pay.html", { orderid, formid });
-      console.log("orederRes: ", orederRes);
-      if (orederRes.pay) {
-        let order = orederRes.data;
+
+      let order = orederRes.result.pay;
+      if (order) {
+        const prepayid = `prepay_id=${order.prepayid}`
         wx.requestPayment({
-          timeStamp: order.timeStamp, //时间戳
-          nonceStr: order.nonceStr, //随即串
-          package: order.package, //数据包
+          timeStamp: order.timestamp, //时间戳
+          nonceStr: order.noncestr, //随即串
+          package: prepayid, //数据包
           signType: order.signType, //签名方式
-          paySign: order.prepayid,
-          success(res) {},
-          fail(res) {}
+          paySign: order.sign,
+          success(res) {
+            console.log("支付完成: ", res);
+          },
+          fail(res) {
+            console.log('res: ', res);
+          }
         });
       }
     }
@@ -111,21 +106,18 @@ export default {
     const {
       currentRoute: { query }
     } = this.$router;
-    const carno = query.carno || '';
+    const carno = query.carno || "";
     this.$request
       .put("/orderinfo.html", { carno })
       .then(res => {
-        console.log('res: ', res.result);
-        const length = (res.result.items.length)-1;
-        console.log('length: ', length);
-        this.orderid = (res.result.items[length]).id;
+        const length = res.result.items.length - 1;
+        this.orderid = res.result.items[length].id;
       })
       .catch(err => {
         console.log("err: ", err);
         return;
       });
   },
-  onUnload() {}
 };
 </script>
 <style lang="less" scoped>

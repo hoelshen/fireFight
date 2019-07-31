@@ -8,6 +8,7 @@
       class="card flex column center"
       @tap.stop="stopkMask"
     >
+      获取相应的权限
       <button
         class="rightButton"
         open-type="getUserInfo"
