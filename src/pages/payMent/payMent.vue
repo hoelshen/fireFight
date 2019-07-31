@@ -9,7 +9,7 @@
           <div class="my_contact_item_button flex wrap center grow">
             <span class="my_contact_item_text grow">{{ car.carno }}</span>
             <div class="flex column center">
-              <span>{{ car.status ? '已入场' : '未入场' }}</span>
+              <span>{{ car.status ? "已入场" : "未入场" }}</span>
               <div @click="onRun">
                 切换车牌
               </div>
@@ -79,37 +79,77 @@ export default {
     };
   },
   computed: {
-     formatTimer(){
-      let s =this.car.timess;
-      var t,hour,min,sec,day;
-      if (s > -1) {
-        hour = Math.floor(s / 3600);
-        min = Math.floor(s / 60) % 60;
-        sec = s % 60;
-        day = parseInt(hour / 24);
-        if (day > 0) {
-          console.log('day: ', day);
-          hour = hour - 24 * day;
-          t = day + "day " + hour + ":";
-        } else t = hour + ":";
-        if (min < 10) {
-          t += "0";
-        }
-        t += min + ":";
-        if (sec < 10) {
-          t += "0";
-        }
-        t += sec;
+    formatTimer() {
+      /**
+       * 将秒转换为年月日时分秒
+       **/
+      value = this.car.timess;
+      var year_1 = 3600 * 24 * 30 * 12;
+      var month_1 = 3600 * 24 * 30;
+      var day_1 = 3600 * 24;
+      var hour_1 = 3600;
+      var minute_1 = 60;
+      var year = 0,
+        month = 0,
+        day = 0,
+        hour = 0,
+        minute = 0,
+        second = 0;
+      if (value <= 0) {
+        return "No Time";
+      } else if (value < minute_1) {
+        // 小于一分钟
+        second = value;
+      } else if (value < hour_1) {
+        // 小于一小时
+        minute = parseInt(value / minute_1);
+        second = parseInt(value % minute_1);
+      } else if (value < day_1) {
+        // 小于一天
+        hour = parseInt(value / hour_1);
+        minute = parseInt((value % hour_1) % minute_1);
+        second = parseInt((value % hour_1) / minute_1);
+      } else if (value < month_1) {
+        // 小于一月
+        day = parseInt(value / day_1);
+        hour = parseInt((value % day_1) / hour_1);
+        minute = parseInt(((value % day_1) % hour_1) / minute_1);
+        second = parseInt(((value % day_1) % hour_1) % minute_1);
+      } else if (value < year_1) {
+        // 小于一年
+        month = parseInt(value / month_1);
+        day = parseInt((value % month_1) / day_1);
+        hour = parseInt(((value % month_1) % day_1) / hour_1);
+        minute = parseInt((((value % month_1) % day_1) % hour_1) / minute_1);
+        second = parseInt((((value % month_1) % day_1) % hour_1) % minute_1);
+      } else {
+        // 大于一年
+        year = parseInt(value / year_1);
+        month = parseInt((value % year_1) / month_1);
+        day = parseInt(((value % year_1) % month_1) / day_1);
+        hour = parseInt((((value % year_1) % month_1) % day_1) / hour_1);
+        minute = parseInt(
+          ((((value % year_1) % month_1) % day_1) % hour_1) / minute_1
+        );
+        second = parseInt(
+          ((((value % year_1) % month_1) % day_1) % hour_1) % minute_1
+        );
       }
-      return t;
+      year = year == 0 ? "" : year + " 年 ";
+      month = month == 0 ? "" : month + " 月 ";
+      day = day == 0 ? "" : day + " 天 ";
+      hour = hour == 0 ? "" : hour + " 时 ";
+      minute = minute == 0 ? "" : minute + " 分 ";
+      second = second + " 秒 ";
+      return year + month + day + hour + minute + second;
     }
   },
   methods: {
     paySubmit(e) {
       this.formid = e.detail.formId;
     },
-    onRun(){
-      this.$router.push({path:"/pages/home/index"})
+    onRun() {
+      this.$router.push({ path: "/pages/home/index" });
     },
     async pay(e) {
       wx.showLoading({
@@ -158,7 +198,7 @@ export default {
         }
         const length = res.result.items.length - 1;
         this.car = res.result.items[length];
-      
+
         console.log("res: ", this.car.timess);
         this.orderid = res.result.items[length].id;
       })
@@ -199,7 +239,7 @@ page {
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
   &_item {
     background-color: #ffffff;
-    margin:40rpx;
+    margin: 40rpx;
     &_button {
       height: 172rpx;
       color: #4d495b;
@@ -211,10 +251,10 @@ page {
     }
   }
 }
-.grayend{
-  font-size:24rpx;
+.grayend {
+  font-size: 24rpx;
   color: darkgray;
-  margin: 40rpx auto ;
+  margin: 40rpx auto;
 }
 </style>
 
