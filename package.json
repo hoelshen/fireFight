@@ -54,6 +54,7 @@
     "flyio": "^0.6.9",
     "megalo": "^0.7.0",
     "megalo-router": "^1.0.3",
+    "mpvue-keyboard": "^1.2.2",
     "octoparse": "0.2.1"
   }
 }

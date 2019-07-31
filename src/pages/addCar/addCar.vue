@@ -2,102 +2,59 @@
   <div class="noFound flex column">
     <span class="flex center">请添加真实有效的车牌号码</span>
     <div class="flex car_block">
-      <!-- <input
-        class="input"
-        maxlength="1"
-        type="number"
-        :focus="focusInput"
-        :value="name"
-        @input="bindCarNumber"
-      > -->
-      <Provincekeyboard />
-
-      <!-- <input
-        class="input"
-        maxlength="1"
-        type="number"
-        :focus="focusInput"
-        :value="letter"
-        @input="bindCarNumber"
-      >
-      <input
-        class="input"
-        maxlength="1"
-        :focus="focusInput"
-        :value="oneNumber"
-        @input="bindCarNumber"
-      >
-      <input
-        class="input"
-        maxlength="1"
-        type="number"
-        :focus="focusInput"
-        :value="twoNumber"
-        @input="bindCarNumber"
-      >
-      <input
-        class="input"
-        maxlength="1"
-        type="number"
-        :focus="focusInput"
-        :value="threeNumber"
-        @input="bindCarNumber"
-      >
-      <input
-        class="input"
-        maxlength="1"
-        type="number"
-        :focus="focusInput"
-        :value="fourNumber"
-        @input="bindCarNumber"
-      >
-      <input
-        class="input"
-        maxlength="1"
-        type="number"
-        :focus="focusInput"
-        :value="fiveNumber"
-        @input="bindCarNumber"
-      >
-      <button class="newButton">
-        +新能源
-      </button>
-    </div> -->
-      <div
-        class="flex center lightButton"
-        @click="continu"
-      >
-        下一步
-      </div>
+      <keyboard
+        :plate-num.sync="plateNum"
+        :show.sync="showKeyboard"
+        extra-key="立即开通"
+        base-border="6eff92"
+        @keyboard="keyboardChange"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import shareMix from "@/mixins/mixin";
-import Provincekeyboard from "@/components/Provincekeyboard";
+import keyboard from "mpvue-keyboard";
 export default {
+  components: { keyboard },
   mixins: [shareMix],
-  component: {
-    Provincekeyboard
-  },
   data() {
     return {
-      name: "浙",
-      letter: "B",
-      oneNumber: "1", //车牌号码
-      twoNumber: "2",
-      threeNumber: "3",
-      fourNumber: "4",
-      fiveNumber: "5",
-      focusInput: true,
-      showKeyboard: true
+      showKeyboard: false,
+      plateNum: "",
     };
   },
   methods: {
-    bindCarNumber() {},
-    continu() {
-      this.$router.push({ path: "/pages/home/index" });
+    keyboardChange(e) {
+      this.plateNum = e;
+      this.navCar();
+    },
+    openKeyBoard() {
+      if (this.plateNum && this.plateNum.length > 6) {
+        this.navCar();
+      } else {
+        uni.showToast({
+          icon: "none",
+          title: "请输入完整的车牌号",
+          mask: true,
+          duration: 2000
+        });
+      }
+    },
+    async navCar() {
+        this.$request
+        .post("/bindcar.html", { carno: this.plateNum })
+        .then(res => {
+          wx.showToast({
+            title: "绑定成功"
+          });
+         this.$router.push({ path: "/pages/home/index" });
+        })
+        .catch(err => {
+          console.log("err: ", err);
+          return;
+        });
     }
   }
 };
@@ -126,7 +83,8 @@ export default {
 }
 .input {
   width: 50rpx;
-
+  border-style: solid;
+  border-width: 2rpx;
   height: 84rpx;
   padding-left: 20rpx;
   background-color: rgba(189, 189, 192, 0.1);

@@ -26,7 +26,7 @@ export default {
     pages: [
       "pages/home/index", //首页
       "pages/payMent/index", //设置笔名
-      "pages/welfare/index", //福利社
+      "pages/webview/index", //webview
       "pages/addCar/index", //店铺清扫
       "pages/carManage/index", //carManage,
       "pages/errors/index", //错误页面,
@@ -47,7 +47,8 @@ export default {
       backgroundColor: "#fffefb"
     },
     navigateToMiniProgramAppIdList: [
-      
+      "wx70677f7a3878565b",  //签约小程序
+      "wx70677f7a3878565b"   //微信代付 用户还款小程序 商户号
     ]
   }
 };

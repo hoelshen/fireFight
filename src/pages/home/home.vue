@@ -78,7 +78,7 @@
 
         <session class="my_contact flex column">
           <div
-            v-if="cars.length > 1"
+            v-if="cars.length >= 1"
             class="flex column"
           >
             <div
@@ -125,83 +125,20 @@
         :style="`height: ${scrolHeight}px`"
         @scrolltolower="scrolltolower"
       >
-        <div class="flex car_block">
-          <input
-            class="input"
-            maxlength="1"
-            type="number"
-            :focus="focusInput"
-            :value="name"
-            @input="bindCarNumber"
+        <div class="flex column car_block">
+          <keyboard
+            :plate-num.sync="plateNum"
+            :show.sync="show"
+            extra-key="查询缴费"
+            base-border="6eff92"
+            @keyboard="keyboardChange"
+          />
+          <div
+            class="flex center lightButton"
+            @click="openKeyBoard"
           >
-          <input
-            class="input"
-            maxlength="1"
-            type="number"
-            :focus="focusInput"
-            :value="letter"
-            @input="bindCarNumber"
-          >
-          <input
-            class="input"
-            maxlength="1"
-            :focus="focusInput"
-            :value="oneNumber"
-            @input="bindCarNumber"
-          >
-          <input
-            class="input"
-            maxlength="1"
-            type="number"
-            :focus="focusInput"
-            :value="twoNumber"
-            @input="bindCarNumber"
-          >
-          <input
-            class="input"
-            maxlength="1"
-            type="number"
-            :focus="focusInput"
-            :value="threeNumber"
-            @input="bindCarNumber"
-          >
-          <input
-            class="input"
-            maxlength="1"
-            type="number"
-            :focus="focusInput"
-            :value="fourNumber"
-            @input="bindCarNumber"
-          >
-          <input
-            class="input"
-            maxlength="1"
-            type="number"
-            :focus="focusInput"
-            :value="fiveNumber"
-            @input="bindCarNumber"
-          >
-          <input
-            v-if="showNumber"
-            class="input"
-            maxlength="1"
-            type="number"
-            :focus="focusInput"
-            :value="sixNumber"
-            @input="bindCarNumber"
-          >
-          <button
-            class="newButton"
-            @click="showSixNumber"
-          >
-            +新能源
-          </button>
-        </div>
-        <div
-          class="flex center lightButton"
-          @click="continu"
-        >
-          查询缴费
+            查询缴费
+          </div>
         </div>
       </scroll-view>
     </div>
@@ -370,30 +307,6 @@
           </button>
         </session>
       </scroll-view>
-      <div
-        v-if="showSetName"
-        class="modal"
-        @click="clickMask"
-      >
-        <div class="modalCard">
-          <div class="set">
-            设置笔名
-          </div>
-          <input
-            type="text"
-            :value="setName"
-            placeholder="设置笔名"
-            maxlength="10"
-            focus
-            @input="setNameFun"
-          >
-          <div class="saveButton">
-            <button @click="saveNameFun">
-              保存
-            </button>
-          </div>
-        </div>
-      </div>
     </div>
 
     <HomeTabbar
@@ -408,10 +321,12 @@
 import HomeTabbar from "@/components/HomeTabbar";
 import Modal from "@/components/Modal";
 import shareMix from "@/mixins/mixin";
+import keyboard from "mpvue-keyboard";
 export default {
   components: {
     HomeTabbar,
-    Modal
+    Modal,
+    keyboard
   },
   mixins: [shareMix],
   data() {
@@ -419,11 +334,6 @@ export default {
       tab: "home",
       banners: [],
       cars: [],
-      wayCount: 0,
-      dialogs: [],
-      badge: {
-        imgUrl: ""
-      },
       user: {
         aliasPortrait: "",
         aliasName: "",
@@ -437,24 +347,12 @@ export default {
         purePhoneNumber: "", //没有区号的手机号
         countryCode: "" //区号,
       },
-      showSetPhone: false,
       scrolHeight: 541,
-      unreadMessages: 0,
       toPage: null,
       page: 1,
-      hasMore: true,
-      showSetName: false,
-      setName: "",
+      showKeyboard: false,
+      plateNum: "",
       focusInput: false,
-      name: "浙",
-      letter: "B",
-      oneNumber: "", //车牌号码
-      twoNumber: "",
-      threeNumber: "",
-      fourNumber: "",
-      fiveNumber: "",
-      sixNumber: "",
-      showNumber: false,
       autoPhone: true
     };
   },
@@ -471,12 +369,8 @@ export default {
         query: this.$mp.query
       });
     }
-
     this.getScroll();
-
-    this.isFlage = false;
     this.onTabChange(this.tab);
-
     wx.getSetting({
       success: function(res) {
         if (res.authSetting["scope.userInfo"]) {
@@ -487,10 +381,10 @@ export default {
             }
           });
         } else {
+          this.$refs.mymodal.show();
         }
       }.bind(this)
     });
-    this.$refs.mymodal.show();
   },
   methods: {
     onTabChange(tab = "home") {
@@ -529,76 +423,43 @@ export default {
     hold() {
       this.$router.push({ path: "/pages/bindPhone/index" });
     },
-    login() {
-      let sourceType = [];
-      const that = this;
-      wx.showActionSheet({
-        itemList: ["从相册选择新头像", "拍个新头像"],
-        success(res) {
-          if (res.tapIndex === 0) {
-            sourceType = ["album"];
-          }
-          if (res.tapIndex === 1) {
-            sourceType = ["camera"];
-          }
-          if (res.tapIndex === 2) {
-            return;
-          }
-          wx.chooseImage({
-            count: 1,
-            sizeType: ["compressed"],
-            sourceType: sourceType,
-            success: function(res) {
-              wx.showLoading({
-                title: "上传中",
-                mask: true
-              });
-              const tempFilePaths = res.tempFilePaths;
-              that.$request.uploadFile(tempFilePaths[0]).then(
-                function(res) {
-                  let data = JSON.parse(res.data);
-                  let user = this.user;
-                  user.aliasPortrait = data.data;
-                  this.user = user;
-                  const { aliasName, aliasPortrait } = this.user;
-                  this.$request.put("/user", {
-                    aliasName,
-                    aliasPortrait
-                  });
-                  wx.hideLoading();
-                }.bind(that)
-              );
-            }.bind(this),
-            fail(e) {
-              wx.hideLoading();
-            }
+    login() {},
+    keyboardChange(e) {
+      this.plateNum = e;
+      this.navCar();
+    },
+    openKeyBoard() {
+      if (this.plateNum && this.plateNum.length > 6) {
+        this.navCar();
+      } else {
+        uni.showToast({
+          icon: "none",
+          title: "请输入完整的车牌号",
+          mask: true,
+          duration: 2000
+        });
+      }
+    },
+    async navCar() {
+      this.$request
+        .post("/bindcar.html", { carno: this.plateNum })
+        .then(res => {
+          wx.showToast({
+            title: "绑定成功"
           });
-        },
-        fail(res) {
-          console.log(res.errMsg);
-        }
-      });
-    },
-    loginName() {
-      this.setName = this.user.aliasName;
-      this.showSetName = true;
-    },
-    clickMask() {
-      this.showSetName = false;
-    },
-    setNameFun(e) {
-      this.setName = e.detail.value;
-    },
-    showSixNumber() {
-      this.showNumber = true;
+          this.$router.push({ path: "/pages/payMent/index" });
+        })
+        .catch(err => {
+          console.log("err: ", err);
+          return;
+        });
     },
     toPayMent(item) {
       this.$router.push({
-        query: { 'carno': item.carno },
+        query: { carno: item.carno },
         path: "/pages/payMent/index"
       });
     },
-    saveNameFun() {},
     scrolltolower() {},
     getScroll() {
       const query = wx.createSelectorQuery();
@@ -624,51 +485,16 @@ export default {
         path: "/pages/carManage/index"
       });
     },
-
     toBanner(banner) {
       switch (banner.type) {
-        case "MINI":
-          wx.navigateToMiniProgram({
-            appId: banner.appId,
-            path: banner.path
+        case 1:
+          wx.navigateTo({
+            url: `/pages/webview/index?url=${banner.url}`
           });
           break;
-        case "PAGE":
-          this.$router.push({
-            query: banner.query,
-            path: banner.path
-          });
+        case 2:
           break;
       }
-    },
-    bindCarNumber() {},
-    continu() {
-      const carnumber = function(...arg) {
-        console.log("arg: ", arg);
-        return arg;
-      };
-      const carno = carnumber(
-        this.name,
-        this.letter,
-        this.oneNumber,
-        this.twoNumber,
-        this.threeNumber,
-        this.fourNumber,
-        this.fiveNumber
-      );
-
-      this.$request
-        .post("/bindcar.html", { carno: carno.join('') })
-        .then(res => {
-          wx.showToast({
-            title: "绑定成功"
-          });
-          this.$router.push({ path: "/pages/payMent/index" });
-        })
-        .catch(err => {
-          console.log("err: ", err);
-          return;
-        });
     }
   }
 };
@@ -751,7 +577,6 @@ export default {
   border-radius: 2px;
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
-
   &_user {
     &_badgeBtn {
       padding: 0;
@@ -766,6 +591,7 @@ export default {
       border-radius: 50%;
       height: 88rpx;
       width: 88rpx;
+      margin-left: 10px;
     }
     &_nickName {
       font-weight: 600;
@@ -782,12 +608,6 @@ export default {
       margin-top: 20rpx;
       margin-bottom: 60rpx;
     }
-  }
-  .lightButton {
-    margin-bottom: 20rpx;
-    margin-top: 0rpx;
-    height: 64rpx;
-    // line-height: 64rpx;
   }
 }
 
@@ -819,9 +639,14 @@ export default {
     border-top-style: solid;
     border-top-width: 2rpx;
   }
-  .carItem{
-      margin: 40rpx;
-
+  .lightButton {
+    margin-bottom: 20rpx;
+    margin-top: 0rpx;
+    height: 64rpx;
+    margin: 40rpx;
+  }
+  .carItem {
+    margin: 40rpx;
   }
   .carPhone {
     margin-left: 40rpx;
@@ -917,11 +742,14 @@ export default {
 
 .newButton {
   box-sizing: border-box;
+  font-size: 28rpx;
+  padding: 0;
   border: 2rpx solid rgba(189, 189, 192, 0.1);
 }
 .input {
   width: 50rpx;
-
+  border-style: solid;
+  border-width: 2rpx;
   height: 84rpx;
   padding-left: 20rpx;
   background-color: rgba(189, 189, 192, 0.1);
@@ -930,7 +758,10 @@ export default {
   font-size: 32rpx;
 }
 .car_block {
-  padding-left: 40rpx;
+  margin: 40rpx;
+}
+.lightButton{
+  margin-top: 150rpx;
 }
 </style>
 
