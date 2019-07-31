@@ -10,13 +10,9 @@
         :value="name"
         @input="bindCarNumber"
       > -->
-      <plate-number-keyboard
-        :show="showKeyboard"
-        :get-result="bindCarNumber"
-        :init-value="name"
-      />
+      <Provincekeyboard />
 
-      <input
+      <!-- <input
         class="input"
         maxlength="1"
         type="number"
@@ -66,23 +62,24 @@
       <button class="newButton">
         +新能源
       </button>
-    </div>
-    <div
-      class="flex center lightButton"
-      @click="continu"
-    >
-      下一步
+    </div> -->
+      <div
+        class="flex center lightButton"
+        @click="continu"
+      >
+        下一步
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import shareMix from "@/mixins/mixin";
-import plateNumberkeyboard from "@/components/province_number_keyboard";
+import Provincekeyboard from "@/components/Provincekeyboard";
 export default {
   mixins: [shareMix],
   component: {
-    plateNumberkeyboard
+    Provincekeyboard
   },
   data() {
     return {
