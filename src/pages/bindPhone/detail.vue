@@ -1,12 +1,6 @@
 <template>
   <div>
     <div class="appDiv flex column">
-      <div class="flex center">
-        <image
-          class="securityAccount"
-          src="/static/svgs/look.svg"
-        />
-      </div>
       <div class="flex  towast">
         验证码已发送到 {{ phoneNumber }}
       </div>
@@ -100,16 +94,16 @@ export default {
       this.codeFour = e.detail.value;
     },
     blurCodeOne(e) {
-      // this.focusTwo = true
+      this.focusTwo = true
     },
     blurCodeTwo(e) {
-      // this.focusThree = true
+      this.focusThree = true
     },
     blurCodeThree(e) {
-      // this.focusFour = true
+      this.focusFour = true
     },
     blurCodeFour(e) {
-      // this.focusTwo = true
+      this.focusTwo = true
     },
     submit() {
       const { phoneNumber, codeOne, codeTwo, codeThree, codeFour } = this;
@@ -137,6 +131,7 @@ export default {
   onShow() {
     const { currentRoute: { query } } = this.$router;
     this.phoneNumber = query.phoneNumber
+    this.focusOne = true;
   }
 };
 </script>

@@ -41,7 +41,7 @@ export default {
   data() {
     return {
       autoPhone: true,
-      focusInput: false,
+      focusInput: true,
       form: {
         code: "", // 临时授权码
         encryptedData: "", // 加密数据

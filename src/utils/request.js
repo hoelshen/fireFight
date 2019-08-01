@@ -67,16 +67,27 @@ function uploadFile(path) {
 
 async function getOpenid() {
   const wxRes = await promisify(wx.login, wx)();
-  return loginFly.post("/user/openid.html", {
+  return fly.post("/user/openid.html", {
       code: wxRes.code
     })
     .then(res => {
-      console.log('res: ', res);
-      return res.data;
+      return res;
     })
     .catch(err => {
       wx.hideLoading();
     });
+}
+
+async function fetchLogin(loginUrl) {
+  const res = await loginFly.get(loginUrl)
+  const user = res.data.data
+  fly.config.headers['x-csrf-token'] = token = user._id
+  fly.unlock()
+  wx.setStorage({
+    key: 'token',
+    data: token
+  })
+  return user
 }
 
 async function login(data) {
@@ -95,7 +106,7 @@ async function login(data) {
   openid = getApp().globalData.openid;
   portrait = data.userInfo.avatarUrl
   nickname = data.userInfo.nickname
-  loginFly.post("/user/login.html", {
+  fly.post("/user/login.html", {
       openid,
       portrait,
       nickname,
@@ -103,7 +114,10 @@ async function login(data) {
       lng
     })
     .then(res => {
-      getApp().globalData.user = res.data.result;
+      console.log('res: ', res.result);
+      fly.config.headers["tokenCode"] = tokenCode = res.result.tokenCode;
+      fly.config.headers["tokenInfo"] = tokenInfo = res.result.tokenInfo;
+
       wx.setStorage({
         key: 'tokenCode',
         data: tokenCode
@@ -112,11 +126,8 @@ async function login(data) {
         key: 'tokenInfo',
         data: tokenInfo
       })
-      fly.config.headers["tokenCode"] = tokenCode = res.data.result.tokenCode;
-      fly.config.headers["tokenInfo"] = tokenInfo = res.data.result.tokenInfo;
-      fly.unlock();
 
-      return request;
+      return getApp().globalData.user = res.result;
     })
     .catch(err => {
       wx.hideLoading();
@@ -126,13 +137,22 @@ async function login(data) {
 
 
 fly.interceptors.request.use(async function (request) {
-  if (!tokenCode) {
-    return fly.lock() // 登录完成
-  } else {
-    fly.unlock()
-  }
+  console.log('request: ', request);
   request.headers["tokenCode"] = tokenCode = wx.getStorageSync('tokenCode') //永久保存用户账号
+
   request.headers["tokenInfo"] = tokenInfo = wx.getStorageSync('tokenInfo') //永久保存用户账号
+  if (!(request.url).includes('login') || !(request.url).includes('openid')) {
+
+
+    // if (!tokenCode) {
+    //   return fly.lock() // 登录完成
+    // } else {
+    //   fly.unlock()
+    // }
+
+  }
+
+
   return request;
 });
 

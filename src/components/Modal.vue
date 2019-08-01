@@ -39,19 +39,15 @@ export default {
   methods: {
     onGotUserInfo(e) {
       this.isShowModal = false;
-      console.log("e: ", e);
       this.$request.login(e.detail);
     },
     show() {
-      console.log("value: ");
       this.isShowModal = true;
     },
     ConfirmButton() {
       this.isShowModal = false;
     },
-    enSure() {
-      this.isShowModal = false;
-    },
+
     clickMask() {
       this.isShowModal = false;
       this.value = {

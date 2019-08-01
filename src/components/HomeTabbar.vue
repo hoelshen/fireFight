@@ -153,7 +153,7 @@ export default {
   width:32rpx;
   height: 32rpx;
   border-radius: 16px;
-  background-color: #6eff92;
+  background-color: #1AAD19;
   color: #ffffff;
   position:absolute;
   left:85rpx;
@@ -164,7 +164,7 @@ export default {
   width:44rpx;
   height: 32rpx;
   border-radius: 16px;
-  background-color: #6eff92;
+  background-color: #1AAD19;
   color: #ffffff;
   position: absolute;
   left:85rpx;

@@ -127,10 +127,11 @@
       >
         <div class="flex column car_block">
           <keyboard
+            class="kb"
             :plate-num.sync="plateNum"
-            :show.sync="show"
+            :show.sync="showKeyboard"
             extra-key="查询缴费"
-            base-border="6eff92"
+            base-border="1AAD19"
             @keyboard="keyboardChange"
           />
           <div
@@ -155,6 +156,7 @@
         <div class="my_info flex a-center">
           <button
             v-if="!user.aliasPortrait"
+            style="margin: 0;"
             open-type="getUserInfo"
             lang="zh_CN"
             @getuserinfo="onGotUserInfo"
@@ -321,7 +323,7 @@
 import HomeTabbar from "@/components/HomeTabbar";
 import Modal from "@/components/Modal";
 import shareMix from "@/mixins/mixin";
-import keyboard from "mpvue-keyboard";
+import keyboard from "@/components/keyboard";
 export default {
   components: {
     HomeTabbar,
@@ -396,8 +398,8 @@ export default {
       }
       if (this.tab === "mine") {
         this.$request.getUser().then(res => {
-          if(res){
-            console.log('res: ', res);
+          if (res) {
+            console.log("res: ", res);
             this.user.aliasPortrait = res.portrait;
             this.user.phoneNumber = res.mobile;
           }
@@ -410,7 +412,6 @@ export default {
     async getBanners() {
       const res = await this.$request.post("/index.html");
       if (res && res.result) {
-        console.log('res.result: ', res.result);
         this.banners = res.result.banners;
         this.cars = res.result.items;
       }
@@ -451,7 +452,10 @@ export default {
           wx.showToast({
             title: "绑定成功"
           });
-          this.$router.push({ path: "/pages/payMent/index" });
+          this.$router.push({
+            query: { carno: this.plateNum },
+            path: "/pages/payMent/index"
+          });
         })
         .catch(err => {
           console.log("err: ", err);
@@ -563,7 +567,7 @@ export default {
   & button {
     height: 92rpx;
     padding: 0 40rpx;
-    border: 1px solid #6eff92;
+    border: 1px solid #1aad19;
     border-radius: 46px;
     font-size: 28rpx;
   }
@@ -633,7 +637,6 @@ export default {
   }
 }
 .my_contact {
-  height: 524rpx;
   margin: 40rpx 40rpx;
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
@@ -684,7 +687,7 @@ export default {
 .my_share {
   margin: 40rpx 60rpx;
   & button {
-    border: 2rpx #6eff92 solid;
+    border: 2rpx #1aad19 solid;
     border-radius: 46px;
     height: 92rpx;
     width: 316rpx;
@@ -734,7 +737,7 @@ export default {
   margin: auto;
   margin-bottom: 60rpx;
   & button {
-    background-color: #6eff92;
+    background-color: #1aad19;
     color: #ffffff;
     border-radius: 23px;
   }
@@ -764,8 +767,15 @@ export default {
 .car_block {
   margin: 40rpx;
 }
-.lightButton{
+.lightButton {
   margin-top: 150rpx;
+}
+.kb {
+  .kb-keyboard {
+    .kb-keyboard__panle {
+      bottom: 150rpx;
+    }
+  }
 }
 </style>
 

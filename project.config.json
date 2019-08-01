@@ -44,7 +44,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 7,
+			"current": 6,
 			"list": [
 				{
 					"id": -1,
@@ -89,7 +89,7 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 6,
 					"name": "停车缴费",
 					"pathName": "pages/payMent/index",
 					"query": "",

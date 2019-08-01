@@ -6,9 +6,10 @@ app.$mount()
 
 export default {
     config: {
-        navigationBarBackgroundColor: '#fffefb',
+        navigationBarBackgroundColor: '#1AAD19',
         navigationBarTextStyle: 'black',
         navigationBarTitleText: '添加车辆',
-        backgroundColor: '#FFFEFB'
+        backgroundColor: '#FFFEFB',
+        navigationStyle: 'custom'
     }
 };

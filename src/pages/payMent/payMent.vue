@@ -1,56 +1,72 @@
 <template>
-  <view class="page flex column">
-    <view class="app flex column j-start">
-      <div class="container flex column grow">
-        <div class="my_info times center flex a-center">
-          {{ formatTimer }}
+  <view class="page">
+    <view class="header">
+      <view class="title">
+        停车缴费
+      </view>
+      <view class="title">
+        <div class="container flex column grow">
+          <div class="my_info times center flex a-center">
+            {{ formatTimer }}
+          </div>
         </div>
-        <session class="my_contact flex grow column">
-          <div class="my_contact_item_button flex wrap center grow">
-            <span class="my_contact_item_text grow">{{ car.carno }}</span>
-            <div class="flex column center">
-              <span>{{ car.status ? "已入场" : "未入场" }}</span>
-              <div @click="onRun">
-                切换车牌
+      </view>
+    </view>
+    <view class="header-bg">
+      <session class="my_contact flex grow column">
+        <div class="my_contact_item_button flex wrap center grow">
+          <span class="my_contact_item_text grow">{{ car.carno || '暂无' }}</span>
+          <div class="flex column center">
+            <span class="carStatus">{{
+              car.status ? "已入场" : "未入场"
+            }}</span>
+            <div
+              class="checkCarno"
+              @click="onRun"
+            >
+              切换车牌
+            </div>
+          </div>
+        </div>
+        <div class="my_contact_item_button flex wrap center grow">
+          <span class="my_contact_item_text grow">停车场</span>
+          <span>{{ car.address || '暂无' }}</span>
+        </div>
+        <div class="my_contact_item_button flex wrap center grow">
+          <span class="my_contact_item_text grow">入场时间</span>
+          <span>{{ car.startts || '暂无' }}</span>
+        </div>
+        <div class="my_contact_item_button flex wrap center grow">
+          <span class="my_contact_item_text grow">应付</span>
+          <span>{{ car.money || '暂无' }} 元</span>
+        </div>
+      </session>
+      <view class=" flex column">
+        <view class="flex column j-start">
+          <div class="saveButton">
+            <form
+              report-submit="true"
+              @submit="paySubmit"
+            >
+              <button
+                form-type="submit"
+                @click="pay"
+              >
+                确认支付
+              </button>
+            </form>
+
+            <div class="flex grayend center">
+              <div class="contact">
+                联系客服
+              </div>
+              <div class="noAddress">
+                不在场内
               </div>
             </div>
           </div>
-          <div class="my_contact_item_button flex wrap center grow">
-            <span class="my_contact_item_text grow">停车场</span>
-            <span>{{ car.address }}</span>
-          </div>
-          <div class="my_contact_item_button flex wrap center grow">
-            <span class="my_contact_item_text grow">入场时间</span>
-            <span>{{ car.startts }}</span>
-          </div>
-          <div class="my_contact_item_button flex wrap center grow">
-            <span class="my_contact_item_text grow">应付</span>
-            <span>{{ car.money }}</span>
-          </div>
-        </session>
-      </div>
-      <div class="saveButton">
-        <form
-          report-submit="true"
-          @submit="paySubmit"
-        >
-          <button
-            form-type="submit"
-            @click="pay"
-          >
-            确认支付
-          </button>
-        </form>
-
-        <div class="flex grayend center">
-          <div class="contact">
-            联系客服
-          </div>
-          <div class="noAddress">
-            不在场内
-          </div>
-        </div>
-      </div>
+        </view>
+      </view>
     </view>
   </view>
 </template>
@@ -83,7 +99,10 @@ export default {
       /**
        * 将秒转换为年月日时分秒
        **/
-      value = this.car.timess;
+      if (!this.car.timess) {
+        return this.car.timess;
+      }
+      const value = this.car.timess;
       var year_1 = 3600 * 24 * 30 * 12;
       var month_1 = 3600 * 24 * 30;
       var day_1 = 3600 * 24;
@@ -159,8 +178,9 @@ export default {
       let openid = "";
       const formid = this.formid;
       const orderid = this.orderid;
-      if (formid && orderid) {
+      if (!formid || !orderid) {
         return wx.showToast({
+          icon: "none",
           title: "订单异常"
         });
       }
@@ -176,7 +196,9 @@ export default {
           signType: order.signType, //签名方式
           paySign: order.sign,
           success(res) {
-            console.log("支付完成: ", res);
+            this.$router.push({
+              path: "/pages/home/index"
+            });
           },
           fail(res) {
             console.log("res: ", res);
@@ -193,13 +215,11 @@ export default {
     this.$request
       .put("/orderinfo.html", { carno })
       .then(res => {
-        if (!res) {
+        if (res && res.result && res.result.items.length == 0) {
           return;
         }
         const length = res.result.items.length - 1;
         this.car = res.result.items[length];
-
-        console.log("res: ", this.car.timess);
         this.orderid = res.result.items[length].id;
       })
       .catch(err => {
@@ -213,20 +233,39 @@ export default {
 page {
   background-color: #ffffff;
 }
-.app {
+
+.header {
+  height: 450rpx;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background: #1aad19;
+  z-index: 3;
+  .title {
+    line-height: 160rpx;
+    text-align: center;
+  }
+  .times {
+    font-size: 108rpx;
+    color: white;
+  }
+}
+.header-bg {
+  height: 450rpx;
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+  background: #1aad19;
+  margin-top: 450rpx;
+}
+.saveButton {
+  width: 316rpx;
+  height: 92rpx;
   margin: auto;
-  width: 630rpx;
-  height: 381rpx;
-  .saveButton {
-    width: 316rpx;
-    height: 92rpx;
-    margin: auto;
-    margin-bottom: 60rpx;
-    & button {
-      background-color: #6eff92;
-      color: #ffffff;
-      border-radius: 23px;
-    }
+  margin-bottom: 60rpx;
+  & button {
+    background-color: #1aad19;
+    color: #ffffff;
+    border-radius: 23px;
   }
 }
 .contact {
@@ -239,11 +278,18 @@ page {
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
   &_item {
     background-color: #ffffff;
+    border-radius: 2rpx;
     margin: 40rpx;
     &_button {
       height: 172rpx;
       color: #4d495b;
       margin: 40rpx;
+      .carStatus {
+        color: #1aad19;
+      }
+      .checkCarno {
+        background-color: #1aad19;
+      }
     }
     &_text {
       font-size: 32rpx;

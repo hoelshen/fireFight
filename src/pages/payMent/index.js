@@ -7,9 +7,10 @@ app.$mount()
 
 export default {
   config: {
-    navigationBarBackgroundColor: '#ffffff',
+    navigationBarBackgroundColor: '#1AAD19',
     navigationBarTextStyle: 'black',
     navigationBarTitleText: '停车缴费',
+    navigationStyle: 'custom',
     backgroundColor: '#ffffff'
   }
 }

@@ -1,21 +1,44 @@
 <template>
-  <div class="noFound flex column">
-    <span class="flex center">请添加真实有效的车牌号码</span>
-    <div class="flex car_block">
-      <keyboard
-        :plate-num.sync="plateNum"
-        :show.sync="showKeyboard"
-        extra-key="立即开通"
-        base-border="6eff92"
-        @keyboard="keyboardChange"
-      />
-    </div>
-  </div>
+  <view class="page">
+    <view class="header">
+      <view class="title">
+        停车缴费
+      </view>
+      <view class="title">
+        <div class="container flex column grow">
+          <div class="my_info times center flex a-center">
+            {{ formatTimer }}
+          </div>
+        </div>
+      </view>
+    </view>
+    <view class="header-bg">
+      <div class="noFound flex column">
+        <span class="flex center">请添加真实有效的车牌号码</span>
+        <div class="flex car_block">
+          <keyboard
+            :plate-num.sync="plateNum"
+            :show.sync="showKeyboard"
+            :extra-key="立即开通"
+            :province="闽"
+            base-border="1AAD19"
+            @keyboard="keyboardChange"
+          />
+          <div
+            class="flex center lightButton"
+            @click="keyboardChange"
+          >
+            添加车辆
+          </div>
+        </div>
+      </div>
+    </view>
+  </view>
 </template>
 
 <script>
 import shareMix from "@/mixins/mixin";
-import keyboard from "mpvue-keyboard";
+import keyboard from "@/components/keyboard";
 export default {
   components: { keyboard },
   mixins: [shareMix],
@@ -56,11 +79,34 @@ export default {
           return;
         });
     }
-  }
+  },
 };
 </script>
 
 <style scoped lang="less">
+.header {
+  height: 450rpx;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background: #1aad19;
+  z-index: 3;
+  .title {
+    line-height: 160rpx;
+    text-align: center;
+  }
+  .times{
+    font-size: 108rpx;
+    color: white
+  }
+}
+.header-bg {
+  height: 450rpx;
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+  background: #1aad19;
+  margin-top: 450rpx;
+}
 .noFound {
   height: 100vh;
   background: #fff;
