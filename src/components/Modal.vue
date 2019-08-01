@@ -5,18 +5,22 @@
     @click="clickMask"
   >
     <cover-view
-      class="card flex column center"
+      class="sjh flex column center"
       @tap.stop="stopkMask"
     >
-      获取相应的权限
-      <button
-        class="rightButton"
-        open-type="getUserInfo"
-        lang="zh_CN"
-        @getuserinfo="onGotUserInfo"
-      >
-        确认
-      </button>
+      <cover-view class="title">
+        获取相应的权限
+      </cover-view>
+      <cover-view class="btn">
+        <button
+          class="rightButton"
+          open-type="getUserInfo"
+          lang="zh_CN"
+          @getuserinfo="onGotUserInfo"
+        >
+          确认
+        </button>
+      </cover-view>
     </cover-view>
   </cover-view>
 </template>
@@ -34,12 +38,12 @@ export default {
   },
   methods: {
     onGotUserInfo(e) {
-      this.isShowModal = false
-      console.log('e: ', e);
+      this.isShowModal = false;
+      console.log("e: ", e);
       this.$request.login(e.detail);
     },
     show() {
-      console.log('value: ');
+      console.log("value: ");
       this.isShowModal = true;
     },
     ConfirmButton() {
@@ -74,15 +78,16 @@ export default {
   align-items: center;
   background-color: rgba(77, 73, 91, 0.3);
   z-index: 99;
+
 }
-.card {
-  width: 630rpx;
-  max-height: 598rpx;
-  min-height: 402rpx;
-  background-color: #ffffff;
-  border-radius: 4rpx;
-  box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
-}
+  .sjh {
+    width: 630rpx;
+    max-height: 598rpx;
+    min-height: 402rpx;
+    background-color: #ffffff;
+    border-radius: 4rpx;
+    box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
+  }
 .title {
   margin-top: 60rpx;
   font-size: 32rpx;

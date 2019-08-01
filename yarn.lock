@@ -3780,6 +3780,11 @@ move-concurrently@^1.0.1:
     rimraf "^2.5.4"
     run-queue "^1.0.3"
 
+mpvue-keyboard@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/mpvue-keyboard/-/mpvue-keyboard-1.2.2.tgz#87b88572060b550ff3394352ba55342274a282c5"
+  integrity sha512-mhxzQhuVgLXYXUks3jHVgzz8jbe6u4secGzWiH2IWl1sPgg32pLKs9w7cxOOgasfCR5L37mlfa1AzItBaM6Tcw==
+
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"

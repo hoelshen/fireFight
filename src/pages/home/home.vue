@@ -396,8 +396,11 @@ export default {
       }
       if (this.tab === "mine") {
         this.$request.getUser().then(res => {
-          this.user.aliasPortrait = res.portrait;
-          this.user.phoneNumber = res.mobile;
+          if(res){
+            console.log('res: ', res);
+            this.user.aliasPortrait = res.portrait;
+            this.user.phoneNumber = res.mobile;
+          }
         });
       }
     },
@@ -406,7 +409,8 @@ export default {
     },
     async getBanners() {
       const res = await this.$request.post("/index.html");
-      if (res) {
+      if (res && res.result) {
+        console.log('res.result: ', res.result);
         this.banners = res.result.banners;
         this.cars = res.result.items;
       }
@@ -432,7 +436,7 @@ export default {
       if (this.plateNum && this.plateNum.length > 6) {
         this.navCar();
       } else {
-        uni.showToast({
+        wx.showToast({
           icon: "none",
           title: "请输入完整的车牌号",
           mask: true,
