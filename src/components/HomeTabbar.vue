@@ -15,12 +15,12 @@
         <image
           v-show="tab == 'home'"
           class="icon"
-          src="/static/svgs/tell-active.svg"
+          src="/static/png/home_active.png"
         />
         <image
           v-show="tab != 'home'"
           class="icon"
-          src="/static/svgs/tell.svg"
+          src="/static/png/home.png"
         />
       </button>
       <span class="flex center">首页</span>
@@ -38,12 +38,12 @@
         <image
           v-show="tab == 'mail'"
           class="icon mail"
-          src="/static/svgs/carpay_active.svg"
+          src="/static/png/pay_active.png"
         />
         <image
           v-show="tab != 'mail'"
           class="icon mail"
-          src="/static/svgs/carpay.svg"
+          src="/static/png/pay.png"
         />
         <div
           v-if="mailCount"
@@ -67,12 +67,12 @@
         <image
           v-show="tab == 'mine'"
           class="icon"
-          src="/static/svgs/myinfo-active.svg"
+          src="/static/png/mine_active.png"
         />
         <image
           v-show="tab != 'mine'"
           class="icon"
-          src="/static/svgs/myinfo.svg"
+          src="/static/png/mine.png"
         />
       </button>
       <span class="flex center">我的</span>

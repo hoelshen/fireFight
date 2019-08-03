@@ -1,15 +1,26 @@
 <template>
-  <view class="page flex column">
+  <div class="page flex column">
     <!-- 首页 -->
     <div
       v-if="tab == 'home'"
-      class="pannel grow"
+      class="pannel grow flex column "
     >
       <scroll-view
-        class="entries"
+        class="entries flex column"
         scroll-y
         :style="`height: ${scrolHeight}px`"
       >
+        <div
+          :style="{
+            height: title_height + 'px',
+            'padding-top': statusbarHeight + 'px'
+          }"
+          class="header "
+        >
+          <view class="title">
+            停车小程序
+          </view>
+        </div>
         <swiper
           class="swiper"
           :indicator-dots="banners.length > 1"
@@ -38,7 +49,7 @@
           >
             <image
               class="iconfont"
-              src="/static/svgs/moment.svg"
+              src="/static/png/paybag.png"
             />
             <span class="my_function_item_text">钱包</span>
           </button>
@@ -49,9 +60,9 @@
           >
             <image
               class="iconfont"
-              src="/static/svgs/ticket.svg"
+              src="/static/png/stopRecord.png"
             />
-            <span class="my_function_item_text">停车券</span>
+            <span class="my_function_item_text">停车记录</span>
           </button>
 
           <button
@@ -60,9 +71,9 @@
           >
             <image
               class="iconfont"
-              src="/static/svgs/badge.svg"
+              src="/static/png/account.png"
             />
-            <span class="my_function_item_text">积分</span>
+            <span class="my_function_item_text">账单</span>
           </button>
           <button
             class="my_function_item_button flex column center"
@@ -70,9 +81,9 @@
           >
             <image
               class="iconfont"
-              src="/static/svgs/badge.svg"
+              src="/static/png/wantPay.png"
             />
-            <span class="my_function_item_text">缴费</span>
+            <span class="my_function_item_text">我要缴费</span>
           </button>
         </session>
 
@@ -87,14 +98,10 @@
               class="flex carItem j-between"
               @click="toPayMent(item)"
             >
-              <div class="flex center">
-                <img
-                  class="my_info_user_avatarUrl"
-                  src="https://cdn.tellers.cn/tell_v2/static/default-avatar_v2.svg"
-                  mode="scaleToFill"
-                  @click="login"
-                >
-                <span class="carPhone">{{ item.carno }}</span>
+              <div class="flex carPhone center">
+                <div class="carPhone_carno">
+                  {{ item.carno }}
+                </div>
               </div>
               <switch
                 class="flex center"
@@ -125,15 +132,40 @@
         :style="`height: ${scrolHeight}px`"
         @scrolltolower="scrolltolower"
       >
-        <div class="flex column car_block">
-          <keyboard
-            class="kb"
-            :plate-num.sync="plateNum"
-            :show.sync="showKeyboard"
-            extra-key="查询缴费"
-            base-border="1AAD19"
-            @keyboard="keyboardChange"
-          />
+        <div
+          :style="{
+            height: title_height + 'px',
+            'padding-top': statusbarHeight + 'px'
+          }"
+          class="header flex column j-between"
+        >
+          <view class="title">
+            停车小程序
+          </view>
+        </div>
+        <view
+          :style="{
+            'margin-top': title_height + 'px'
+          }"
+          class="header-bg"
+        >
+          <img
+            class="header-bg_img"
+            src="/static/png/bgone.png"
+            alt=""
+          >
+        </view>
+        <div class="car_btn flex column center">
+          <div class="flex column car_block">
+            <keyboard
+              class="kb"
+              :plate-num.sync="plateNum"
+              :show.sync="showKeyboard"
+              extra-key="查询缴费"
+              base-border="1AAD19"
+              @keyboard="keyboardChange"
+            />
+          </div>
           <div
             class="flex center lightButton"
             @click="openKeyBoard"
@@ -190,10 +222,10 @@
             class="my_function_item_button flex column center"
             @tap="joinGroup"
           >
-            <image
+            <!-- <image
               class="iconfont"
-              src="/static/svgs/moment.svg"
-            />
+              src="/static/png/moment.png"
+            /> -->
             <span class="my_function_item_text">账户余额</span>
           </button>
 
@@ -203,7 +235,7 @@
           >
             <image
               class="iconfont"
-              src="/static/svgs/ticket.svg"
+              src="/static/png/ticket.png"
             />
             <span class="my_function_item_text">停车券</span>
           </button>
@@ -212,10 +244,10 @@
             class="my_function_item_button flex column center"
             @click="ticket"
           >
-            <image
+            <!-- <image
               class="iconfont"
-              src="/static/svgs/badge.svg"
-            />
+              src="/static/png/badge.png"
+            /> -->
             <span class="my_function_item_text">积分</span>
           </button>
           <button
@@ -224,7 +256,7 @@
           >
             <image
               class="iconfont"
-              src="/static/svgs/badge.svg"
+              src="/static/png/pay_active.png"
             />
             <span class="my_function_item_text">我的钱包</span>
           </button>
@@ -237,12 +269,12 @@
           >
             <image
               class="iconfont"
-              src="/static/svgs/welfare.svg"
+              src="/static/png/redeem.png"
             />
             <span class="my_contact_item_text grow">积分兑换</span>
             <image
               class="iconfont_sixteen flex center"
-              src="/static/svgs/arrow.svg"
+              src="/static/png/arrow.png"
             />
           </button>
 
@@ -252,13 +284,13 @@
           >
             <image
               class="iconfont"
-              src="/static/svgs/joinGroup.svg"
+              src="/static/png/record.png"
             />
             <span class="my_contact_item_text grow">停车记录</span>
 
             <image
               class="iconfont_sixteen flex center"
-              src="/static/svgs/arrow.svg"
+              src="/static/png/arrow.png"
             />
           </button>
 
@@ -268,13 +300,13 @@
           >
             <image
               class="iconfont"
-              src="/static/svgs/joinGroup.svg"
+              src="/static/png/carManage.png"
             />
             <span class="my_contact_item_text grow">车辆管理</span>
 
             <image
               class="iconfont_sixteen flex center"
-              src="/static/svgs/arrow.svg"
+              src="/static/png/arrow.png"
             />
           </button>
 
@@ -284,12 +316,12 @@
           >
             <image
               class="iconfont"
-              src="/static/svgs/question.svg"
+              src="/static/png/question.png"
             />
             <span class="my_contact_item_text grow">问题与反馈</span>
             <image
               class="iconfont_sixteen flex center"
-              src="/static/svgs/arrow.svg"
+              src="/static/png/arrow.png"
             />
           </button>
           <button
@@ -298,13 +330,13 @@
           >
             <image
               class="iconfont"
-              src="/static/svgs/joinGroup.svg"
+              src="/static/png/ticket.png"
             />
             <span class="my_contact_item_text grow">发票</span>
 
             <image
               class="iconfont_sixteen flex center"
-              src="/static/svgs/arrow.svg"
+              src="/static/png/arrow.png"
             />
           </button>
         </session>
@@ -317,7 +349,7 @@
     />
 
     <Modal ref="mymodal" />
-  </view>
+  </div>
 </template>
 <script>
 import HomeTabbar from "@/components/HomeTabbar";
@@ -355,7 +387,9 @@ export default {
       showKeyboard: false,
       plateNum: "",
       focusInput: false,
-      autoPhone: true
+      autoPhone: true,
+      title_height: "",
+      statusbarHeight: ""
     };
   },
   onLoad(opt) {
@@ -395,6 +429,11 @@ export default {
         this.getBanners();
       }
       if (this.tab === "mail") {
+        let res = wx.getSystemInfoSync();
+
+        let statusbarHeight =
+          res.statusBarHeight + (res.screenWidth * 88) / 750; // 记得转换
+        this.title_height =statusbarHeight;
       }
       if (this.tab === "mine") {
         this.$request.getUser().then(res => {
@@ -656,7 +695,14 @@ export default {
     margin: 40rpx;
   }
   .carPhone {
-    margin-left: 40rpx;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAaQAAABkCAMAAAD+DbQHAAAAbFBMVEUAAAAocsMocsMocsMocsMocsMocsMocsMocsMocsMocsMocsMocsMocsP///8sdMT6/P7j7Pfc6PaCrdy50eucvuOGsN11pNluoNcvd8b1+Pzn8PlwoddhmNNLic1JiMy0zuqlxOaHsN5Mis0AT+8bAAAADXRSTlMA4VT4qgaJW9sDlNcHfzE0FQAAAhpJREFUeNrt3UduJDEMRmFV6uAZUhU6B8f733HaasGA5wT8gfdtxP1DqbRjKoa2bzpDKN2fvh3Sj3ZjCGnTpqftyhDWapu+0Si0VbnrDKG1KQ2NVfn2Po2OAC7z+y1b1QxpbdVpcgQynaxap96KvHefP1/PhgDOr5+z+z5b0afGir1flmwIIy+j761oUlfOk493Qyj30U9l6NIz29UXQzCLX3MZnpGOPnPXhZNnP9pDjbTzgyGcg+/soUaa/NUQzptP9lAjjc7bO6Dsoz3USO6GgEoXIsVGJAFEEkAkAUQSQCQBRBJAJAFEEkAkAUQSQCQBRBJAJAFEEkAkAUQSQCQBRBJAJAFEEkAkAUQSQCQBRBJAJAFEEkAkAUQSQCQBRBJAJAFEEkAkAUQSQCQBRBJAJAFEEkAkAUQSQCQBRBJAJAFEEkAkAUQSQCQBRBJAJAFEEkAkAUQSQCQBRBJAJAFEEkAkAUQSQCQBRBJAJAFEEkAkAUQSQCQBRBJAJAFEEvAr0sVZ2BzQ+dcK09nfDOF8lWXArNUO7blWmwX1kf23oD5ffTEEs/j1XIbUlePm490Qyn30Wxm6tLFi7xe+pVCW0fdWNKm3In+4z4c3/kwhnL8Os/tHrdGntVWnyRHIdLJqnYbGqnzcTaMjgHHaHbNVzd+UWkNobXpYGQJbpW/bF0NYL9v01G4MIW3a9GNY901nCKVr+vWQvv0Dr9RbwMLtTv8AAAAASUVORK5CYII=");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    // margin-left: 40rpx;
+    &_carno {
+      color: white;
+    }
   }
   &_item {
     &_button {
@@ -764,8 +810,15 @@ export default {
 .wait {
   font-size: 32rpx;
 }
+.car_btn{
+  position: relative;
+  top: 600rpx;
+
+}
 .car_block {
-  margin: 40rpx;
+  background-color: #ffffff;
+  border-radius: 20rpx;
+  box-shadow: 6rpx 18rpx 40rpx 1 #01bf99;
 }
 .lightButton {
   margin-top: 150rpx;
@@ -775,6 +828,32 @@ export default {
     .kb-keyboard__panle {
       bottom: 150rpx;
     }
+  }
+}
+
+.header {
+  height: 200rpx;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background: #01bf99;
+  z-index: 3;
+  .title {
+    line-height: 260rpx;
+    text-align: center;
+  }
+  .times {
+    font-size: 108rpx;
+    color: white;
+  }
+}
+.header-bg {
+  position: fixed;
+  width: 100%;
+  background-repeat:no-repeat; background-size:100% 100%;-moz-background-size:100% 100%;
+  z-index: 3;
+  &_img{
+    width: 100%;
   }
 }
 </style>

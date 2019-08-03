@@ -11,6 +11,7 @@ export default {
     navigationBarTextStyle: 'black',
     navigationBarTitleText: '美停',
     backgroundColor: '#FFFEFB',
-    disableScroll: true
+    disableScroll: true,
+    navigationStyle: 'custom'
   }
 }
