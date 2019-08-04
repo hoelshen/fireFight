@@ -44,7 +44,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 6,
+			"current": 8,
 			"list": [
 				{
 					"id": -1,
@@ -75,8 +75,8 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "停车缴费",
+					"id": 4,
+					"name": "查询缴费",
 					"pathName": "pages/home/index",
 					"query": "tab=mail",
 					"scene": null
@@ -99,6 +99,13 @@
 					"id": -1,
 					"name": "绑定手机",
 					"pathName": "pages/bindPhone/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "缴费完成",
+					"pathName": "pages/payMent/paySuccess",
 					"query": "",
 					"scene": null
 				}

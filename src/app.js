@@ -31,8 +31,8 @@ export default {
       "pages/carManage/index", //carManage,
       "pages/errors/index", //错误页面,
       "pages/bindPhone/index", // 绑定手机 
-      "pages/bindPhone/detail" // 绑定手机 
-
+      "pages/bindPhone/detail", // 绑定手机 
+      "pages/payMent/paySuccess" //支付完成
     ],
     "permission": {
       "scope.userLocation": {

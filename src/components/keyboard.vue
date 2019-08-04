@@ -279,14 +279,14 @@ export default {
   height: 60px;
   font-size: 18px;
   position: relative;
-  top: 50px;
 }
 .kb-input__ul {
   display: flex;
   display: -webkit-flex;
   justify-content: space-around;
   -webkit-justify-content: space-around;
-  width: 92%;
+  position: relative;
+  padding: 40rpx 20rpx;
   height: 60px;
   z-index: 999;
 }
@@ -294,6 +294,7 @@ export default {
   border-color: #1AAD19;
   color: #333333;
   font-size: bold;
+background-color: rgb(238,238,238);
 
   display: flex;
   display: -webkit-flex;

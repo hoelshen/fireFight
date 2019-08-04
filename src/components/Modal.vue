@@ -1,17 +1,17 @@
 <template>
-  <cover-view
+  <div
     v-if="isShowModal"
     class="modal"
     @click="clickMask"
   >
-    <cover-view
-      class="sjh flex column center"
+    <div
+      class="ql flex column center"
       @tap.stop="stopkMask"
     >
-      <cover-view class="title">
+      <div class="title">
         获取相应的权限
-      </cover-view>
-      <cover-view class="btn">
+      </div>
+      <div class="btn">
         <button
           class="rightButton"
           open-type="getUserInfo"
@@ -20,9 +20,9 @@
         >
           确认
         </button>
-      </cover-view>
-    </cover-view>
-  </cover-view>
+      </div>
+    </div>
+  </div>
 </template>
 
 
@@ -74,9 +74,7 @@ export default {
   align-items: center;
   background-color: rgba(77, 73, 91, 0.3);
   z-index: 99;
-
-}
-  .sjh {
+  & .ql {
     width: 630rpx;
     max-height: 598rpx;
     min-height: 402rpx;
@@ -84,6 +82,8 @@ export default {
     border-radius: 4rpx;
     box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
   }
+}
+
 .title {
   margin-top: 60rpx;
   font-size: 32rpx;

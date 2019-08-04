@@ -1,35 +1,54 @@
 <template>
   <view class="page">
+    <!-- 增加车辆 -->
     <view class="header">
-      <view class="title">
-        停车缴费
+      <div
+        class="tool-bar"
+        style="background-color: #ffffff"
+        :style="{
+          height: tool_height + 'px',
+        }"
+      />
+      <div
+        :style="{
+          height: title_height + 'px',
+        }"
+        class="addCar_header"
+      >
+        <view
+          :style="{
+            'height': title_height + 'px',
+          }"
+          class="flex a-center"
+        >
+          停车小程序
+        </view>
+      </div>
+      <view
+        class=""
+      >
+        <img
+          class="header-bg_img"
+          src="/static/png/bgone.png"
+          alt=""
+        >
       </view>
-      <view class="title">
-        <div class="container flex column grow">
-          <div class="my_info times center flex a-center">
-            {{ formatTimer }}
-          </div>
-        </div>
-      </view>
-    </view>
-    <view class="header-bg">
-      <div class="noFound flex column">
-        <span class="flex center">请添加真实有效的车牌号码</span>
-        <div class="flex car_block">
+      <div class="car_btn flex column center">
+        <div class="flex column car_block">
           <keyboard
+            class="kb"
             :plate-num.sync="plateNum"
             :show.sync="showKeyboard"
-            :extra-key="立即开通"
-            :province="闽"
+            extra-key="查询缴费"
             base-border="1AAD19"
             @keyboard="keyboardChange"
           />
-          <div
-            class="flex center lightButton"
-            @click="keyboardChange"
-          >
-            添加车辆
-          </div>
+        </div>
+        <div
+          class="flex center lightButton"
+          @click="openKeyBoard"
+        >
+          下一步
         </div>
       </div>
     </view>
@@ -46,6 +65,10 @@ export default {
     return {
       showKeyboard: false,
       plateNum: "",
+      tool_height: "",
+      statusbarHeight: "",
+      title_height: "",
+ 
     };
   },
   methods: {
@@ -80,65 +103,93 @@ export default {
         });
     }
   },
+  onShow(){
+          let res = wx.getSystemInfoSync();
+      console.log('res: ', res);
+      // 导航栏总高度 & 占位块高度
+      // {
+      //       'iPhone': 64,
+      //       'iPhoneX': 88,
+      //       'Android': 68,
+      //       'samsung': 72
+      // }
+      let isiOS = res.system.indexOf('iOS') > -1 
+      let totalBar;             
+      if (!isiOS) { 
+          const model = res.model;
+          if(model.match("samsung")){
+            totalBar = 34;            
+            } else{
+            totalBar = 36;            
+          }          
+        } else {    
+          const model = res.model;
+          if(model.match("iPhone X")){
+              totalBar = 44;            
+          }  else{
+              totalBar = 32;            
+          }          
+      }   
+
+      // 时间、信号等工具栏的高度
+      let toolBar = res.statusBarHeight
+      this.tool_height = res.statusBarHeight;
+      console.log("title_height: ", this.title_height);
+      console.log('toolBar: ', toolBar);
+      // 页面title栏的高度
+      this.title_height = totalBar*2 - toolBar;
+  }
 };
 </script>
 
 <style scoped lang="less">
-.header {
-  height: 450rpx;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  background: #1aad19;
-  z-index: 3;
-  .title {
-    line-height: 160rpx;
-    text-align: center;
-  }
-  .times{
-    font-size: 108rpx;
-    color: white
-  }
+
+.addCar_header {
+width: 100%;
+background: #ffffff;
+z-index: 3;
 }
+
 .header-bg {
-  height: 450rpx;
-  border-bottom-right-radius: 50%;
-  border-bottom-left-radius: 50%;
-  background: #1aad19;
-  margin-top: 450rpx;
-}
-.noFound {
-  height: 100vh;
-  background: #fff;
-  color: #4d495b;
-  line-height: 52rpx;
-  .desc {
-    margin-top: 100rpx;
-    font-size: 60rpx;
-    font-weight: bold;
-  }
-  img {
-    margin-top: 40rpx;
-    width: 400rpx;
-    height: 400rpx;
+  position: fixed;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  z-index: 3;
+  &_img {
+    width: 100%;
   }
 }
-.newButton {
-  box-sizing: border-box;
-  border: 2rpx solid rgba(189, 189, 192, 0.1);
+.title {
+text-align: center;
+color: #ffffff;
 }
-.input {
-  width: 50rpx;
-  border-style: solid;
-  border-width: 2rpx;
-  height: 84rpx;
-  padding-left: 20rpx;
-  background-color: rgba(189, 189, 192, 0.1);
-}
-.wait {
-  font-size: 32rpx;
+.car_btn {
+  position: relative;
+  top: -30rpx;
+  .lightButton {
+    margin-bottom: 20rpx;
+    margin-top: 0rpx;
+    height: 64rpx;
+    position: absolute;
+    top: 120rpx;
+    width: 726rpx;
+  }
 }
 .car_block {
-  padding-left: 40rpx;
+  position: absolute;
+  background-color: #ffffff;
+  width: 726rpx;
+  border-radius: 20rpx;
+  box-shadow: 3rpx 4rpx 6rpx rgba(1,191,135,0.7);
 }
+.kb {
+  .kb-keyboard {
+    .kb-keyboard__panle {
+      bottom: 150rpx;
+    }
+  }
+}
+
 </style>

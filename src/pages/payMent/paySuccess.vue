@@ -17,6 +17,7 @@
         :style="{
           height: title_height + 'px'
         }"
+        style="color: white;"
         class="title flex center "
       >
         停车小程序
@@ -26,10 +27,19 @@
       <view>
         <img
           class="header-bg_img"
-          src="/static/png/bgone.png"
+          src="/static/png/bgThree.png"
           alt=""
         >
       </view>
+      <div class="info flex center column">
+        <img
+          class="avatarUrl"
+          src="/static/png/paySuccess.png"
+          mode="scaleToFill"
+        >
+        <span class="paySuceess">缴费成功</span>
+        <!-- <div>温馨提示： 请在{{}} 前驶离停车场，超时将产生新的费用</div> -->
+      </div>  
       <div
         v-if="car"
         class="flex card column"
@@ -38,26 +48,21 @@
           class="flex cancel center "
           @click="cancel(item.carno)"
         >
-          <span class="formatTimer">
-            {{ formatTimer }}
-          </span>
-          <span class="carStatus">{{ car.status ? "(已入场)" : "(未入场)" }}</span>
+          <span class="formatTimer" />
+        </div>
+        <div class="block_div payDiv flex  center ">
+          <span class=" payCount grow">停车费用</span>
+          <div class="right money">
+            <span class="rmb">¥</span>
+            <span>{{ Number.parseFloat(car.money).toFixed(2) || "暂无" }}</span>
+          </div>
         </div>
         <div class="flex j-between block_div">
-          <div class="flex carPhone center">
-            <div class="carPhone_carno">
-              {{ car.carno }}
-            </div>
-          </div>
-          <div
-            class="checkCarno lightButton"
-            @click="onRun"
-          >
-            切换车牌
-          </div>
+          <span class="left grow">车牌号码</span>
+          <span class="right">{{ car.carno || "暂无" }}</span>
         </div>
         <div class="block_div flex  center ">
-          <span class="left grow">停车场</span>
+          <span class="left grow">停车地点</span>
           <span class="right">{{ car.address || "暂无" }}</span>
         </div>
         <div class="block_div flex  center ">
@@ -65,12 +70,13 @@
           <span class="right">{{ car.startts || "暂无" }}</span>
         </div>
         <div class="block_div flex  center ">
-          <span class=" left grow">应付</span>
-          <div class="right money">
-            <span class="rmb">¥</span>
-            <span>{{ Number.parseFloat(car.money).toFixed(2) || "暂无" }}</span>
-          </div>
+          <span class=" left grow">付款时间</span>
+          <span class="right">{{ car.startts || "暂无" }}</span>
         </div>
+        <div class="block_div flex  center ">
+          <span class=" left grow">停车时长</span>
+          <span class="right">{{ formatTimer || "暂无" }}</span>
+        </div>        
       </div>
       <div
         v-else
@@ -87,9 +93,9 @@
         <button
           class="submit"
           form-type="submit"
-          @click="pay"
+          @click="onReturn"
         >
-          确认支付
+          回到首页
         </button>
       </form>
     </div>
@@ -198,41 +204,8 @@ export default {
     onRun() {
       this.$router.push({ path: "/pages/home/index" });
     },
-    async pay(e) {
-      wx.showLoading({
-        title: "",
-        mask: true
-      });
-      let openid = "";
-      const formid = this.formid;
-      const orderid = this.orderid;
-      if (!formid || !orderid) {
-        return wx.showToast({
-          icon: "none",
-          title: "订单异常"
-        });
-      }
-      let orederRes = await this.$request.post("pay.html", { orderid, formid });
-
-      let order = orederRes.result.pay;
-      if (order) {
-        const prepayid = `prepay_id=${order.prepayid}`;
-        wx.requestPayment({
-          timeStamp: order.timestamp, //时间戳
-          nonceStr: order.noncestr, //随即串
-          package: prepayid, //数据包
-          signType: order.signType, //签名方式
-          paySign: order.sign,
-          success(res) {
-            this.$router.push({
-              path: "/pages/payMent/paySuccess"
-            });
-          },
-          fail(res) {
-            console.log("res: ", res);
-          }
-        });
-      }
+    onReturn(){
+      this.$router.push({ path: "/pages/home/index" });
     }
   },
   onShow() {
@@ -303,17 +276,19 @@ export default {
   border-radius: 25px;
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
+  & .avatarUrl {
+      display: block;
+      border-radius: 50%;
+      height: 150rpx;
+      width: 150rpx;
+      margin: 60rpx auto 44rpx;
+    }
 }
 .carPhone {
   margin-left: 20rpx;
 }
 .card {
-  position: relative;
-  top: -120rpx;
-  margin: 40rpx 20rpx;
   background-color: #ffffff;
-  box-shadow: 3rpx 4rpx 6rpx 3rpx rgba(1, 191, 135, 0.7);
-  border-radius: 20rpx;
   .cancel {
     font-size: 64rpx;
     padding-top: 30rpx;
@@ -325,6 +300,13 @@ export default {
       font-size: 32rpx;
       
     }
+  }
+}
+
+.info{
+  & .paySuceess{
+    font-size: 32rpx;
+    color: #04bb05
   }
 }
 
@@ -380,6 +362,11 @@ export default {
 .header-bg_img {
   width: 100%;
 }
+.payDiv{
+  border-bottom-color: #e5e5e5;
+  border-bottom-style: solid;
+  border-bottom-width: 2rpx;
+}
 .block_div {
   margin: 30rpx 0;
   & .checkCarno {
@@ -389,21 +376,29 @@ export default {
     margin: 0 30rpx 0 54rpx;
 
   }
+  & .payCount{
+    font-size: 32rpx;
+    margin-left: 30rpx;
+
+    color: #3333333
+  }
   & .left{
     margin-left: 30rpx;
-    color: #01bf99;
-    font-size: 32rpx;
+    color: #99999999;
+    font-size: 24rpx;
   }
   & .right{
     margin-right: 30rpx;
     font-size:32rpx;
+    color: #99999999;
+
   }
     
   & .money{
     font-size: 48rpx;
     color:#ff243e;
     & .rmb{
-      font-size: 34rpx;
+      font-size: 32rpx;
       margin-right: 5rpx;
     }
   }
