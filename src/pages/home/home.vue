@@ -59,7 +59,7 @@
             @tap="joinGroup"
           >
             <image
-              class="iconfont"
+              class="iconfontBig"
               src="/static/png/paybag.png"
             />
             <span class="my_function_item_text">钱包</span>
@@ -70,7 +70,7 @@
             @click="ticket"
           >
             <image
-              class="iconfont"
+              class="iconfontBig"
               src="/static/png/stopRecord.png"
             />
             <span class="my_function_item_text">停车记录</span>
@@ -81,7 +81,7 @@
             @click="ticket"
           >
             <image
-              class="iconfont"
+              class="iconfontBig"
               src="/static/png/account.png"
             />
             <span class="my_function_item_text">账单</span>
@@ -91,7 +91,7 @@
             @click="joinGroup"
           >
             <image
-              class="iconfont"
+              class="iconfontBig"
               src="/static/png/wantPay.png"
             />
             <span class="my_function_item_text">我要缴费</span>
@@ -245,7 +245,7 @@
             }"
             class="title flex center "
           >
-            停车小程序
+            我的
           </view>
         </div>
         <div class="my_info flex j-start">
@@ -282,7 +282,7 @@
 
         <session class="my_function flex">
           <button
-            class="my_function_item_button flex column center"
+            class="my_function_item_button flex column center payAccount"
             @tap="joinGroup"
           >
             <!-- <image
@@ -290,7 +290,7 @@
               src="/static/png/moment.png"
             /> -->
             <div class="paycount">
-              0
+              0.00
             </div>
             <span class="my_function_item_text">账户余额</span>
           </button>
@@ -299,10 +299,13 @@
             class="my_function_item_button flex column center"
             @click="ticket"
           >
-            <image
+            <!-- <image
               class="iconfont"
               src="/static/png/ticket.png"
-            />
+            /> -->
+            <div class="paycount">
+              0
+            </div>
             <span class="my_function_item_text">停车券</span>
           </button>
 
@@ -315,19 +318,19 @@
               src="/static/png/badge.png"
             /> -->
             <div class="paycount">
-              0
+              0.00
             </div>
             <span class="my_function_item_text">积分</span>
           </button>
           <button
-            class="my_function_item_button flex column center"
+            class="my_function_item_button flex column center paybag"
             @click="joinGroup"
           >
             <image
               class="iconfont"
               src="/static/png/pay_active.png"
             />
-            <span class="my_function_item_text">我的钱包</span>
+            <span class="my_function_item_text ">我的钱包</span>
           </button>
         </session>
 
@@ -763,14 +766,14 @@ export default {
 }
 
 .home_function {
-  height: 172rpx;
+  height: 180rpx;
   margin: 40rpx 0rpx;
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
   &_item {
     background-color: #ffffff;
     &_button {
-      height: 172rpx;
+      height: 180rpx;
       color: #4d495b;
     }
     &_text {
@@ -780,21 +783,26 @@ export default {
   }
 }
 .my_function {
-  height: 172rpx;
+  height: 180rpx;
   position: relative;
   top: -120rpx;
   margin: 40rpx 40rpx;
   background-color: #ffffff;
   box-shadow: 3rpx 4rpx 6rpx 3rpx rgba(1, 191, 135, 0.7);
   border-radius: 20rpx;
+
   &_item {
     background-color: #ffffff;
     &_button {
-      height: 172rpx;
+      height: 180rpx;
       color: #4d495b;
+      & .iconfontBig{
+        width: 88rpx;
+        height: 88rpx;
+      }
       .paycount {
         line-height: 36rpx;
-        font-size: 72rpx;
+        font-size: 36rpx;
         margin-bottom: 10rpx;
         color: #333333;
       }
@@ -805,6 +813,14 @@ export default {
       color: #4d495b;
     }
   }
+  & .payAccount{
+       border-top-left-radius: 20px;
+       border-bottom-left-radius: 20px;
+    }
+    & .paybag{
+       border-top-right-radius: 20px;
+       border-bottom-right-radius: 20px;
+    }
 }
 .card {
   box-shadow: 3rpx 4rpx 6rpx 3rpx rgba(1, 191, 135, 0.7);
@@ -1099,6 +1115,7 @@ export default {
   .title {
     text-align: center;
     color: #ffffff;
+    font-size: 32rpx;
   }
   .times {
     font-size: 108rpx;

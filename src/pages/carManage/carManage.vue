@@ -123,9 +123,7 @@ export default {
 .my_info {
   min-height: 326rpx;
   margin: 0rpx 0rpx;
-  border-radius: 25px;
   background-color: #ffffff;
-  box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
   &_user {
     &_badgeBtn {
       padding: 0;
@@ -163,10 +161,9 @@ export default {
     border-bottom-style: solid;
     border-bottom-color: #bdbdc0;
     .cancel{
-    font-size: 64rpx;
+    font-size: 32rpx;
     color: #999999;
-
-
+    margin-right: 30rpx;
     }
   }
   .carPhone {

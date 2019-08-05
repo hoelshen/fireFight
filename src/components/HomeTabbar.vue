@@ -15,12 +15,12 @@
         <image
           v-show="tab == 'home'"
           class="icon"
-          src="/static/png/home_active.png"
+          src="/static/png/home.png"
         />
         <image
           v-show="tab != 'home'"
           class="icon"
-          src="/static/png/home.png"
+          src="/static/png/home_active.png"
         />
       </button>
       <span class="flex center">首页</span>
