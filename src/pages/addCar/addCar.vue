@@ -39,6 +39,7 @@
             :plate-num.sync="plateNum"
             :show.sync="showKeyboard"
             extra-key="查询缴费"
+            base-border="d6d6d6"
             @keyboard="keyboardChange"
           />
         </div>

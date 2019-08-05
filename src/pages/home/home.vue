@@ -478,6 +478,7 @@ export default {
         query: this.$mp.query
       });
     }
+
     this.getScroll();
     this.onTabChange(this.tab); 
     wx.getSetting({
@@ -500,6 +501,7 @@ export default {
   methods: {
     onTabChange(tab = "home") {
       this.tab = tab;
+
       if (this.tab === "home") {
         this.getBanners();
       }
@@ -508,14 +510,12 @@ export default {
       if (this.tab === "mine") {
         this.$request.getUser().then(res => {
           if (res) {
-            console.log("res: ", res);
             this.user.aliasPortrait = res.portrait;
             this.user.phoneNumber = res.mobile;
           }
         });
       }
       let res = wx.getSystemInfoSync();
-      console.log("res: ", res);
       // 导航栏总高度 & 占位块高度
       // {
       //       'iPhone': 64,
@@ -544,8 +544,6 @@ export default {
       // 时间、信号等工具栏的高度
       let toolBar = res.statusBarHeight;
       this.tool_height = res.statusBarHeight;
-      console.log("title_height: ", this.title_height);
-      console.log("toolBar: ", toolBar);
       // 页面title栏的高度
       this.title_height = totalBar * 2 - toolBar;
     },
@@ -553,10 +551,13 @@ export default {
       this.$request.auth(e.detail);
     },
     async getBanners() {
-      const res = await this.$request.post("/index.html");
-      if (res && res.result) {
-        this.banners = res.result.banners;
-        this.cars = res.result.items;
+      const res1 = await this.$request.post("/index.html");
+      const res2 = await this.$request.post('/indexitems.html');
+      if (res1 && res1.result) {
+        this.banners = res1.result.banners;
+      } 
+      if(res2 && res2.result){
+        this.cars = res2.result.items;
       }
     },
     toShare() {

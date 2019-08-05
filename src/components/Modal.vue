@@ -49,7 +49,7 @@ export default {
       this.isShowModal = false;
     },
 
-    clickMask() {
+    clickMask() { 
       this.isShowModal = false;
       this.value = {
         title: "",

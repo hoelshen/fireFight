@@ -105,7 +105,7 @@ async function login(data) {
 
   openid = getApp().globalData.openid;
   portrait = data.userInfo.avatarUrl
-  nickname = data.userInfo.nickname
+  nickname = data.userInfo.nickName
   fly.post("/user/login.html", {
       openid,
       portrait,
@@ -114,7 +114,6 @@ async function login(data) {
       lng
     })
     .then(res => {
-      console.log('res: ', res.result);
       fly.config.headers["tokenCode"] = tokenCode = res.result.tokenCode;
       fly.config.headers["tokenInfo"] = tokenInfo = res.result.tokenInfo;
 
