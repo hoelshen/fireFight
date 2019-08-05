@@ -70,17 +70,11 @@ export default {
         .then(res => {
           this.autoPhone = false
           this.form.phoneNumber = res.result.mobile;
-          this.$request.post('/user/phone', { mobile:this.form.phoneNumber}).then((res) => {
-            wx.showToast({
-              title: "绑定成功"
-            });
+          const phoneNumber = this.form.phoneNumber;
             return this.$router.push({
-              path: "/pages/home/index"
+              query: { phoneNumber },
+              path: "/pages/bindPhone/detail"
             })
-          }).catch(err=>{
-            console.log('err: ', err);
-            return
-          })
         })
         .catch(err => {
           return wx.showToast({

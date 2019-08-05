@@ -1,11 +1,12 @@
 <template>
   <div
-    v-if="isShowModal"
-    class="modal"
+    v-show="isShowModal"
+    :class="`${isShowModal ? 'modal' : '' }` "
     @click="clickMask"
   >
     <div
-      class="ql flex column center"
+      v-show="isShowModal"
+      class="card flex column center"
       @tap.stop="stopkMask"
     >
       <div class="title">
@@ -13,7 +14,7 @@
       </div>
       <div class="btn">
         <button
-          class="rightButton"
+          class="lightButton rightButton"
           open-type="getUserInfo"
           lang="zh_CN"
           @getuserinfo="onGotUserInfo"
@@ -74,12 +75,13 @@ export default {
   align-items: center;
   background-color: rgba(77, 73, 91, 0.3);
   z-index: 99;
-  & .ql {
+  .card {
     width: 630rpx;
     max-height: 598rpx;
     min-height: 402rpx;
     background-color: #ffffff;
     border-radius: 4rpx;
+    border-radius: 25rpx;
     box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
   }
 }
@@ -93,6 +95,11 @@ export default {
 .btn {
   margin-top: 64rpx;
 }
+  .lightButton {
+    height: 64rpx;
+    padding: 0 80rpx;
+    font-size: 32rpx;
+  }
 .content {
   margin: 40rpx 40rpx 20rpx;
   white-space: normal;

@@ -233,11 +233,11 @@ export default {
           package: prepayid, //数据包
           signType: order.signType, //签名方式
           paySign: order.sign,
-          success(res) {
+          success:function(res) {
             this.$router.push({
               path: "/pages/payMent/paySuccess"
             });
-          },
+          }.bind(this),
           fail(res) {
             console.log("res: ", res);
           }

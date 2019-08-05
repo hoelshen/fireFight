@@ -41,9 +41,9 @@
       </div>
       <div class="flex column textAdd center">
         <button
-          class="lightButton flex center"
-          @click="submit"
-        >
+class="lightButton flex center"
+                @click="submit"
+>
           完成
         </button>
       </div>
@@ -59,7 +59,7 @@ import { promisify } from "@/utils/index";
 
 export default {
   components: {
-    Modal,
+    Modal
   },
   mixins: [shareMix],
   data() {
@@ -80,46 +80,49 @@ export default {
   methods: {
     bindCodeOne(e) {
       this.codeOne = e.detail.value;
-      this.focusTwo = true
+      this.focusTwo = true;
     },
     bindCodeTwo(e) {
       this.codeTwo = e.detail.value;
-      this.focusThree = true
+      this.focusThree = true;
     },
     bindCodeThree(e) {
       this.codeThree = e.detail.value;
-      this.focusFour = true
+      this.focusFour = true;
     },
     bindCodeFour(e) {
       this.codeFour = e.detail.value;
     },
     blurCodeOne(e) {
-      this.focusTwo = true
+      this.focusTwo = true;
     },
     blurCodeTwo(e) {
-      this.focusThree = true
+      this.focusThree = true;
     },
     blurCodeThree(e) {
-      this.focusFour = true
+      this.focusFour = true;
     },
     blurCodeFour(e) {
-      this.focusTwo = true
+      this.focusTwo = true;
     },
     submit() {
       const { phoneNumber, codeOne, codeTwo, codeThree, codeFour } = this;
       if (codeOne && codeTwo && codeThree && codeFour) {
-        const code = codeOne + codeTwo + codeThree + codeFour
-        this.$request.put('/user/bindPhone.html', { mobile:phoneNumber , smscode:code }).then((res) => {
-          wx.showToast({
-            title: "绑定成功"
-          });
-          return this.$router.push({
-            path: "/pages/home/index"
+        const code = codeOne + codeTwo + codeThree + codeFour;
+        this.$request
+          .put("/user/bindPhone.html", { mobile: phoneNumber, smscode: code })
+          .then(res => {
+            wx.showToast({
+              title: "绑定成功"
+            });
+            return wx.reLaunch({
+              url: "/pages/home/index"
+            });
           })
-        }).catch(err => {
-          console.log('err: ', err);
-          return
-        })
+          .catch(err => {
+            console.log("err: ", err);
+            return;
+          });
       } else {
         wx.showToast({
           icon: "none",
@@ -129,8 +132,10 @@ export default {
     }
   },
   onShow() {
-    const { currentRoute: { query } } = this.$router;
-    this.phoneNumber = query.phoneNumber
+    const {
+      currentRoute: { query }
+    } = this.$router;
+    this.phoneNumber = query.phoneNumber;
     this.focusOne = true;
   }
 };
@@ -173,5 +178,6 @@ export default {
 }
 .lightButton {
   padding: 0rpx 130rpx;
+  font-size: 32rpx;
 }
 </style>

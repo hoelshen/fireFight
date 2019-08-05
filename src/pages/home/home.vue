@@ -182,7 +182,7 @@
             :style="{
               height: title_height + 'px'
             }"
-            style="color:#ffffff"
+            style="color:#ffffff;font-size: 32rpx;"
             class="mail_title flex center"
           >
             停车小程序
@@ -479,7 +479,7 @@ export default {
       });
     }
     this.getScroll();
-    this.onTabChange(this.tab);
+    this.onTabChange(this.tab); 
     wx.getSetting({
       success: function(res) {
         if (res.authSetting["scope.userInfo"]) {
@@ -490,7 +490,9 @@ export default {
             }
           });
         } else {
-          this.$refs.mymodal.show();
+          this.$refs.mymodal.show({
+            age:1
+          });
         }
       }.bind(this)
     });
@@ -843,7 +845,6 @@ export default {
     height: 64rpx;
     margin: 40rpx;
     font-size: 32rpx;
-
   }
   .carItem {
     padding: 30rpx;
@@ -1053,7 +1054,6 @@ export default {
   position: relative;
   top: -30rpx;
   font-size: 32rpx;
-  
   .lightButton {
     margin-bottom: 20rpx;
     margin-top: 0rpx;
@@ -1062,7 +1062,6 @@ export default {
     top: 120rpx;
     width: 726rpx;
     font-size: 32rpx;
-
   }
 }
 .car_block {
@@ -1087,6 +1086,8 @@ export default {
   .title {
     text-align: center;
     color: #ffffff;
+    font-size: 32rpx;
+
   }
   .times {
     font-size: 108rpx;
@@ -1101,6 +1102,8 @@ export default {
   .title {
     text-align: center;
     color: #ffffff;
+    font-size: 32rpx;
+
   }
   .times {
     font-size: 108rpx;

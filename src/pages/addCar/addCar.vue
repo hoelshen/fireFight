@@ -6,27 +6,25 @@
         class="tool-bar"
         style="background-color: #ffffff"
         :style="{
-          height: tool_height + 'px',
+          height: tool_height + 'px'
         }"
       />
       <div
         :style="{
-          height: title_height + 'px',
+          height: title_height + 'px'
         }"
         class="addCar_header"
       >
         <view
           :style="{
-            'height': title_height + 'px',
+            height: title_height + 'px'
           }"
           class="flex a-center"
         >
           停车小程序
         </view>
       </div>
-      <view
-        class=""
-      >
+      <view class="">
         <img
           class="header-bg_img"
           src="/static/png/bgone.png"
@@ -67,8 +65,7 @@ export default {
       plateNum: "",
       tool_height: "",
       statusbarHeight: "",
-      title_height: "",
- 
+      title_height: ""
     };
   },
   methods: {
@@ -89,13 +86,15 @@ export default {
       }
     },
     async navCar() {
-        this.$request
+      this.$request
         .post("/bindcar.html", { carno: this.plateNum })
         .then(res => {
           wx.showToast({
             title: "绑定成功"
           });
-         this.$router.push({ path: "/pages/home/index" });
+          wx.reLaunch({
+            url: "/pages/home/index"
+          });
         })
         .catch(err => {
           console.log("err: ", err);
@@ -103,51 +102,50 @@ export default {
         });
     }
   },
-  onShow(){
-          let res = wx.getSystemInfoSync();
-      console.log('res: ', res);
-      // 导航栏总高度 & 占位块高度
-      // {
-      //       'iPhone': 64,
-      //       'iPhoneX': 88,
-      //       'Android': 68,
-      //       'samsung': 72
-      // }
-      let isiOS = res.system.indexOf('iOS') > -1 
-      let totalBar;             
-      if (!isiOS) { 
-          const model = res.model;
-          if(model.match("samsung")){
-            totalBar = 34;            
-            } else{
-            totalBar = 36;            
-          }          
-        } else {    
-          const model = res.model;
-          if(model.match("iPhone X")){
-              totalBar = 44;            
-          }  else{
-              totalBar = 32;            
-          }          
-      }   
+  onShow() {
+    let res = wx.getSystemInfoSync();
+    console.log("res: ", res);
+    // 导航栏总高度 & 占位块高度
+    // {
+    //       'iPhone': 64,
+    //       'iPhoneX': 88,
+    //       'Android': 68,
+    //       'samsung': 72
+    // }
+    let isiOS = res.system.indexOf("iOS") > -1;
+    let totalBar;
+    if (!isiOS) {
+      const model = res.model;
+      if (model.match("samsung")) {
+        totalBar = 34;
+      } else {
+        totalBar = 36;
+      }
+    } else {
+      const model = res.model;
+      if (model.match("iPhone X")) {
+        totalBar = 44;
+      } else {
+        totalBar = 32;
+      }
+    }
 
-      // 时间、信号等工具栏的高度
-      let toolBar = res.statusBarHeight
-      this.tool_height = res.statusBarHeight;
-      console.log("title_height: ", this.title_height);
-      console.log('toolBar: ', toolBar);
-      // 页面title栏的高度
-      this.title_height = totalBar*2 - toolBar;
+    // 时间、信号等工具栏的高度
+    let toolBar = res.statusBarHeight;
+    this.tool_height = res.statusBarHeight;
+    console.log("title_height: ", this.title_height);
+    console.log("toolBar: ", toolBar);
+    // 页面title栏的高度
+    this.title_height = totalBar * 2 - toolBar;
   }
 };
 </script>
 
 <style scoped lang="less">
-
 .addCar_header {
-width: 100%;
-background: #ffffff;
-z-index: 3;
+  width: 100%;
+  background: #ffffff;
+  z-index: 3;
 }
 
 .header-bg {
@@ -162,8 +160,8 @@ z-index: 3;
   }
 }
 .title {
-text-align: center;
-color: #ffffff;
+  text-align: center;
+  color: #ffffff;
 }
 .car_btn {
   position: relative;
@@ -175,6 +173,7 @@ color: #ffffff;
     position: absolute;
     top: 120rpx;
     width: 726rpx;
+    font-size: 32rpx;
   }
 }
 .car_block {
@@ -182,7 +181,7 @@ color: #ffffff;
   background-color: #ffffff;
   width: 726rpx;
   border-radius: 20rpx;
-  box-shadow: 3rpx 4rpx 6rpx rgba(1,191,135,0.7);
+  box-shadow: 3rpx 4rpx 6rpx rgba(1, 191, 135, 0.7);
 }
 .kb {
   .kb-keyboard {
@@ -191,5 +190,4 @@ color: #ffffff;
     }
   }
 }
-
 </style>

@@ -226,6 +226,7 @@ export default {
 .lightButton {
   height: 64rpx;
   margin: 40rpx;
+  font-size: 32rpx;
 }
 .header-bg_img{
   width: 100%

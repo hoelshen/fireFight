@@ -201,11 +201,10 @@ export default {
     paySubmit(e) {
       this.formid = e.detail.formId;
     },
-    onRun() {
-      this.$router.push({ path: "/pages/home/index" });
-    },
     onReturn(){
-      this.$router.push({ path: "/pages/home/index" });
+            wx.reLaunch({
+        url: "/pages/home/index"
+      });
     }
   },
   onShow() {
