@@ -774,6 +774,7 @@ export default {
     background-color: #ffffff;
     &_button {
       height: 180rpx;
+      width: 184rpx;
       color: #4d495b;
     }
     &_text {
@@ -865,6 +866,7 @@ export default {
   .autopay {
     width: 100rpx;
     height: 50rpx;
+    margin-bottom: 10rpx;
   }
   &_item {
     &_button {
