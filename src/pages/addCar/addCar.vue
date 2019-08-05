@@ -39,7 +39,6 @@
             :plate-num.sync="plateNum"
             :show.sync="showKeyboard"
             extra-key="查询缴费"
-            base-border="1AAD19"
             @keyboard="keyboardChange"
           />
         </div>
@@ -134,8 +133,7 @@ export default {
     // 时间、信号等工具栏的高度
     let toolBar = res.statusBarHeight;
     this.tool_height = res.statusBarHeight;
-    console.log("title_height: ", this.title_height);
-    console.log("toolBar: ", toolBar);
+    
     // 页面title栏的高度
     this.title_height = totalBar * 2 - toolBar;
   }
