@@ -7,51 +7,62 @@
       >
         <div
           :style="'border-color:'+baseBorder"
+          style="background-color: #F5F5F5"
           class="kb-input__li"
         >
           {{ textBaseArr[0] }}
         </div>
         <div
+          style="background-color: #F5F5F5"
           :style="'border-color:'+baseBorder"
           class="kb-input__li"
         >
           {{ textBaseArr[1] }}
         </div>
-        <div class="kb-dot flex center">
-          ·
-        </div>
         <div
           :style="'border-color:'+baseBorder"
+          style="background-color: #F5F5F5"
+
           class="kb-input__li"
         >
           {{ textBaseArr[2] }}
         </div>
         <div
           :style="'border-color:'+baseBorder"
+          style="background-color: #F5F5F5"
+
           class="kb-input__li"
         >
           {{ textBaseArr[3] }}
         </div>
         <div
           :style="'border-color:'+baseBorder"
+          style="background-color: #F5F5F5"
+
           class="kb-input__li"
         >
           {{ textBaseArr[4] }}
         </div>
         <div
           :style="'border-color:'+baseBorder"
+          style="background-color: #F5F5F5"
+
           class="kb-input__li"
         >
           {{ textBaseArr[5] }}
         </div>
         <div
           :style="'border-color:'+baseBorder"
+          style="background-color: #F5F5F5"
+
           class="kb-input__li"
         >
           {{ textBaseArr[6] }}
         </div>
         <div
           :style="'border-color:'+baseBorder"
+          style="background-color: #F5F5F5"
+
           class="kb-input__li"
           :class="isEnergy ? 'kb-input__new-energy' : ''"
           @tap="energy(7)"
@@ -262,6 +273,10 @@ export default {
       this.$emit("keyboard", textValue);
     },
     energy(index) {
+      console.log('index: ', index);
+      console.log('this.isEnergy: ', this.isEnergy);
+      console.log('this.isEnergy: ', this.textArr.length);
+
       if (index === 7 && this.isEnergy && this.textArr.length === 7) {
         this.isEnergy = false;
       }
@@ -291,11 +306,9 @@ export default {
   z-index: 999;
 }
 .kb-input__li {
-  border-color: #1AAD19;
   color: #333333;
-  font-size: bold;
-background-color: rgb(238,238,238);
-
+  font-size: 54rpx;
+  background-color:#d6d6d6;
   display: flex;
   display: -webkit-flex;
   flex-direction: row;

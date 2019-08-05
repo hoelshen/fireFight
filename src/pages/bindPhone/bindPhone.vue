@@ -162,6 +162,7 @@ button.countdown {
 
 button.lightButton {
   height: 92rpx;
+  font-size: 32rpx;
   padding: 26rpx 102rpx;
 }
 .towast {

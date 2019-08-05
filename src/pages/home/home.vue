@@ -183,7 +183,7 @@
               height: title_height + 'px'
             }"
             style="color:#ffffff"
-            class="mail_title flex a-center"
+            class="mail_title flex center"
           >
             停车小程序
           </view>
@@ -202,7 +202,7 @@
               :plate-num.sync="plateNum"
               :show.sync="showKeyboard"
               extra-key="查询缴费"
-              base-border="1AAD19"
+              base-border="01bf99"
               @keyboard="keyboardChange"
             />
           </div>
@@ -703,7 +703,7 @@ export default {
   & button {
     height: 92rpx;
     padding: 0 40rpx;
-    border: 1px solid #1aad19;
+    border: 1px solid #01bf99;
     border-radius: 46px;
     font-size: 28rpx;
   }
@@ -825,6 +825,8 @@ export default {
     margin-top: 0rpx;
     height: 64rpx;
     margin: 40rpx;
+    font-size: 32rpx;
+
   }
   .carItem {
     padding: 30rpx;
@@ -877,7 +879,7 @@ export default {
 .my_share {
   margin: 40rpx 60rpx;
   & button {
-    border: 2rpx #1aad19 solid;
+    border: 2rpx #01bf99 solid;
     border-radius: 46px;
     height: 92rpx;
     width: 316rpx;
@@ -1002,7 +1004,7 @@ export default {
   margin: auto;
   margin-bottom: 60rpx;
   & button {
-    background-color: #1aad19;
+    background-color: #01bf99;
     color: #ffffff;
     border-radius: 23px;
   }
@@ -1032,6 +1034,8 @@ export default {
 .car_btn {
   position: relative;
   top: -30rpx;
+  font-size: 32rpx;
+  
   .lightButton {
     margin-bottom: 20rpx;
     margin-top: 0rpx;
@@ -1039,6 +1043,8 @@ export default {
     position: absolute;
     top: 120rpx;
     width: 726rpx;
+    font-size: 32rpx;
+
   }
 }
 .car_block {

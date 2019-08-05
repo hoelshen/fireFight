@@ -17,6 +17,7 @@
         :style="{
           height: title_height + 'px'
         }"
+        style="color:white"
         class="title flex center "
       >
         停车小程序
@@ -31,7 +32,7 @@
         >
       </view>
       <div
-        v-if="car"
+        v-if="car.carno"
         class="flex card column"
       >
         <div
@@ -74,6 +75,7 @@
       </div>
       <div
         v-else
+        style="margin:30rpx"
         class="flex center"
       >
         暂无数据
@@ -81,6 +83,7 @@
     </div>
     <div class="flex center lightButton">
       <form
+        v-if="car.carno"
         report-submit="true"
         @submit="paySubmit"
       >
@@ -92,6 +95,13 @@
           确认支付
         </button>
       </form>
+      <button
+        v-else
+        class="submit"
+        @click="onRun"
+      >
+        返回首页
+      </button>      
     </div>
   </view>
 </template>
@@ -283,7 +293,6 @@ export default {
         }
         const length = res.result.items.length - 1;
         this.car = res.result.items[length];
-        console.log("this.car: ", this.car);
         this.orderid = res.result.items[length].id;
       })
       .catch(err => {
