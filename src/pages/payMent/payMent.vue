@@ -20,7 +20,7 @@
         style="color:white"
         class="title flex center "
       >
-        停车小程序
+        美停
       </view>
     </div>
     <div class="my_info flex column">
@@ -388,6 +388,7 @@ export default {
 }
 .header-bg_img {
   width: 100%;
+  height: 320rpx;
 }
 .block_div {
   margin: 30rpx 0;

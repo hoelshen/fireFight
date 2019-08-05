@@ -70,6 +70,11 @@
         class="flex center lightButton"
         @click="addCar"
       >
+        <image
+          style="margin-right: 20rpx"
+          class="iconfont"
+          src="/static/png/addCar.png"
+        />
         添加车辆
       </div>
     </scroll-view>

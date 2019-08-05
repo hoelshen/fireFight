@@ -9,7 +9,7 @@ export default {
   config: {
     navigationBarBackgroundColor: '#1AAD19',
     navigationBarTextStyle: 'black',
-    navigationBarTitleText: '停车小程序',
+    navigationBarTitleText: '美停',
     navigationStyle: 'custom',
     backgroundColor: '#ffffff'
   }

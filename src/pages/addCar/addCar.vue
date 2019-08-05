@@ -19,9 +19,10 @@
           :style="{
             height: title_height + 'px'
           }"
-          class="flex a-center"
+          style="margin-left: 30rpx;"
+          class="flex a-center title"
         >
-          停车小程序
+          美停
         </view>
       </div>
       <view class="">
@@ -160,8 +161,8 @@ export default {
   }
 }
 .title {
-  text-align: center;
-  color: #ffffff;
+  color: #2a2a2a;
+  font-size: 32rpx;
 }
 .car_btn {
   position: relative;

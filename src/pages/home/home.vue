@@ -29,7 +29,7 @@
             }"
             class="title flex center "
           >
-            停车小程序
+            美停
           </view>
         </div>
         <swiper
@@ -185,7 +185,7 @@
             style="color:#ffffff;font-size: 32rpx;"
             class="mail_title flex center"
           >
-            停车小程序
+            美停
           </view>
         </div>
         <view class="">

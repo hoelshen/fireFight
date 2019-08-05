@@ -1,5 +1,5 @@
 <template>
-  <view class="page">
+  <view class="page flex column">
     <div
       class="tool-bar"
       style="background-color: #01bf99"
@@ -20,7 +20,7 @@
         style="color: white;"
         class="title flex center "
       >
-        停车小程序
+        美停
       </view>
     </div>
     <div class="my_info flex column">
@@ -360,6 +360,7 @@ export default {
 }
 .header-bg_img {
   width: 100%;
+  height: 320rpx;
 }
 .payDiv{
   border-bottom-color: #e5e5e5;
@@ -404,7 +405,8 @@ export default {
 }
 .submit{
   background-color: #01bf99;
-  color: white
+  color: white;
+  height: 40px;
 }
 </style>
 
