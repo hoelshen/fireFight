@@ -49,4 +49,6 @@ class Event {
     return
   }
 }
-export default Event
+
+const myEvent = new Event();
+export default myEvent;

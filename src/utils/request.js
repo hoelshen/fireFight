@@ -1,14 +1,14 @@
 import flyio from "flyio/dist/npm/wx";
-
+import myEvent from './event';
 import {
   promisify
 } from "@/utils/index";
 
 const environment = "test"; // 配置环境
-
+console.log('wx', wx);
+wx.myEvent = myEvent;
 const fly = new flyio();
 const loginFly = new flyio();
-
 let tokenCode = "",
   tokenInfo = "";
 
@@ -86,15 +86,20 @@ async function login(data) {
   let nickname = "";
   let lat = "";
   let lng = "";
-  const res = await promisify(wx.getLocation, wx)({
-    type: 'wgs84',
-  });
-  lat = (res.latitude).toFixed(2).toString() // 纬度
-  lng = (res.longitude).toFixed(2).toString() // 经度
+  try {
+    const res = await promisify(wx.getLocation, wx)({
+      type: 'wgs84',
+    });
+    lat = (res.latitude).toFixed(2).toString() // 纬度
+    lng = (res.longitude).toFixed(2).toString() // 经度
+  
+    openid = getApp().globalData.openid;
+    portrait = data.userInfo.avatarUrl
+    nickname = data.userInfo.nickName
+  } catch (error) {
+    console.log('error: ', error);
+  }
 
-  openid = getApp().globalData.openid;
-  portrait = data.userInfo.avatarUrl
-  nickname = data.userInfo.nickName
   fly.post("/user/login.html", {
       openid,
       portrait,
@@ -116,11 +121,9 @@ async function login(data) {
       })
 
       fly.post('/indexitems.html').then(res2=>{
-        console.log('res2: ', res2);
         if(res2 && res2.result){
           getApp().globalData.cars = res2.result.items;
-          console.log('wx.event', wx.event.emit());
-          wx.event.emit('testFunc',res2.result.items)
+          wx.myEvent.emit('cars',res2.result.items)
         }
       });
 
@@ -128,7 +131,7 @@ async function login(data) {
     })
     .catch(err => {
       wx.hideLoading();
-    });
+    });   
 }
 
 

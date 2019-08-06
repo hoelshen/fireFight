@@ -100,11 +100,11 @@
 
         <session class="home_contact card flex column">
           <div
-            v-if="updatecars.length >= 1"
+            v-if="cars.length >= 1"
             class="flex column"
           >
             <div
-              v-for="item in updatecars"
+              v-for="item in cars"
               :key="item"
               class="flex carItem j-between"
               @click="toPayMent(item)"
@@ -428,6 +428,7 @@ import HomeTabbar from "@/components/HomeTabbar";
 import Modal from "@/components/Modal";
 import shareMix from "@/mixins/mixin";
 import keyboard from "@/components/keyboard";
+// import myEvent from "@/utils/event";
 export default {
   components: {
     HomeTabbar,
@@ -478,7 +479,9 @@ export default {
         query: this.$mp.query
       });
     }
-
+      wx.myEvent.on("cars", e => {
+        this.cars = e;
+      })
     this.getScroll();
     this.onTabChange(this.tab);
     wx.getSetting({
@@ -498,22 +501,7 @@ export default {
       }.bind(this)
     });
   },
-  computed: {
-    updatecars() {
-      let cars;
-      if(this.cars){
-        cars = this.cars
-      } else{
-      wx.event.on("testFunc", e => {
-        console.log(e)//{id:1}
-        cars = e;
-        console.log('订阅事件')
-      });
-      }
 
-      return cars;
-    }
-  },
   methods: {
     onTabChange(tab = "home") {
       this.tab = tab;
@@ -575,6 +563,9 @@ export default {
       if (res2 && res2.result) {
         this.cars = res2.result.items;
       }
+      // myEvent.on("cars", e => {
+      //   this.cars = e;
+      // });
     },
     toShare() {
       this.$router.push({ path: "/pages/share/share" });
