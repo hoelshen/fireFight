@@ -51,13 +51,6 @@ export default {
 
     clickMask() { 
       this.isShowModal = false;
-      this.value = {
-        title: "",
-        content: "",
-        type: "",
-        sureButtonText: "",
-        confirmButtonText: ""
-      };
     },
     stopkMask() {}
   }

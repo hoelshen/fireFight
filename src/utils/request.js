@@ -1,4 +1,5 @@
 import flyio from "flyio/dist/npm/wx";
+
 import {
   promisify
 } from "@/utils/index";
@@ -78,18 +79,6 @@ async function getOpenid() {
     });
 }
 
-async function fetchLogin(loginUrl) {
-  const res = await loginFly.get(loginUrl)
-  const user = res.data.data
-  fly.config.headers['x-csrf-token'] = token = user._id
-  fly.unlock()
-  wx.setStorage({
-    key: 'token',
-    data: token
-  })
-  return user
-}
-
 async function login(data) {
   getApp().globalData.user = data.userInfo;
   let openid = "";
@@ -126,6 +115,15 @@ async function login(data) {
         data: tokenInfo
       })
 
+      fly.post('/indexitems.html').then(res2=>{
+        console.log('res2: ', res2);
+        if(res2 && res2.result){
+          getApp().globalData.cars = res2.result.items;
+          console.log('wx.event', wx.event.emit());
+          wx.event.emit('testFunc',res2.result.items)
+        }
+      });
+
       return getApp().globalData.user = res.result;
     })
     .catch(err => {
@@ -136,21 +134,9 @@ async function login(data) {
 
 
 fly.interceptors.request.use(async function (request) {
-  console.log('request: ', request);
   request.headers["tokenCode"] = tokenCode = wx.getStorageSync('tokenCode') //永久保存用户账号
 
   request.headers["tokenInfo"] = tokenInfo = wx.getStorageSync('tokenInfo') //永久保存用户账号
-  if (!(request.url).includes('login') || !(request.url).includes('openid')) {
-
-
-    // if (!tokenCode) {
-    //   return fly.lock() // 登录完成
-    // } else {
-    //   fly.unlock()
-    // }
-
-  }
-
 
   return request;
 });

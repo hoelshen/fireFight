@@ -100,11 +100,11 @@
 
         <session class="home_contact card flex column">
           <div
-            v-if="cars.length >= 1"
+            v-if="updatecars.length >= 1"
             class="flex column"
           >
             <div
-              v-for="item in cars"
+              v-for="item in updatecars"
               :key="item"
               class="flex carItem j-between"
               @click="toPayMent(item)"
@@ -480,7 +480,7 @@ export default {
     }
 
     this.getScroll();
-    this.onTabChange(this.tab); 
+    this.onTabChange(this.tab);
     wx.getSetting({
       success: function(res) {
         if (res.authSetting["scope.userInfo"]) {
@@ -492,11 +492,27 @@ export default {
           });
         } else {
           this.$refs.mymodal.show({
-            age:1
+            age: 1
           });
         }
       }.bind(this)
     });
+  },
+  computed: {
+    updatecars() {
+      let cars;
+      if(this.cars){
+        cars = this.cars
+      } else{
+      wx.event.on("testFunc", e => {
+        console.log(e)//{id:1}
+        cars = e;
+        console.log('订阅事件')
+      });
+      }
+
+      return cars;
+    }
   },
   methods: {
     onTabChange(tab = "home") {
@@ -552,11 +568,11 @@ export default {
     },
     async getBanners() {
       const res1 = await this.$request.post("/index.html");
-      const res2 = await this.$request.post('/indexitems.html');
+      const res2 = await this.$request.post("/indexitems.html");
       if (res1 && res1.result) {
         this.banners = res1.result.banners;
-      } 
-      if(res2 && res2.result){
+      }
+      if (res2 && res2.result) {
         this.cars = res2.result.items;
       }
     },
@@ -800,7 +816,7 @@ export default {
     &_button {
       height: 180rpx;
       color: #4d495b;
-      & .iconfontBig{
+      & .iconfontBig {
         width: 88rpx;
         height: 88rpx;
       }
@@ -817,14 +833,14 @@ export default {
       color: #4d495b;
     }
   }
-  & .payAccount{
-       border-top-left-radius: 20px;
-       border-bottom-left-radius: 20px;
-    }
-    & .paybag{
-       border-top-right-radius: 20px;
-       border-bottom-right-radius: 20px;
-    }
+  & .payAccount {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+  }
+  & .paybag {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
 }
 .card {
   box-shadow: 3rpx 4rpx 6rpx 3rpx rgba(1, 191, 135, 0.7);
@@ -1088,7 +1104,6 @@ export default {
     text-align: center;
     color: #ffffff;
     font-size: 32rpx;
-
   }
   .times {
     font-size: 108rpx;
@@ -1104,7 +1119,6 @@ export default {
     text-align: center;
     color: #ffffff;
     font-size: 32rpx;
-
   }
   .times {
     font-size: 108rpx;
