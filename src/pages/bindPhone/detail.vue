@@ -4,22 +4,40 @@
       <div class="flex  towast">
         验证码已发送到 {{ phoneNumber }}
       </div>
-      <div
-        class="flex wrap center"
-        @click="showkey"
-      >
-        <div class="input">
-          {{ code[0] }}
-        </div>
-        <div class="input">
-          {{ code[1] }}
-        </div>
-        <div class="input">
-          {{ code[2] }}
-        </div>
-        <div class="input">
-          {{ code[3] }}
-        </div>
+      <div class="flex wrap center">
+        <input
+          class="input"
+          maxlength="1"
+          type="number"
+          :focus="focusOne"
+          style="margin-left:0"
+          @input="bindCodeOne"
+          @blur="blurCodeOne"
+        >
+        <input
+          class="input"
+          maxlength="1"
+          type="number"
+          :focus="focusTwo"
+          @input="bindCodeTwo"
+          @blur="blurCodeTwo"
+        >
+        <input
+          class="input"
+          maxlength="1"
+          type="number"
+          :focus="focusThree"
+          @input="bindCodeThree"
+          @blur="blurCodeThree"
+        >
+        <input
+          class="input"
+          maxlength="1"
+          type="number"
+          :focus="focusFour"
+          @input="bindCodeFour"
+          @blur="blurCodeFour"
+        >
       </div>
       <div class="flex column textAdd center">
         <button
@@ -29,59 +47,70 @@
           完成
         </button>
       </div>
-      <input
-        v-show="focus"
-        style="color: white"
-        type="number"
-        :focus="focus"
-        :value="inpuVal"
-        @input="bindCode"
-      >
     </div>
+    <Modal ref="mymodal" />
   </div>
 </template>
 <script>
 import shareMix from "@/mixins/mixin";
+import Modal from "@/components/Modal";
 
 import { promisify } from "@/utils/index";
 
 export default {
   components: {
+    Modal
   },
   mixins: [shareMix],
   data() {
     return {
       phoneNumber: "",
-      focus:false,
-      code: [],
-      inpuVal: "",
+      codeOne: "",
+      codeTwo: "",
+      codeThree: "",
+      codeFour: "",
+      focusOne: false,
+      focusTwo: false,
+      focusThree: false,
+      focusFour: false,
+      success: true,
+      countdownTime: 0
     };
   },
   methods: {
-    showkey(){
-      console.log('触发了')
-      this.focus = true;
-
+    bindCodeOne(e) {
+      this.codeOne = e.detail.value;
+      this.focusTwo = true;
     },
-    bindCode(e){
-      const num = e.detail.value;
-      this.code = [];
-      for(const i of num){
-        this.code.push(i)           
-        console.log('code: ', this.code);
-      }
-      if(this.code.length>=4){
-        this.focus = false;
-      }
+    bindCodeTwo(e) {
+      this.codeTwo = e.detail.value;
+      this.focusThree = true;
+    },
+    bindCodeThree(e) {
+      this.codeThree = e.detail.value;
+      this.focusFour = true;
+    },
+    bindCodeFour(e) {
+      this.codeFour = e.detail.value;
+    },
+    blurCodeOne(e) {
+      this.focusTwo = true;
+    },
+    blurCodeTwo(e) {
+      this.focusThree = true;
+    },
+    blurCodeThree(e) {
+      this.focusFour = true;
+    },
+    blurCodeFour(e) {
+      this.focusTwo = true;
     },
     submit() {
-      const { phoneNumber, code } = this;
-      let fcode = code; 
-      console.log('code: ', code);
-      const tcode = fcode.toSting().replace("","");
-      if (code.length===4) {
+      const { phoneNumber, codeOne, codeTwo, codeThree, codeFour } = this;
+      if (codeOne && codeTwo && codeThree && codeFour) {
+        const code = codeOne + codeTwo + codeThree + codeFour;
         this.$request
-          .put("/user/bindPhone.html", { mobile: phoneNumber, smscode: fcode })
+          .put("/user/bindPhone.html", { mobile: phoneNumber, smscode: code })
           .then(res => {
             wx.showToast({
               title: "绑定成功"
