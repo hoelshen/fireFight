@@ -4,40 +4,22 @@
       <div class="flex  towast">
         验证码已发送到 {{ phoneNumber }}
       </div>
-      <div class="flex wrap center">
-        <input
-          class="input"
-          maxlength="1"
-          type="number"
-          :focus="focusOne"
-          style="margin-left:0"
-          @input="bindCodeOne"
-          @blur="blurCodeOne"
-        >
-        <input
-          class="input"
-          maxlength="1"
-          type="number"
-          :focus="focusTwo"
-          @input="bindCodeTwo"
-          @blur="blurCodeTwo"
-        >
-        <input
-          class="input"
-          maxlength="1"
-          type="number"
-          :focus="focusThree"
-          @input="bindCodeThree"
-          @blur="blurCodeThree"
-        >
-        <input
-          class="input"
-          maxlength="1"
-          type="number"
-          :focus="focusFour"
-          @input="bindCodeFour"
-          @blur="blurCodeFour"
-        >
+      <div
+        class="flex wrap center"
+        @click="showkey"
+      >
+        <div class="codeIndex">
+          {{ code[0] }}
+        </div>
+        <div class="codeIndex">
+          {{ code[1] }}
+        </div>
+        <div class="codeIndex">
+          {{ code[2] }}
+        </div>
+        <div class="codeIndex">
+          {{ code[3] }}
+        </div>
       </div>
       <div class="flex column textAdd center">
         <button
@@ -47,70 +29,55 @@
           完成
         </button>
       </div>
+      <input
+        v-show="focus"
+        class="input"
+        style="color: white"
+        type="number"
+        :focus="focus"
+        :value="inpuVal"
+        @input="bindCode"
+      >
     </div>
-    <Modal ref="mymodal" />
   </div>
 </template>
 <script>
 import shareMix from "@/mixins/mixin";
-import Modal from "@/components/Modal";
 
 import { promisify } from "@/utils/index";
 
 export default {
-  components: {
-    Modal
-  },
+  components: {},
   mixins: [shareMix],
   data() {
     return {
       phoneNumber: "",
-      codeOne: "",
-      codeTwo: "",
-      codeThree: "",
-      codeFour: "",
-      focusOne: false,
-      focusTwo: false,
-      focusThree: false,
-      focusFour: false,
-      success: true,
-      countdownTime: 0
+      focus: false,
+      code: [],
+      inpuVal: ""
     };
   },
   methods: {
-    bindCodeOne(e) {
-      this.codeOne = e.detail.value;
-      this.focusTwo = true;
+    showkey() {
+      console.log("触发了");
+      this.focus = true;
     },
-    bindCodeTwo(e) {
-      this.codeTwo = e.detail.value;
-      this.focusThree = true;
-    },
-    bindCodeThree(e) {
-      this.codeThree = e.detail.value;
-      this.focusFour = true;
-    },
-    bindCodeFour(e) {
-      this.codeFour = e.detail.value;
-    },
-    blurCodeOne(e) {
-      this.focusTwo = true;
-    },
-    blurCodeTwo(e) {
-      this.focusThree = true;
-    },
-    blurCodeThree(e) {
-      this.focusFour = true;
-    },
-    blurCodeFour(e) {
-      this.focusTwo = true;
+    bindCode(e) {
+      const num = e.detail.value;
+      this.code = [];
+      for (const i of num) {
+        this.code.push(i);
+      }
+      if (this.code.length >= 4) {
+        this.focus = false;
+      }
     },
     submit() {
-      const { phoneNumber, codeOne, codeTwo, codeThree, codeFour } = this;
-      if (codeOne && codeTwo && codeThree && codeFour) {
-        const code = codeOne + codeTwo + codeThree + codeFour;
+      const { phoneNumber, code } = this;
+      const fcode = code.toString().replace(/,/g, "");
+      if (code.length === 4) {
         this.$request
-          .put("/user/bindPhone.html", { mobile: phoneNumber, smscode: code })
+          .put("/user/bindPhone.html", { mobile: phoneNumber, smscode: fcode })
           .then(res => {
             wx.showToast({
               title: "绑定成功"
@@ -163,7 +130,7 @@ export default {
   margin: 40rpx 0;
   line-height: 46rpx;
 }
-.input {
+.codeIndex {
   height: 84rpx;
   color: #ffc86d;
   font-weight: bold;
@@ -173,6 +140,12 @@ export default {
   font-size: 30px;
   text-align: center;
 }
+.input {
+  text-indent: -999em; /*文本向左缩进*/
+  margin-left: -100%; /*输入框光标起始点向左左移*/
+  width: 200%; /*输入框增大一倍*/
+  opacity: 0;
+}
 .textAdd {
   margin-top: 60rpx;
 }
@@ -181,3 +154,4 @@ export default {
   font-size: 32rpx;
 }
 </style>
+
