@@ -5,12 +5,8 @@ import filters from "./utils/filters";
 import megaloRouter from "megalo-router";
 import request from "./utils/request";
 import day from "./utils/day";
-import Event from "./utils/event";
 
-//挂载到wx的实例上
-wx.event=new Event();
 Vue.use(VHtmlPlugin);
-
 Object.keys(filters).forEach(key => Vue.filter(key, filters[key]));
 
 Vue.use(megaloRouter, {

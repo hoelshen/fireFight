@@ -1,14 +1,14 @@
 import flyio from "flyio/dist/npm/wx";
-
+import myEvent from './event';
 import {
   promisify
 } from "@/utils/index";
 
 const environment = "test"; // 配置环境
-
+console.log('wx', wx);
+wx.myEvent = myEvent;
 const fly = new flyio();
 const loginFly = new flyio();
-
 let tokenCode = "",
   tokenInfo = "";
 
@@ -120,7 +120,7 @@ async function login(data) {
     })
     .catch(err => {
       wx.hideLoading();
-    });
+    });   
 }
 
 async function loginFlyFn() {

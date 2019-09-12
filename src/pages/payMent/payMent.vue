@@ -40,9 +40,12 @@
           @click="cancel(item.carno)"
         >
           <span class="formatTimer">
-            {{ formatTimer }}
+            {{ formatTimer }} 
           </span>
-          <span class="carStatus">{{ car.status ? "(已入场)" : "(未入场)" }}</span>
+          <span
+            style="text-align:center"
+            class="carStatus "
+          > (已入场)</span>
         </div>
         <div class="flex j-between block_div">
           <div class="flex carPhone center">
