@@ -41,9 +41,9 @@
       </div>
       <div class="flex column textAdd center">
         <button
-class="lightButton flex center"
-                @click="submit"
->
+          class="lightButton flex center"
+          @click="submit"
+        >
           完成
         </button>
       </div>
