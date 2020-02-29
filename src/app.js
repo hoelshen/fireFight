@@ -26,7 +26,7 @@ export default {
       "pages/home/index", // 首页
       "pages/info/index", //  个人信息  
       "pages/position/index", // 定位选择
-      "pages/position/sendPosition.js", // 发送位置
+      "pages/position/sendPosition", // 发送位置
       "pages/examine/index", //消防检测
       "pages/login/index", //登陆,
       "pages/errors/index", //错误页面,

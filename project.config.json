@@ -91,17 +91,17 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 4,
 					"name": "定位位置",
 					"pathName": "pages/position/index",
-					"query": "tab=home",
+					"query": "",
 					"scene": null
 				},
 				{
 					"id": 5,
 					"name": "发送位置",
 					"pathName": "pages/position/sendPosition",
-					"query": "tab=home",
+					"query": "",
 					"scene": null
 				}
 			]

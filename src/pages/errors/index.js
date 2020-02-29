@@ -9,7 +9,7 @@ export default {
     config: {
         navigationBarBackgroundColor: '#fffefb',
         navigationBarTextStyle: 'black',
-        navigationBarTitleText: '美停',
+        navigationBarTitleText: '数据检测小程序',
         backgroundColor: '#FFFEFB',
         disableScroll: false
     }

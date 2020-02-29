@@ -38,7 +38,7 @@
         <image
           v-show="tab == 'mail'"
           class="icon mail"
-          src="/static/png/pay_active.png"
+          src="/static/png/device.png"
         />
         <image
           v-show="tab != 'mail'"
@@ -67,7 +67,7 @@
         <image
           v-show="tab == 'mine'"
           class="icon"
-          src="/static/png/mine_active.png"
+          src="/static/png/fire.png"
         />
         <image
           v-show="tab != 'mine'"
@@ -89,7 +89,7 @@
         <image
           v-show="tab == 'mine'"
           class="icon"
-          src="/static/png/mine_active.png"
+          src="/static/png/mine.png"
         />
         <image
           v-show="tab != 'mine'"
