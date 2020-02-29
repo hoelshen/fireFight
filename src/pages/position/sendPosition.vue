@@ -1,230 +1,150 @@
 <template>
-  <div class="errors">
-    <div class="errors-type">
-      <span>请选择反馈类型</span>
-      <div>
-        <span
-          class="tag box"
-          :class="activeIndex == index ?'active' :''"
-          @click="select(index)"
-        >设备问题</span>  
-        <span
-          class="tag box"
-          @click="select(index)"
-        >客服问题</span>  
-        <span
-          class="tag box"
-          @click="select(index)"
-        >其他问题</span>
-      </div>
+  <div class="appDiv">
+    <div
+      class="loginImg"
+      @click="toBanner(item)"
+    >
+      当前所在位置
     </div>
-    <div class="errors-iphone">
-      请输入手机号码
-      <input
-        class="input grow"
-        maxlength="11"
-        type="number"
-        placeholder="请输入手机号码，仅用于我们向您核实问题"
-        :value="form.phoneNumber"
-        @input="bindPhoneNumber"
-      >
-      <textarea
-        bindblur="bindTextAreaBlur"
-        auto-height
-        class="textArea"
-        maxlength="5000"
-        cursor-spacing="30"
-        :value="form.content"
-        placeholder="在此输入您遇见的问题，很抱歉给您带来不好的体验，我们将尽快和您联系…"
-        @input="bindTextAreaInput"
-      />
-    </div>
-    <div class="photos flex  row j-start">
-      <div
-        v-for="item in imgs"
-        :key="item"
-      >
-        <image
-          class="photo"
-          :mode="item.mode"
-          :src="item.src"
-        />
-      </div>
+    <map
+      id="map"
+      longitude="113.324520"
+      latitude="23.099994"
+      scale="14"
+      :controls="controls"
+      bindcontroltap="controltap"
+      :markers="markers"
+      bindmarkertap="markertap"
+      :polyline="polyline"
+      bindregionchange="regionchange"
+      show-location
+      class="mapDiv"
+    />
 
-      <div class="photoDiv">
-        <image
-          class="addPhoto"
-          src="/static/png/photo.png"
-          @click="upFile"
-        />
-      </div>
-    </div>
-    <div class="flex column errors-logout center">
-      <div
-        class="loginImg"
-        @click="toBanner(item)"
-      >
-        退出登陆
-      </div>
+    <div
+      class="loginImg"
+      @click="toBanner(item)"
+    >
+      发送位置
     </div>
   </div>
 </template>
-
 <script>
+import shareMix from "@/mixins/mixin";
+import { promisify } from "@/utils/index";
+
 export default {
+  mixins: [shareMix],
   data() {
     return {
-      form:{
-        phoneNumber: '', //手机号码
-        content: ''  // 内容
-      },
-      imgs:[]
+      markers: [{
+        id: 0,
+        latitude: 23.099994,
+        longitude: 113.324520,
+        width: 50,
+        height: 50
+      }],
+      polyline: [{
+        points: [{
+          longitude: 113.3245211,
+          latitude: 23.10229
+        }, {
+          longitude: 113.324520,
+          latitude: 23.21229
+        }],
+        color:"#FF0000DD",
+        width: 2,
+        dottedLine: true
+      }],
+      controls: [{
+        id: 1,
+        position: {
+          left: 0,
+          top: 300 - 50,
+          width: 50,
+          height: 50
+        },
+        clickable: true
+      }]
+  
     };
   },
   methods: {
-    bindPhoneNumber(){
+    async getPhoneNumber(e) {
 
     },
-    bindTextAreaInput(e) {
-      this.form.content = e.detail.value;
+    regionchange(e) {
+      console.log(e.type)
     },
-    upFile(){
-      let sourceType = [];
-      const that = this;
-      wx.showActionSheet({
-      itemList: ['从相册选择新头像', '拍个新头像'],
-        success(res) {
-          if(res.tapIndex === 0){
-            sourceType = ['album']
-          }
-          if(res.tapIndex === 1){
-            sourceType = ['camera']
-          }
-          if(res.tapIndex === 2){
-            return;
-          } 
-          that.getPhoto = true;
-          wx.chooseImage({
-            count: 1,
-            sizeType: ["compressed"],
-            sourceType: sourceType,
-            success: function(res) {
-              wx.showLoading({
-                title: "上传中",
-                mask: true
-              });
-              const tempFilePaths = res.tempFilePaths;
-              that.$request.uploadFile(tempFilePaths[0]).then(
-                function(res) {
-                  let data = JSON.parse(res.data);
-                  let user = this.user;
-                  user.aliasPortrait = data.data;
-                  this.user = user;
-                  const { aliasName, aliasPortrait } = this.user;
-                  this.$request.put("/user", {
-                    aliasName,
-                    aliasPortrait
-                  });
-                  wx.hideLoading();
-                }.bind(that)
-              );
-            }.bind(this),
-            fail(e) {
-              wx.hideLoading();
-            }
-          });
-        },
-        fail(res) {
-          console.log(res.errMsg)
-        }
-      })
+    markertap(e) {
+      console.log(e.markerId)
+    },
+    controltap(e) {
+      console.log(e.controlId)
     }
   },
-  onLoad() {},
-  onShow() {}
+  onShow() {
+    const { user } = getApp().globalData;
+    this.user = user;
+  }
 };
 </script>
-
 <style lang="less" scoped>
-.errors {
-  padding: 30rpx;
-}
-.total {
-  font-size: 40rpx;
-  padding: 20rpx;
-}
-.line {
-  margin-bottom: 20rpx;
-}
-.input{
-  border-style:dashed;
-  margin: 30rpx 0rpx;
-  background: transparent;
-  background-color: rgba(189, 189, 192, 0.05);
-  border-width: 1rpx;
-}
-.tag {
-  display: inline-block;
-  height: 64rpx;
-  line-height: 64rpx;
-  text-align: center;
-  border-radius: 4rpx;
-  border-style:dashed;
-  color: #bdbdc0;
-  background: transparent;
-  background-color: rgba(189, 189, 192, 0.05);
-  margin-right: 24rpx;
-  margin-bottom: 24rpx;
-  padding: 0 26rpx;
-  font-size: 32rpx;
-  border: 2rpx transparent solid;
-  &.active {
-    border: 2rpx #ffc86d solid;
-  }
-  &.focus {
-    border: 2rpx #ffc86d solid;
-  }
-}
-.textArea {
-  min-height: 400rpx;
-  padding: 40rpx;
+.appDiv {
+  margin: 40rpx 40rpx;
+  min-height: 90vh;
   background-color: #ffffff;
-  width: 100%;
-  color: #4D495B;
-  font-size: 28rpx;
-  box-sizing: border-box;
-  line-height:52rpx;
-  background: transparent;
-  background-color: rgba(189, 189, 192, 0.05);
-  border-width: 1rpx;
-  border-style:dashed;
-
+  padding: 20rpx 0;
 }
-.photos{
-  margin:60rpx 0;
-  .photo{
-    width: 120rpx;
-    height: 120rpx;
-    margin-right: 30rpx; 
-    background-color: #eeeeee;
-  }
-  .photoDiv{
-    width:120rpx;
-    height:120rpx;
-    text-align: center;
-    line-height: 130rpx;
-    border-width: 1rpx;
-    border-style:dashed;
-    .addPhoto{
-      width:52rpx;
-      height: 43rpx;
-    }
-  }
-
+.text {
+  background-color: #ffffff;
+  min-height: 600rpx;
+  padding: 40rpx;
+  color: rgba(189, 189, 192, 1);
 }
-
-.errors-logout {
+.textNameSpan {
+  color: #4d495b;
+  font-size: 32rpx;
+  margin-bottom: 16rpx;
+  margin-top: 40rpx;
+}
+.textAdd {
   padding-bottom: 60rpx;
+}
+
+.input {
+  height: 84rpx;
+  padding-left: 20rpx;
+  background-color: rgba(189, 189, 192, 0.1);
+}
+.autoPhone {
+  height: 84rpx;
+  width: 100%;
+  background: rgba(189, 189, 192, 0.1);
+  padding-left: 20rpx;
+}
+
+button.countdown {
+  padding: 0;
+  margin: 0;
+  font-size: 28rpx;
+  color: #bdbdc0;
+  background-color: transparent;
+}
+
+button.lightButton {
+  height: 92rpx;
+  font-size: 32rpx;
+  padding: 26rpx 102rpx;
+}
+.towast {
+  font-size: 32rpx;
+  color: #4d495b;
+  margin: 40rpx 0;
+  line-height: 46rpx;
+}
+.mapDiv{
+  width: 100%; height: 100%;
 }
 
 .loginImg{

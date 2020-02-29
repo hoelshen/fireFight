@@ -23,15 +23,13 @@ export default {
   config: {
     cloud: true,
     pages: [
-      "pages/home/index", //首页
-      "pages/payMent/index", //设置笔名
-      "pages/webview/index", //webview
-      "pages/addCar/index", //店铺清扫
-      "pages/carManage/index", //carManage,
+      "pages/home/index", // 首页
+      "pages/info/index", //  个人信息  
+      "pages/position/index", // 定位选择
+      "pages/position/sendPosition.js", // 发送位置
+      "pages/examine/index", //消防检测
+      "pages/login/index", //登陆,
       "pages/errors/index", //错误页面,
-      "pages/bindPhone/index", // 绑定手机 
-      "pages/bindPhone/detail", // 绑定手机 
-      "pages/payMent/paySuccess" //支付完成
     ],
     "permission": {
       "scope.userLocation": {
@@ -41,7 +39,7 @@ export default {
     window: {
       backgroundTextStyle: "light",
       navigationBarBackgroundColor: "#fffefb",
-      navigationBarTitleText: "美停",
+      navigationBarTitleText: "消防检测",
       navigationBarTextStyle: "black",
       backgroundColor: "#fffefb"
     },

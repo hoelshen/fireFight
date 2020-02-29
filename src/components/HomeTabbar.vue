@@ -15,15 +15,15 @@
         <image
           v-show="tab == 'home'"
           class="icon"
-          src="/static/png/home.png"
+          src="/static/png/data.png"
         />
         <image
           v-show="tab != 'home'"
           class="icon"
-          src="/static/png/home_active.png"
+          src="/static/png/data.png"
         />
       </button>
-      <span class="flex center">首页</span>
+      <span class="flex center">数据检测</span>
     </form>
     <form
       report-submit="true"
@@ -43,7 +43,7 @@
         <image
           v-show="tab != 'mail'"
           class="icon mail"
-          src="/static/png/pay.png"
+          src="/static/png/device.png"
         />
         <div
           v-if="mailCount"
@@ -53,7 +53,29 @@
           {{ mailCount }}
         </div>
       </button>
-      <span class="flex center">我要缴费</span>
+      <span class="flex center">设备检测</span>
+    </form>
+    <form
+      report-submit="true"
+      @submit="myInfo"
+    >
+      <button
+        class="flex center"
+        form-type="submit"
+        hover-class="active"
+      >
+        <image
+          v-show="tab == 'mine'"
+          class="icon"
+          src="/static/png/mine_active.png"
+        />
+        <image
+          v-show="tab != 'mine'"
+          class="icon"
+          src="/static/png/fire.png"
+        />
+      </button>
+      <span class="flex center">消防检测</span>
     </form>
     <form
       report-submit="true"
@@ -75,7 +97,7 @@
           src="/static/png/mine.png"
         />
       </button>
-      <span class="flex center">我的</span>
+      <span class="flex center">个人中心</span>
     </form>
   </div>
 </template>
@@ -108,18 +130,19 @@ export default {
   },
   methods: {
     myInfo(e) {
-      wx.setNavigationBarTitle({ title: "我的" });
-      this.tab = "mine";
-      this.$emit("change", this.tab);
+      wx.reLaunch({
+      url: "/pages/info/index"
+      });
     },
     home(e) {
-      this.tab = "home";
-      this.$emit("change", this.tab);
+      wx.reLaunch({
+            url: "/pages/home/index"
+          });
     },
     mail(e) {
-      wx.setNavigationBarTitle({ title: "停车缴费" });
-      this.tab = "mail";
-      this.$emit("change", this.tab);
+      wx.reLaunch({
+            url: "/pages/home/index"
+      });
     }
   }
 };
