@@ -103,6 +103,27 @@
 					"pathName": "pages/position/sendPosition",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": 6,
+					"name": "数据检测",
+					"pathName": "pages/detection/index",
+					"query": "tab=home",
+					"scene": null
+				},
+				{
+					"id": 7,
+					"name": "确定信息",
+					"pathName": "pages/information/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 8,
+					"name": "设备列表",
+					"pathName": "pages/equipmentList/index",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

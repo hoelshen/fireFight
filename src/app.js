@@ -23,6 +23,9 @@ export default {
   config: {
     cloud: true,
     pages: [
+      "pages/equipmentList/index",
+      "pages/information/index", //确定信息
+      "pages/detection/index", //数据检测
       "pages/home/index", // 首页
       "pages/info/index", //  个人信息  
       "pages/position/index", // 定位选择
