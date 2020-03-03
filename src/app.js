@@ -23,7 +23,8 @@ export default {
   config: {
     cloud: true,
     pages: [
-      "pages/equipmentList/index",
+      "pages/alarmpage/index",  //设备告警
+      "pages/equipmentlist/index",  //设备列表
       "pages/information/index", //确定信息
       "pages/detection/index", //数据检测
       "pages/home/index", // 首页

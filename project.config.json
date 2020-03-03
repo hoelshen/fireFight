@@ -121,7 +121,14 @@
 				{
 					"id": 8,
 					"name": "设备列表",
-					"pathName": "pages/equipmentList/index",
+					"pathName": "pages/equipmentlist/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 9,
+					"name": "告警异常",
+					"pathName": "pages/alarmpage/index",
 					"query": "",
 					"scene": null
 				}

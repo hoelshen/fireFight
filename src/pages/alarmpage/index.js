@@ -1,4 +1,4 @@
-import App from './equipmentlist'
+import App from './alarmpage'
 import Vue from 'vue'
 
 const app = new Vue(App)
@@ -7,10 +7,10 @@ app.$mount()
 
 export default {
     config: {
-        navigationBarBackgroundColor: '#1D7FFD',
-        navigationBarTextStyle: 'white',
+        navigationBarBackgroundColor: '#fff',
+        navigationBarTextStyle: 'black',
         navigationBarTitleText: '智能烟感',
-        backgroundColor: '#1D7FFD',
+        backgroundColor: 'white',
         disableScroll: true,
       }
 }
