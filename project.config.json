@@ -131,6 +131,20 @@
 					"pathName": "pages/alarmpage/index",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": 10,
+					"name": "数据详情",
+					"pathName": "pages/dataDetail/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 11,
+					"name": "查看监控",
+					"pathName": "pages/monitorpage/index",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

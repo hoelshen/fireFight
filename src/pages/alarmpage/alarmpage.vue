@@ -41,40 +41,59 @@
           />
         </div>
       </div>
+      <div>告警时间：14:43:00</div>
+      <div>告警时间：14:43:00</div>
     </div>
-    <div class="equipment-info mrg-center flex a-center pdd-lr-20 mrg-b-40">
+    <div class="alarm-tip mrg-center flex a-center j-between pdd-lr-20 mrg-b-40">
+      <div class="flex a-center j-between">
+        <image
+          class="info-img"
+          src="/static/png/alarm.png"
+        />
+        <div class="pdd-l-40">
+          确认当前场所是否发生告警事件？
+        </div>
+      </div>  
       <image
-        class="info-img"
-        src="/static/png/smoke.png"
+        class="alarm-arrow"
+        src="/static/png/arrow-red.png"
       />
-      <div class="pdd-l-40">
-        <div>安装数量:</div>
-        <div><span class="info-number">8675</span>个</div>
-      </div>
     </div>
-    <div class="equipment-list mrg-center ">
-      <div class="equipment-item mrg-b-40 pdd-20">
-        <div class="flex">
+    <div class="icon-container flex a-center j-between">
+      <image src="/static/png/localtion-icon.png" />
+      <image src="/static/png/video-icon.png" />
+      <image src="/static/png/video-icon.png" />
+    </div>
+
+
+    
+    <div class="alarm-list mrg-center ">
+      <div class="list-title flex j-between a-center pdd-lr-20">
+        <div class="flex a-center">
           <image
-            class="mrg-r-20"
-            src="/static/png/smoke.png"
+            class="pdd-r-20"
+            src="/static/png/history.png"
           />
+          历史告警
+        </div>
+        <image
+          class="arrow"
+          src="/static/png/arrow.png"
+        />
+      </div>
+      <div class="equipment-item mrg-b-40 pdd-20">
+        <div class="flex j-between pdd-tb-20 mrg-lr-25 border_b">
+          <div class="flex">
+            <image
+              class="mrg-r-20"
+              src="/static/png/alarmicon.png"
+            />
+            <div class="time pdd-b-5">
+              5分钟前
+            </div>
+          </div>
           <div>
-            <div class="name pdd-b-5">
-              设备：宁泰家园设备1号
-            </div>
-            <div class="id pdd-b-5">
-              ID：123456
-            </div>
-            <div class="time pdd-b-5">
-              安装时间：2020-02-11 12:59:00
-            </div>
-            <div class="time pdd-b-5">
-              安装位置：2020-02-11 12:59:00
-            </div>
-            <div class="btn tex-center ">
-              安装
-            </div>
+            智能烟感告警
           </div>
         </div>
       </div>
@@ -100,6 +119,7 @@ export default {
 <style lang="less" scoped>
 .alarm-page {
   height: 100vh;
+  background: #fff;
   .icon{
       width: 26rpx;
       height: 36rpx;
@@ -111,6 +131,7 @@ export default {
       color: #fff;
       height: 331rpx;
       border-radius: 20rpx;
+      font-size: 26rpx;
       .alarm-adress{
           height: 60rpx;
           font-size: 26rpx;
@@ -174,17 +195,21 @@ export default {
         }
     }
   }
-  .equipment-info{
-    width: 662rpx;
-    height: 148rpx;
+  .alarm-tip{
+    width: 622rpx;
+    height: 88rpx;
     font-size: 26rpx;
-    border-radius: 10rpx;
-    background: #fff;
+    border-radius: 0rpx 0rpx 20rpx 20rpx;
+    background: #FFEDEF;
+    color: #3E4A59;
     box-shadow:0px 9px 32px 0px rgba(51,83,253,0.1);
-    margin: -60rpx 0 20rpx 24rpx;
     .info-img{
-      width: 72rpx;
-      height: 88rpx;
+      width: 31rpx;
+      height: 36rpx;
+    }
+    .alarm-arrow{
+        width: 13rpx;
+        height: 22rpx;
     }
     .info-number{
       font-size:44rpx;
@@ -193,22 +218,35 @@ export default {
       color:rgba(52,81,253,1);
     }
   }
-  .equipment-list {
+  .icon-container{
+      width: 630rpx;
+      padding: 0 60rpx;
+      height: 200rpx;
+      image{
+          width: 132rpx;
+          height: 132rpx;
+      }
+  }
+  .alarm-list {
+      .list-title{
+        height: 80rpx;
+        background:#E9F0FF;
+        border-radius:10px 10px 0px 0px;
+        // opacity:0.1;
+        image {
+            width: 36rpx;
+            height: 36rpx;
+        }
+      }
       color: #3E4A59;
       .equipment-item{
         width: 662rpx;
         background:rgba(255,255,255,1);
         box-shadow:0px 9px 32px 0px rgba(51,83,253,0.1);
         border-radius:20rpx;
-        .name{
-          font-size: 26rpx;
-        }
-        .id{
-          font-size: 24rpx;
-        }
+        color: #3E4A59;
         .time{
-          font-size: 22rpx;
-          color: #C2C2C4;
+          font-size: 26rpx;
         }
         .btn{
           width:80rpx;
@@ -225,5 +263,9 @@ export default {
           height: 36rpx;
       }
   }
+  .arrow{
+        width: 13rpx !important;
+        height: 22rpx !important;
+    }
 }
 </style>
