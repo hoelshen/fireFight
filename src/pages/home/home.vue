@@ -104,7 +104,6 @@
       </div>
     </div>
     <HomeTabbar
-      :mail-count="unreadMessages"
       @change="onTabChange"
     />
   </div>
@@ -133,11 +132,17 @@ export default {
     };
   },
   onLoad(opt) {
-
+    this.toPage = opt.toPage;
+    this.tab = opt.tab;
   },
   onShow() {
-    this.getData();
+    if (this.toPage) {
+      console.log('this.toPage: ', this.toPage);
+      let toPage = this.toPage;
 
+    }
+    this.getData();
+    this.onTabChange(this.tab);
   },
 
   methods: {
@@ -215,7 +220,7 @@ export default {
     }
   }
   .pannel{
-
+    height: 76vh;
     &__item{
       display:inline-block;
       margin:20rpx;

@@ -5,7 +5,7 @@
   >
     <form
       report-submit="true"
-      @submit="home"
+      @submit="data"
     >
       <button
         class="flex center"
@@ -13,17 +13,17 @@
         hover-class="active"
       >
         <image
-          v-show="tab == 'home'"
+          v-show="tab == 'data'"
           class="icon"
-          src="/static/png/data.png"
+          src="/static/png/data_active.png"
         />
         <image
-          v-show="tab != 'home'"
+          v-show="tab != 'data'"
           class="icon"
           src="/static/png/data.png"
         />
       </button>
-      <span class="flex center">数据检测</span>
+      <span class="flex center">设备检测</span>
     </form>
     <form
       report-submit="true"
@@ -37,7 +37,7 @@
         <image
           v-show="tab == 'mine'"
           class="icon"
-          src="/static/png/fire.png"
+          src="/static/png/fire_active.png"
         />
         <image
           v-show="tab != 'mine'"
@@ -78,16 +78,12 @@ export default {
   props: {
     active: {
       type: String,
-      default: "home"
+      default: "data"
     },
-    mailCount: {
-      type: Number,
-      default: 0
-    }
   },
   data() {
     return {
-      tab: "home" ,
+      tab: "data" ,
       isIpx: false
     };
   },
@@ -104,7 +100,7 @@ export default {
         url: "/pages/info/index"
       });
     },
-    home(e) {
+    data(e) {
       wx.reLaunch({
         url: "/pages/home/index"
       });

@@ -11,6 +11,5 @@ export default {
     navigationBarTextStyle: 'black',
     navigationBarTitleText: '数据检测小程序',
     backgroundColor: '#FFFEFB',
-    disableScroll: true,
   }
 }

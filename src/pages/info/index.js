@@ -9,7 +9,7 @@ export default {
   config: {
     navigationBarBackgroundColor: '#fffefb',
     navigationBarTextStyle: 'black',
-    navigationBarTitleText: '消防检测',
+    navigationBarTitleText: '个人信息',
     backgroundColor: '#FFFEFB',
     disableScroll: true,
     navigationStyle: 'custom'

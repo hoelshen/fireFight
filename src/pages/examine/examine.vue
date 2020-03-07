@@ -1,20 +1,42 @@
 <template>
   <view class="page">
-    <view class="header">
-      <image
-        class="iconfont"
-        src="/static/png/smoke.png"
-      />
-      <span class="my_function_item_text">
-        告警任务
-      </span>
+    <view class="pannel">
+      <div class="fireDiv">
+        <div class="header">
+          image
+          <image
+            class="iconfont"
+            src="/static/png/smoke.png"
+          />
+          <span class="my_function_item_text">
+            告警任务
+          </span>
+          <image
+            class="iconfont_sixteen flex center"
+            src="/static/png/arrow.png"
+          />
+        </div>
+        <div class="center">
+          <div class="radius" />
+        </div>
+        <div>
+          5分钟前
+        </div>
+      </div>
     </view>
+    <HomeTabbar
+      @change="onTabChange"
+    />
   </view>
 </template>
 
 <script>
+import HomeTabbar from "@/components/HomeTabbar";
 import shareMix from "@/mixins/mixin";
 export default {
+  components: {
+    HomeTabbar,
+  },
   mixins: [shareMix],
   data() {
     return {
@@ -59,52 +81,22 @@ export default {
 </script>
 
 <style scoped lang="less">
-.addCar_header {
-  width: 100%;
-  background: #ffffff;
-  z-index: 3;
-}
-
-.header-bg {
-  position: fixed;
-  width: 100%;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  -moz-background-size: 100% 100%;
-  z-index: 3;
-  &_img {
-    width: 100%;
+.page {
+  height: 100vh;
+  background-color: #1B90FC;
+  .pannel{
+     height: 90vh;
+     .fireDiv{
+       margin:50rpx 20rpx;
+       background-color: #ffffff;
+      .header{
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAr4AAABQBAMAAAANeGudAAAAG1BMVEUAAAAgf/8ccf8Sbf8eeP8XdP8Wb/8fcP8ddv8ZwFzQAAAACXRSTlMACAkOERYXGRpY6vdRAAAAs0lEQVR42u3QsY0BABiA0U8katVNoFAq1SobXHvXWUCiRjC2FRT+7r0RXtXm98X3nQ9V9aNiyH/V0sOYXbXXMOZWCwuD1q0kDPprK2HQtaOEQfdOEgY9ukgY9MzBKL9+/eLXr1/8+vWLX7/49esXv3794tevX/z6xa9fv/j16xe/fv3i1y9+/frFr1+/+PXrF79+8evXL379+sWvX7/49Ytfv37x69cvfv36xa9f/Pr1yyfedrw8OD53r34AAAAASUVORK5CYII=)
+      }
+     }
   }
 }
-.title {
-  color: #2a2a2a;
-  font-size: 32rpx;
-}
-.car_btn {
-  position: relative;
-  top: -30rpx;
-  .lightButton {
-    margin-bottom: 20rpx;
-    margin-top: 0rpx;
-    height: 64rpx;
-    position: absolute;
-    top: 120rpx;
-    width: 726rpx;
-    font-size: 32rpx;
-  }
-}
-.car_block {
-  position: absolute;
-  background-color: #ffffff;
-  width: 726rpx;
-  border-radius: 20rpx;
-  box-shadow: 3rpx 4rpx 6rpx rgba(1, 191, 135, 0.7);
-}
-.kb {
-  .kb-keyboard {
-    .kb-keyboard__panle {
-      bottom: 150rpx;
-    }
-  }
+.iconfont_sixteen{
+  width: 32rpx;
+  height: 32rpx;
 }
 </style>

@@ -206,7 +206,6 @@
     </div>
 
     <HomeTabbar
-      :mail-count="unreadMessages"
       @change="onTabChange"
     />
 
@@ -244,7 +243,6 @@ export default {
       scrolHeight: 541,
       toPage: null,
       page: 1,
-      showKeyboard: false,
       plateNum: "",
       focusInput: false,
       autoPhone: true,
@@ -260,12 +258,9 @@ export default {
   onShow() {
     const that = this;
     if (this.toPage) {
+      console.log('this.toPage: ', this.toPage);
       let toPage = this.toPage;
-      this.toPage = null;
-      return this.$router.push({
-        path: toPage,
-        query: this.$mp.query
-      });
+
     }
     this.onTabChange(this.tab);
     wx.getSetting({
