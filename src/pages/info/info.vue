@@ -72,7 +72,7 @@
       <session class="my_function flex">
         <button
           class="my_function_item_button flex column center"
-          @tap="memory"
+          @tap="toSmoke"
         >
           <image
             class="iconfont"
@@ -83,7 +83,7 @@
 
         <button
           class="my_function_item_button flex column center"
-          @click="ticket"
+          @click="toElectron"
         >
           <image
             class="iconfont"
@@ -119,7 +119,7 @@
         </button>
         <button
           class="my_function_item_button flex column center"
-          @click="ticket"
+          @click="toFire"
         >
           <image
             class="iconfont"
@@ -143,7 +143,7 @@
 
         <button
           class="my_function_item_button flex column center"
-          @click="ticket"
+          @click="toPolice"
         >
           <image
             class="iconImg"
@@ -168,7 +168,7 @@
 
         <button
           class="my_function_item_button flex column center"
-          @click="openbadge"
+          @click="toError"
         >
           <image
             class="iconImg"
@@ -198,7 +198,7 @@
         </button>
         <div
           class="loginImg"
-          @click="toBanner(item)"
+          @click="toLogout"
         >
           退出登陆
         </div>
@@ -270,7 +270,6 @@ export default {
       wx.myEvent.on("cars", e => {
         this.cars = e;
       })
-    this.getScroll();
     this.onTabChange(this.tab);
     wx.getSetting({
       success: function(res) {
@@ -293,11 +292,7 @@ export default {
   methods: {
     onTabChange(tab = "home") {
       this.tab = tab;
-      if (this.tab === "home") {
-        this.getBanners();
-      }
-      if (this.tab === "mail") {
-      }
+
       if (this.tab === "mine") {
         this.$request.getUser().then(res => {
           if (res) {
@@ -339,7 +334,10 @@ export default {
       this.title_height = totalBar * 2 - toolBar;
     },
     onGotUserInfo(e) {
-      this.$request.auth(e.detail);
+      this.$router.push({
+        query: { id: 1 },
+        path: "/pages/login/index"
+      });
     },
     async getBanners() {
       const res1 = await this.$request.post("/index.html");
@@ -355,12 +353,6 @@ export default {
     toShare() {
       this.$router.push({ path: "/pages/share/share" });
     },
-    ticket() {
-      this.$router.push({
-        query: { id: 1 },
-        path: "/pages/errors/index"
-      });
-    },
     hold() {
       this.$router.push({ path: "/pages/bindPhone/index" });
     },
@@ -375,22 +367,12 @@ export default {
     async navCar() {
 
     },
-    toPayMent(item) {
-  
+    toError(){
+      this.$router.push({
+        query: {},
+        path: "/pages/errors/index"
+      });
     },
-    scrolltolower() {},
-    getScroll() {
-
-    },
-    joinGroup() {
-
-    },
-    carManage() {
- 
-    },
-    toBanner(banner) {
-
-    }
   }
 };
 </script>
@@ -526,6 +508,8 @@ export default {
   text-align: center;
   line-height: 80rpx;
   font-color: #eeeeee;
+  color: #ffffff;
+
 }
 </style>
 

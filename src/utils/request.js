@@ -22,14 +22,10 @@ loginFly.config.headers["Content-Type"] = "application/json; charset=utf-8";
 
 function getBaseURL(env) {
   switch (env) {
-    case "local":
-      return "http://192.168.118.149:10701";
-    case "mock":
-      return "http://www.amusingcode.com:8001/mock/24/tell_v2";
     case "test":
-      return "https://mt.xmpush.com/mobile/";
-    default:
-      return "https://api.tellers.cn/teller-v2";
+      return "http://121.36.15.94:8282/IntelligentFire";
+      default :
+        return "http://192.168.118.149:10701";
   }
 }
 
@@ -93,53 +89,48 @@ async function getlatitude(){
 
 async function login(data) {
   getApp().globalData.user = data.userInfo;
-  let openid = getApp().globalData.openid;
-  let portrait = data.userInfo.avatarUrl
-  let nickname = data.userInfo.nickName
-  const obj = await getlatitude();
-  fly.post("/user/login.html", {
-      openid,
-      portrait,
-      nickname,
-      lat: obj.lat,
-      lng: obj.lng
-    })
-    .then(res => {
-      fly.config.headers["tokenCode"] = tokenCode = res.result.tokenCode;
-      fly.config.headers["tokenInfo"] = tokenInfo = res.result.tokenInfo;
 
-      wx.setStorage({
-        key: 'tokenCode',
-        data: tokenCode
-      })
-      wx.setStorage({
-        key: 'tokenInfo',
-        data: tokenInfo
-      })
-      return getApp().globalData.user = res.result;
-    })
-    .catch(err => {
-      wx.hideLoading();
-    });   
+  // fly.post("/user/login.html", {
+  //     openid,
+  //     portrait,
+
+  //   })
+  //   .then(res => {
+  //     fly.config.headers["tokenCode"] = tokenCode = res.result.tokenCode;
+  //     fly.config.headers["tokenInfo"] = tokenInfo = res.result.tokenInfo;
+
+  //     wx.setStorage({
+  //       key: 'tokenCode',
+  //       data: tokenCode
+  //     })
+  //     wx.setStorage({
+  //       key: 'tokenInfo',
+  //       data: tokenInfo
+  //     })
+  //     return getApp().globalData.user = res.result;
+  //   })
+  //   .catch(err => {
+  //     wx.hideLoading();
+  //   });   
 }
 
 async function loginFlyFn() {
-  let portrait = getApp().globalData.user.userInfo.avatarUrl
-  let nickname = getApp().globalData.user.userInfo.nickName
-  const obj = await getlatitude();
-  loginFly.post("/user/login.html", {
-      openid,
-      portrait,
-      nickname,
-      lat: obj.lat,
-      lng: obj.lng
-    })
-    .then(res => {
-      return tokenCode = res.result.tokenCode;
-    })
-    .catch(err => {
-      wx.hideLoading();
-    });
+  // let portrait = getApp().globalData.user.userInfo.avatarUrl
+  // let nickname = getApp().globalData.user.userInfo.nickName
+  // const obj = await getlatitude();
+  // loginFly.post("/user/login.html", {
+  //     openid,
+  //     portrait,
+  //     nickname,
+  //     lat: obj.lat,
+  //     lng: obj.lng
+  //   })
+  //   .then(res => {
+  //     return tokenCode = res.result.tokenCode;
+  //   })
+  //   .catch(err => {
+  //     wx.hideLoading();
+  //   });
 }
 
 

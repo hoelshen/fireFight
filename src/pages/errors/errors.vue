@@ -237,5 +237,7 @@ export default {
   text-align: center;
   line-height: 80rpx;
   font-color: #eeeeee;
+  color: #ffffff;
+
 }
 </style>
