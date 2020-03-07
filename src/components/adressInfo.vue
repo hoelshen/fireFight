@@ -6,7 +6,9 @@
           class="adress-icon"
           src="/static/png/locations.png"
         />
-        <span class="mrg-lr-20">位置:</span><span class="mrg-r-20">宁太家园</span>
+        <div class="mrg-lr-20 adress-cont tex-overflow">
+          位置：{{ userAddress }}
+        </div>
         <image
           class="arrow"
           src="/static/png/arrow-white.png"
@@ -19,12 +21,47 @@
 export default {
     name: "AdressInfo",
     props: {
-  },
+    },
+    data() {
+      return {
+        userAddress: ''
+      }
+    },
+    onLoad(opt) {
+    },
+    onShow() {
+      if(wx.getStorageSync('userAddress')) {
+        this.userAddress = wx.getStorageSync('userAddress')
+      } else {
+        this.getUserAddress()
+      }
+    },
+
+  methods: {
+    getUserAddress() {
+      this.$request
+        .post("/user/getUserAddress.do", { userId: 2002131059424992})
+        .then(res => {
+          this.userAddress = res.province + res.city + res.prefecture + res.areaName + res.placeName
+            wx.setStorage({
+              key: 'userAddress',
+              data: this.userAddress
+            })
+        })
+        .catch(err => {
+          console.log("err: ", err);
+          return;
+        });
+    }
+  }
 }
 </script>
 <style lang="less" scoped>
   .adress-info{
       color: #fff;
+      .adress-cont{
+        max-width: 400rpx;
+      }
       .adress-icon{
          width: 26rpx;
          height: 36rpx; 

@@ -1,22 +1,8 @@
 <template>
   <div class="detail-page flex column">
     <div class="information-header">
-      <div class="mrg-b-40">
-        <image
-          class="icon "
-          src="/static/png/left-arrow.png"
-        />
-      </div>
-      <div class="flex a-center">
-        <image
-          class="icon"
-          src="/static/png/locations.png"
-        />
-        <span class="mrg-lr-20">位置：</span><span class="mrg-r-20">宁太家园</span>
-        <image
-          class="arrow"
-          src="/static/png/arrow-white.png"
-        />
+      <div>
+        <Adress-info />
       </div>
     </div>
     <div class="equipment-list mrg-center ">
@@ -27,10 +13,110 @@
             src="/static/png/smoke.png"
           />
           <div>
-            <div class="name pdd-b-5">
-              设备：宁泰家园设备1号
+            <div class="flex j-between mrg-b-10 a-center">
+              <div
+                class="btn tex-center"
+                :style="{background:facilityInfo.status?'rgba(34,172,56,1)':'gray'}"
+                v-text="facilityInfo.status?'在线':'离线'"
+              />
+              <div
+                v-if="type != 4"
+                v-text="facilityInfo.BatteryLevel ? '电量：'+facilityInfo.BatteryLevel+'%' : '电量：100%'"
+              />
+              <div v-else>
+                <image
+                  src="/static/png/playvideo.png"
+                  @click="playVideo"
+                />
+              </div>
             </div>
-            <div class="id pdd-b-5">
+            <div
+              v-show="showVideo"
+            >
+              <video
+                id="video"
+                controls
+                poster
+                playsInline
+                webkit-playsinline
+                autoplay
+              >
+                <source
+                  :src="adress"
+                  class="AVURL"
+                  type="application/x-mpegURL"
+                >
+                <source
+                  :src="adress_f"
+                  class="AVURL"
+                  type=""
+                >
+              </video>
+            </div>
+            <div
+              v-for="(item, index) in facilityInfo.info"
+              :key="index"
+              class="name pdd-b-10"
+            >
+              {{ item.title }}：{{ item.value }}
+            </div>
+            <div v-if="type == 0 || type == 1">
+              <div class="pdd-b-10">
+                心跳信息: <span v-text="dataInfo.xtTime ? dataInfo.xtTime: '无'" />
+              </div>
+              <div class="pdd-b-10">
+                利用率: <span v-text="dataInfo.LinkUtilization ? dataInfo.LinkUtilization: '无'" />
+              </div>
+              <div class="pdd-b-10">
+                物理小区标示: <span v-text="dataInfo.pci ? dataInfo.pci: '无'" />
+              </div>
+              <div class="pdd-b-10">
+                传感器级别: <span v-text="dataInfo.sinr ? dataInfo.sinr: '无'" />
+              </div>
+              <div class="pdd-b-10">
+                网络承载: <span v-text="dataInfo.rspr ? dataInfo.rspr: '无'" />
+              </div>
+              <div class="pdd-b-10">
+                链接质量: <span v-text="dataInfo.ecl ? dataInfo.ecl: '无'" />
+              </div>
+            </div>
+            <div v-if="type == 3">
+              <div class="pdd-b-10">
+                漏电流: <span v-text="dataInfo.L ? dataInfo.L: '0' + '(<500mA为正常)'" />
+              </div>
+              <div class="pdd-b-10">
+                电流A: <span v-text="dataInfo.CA ? dataInfo.CA: '0'" />
+              </div>
+              <div class="pdd-b-10">
+                电流B: <span v-text="dataInfo.CB ? dataInfo.CB: '0'" />
+              </div>
+              <div class="pdd-b-10">
+                电流C: <span v-text="dataInfo.CC ? dataInfo.CC: '0'" />
+              </div>
+              <div class="pdd-b-10">
+                温度A: <span v-text="dataInfo.T1 ? dataInfo.T1: '0'" />
+              </div>
+              <div class="pdd-b-10">
+                温度B: <span v-text="dataInfo.T2 ? dataInfo.T2: '0'" />
+              </div>
+              <div class="pdd-b-10">
+                温度C: <span v-text="dataInfo.T3 ? dataInfo.T3: '0'" />
+              </div>
+              <div class="pdd-b-10">
+                温度D: <span v-text="dataInfo.T4 ? dataInfo.T4: '0'" />
+              </div>
+            </div>
+            <div v-if="type == 7">
+              <div class="pdd-b-10">
+                液压: <span v-text="dataInfo.fWaterPressure ? dataInfo.fWaterPressure: '0' + '(>0.07Mpa为正常)'" />
+              </div>
+            </div>
+            <div v-if="type == 6 || type == 2">
+              <div class="pdd-b-10">
+                液压: <span v-text="dataInfo.unitvalues ? dataInfo.unitvalues: '0' + '(>0.06Mpa为正常)'" />
+              </div>
+            </div>
+            <!-- <div class="id pdd-b-5">
               ID：123456
             </div>
             <div class="time pdd-b-5">
@@ -41,34 +127,7 @@
             </div>
             <div class="btn tex-center ">
               安装
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="equipment-item mrg-b-40 pdd-20">
-        <div class="flex">
-          <image
-            class="mrg-r-20"
-            src="/static/png/smoke.png"
-          />
-          <div>
-            <div class="name pdd-b-5">
-              设备：宁泰家园设备1号
-            </div>
-            <div class="id pdd-b-5">
-              ID：123456
-            </div>
-            <div class="time pdd-b-5">
-              安装时间：2020-02-11 12:59:00
-            </div>
-            <div class="time pdd-b-5">
-              安装位置：2020-02-11 12:59:00
-            </div>
-            <div class="btn tex-center ">
-              安装
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -76,18 +135,72 @@
   </div>
 </template>
 <script>
+import {
+  formatTime
+} from "@/utils/index";
+import AdressInfo from "@/components/adressInfo";
 export default {
+  components: {
+    AdressInfo
+  },
   data() {
       return {
-          tab: 'home'
+          type: "0",
+          dataInfo: [],
+          facilityInfo:{
+            state: '',
+            BatteryLevel: '',
+            info: []
+          },
+          adress: '',
+          adress_f: '',
+          showVideo: true
+
       }
   },
   onLoad(opt) {
+    opt = {
+      facilityinfoId: "2002151524222011",
+      fType: "0"
+    }
+    this.type = opt.fType
+    this.getdetailData(opt)
   },
   onShow() {
+    
   },
 
   methods: {
+    getdetailData({fType, facilityinfoId}) {
+      this.$request
+        .post("/facilityInfo/queryFacilityInfo.do", { type: fType,facilityinfoId: facilityinfoId})
+        .then(res => {
+          this.dataInfo = res[0]
+          this.facilityInfo = {state: res[0].isOnline,
+          BatteryLevel: res[0].BatteryLevel,
+          info: [
+            {'title': '告警时间', 'value': res[0].fTime ? formatTime(res[0].fTime, 'Y/M/D h:m:s') : '无'},
+            {'title': '备注', 'value': res[0].fAlias || '无'},
+            {'title': 'IMEI', 'value': res[0].ModelNumber || '无'},
+            {'title': '设备ID', 'value': res[0].facilityinfoId || '无'},
+            {'title': '安装时间', 'value': formatTime(res[0].CreateTime, 'Y/M/D h:m:s') || '无'},
+            {'title': '安装位置', 'value': res[0].facilitySecondPosition || '无'}
+            ]
+          }
+          console.log(this.facilityInfo)
+          this.adress = res[0].fLiveAddress
+          this.adress_f = res[0].fRtmp
+        })
+        .catch(err => {
+          console.log("err: ", err);
+          return;
+        });
+    },
+    playVideo() {
+      let yplayz = new EZUIPlayer('video');
+      console.log(yplayz)
+      this.showVideo = true
+    }
   }
   }
 </script>
@@ -95,7 +208,7 @@ export default {
 .detail-page {
   height: 100vh;
   .information-header{
-      height: 400rpx;
+      height: 90rpx;
       background: #1D7FFD;
       padding: 20rpx 25rpx 0;
       color: #fff;
@@ -130,16 +243,7 @@ export default {
         background:rgba(255,255,255,1);
         box-shadow:0px 9px 32px 0px rgba(51,83,253,0.1);
         border-radius:20rpx;
-        .name{
-          font-size: 26rpx;
-        }
-        .id{
-          font-size: 24rpx;
-        }
-        .time{
-          font-size: 22rpx;
-          color: #C2C2C4;
-        }
+        font-size: 24rpx;
         .btn{
           width:80rpx;
           height:36rpx;

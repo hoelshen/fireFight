@@ -1,104 +1,65 @@
 <template>
   <div class="equipmentlist-page flex column">
-    <div class="information-header">
-      <image
-        class="icon mrg-b-40"
-        src="/static/png/left-arrow.png"
-      />
-      <div class="flex time-change mrg-center j-center a-center">
-        <div class="flex_1 tex-center change-item change-active">
-          全部告警
-        </div>
-        <div class="flex_1 tex-center">
-          选择
-        </div>
-        <div class="flex_1 tex-center">
-          回到今天
+    <scroll-view
+      :style="{'height': '100vh'}"
+      :scroll-y="true"
+    >
+      <div class="information-header">
+        <!-- <image
+          class="icon mrg-b-40"
+          src="/static/png/left-arrow.png"
+        /> -->
+      </div>
+      <div class="equipment-info mrg-center flex a-center pdd-lr-20 mrg-b-40">
+        <image
+          class="info-img"
+          src="/static/png/smoke.png"
+        />
+        <div class="pdd-l-40">
+          <div>安装数量:</div>
+          <div><span class="info-number">{{ listByType.length }}</span>个</div>
         </div>
       </div>
-      <div class="flex time-change mrg-center j-center a-center">
-        <div class="flex_1 tex-center change-item change-active">
-          全部告警
-        </div>
-        <div class="flex_1 tex-center">
-          选择
-        </div>
-        <div class="flex_1 tex-center">
-          回到今天
-        </div>
-      </div>
-    </div>
-    <div class="equipment-info mrg-center flex a-center pdd-lr-20 mrg-b-40">
-      <image
-        class="info-img"
-        src="/static/png/smoke.png"
-      />
-      <div class="pdd-l-40">
-        <div>安装数量:</div>
-        <div><span class="info-number">8675</span>个</div>
-      </div>
-    </div>
-    <div class="equipment-list mrg-center ">
-      <div class="equipment-item mrg-b-40 pdd-20">
-        <div class="flex">
-          <image
-            class="mrg-r-20"
-            src="/static/png/smoke.png"
-          />
-          <div>
-            <div class="name pdd-b-5">
-              设备：宁泰家园设备1号
-            </div>
-            <div class="id pdd-b-5">
-              ID：123456
-            </div>
-            <div class="time pdd-b-5">
-              安装时间：2020-02-11 12:59:00
-            </div>
-            <div class="time pdd-b-5">
-              安装位置：2020-02-11 12:59:00
-            </div>
-            <div class="btn tex-center ">
-              安装
+      <div class="equipment-list mrg-center ">
+        <div
+          v-for="(item,index) in listByType"
+          :key="index"
+          class="equipment-item pdd-20"
+          @click="jumpDetail(item)"
+        >
+          <div class="flex">
+            <image
+              class="mrg-r-20"
+              src="/static/png/smoke.png"
+            />
+            <div>
+              <div class="name pdd-b-10">
+                设备：{{ item.fAname }}
+              </div>
+              <div class="id pdd-b-10">
+                ID：{{ item.facilityinfoId }}
+              </div>
+              <div class="time pdd-b-10">
+                安装位置：{{ item.placeAddress }}{{ item.facilitySecondPosition }}
+              </div>
+              <div
+                class="btn tex-center "
+                :style="{background:item.isOnline?'rgba(34,172,56,1)':'gray'}"
+                v-text="item.isOnline?'在线':'离线'"
+              />
             </div>
           </div>
         </div>
       </div>
-
-
-      <div class="equipment-item mrg-b-40 pdd-20">
-        <div class="flex">
-          <image
-            class="mrg-r-20"
-            src="/static/png/smoke.png"
-          />
-          <div>
-            <div class="name pdd-b-5">
-              设备：宁泰家园设备1号
-            </div>
-            <div class="id pdd-b-5">
-              ID：123456
-            </div>
-            <div class="time pdd-b-5">
-              安装时间：2020-02-11 12:59:00
-            </div>
-            <div class="time pdd-b-5">
-              安装位置：2020-02-11 12:59:00
-            </div>
-            <div class="btn tex-center ">
-              安装
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    </scroll-view>
   </div>
 </template>
 <script>
 export default {
   data() {
       return {
-          tab: 'home'
+          tab: 'home',
+          listByType: []
       }
   },
   onLoad(opt) {
@@ -111,15 +72,19 @@ export default {
   methods: {
     async getList() {
       this.$request
-      //   /facilityInfo/queryFacilityListByType.do
-        .post("/user/getUserAddress.do", { userId: 2002131059424992})
+        .post("/facilityInfo/queryFacilityListByType.do", { userId: 2002131059424992,sum: 0, type: 0})
         .then(res => {
-          console.log(res)
+          this.listByType = res
         })
         .catch(err => {
           console.log("err: ", err);
           return;
         });
+    },
+    async jumpDetail({fType, facilityinfoId}) {
+      wx.navigateTo({
+        url: `/pages/dataDetail/index?type=${fType}&facilityinfoId=${facilityinfoId}`
+      });
     }
   }
   }
@@ -128,7 +93,7 @@ export default {
 .equipmentlist-page {
   height: 100vh;
   .information-header{
-      height: 400rpx;
+      height: 120rpx;
       background: #1D7FFD;
       padding: 20rpx 25rpx 0;
       color: #fff;
@@ -175,11 +140,14 @@ export default {
   }
   .equipment-list {
       color: #3E4A59;
+      width: 750rpx;
+      height: 760rpx;
       .equipment-item{
         width: 662rpx;
         background:rgba(255,255,255,1);
         box-shadow:0px 9px 32px 0px rgba(51,83,253,0.1);
         border-radius:20rpx;
+        margin: 0rpx 24rpx 20rpx;
         .name{
           font-size: 26rpx;
         }
