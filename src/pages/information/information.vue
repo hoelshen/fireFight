@@ -1,14 +1,17 @@
 <template>
   <div class="information-page flex column">
     <div class="information-container">
-      <image
-        class="icon mrg-b-40"
-        src="/static/png/left-arrow.png"
-      />
       <div class="warn mrg-b-40">
         确认当前场所是否发生告警事件？
       </div>
       <div class="content mrg-center pdd-40">
+        <div class="flex mrg-b-40">
+          <image
+            class="mrg-r-20"
+            src="/static/png/smoke.png"
+          />
+          <div>websocketData</div>
+        </div>
         <div class="flex mrg-b-40">
           <image
             class="mrg-r-20"
@@ -49,15 +52,25 @@
 export default {
   data() {
       return {
-          tab: 'home'
+          tab: 'home',
+          infoTop: {title: '告警信息', haveInfo: true, showNext: true, fState: '11', warnAdress: '', homeManager: '', homeManagerPhone: '', infoArr: [{title: '告警时间', key: 'alarmTime', val: '无', showColor: false, showHead: true, showtitle: true}, {title: '告警设备类型：', key: 'facilityType', val: '无', showColor: true, showHead: false, showtitle: true}, {title: '所在场所：', key: 'placeName', val: '无', showColor: true, showHead: false, showtitle: true}]},
       }
   },
   onLoad(opt) {
+    opt.websocketData = JSON.stringify(wx.getStorageSync('websocketData'))
+    this.websocketData = JSON.parse(opt.websocketData)
+    console.log(this.websocketData)
+    this.getwarnInfo()
   },
   onShow() {
   },
 
   methods: {
+    getwarnInfo() {
+      Object.keys(this.websocketData).forEach(e => {
+      })
+
+    }
   }
   }
 </script>

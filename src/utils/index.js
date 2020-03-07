@@ -83,10 +83,30 @@ export function formatTime(number, format) {
   }
   return format;
 }
+
+export function getParams({ province, city, prefecture, areaName, placeName, placeId}) {
+  let params = {
+      province: province
+  }
+  if (city != '') {
+      params['city'] = city;
+    }
+    if (prefecture != '') {
+      params['prefecture'] = prefecture;
+    }
+    if (areaName != '') {
+      params['areaName'] = areaName;
+    }
+    if (placeName != '') {
+      params['placeId'] = placeId;
+    }
+  return params
+}
 export default {
   promisify,
   compareVersion,
   objKeySort,
   ObjectToString,
-  formatTime
+  formatTime,
+  getParams
 }

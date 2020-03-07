@@ -2,6 +2,11 @@
 <script>
 export default {
   mpType: "app",
+  data() {
+    return {
+      websocket: null
+    }
+  },
   onLaunch(opts) {
     this.globalData.options = opts;
     
@@ -16,6 +21,40 @@ export default {
           "当前微信版本过低，可能影响使用体验，请升级到最新微信版本后重试。"
       });
     }
+    this.initWebsocket()
+  },
+  methods: {
+    initWebsocket() {
+      this.websocket = wx.connectSocket({
+        url: 'ws://121.36.15.94:8282/IntelligentFire/websocket'
+      })
+
+
+      this.websocket.onOpen(res => {
+         console.log('连接成功，当前时间' + new Date());
+      });
+      this.websocket.onError(res => {
+        setTimeout(() => {
+          this.initWebsocket();
+          console.log('正在重连，当前时间' + new Date());
+        }, 5000);
+      });
+
+      this.websocket.onMessage(event => {
+        // websocket接收信息
+        if (JSON.parse(event.data).operation != '1') return
+        let websocketData = JSON.parse(event.data).list[0]
+        console.log(websocketData)
+        wx.setStorage({
+          key: 'websocketData',
+          data: websocketData
+        })
+
+        wx.navigateTo({
+          url: `/pages/alarmpage/index?websocketData=${websocketData}`
+        });
+      })
+    },
   },
   onPageNotFound(res) {},
   onError(error) {},

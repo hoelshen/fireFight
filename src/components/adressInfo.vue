@@ -31,7 +31,8 @@ export default {
     },
     onShow() {
       if(wx.getStorageSync('userAddress')) {
-        this.userAddress = wx.getStorageSync('userAddress')
+        let userAddress = wx.getStorageSync('userAddress')
+        this.userAddress = userAddress.province + userAddress.city + userAddress.prefecture + userAddress.areaName + userAddress.placeName
       } else {
         this.getUserAddress()
       }
@@ -43,16 +44,17 @@ export default {
         .post("/user/getUserAddress.do", { userId: 2002131059424992})
         .then(res => {
           this.userAddress = res.province + res.city + res.prefecture + res.areaName + res.placeName
-            wx.setStorage({
-              key: 'userAddress',
-              data: this.userAddress
-            })
+          wx.setStorage({
+            key: 'userAddress',
+            data: res
+          })
         })
         .catch(err => {
           console.log("err: ", err);
           return;
         });
-    }
+    },
+
   }
 }
 </script>

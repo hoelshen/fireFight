@@ -1,24 +1,8 @@
 <template>
   <div class="alarm-page flex column">
-    <image
-      class="icon mrg-b-40 pdd-l-24"
-      src="/static/png/arrow-gray.png"
-    />
     <div class="alarm-info mrg-center ">
       <div class="alarm-adress flex j-between">
-        <div class="flex flex_1 a-center">
-          <image
-            class="icon"
-            src="/static/png/locations.png"
-          />
-          <div class="pdd-lr-20">
-            位置：宁泰家园
-          </div>
-          <image
-            class="arrow-right"
-            src="/static/png/arrow-white.png"
-          />
-        </div>
+        <div class="flex flex_1 a-center" />
         <div class="alarm-number flex a-center pdd-lr-25">
           该场所下告警统计 
           <span class="number pdd-lr-25">2</span>
@@ -41,8 +25,15 @@
           />
         </div>
       </div>
-      <div>告警时间：14:43:00</div>
-      <div>告警时间：14:43:00</div>
+      <div>告警时间：{{ websocketData.alarmTime }}</div>
+      <div class="pdd-b-10 ">
+        {{ websocketData.placeName }}{{ websocketData.facilitySecondPosition }}
+        发生
+        <span
+          class="warnColor"
+          v-text="websocketData.fState == '1' ? '警告!' : '拆卸告警'"
+        />
+      </div>
     </div>
     <div class="alarm-tip mrg-center flex a-center j-between pdd-lr-20 mrg-b-40">
       <div class="flex a-center j-between">
@@ -50,7 +41,10 @@
           class="info-img"
           src="/static/png/alarm.png"
         />
-        <div class="pdd-l-40">
+        <div
+          class="pdd-l-40"
+          @click="jumpUrl"
+        >
           确认当前场所是否发生告警事件？
         </div>
       </div>  
@@ -59,11 +53,11 @@
         src="/static/png/arrow-red.png"
       />
     </div>
-    <div class="icon-container flex a-center j-between">
+    <!-- <div class="icon-container flex a-center j-between">
       <image src="/static/png/localtion-icon.png" />
       <image src="/static/png/video-icon.png" />
       <image src="/static/png/video-icon.png" />
-    </div>
+    </div> -->
 
 
     
@@ -76,43 +70,140 @@
           />
           历史告警
         </div>
-        <image
+        <!-- <image
           class="arrow"
           src="/static/png/arrow.png"
-        />
+        /> -->
       </div>
       <div class="equipment-item mrg-b-40 pdd-20">
-        <div class="flex j-between pdd-tb-20 mrg-lr-25 border_b">
-          <div class="flex">
-            <image
-              class="mrg-r-20"
-              src="/static/png/alarmicon.png"
-            />
-            <div class="time pdd-b-5">
-              5分钟前
+        <scroll-view
+          :style="{'height': '600rpx'}"
+          :scroll-y="true"
+        >
+          <div
+            v-for="(item, index) in warnList"
+            :key="index"
+            class="flex j-between pdd-tb-20 mrg-lr-25 border_b"
+          >
+            <div class="flex">
+              <image
+                class="mrg-r-20"
+                src="/static/png/alarmicon.png"
+              />
+              <div class="time pdd-b-5">
+                {{ item.alarmTime }}
+              </div>
+            </div>
+            <div>
+              {{ item.text }}
             </div>
           </div>
-          <div>
-            智能烟感告警
-          </div>
-        </div>
+        </scroll-view>
       </div>
     </div>
   </div>
 </template>
 <script>
+import {
+  getParams
+} from "@/utils/index";
 export default {
+  components: {
+  },
   data() {
       return {
-          tab: 'home'
+          tab: 'home',
+          params: {},
+          warnList: [],
+          websocketData: {}
       }
   },
   onLoad(opt) {
+    
+    opt.websocketData = JSON.stringify(wx.getStorageSync('websocketData'))
+    this.websocketData = JSON.parse(opt.websocketData)
+
+    console.log(opt.websocketData)
   },
   onShow() {
+    this.params = wx.getStorageSync('userAddress')
+    console.log(this.params)
+    this.getWarningTask()
   },
 
   methods: {
+    async getWarningTask() {
+      let params = getParams(this.params)
+      params['page'] = 1
+      params['userId'] = 2002131059424992
+      try {
+        let res = await this.$request.post('/facilityInfo/countFacilityWarningTaskTo30DaysGZ.do', params)
+        this.changeData(res)
+      } catch (error) {
+      }
+    },
+    changeData(list){
+      this.warnList = list.map(e => {
+        switch (e.facilityType) {
+            case '0':
+            e['text'] = '烟感告警'
+            break;
+            case '1':
+            e['text'] = '气感告警'
+            break;
+            case '2':
+            case '5':
+            case '6':
+            e['text'] = '液位液压告警'
+            break;
+            case '3':
+            e['text'] = '电感告警'
+            break;
+            case '4':
+            e['text'] = '监控告警'
+            break;
+            case '7':
+            e['text'] = '消防栓告警'
+            break;
+            default:
+            e['text'] = '烟感告警'
+        }
+        if (e.reason == 1 || !e.reason) {
+            switch (e.fConfirmState) {
+                case '0':
+                    e['Result'] = '未确认'
+                    break;
+                case '1':
+                    e['Result'] = '已确认'
+                    break;
+                case '2':
+                    e['Result'] = '已完成'
+                    break;
+            }
+            if (e.fFireOverState == '1') {
+                e['Result'] = '已完成'
+            }
+        }
+
+        if (e.reason == 10) {
+            switch (e.fFireOverState) {
+                case '0':
+                    e['Result'] = '未恢复'
+                    break;
+                case '1':
+                    e['Result'] = '已恢复'
+                    break;
+            }
+        }
+         return e
+      })
+    },
+    jumpUrl() {
+      let websocketData = JSON.stringify(this.websocketData)
+      wx.navigateTo({
+        url: `/pages/information/index?websocketData=${websocketData}`
+      });
+    }
   }
   }
 </script>
@@ -132,6 +223,9 @@ export default {
       height: 331rpx;
       border-radius: 20rpx;
       font-size: 26rpx;
+      .adress-width{
+        max-width: 300rpx;
+      }
       .alarm-adress{
           height: 60rpx;
           font-size: 26rpx;

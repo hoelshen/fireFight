@@ -23,10 +23,10 @@ export default {
   config: {
     cloud: true,
     pages: [
+      "pages/alarmpage/index",  //设备告警
       "pages/dataDetail/index",  //数据详情
       "pages/equipmentlist/index",  //设备列表
       "pages/monitorpage/index", //查看监控
-      "pages/alarmpage/index",  //设备告警
       "pages/information/index", //确定信息
       "pages/detection/index", //数据检测
       "pages/home/index", // 首页
