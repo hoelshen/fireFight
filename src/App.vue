@@ -5,10 +5,7 @@ export default {
   onLaunch(opts) {
     this.globalData.options = opts;
     
-    this.$request.getOpenid().then(res=>{
-      getApp().globalData.sessionkey = res.result.session_key;
-      getApp().globalData.openid = res.result.openid;
-    });
+
   },
   onShow() {
     if (!wx.createSelectorQuery) {
@@ -26,10 +23,6 @@ export default {
     return {
       options: {}, // 启动参数
       user: {}, // 用户信息
-      sessionkey: "",
-      openid: "",
-      imageUrl: "https://cdn.tellers.cn/tell_v2/static/share_default.jpg", // 默认分享分
-
     };
   }
 };

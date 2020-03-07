@@ -8,8 +8,7 @@ import {
 } from "@/utils/index";
 import mdUtils from "@/utils/md5";
 
-const environment = "test"; // 配置环境
-console.log('wx', wx);
+const environment = "prod"; // 配置环境
 wx.myEvent = myEvent;
 const fly = new flyio();
 const loginFly = new flyio();
@@ -26,14 +25,12 @@ loginFly.config.headers["Content-Type"] = "application/json; charset=utf-8";
 
 function getBaseURL(env) {
   switch (env) {
-    case "test":
+    case "prod":
       return "http://121.36.15.94:8282/IntelligentFire";
       default :
         return "http://192.168.118.149:10701";
   }
 }
-
-
 
 
 function getUser() {
@@ -66,107 +63,16 @@ function uploadFile(path) {
   });
 }
 
-async function getOpenid() {
-  const wxRes = await promisify(wx.login, wx)();
-  return fly.post("/user/openid.html", {
-      code: wxRes.code
-    })
-    .then(res => {
-      return res;
-    })
-    .catch(err => {
-      wx.hideLoading();
-    });
-}
-
-async function getlatitude(){
-  const res = await promisify(wx.getLocation, wx)({
-    type: 'wgs84',
-  });
-  lat = (res.latitude).toFixed(2).toString() // 纬度
-  lng = (res.longitude).toFixed(2).toString() // 经度
-  return obj = {
-    lat,
-    lng
-  }
-}
-
 async function login(data) {
-  getApp().globalData.user = data.userInfo;
-
-  // fly.post("/user/login.html", {
-  //     openid,
-  //     portrait,
-
-  //   })
-  //   .then(res => {
-  //     fly.config.headers["tokenCode"] = tokenCode = res.result.tokenCode;
-  //     fly.config.headers["tokenInfo"] = tokenInfo = res.result.tokenInfo;
-
-  //     wx.setStorage({
-  //       key: 'tokenCode',
-  //       data: tokenCode
-  //     })
-  //     wx.setStorage({
-  //       key: 'tokenInfo',
-  //       data: tokenInfo
-  //     })
-  //     return getApp().globalData.user = res.result;
-  //   })
-  //   .catch(err => {
-  //     wx.hideLoading();
-  //   });   
-}
-
-async function loginFlyFn() {
-  // let portrait = getApp().globalData.user.userInfo.avatarUrl
-  // let nickname = getApp().globalData.user.userInfo.nickName
-  // const obj = await getlatitude();
-  // loginFly.post("/user/login.html", {
-  //     openid,
-  //     portrait,
-  //     nickname,
-  //     lat: obj.lat,
-  //     lng: obj.lng
-  //   })
-  //   .then(res => {
-  //     return tokenCode = res.result.tokenCode;
-  //   })
-  //   .catch(err => {
-  //     wx.hideLoading();
-  //   });
-}
-
-
-async function fetchLogin() {
-  const res = await loginFlyFn();  //token
-  fly.config.headers["x-csrf-token"] = res;
-  fly.unlock();
+  getApp().globalData.user = data.userInfo;  
 }
 
 fly.interceptors.request.use(async function (request) {
-  request.headers["tokenCode"] = tokenCode = wx.getStorageSync('tokenCode') //永久保存用户账号
-
-  request.headers["tokenInfo"] = tokenInfo = wx.getStorageSync('tokenInfo') //永久保存用户账号
-
   // qs参数
   if (request.body) {
     request.body['timestamp'] = new Date().getTime()
     request.body['sign'] = mdUtils.MD5(`${ObjectToString(objKeySort(request.body))}&key=3ux94uu9y5SoihjK1BLxZbTOn5dpTAEc`)
     request.body = Qs.stringify(request.body);
-  }
-
-  const whiteList = ['/user/openid.html', '/user/login.html']
-  if(!whiteList.indexOf(request.url) > -1){
-    console.log('不用检验')
-  } else{
-    if(tokenCode){
-      fly.lock();
-      const code = getApp().globalData.openid;
-      return fetchLogin(code);
-    } else{
-      return fly.unlock();
-    }
   }
 
   return request;
@@ -180,9 +86,6 @@ fly.interceptors.response.use(
   async err => {
     if (err.status == 502 || err.status == 404) {
       // 生产环境：服务器正在重启
-
-    } else if (!err.response) {
-
     }
     return Promise.reject(err);;
   }
@@ -191,5 +94,4 @@ fly.interceptors.response.use(
 fly.login = login;
 fly.uploadFile = uploadFile;
 fly.getUser = getUser;
-fly.getOpenid = getOpenid;
 export default fly
