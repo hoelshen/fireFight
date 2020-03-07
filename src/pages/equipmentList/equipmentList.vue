@@ -104,9 +104,23 @@ export default {
   onLoad(opt) {
   },
   onShow() {
+    console.log(1)
+    this.getList()
   },
 
   methods: {
+    async getList() {
+      this.$request
+      //   /facilityInfo/queryFacilityListByType.do
+        .post("/user/getUserAddress.do", { userId: 2002131059424992})
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log("err: ", err);
+          return;
+        });
+    }
   }
   }
 </script>
