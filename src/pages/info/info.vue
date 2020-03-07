@@ -259,6 +259,7 @@ export default {
     this.tab = opt.tab;
   },
   onShow() {
+    const that = this;
     if (this.toPage) {
       let toPage = this.toPage;
       this.toPage = null;
@@ -267,9 +268,6 @@ export default {
         query: this.$mp.query
       });
     }
-      wx.myEvent.on("cars", e => {
-        this.cars = e;
-      })
     this.onTabChange(this.tab);
     wx.getSetting({
       success: function(res) {
@@ -278,6 +276,8 @@ export default {
           wx.getUserInfo({
             success: function(res) {
               console.log(res.userInfo);
+              that.user.avatarUrl = res.userInfo.avatarUrl;
+              getApp().globalData.user.userInfo = res.userInfo;
             }
           });
         } else {
@@ -290,25 +290,8 @@ export default {
   },
 
   methods: {
-    onTabChange(tab = "home") {
-      this.tab = tab;
-
-      if (this.tab === "mine") {
-        this.$request.getUser().then(res => {
-          if (res) {
-            this.user.aliasPortrait = res.portrait;
-            this.user.phoneNumber = res.mobile;
-          }
-        });
-      }
+    onTabChange() {
       let res = wx.getSystemInfoSync();
-      // 导航栏总高度 & 占位块高度
-      // {
-      //       'iPhone': 64,
-      //       'iPhoneX': 88,
-      //       'Android': 68,
-      //       'samsung': 72
-      // }
       let isiOS = res.system.indexOf("iOS") > -1;
       let totalBar;
       if (!isiOS) {
@@ -326,7 +309,6 @@ export default {
           totalBar = 32;
         }
       }
-
       // 时间、信号等工具栏的高度
       let toolBar = res.statusBarHeight;
       this.tool_height = res.statusBarHeight;
@@ -334,6 +316,7 @@ export default {
       this.title_height = totalBar * 2 - toolBar;
     },
     onGotUserInfo(e) {
+      console.log('e: ', e);
       this.$router.push({
         query: { id: 1 },
         path: "/pages/login/index"
@@ -348,24 +331,12 @@ export default {
       if (res2 && res2.result) {
         this.cars = res2.result.items;
       }
-    
     },
     toShare() {
       this.$router.push({ path: "/pages/share/share" });
     },
     hold() {
       this.$router.push({ path: "/pages/bindPhone/index" });
-    },
-    login() {},
-    keyboardChange(e) {
-      this.plateNum = e;
-      this.navCar();
-    },
-    openKeyBoard() {
-
-    },
-    async navCar() {
-
     },
     toError(){
       this.$router.push({

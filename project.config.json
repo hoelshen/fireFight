@@ -92,7 +92,7 @@
 				},
 				{
 					"id": 4,
-					"name": "定位位置",
+					"name": "定位选择",
 					"pathName": "pages/position/index",
 					"query": "",
 					"scene": null

@@ -104,7 +104,6 @@ export default {
     },
     toLogin(){
       let { userName, pwd, code } = this.form;
-
       this.$request
         .post("/user/login.do", {
           userName,
@@ -115,7 +114,7 @@ export default {
           getApp().globalData.user.userID = res.userID
             return this.$router.push({
               query: {},
-              path: "/pages/info/index"
+              path: "/pages/home/index"
             })
         })
         .catch(err => {
@@ -124,14 +123,12 @@ export default {
             icon: "none"
           });
         });
-    },
-
+    }
   },
   onShow() {
     const { user } = getApp().globalData;
     this.user = user;
     console.log(' this.user: ',  this.user);
-
   }
 };
 </script>
