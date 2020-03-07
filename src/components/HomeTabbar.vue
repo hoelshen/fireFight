@@ -27,37 +27,7 @@
     </form>
     <form
       report-submit="true"
-      @submit="mail"
-    >
-      <button
-        :class="mailCount ? 'leftMail' : '' "
-        class="flex center mailBtn"
-        form-type="submit"
-        hover-class="active"
-      >
-        <image
-          v-show="tab == 'mail'"
-          class="icon mail"
-          src="/static/png/device.png"
-        />
-        <image
-          v-show="tab != 'mail'"
-          class="icon mail"
-          src="/static/png/device.png"
-        />
-        <div
-          v-if="mailCount"
-          class="flex center"
-          :class="mailCount > 10 ? 'mailCountTwo' : 'mailCountOne' "
-        >
-          {{ mailCount }}
-        </div>
-      </button>
-      <span class="flex center">设备检测</span>
-    </form>
-    <form
-      report-submit="true"
-      @submit="myInfo"
+      @submit="toFire"
     >
       <button
         class="flex center"
@@ -131,18 +101,18 @@ export default {
   methods: {
     myInfo(e) {
       wx.reLaunch({
-      url: "/pages/info/index"
+        url: "/pages/info/index"
       });
     },
     home(e) {
       wx.reLaunch({
-            url: "/pages/home/index"
-          });
-    },
-    mail(e) {
-      wx.reLaunch({
-            url: "/pages/home/index"
+        url: "/pages/home/index"
       });
+    },
+    toFire(){
+      wx.reLaunch({
+        url: '/pages/examine/index'
+      })
     }
   }
 };

@@ -112,7 +112,6 @@
 <script>
 import HomeTabbar from "@/components/HomeTabbar";
 import shareMix from "@/mixins/mixin";
-import keyboard from "@/components/keyboard";
 // import myEvent from "@/utils/event";
 export default {
   components: {

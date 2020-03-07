@@ -128,7 +128,7 @@
           <span class="my_function_item_text">智能消火栓</span>
         </button> 
       </session>
-
+      <!-- 
       <session class="my_function flex">
         <button
           class="my_function_item_button flex column center"
@@ -177,7 +177,7 @@
           <span class="my_function_item_text">问题反馈</span>
         </button>
       </session>
-
+      -->
       <session class="my_contact flex column j-between center">
         <button
           v-if="!user.unionid"
@@ -217,7 +217,6 @@
 import HomeTabbar from "@/components/HomeTabbar";
 import Modal from "@/components/Modal";
 import shareMix from "@/mixins/mixin";
-import keyboard from "@/components/keyboard";
 export default {
   components: {
     HomeTabbar,
