@@ -34,7 +34,32 @@ export function compareVersion(v1, v2) {
 
   return 0
 }
+
+// 对象有序化
+export function objKeySort(obj) {
+  let newkey = Object.keys(obj).sort();
+  return newkey.reduce((c, e) => {
+      c[e] = obj[e]
+      return c
+  }, {})
+}
+
+// 将对象属性与值拼接成串
+export function ObjectToString(obj) {
+  let str = '';
+  if (obj) {
+      for (let p in obj) {
+          str += (p + '=' + obj[p] + '&');
+      }
+      if (str.substring(0, str.length - 1)) {
+          return str.substring(0, str.length - 1);
+      }
+  }
+  return str;
+}
 export default {
   promisify,
-  compareVersion
+  compareVersion,
+  objKeySort,
+  ObjectToString
 }

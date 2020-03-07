@@ -1,8 +1,12 @@
 import flyio from "flyio/dist/npm/wx";
+import Qs from 'qs'
 import myEvent from './event';
 import {
-  promisify
+  promisify,
+  objKeySort,
+  ObjectToString
 } from "@/utils/index";
+import mdUtils from "@/utils/md5";
 
 const environment = "test"; // 配置环境
 console.log('wx', wx);
@@ -14,7 +18,7 @@ let tokenCode = "",
 
 fly.config.baseURL = getBaseURL(environment);
 fly.config.headers["Accept"] = "application/json";
-fly.config.headers["Content-Type"] = "application/json; charset=utf-8";
+fly.config.headers["Content-Type"] = "application/x-www-form-urlencoded; charset=UTF-8";
 
 loginFly.config.baseURL = getBaseURL(environment);
 loginFly.config.headers["Accept"] = "application/json";
@@ -144,6 +148,14 @@ fly.interceptors.request.use(async function (request) {
   request.headers["tokenCode"] = tokenCode = wx.getStorageSync('tokenCode') //永久保存用户账号
 
   request.headers["tokenInfo"] = tokenInfo = wx.getStorageSync('tokenInfo') //永久保存用户账号
+
+  // qs参数
+  if (request.body) {
+    request.body['timestamp'] = new Date().getTime()
+    request.body['sign'] = mdUtils.MD5(`${ObjectToString(objKeySort(request.body))}&key=3ux94uu9y5SoihjK1BLxZbTOn5dpTAEc`)
+    request.body = Qs.stringify(request.body);
+  }
+
   const whiteList = ['/user/openid.html', '/user/login.html']
   if(!whiteList.indexOf(request.url) > -1){
     console.log('不用检验')
