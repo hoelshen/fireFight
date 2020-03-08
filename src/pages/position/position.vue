@@ -22,6 +22,7 @@
         <span>位置:</span>
         <span class="blue">{{ positionName }}</span>
       </div>
+      <!-- 
       <div class="positionSelect flex center j-between">
         <span
           class="tag box"
@@ -33,6 +34,7 @@
           @click="select(index)"
         >全部场所</span>
       </div>
+        -->
     </div>
 
 
@@ -375,12 +377,12 @@ export default {
     },
     sendPosition(){
       const userAddress = {}; 
-      userAddress.province = this.current.provinceName;
-      userAddress.city = this.current.cityName;
-      userAddress.prefecture = this.current.prefectureName;
-      userAddress.areaName = this.current.areaName;
-      userAddress.placeName = this.current.placeName;
-      getApp().globalData.userAddress = userAddress;
+      userAddress.province = this.current.provinceName || '';
+      userAddress.city = this.current.cityName || '';
+      userAddress.prefecture = this.current.prefectureName || '';
+      userAddress.areaName = this.current.areaName || '';
+      userAddress.placeName = this.current.placeName || '';
+      getApp().globalData.userAddress = userAddress || '';
       wx.setStorage({
         key: "userAddress",
         data: userAddress
@@ -394,6 +396,10 @@ export default {
     const { user } = getApp().globalData;
     this.user = user;
     this.getProvince();
+    let userAddress = wx.getStorageSync('userAddress')
+    console.log('userAddress: ', userAddress);
+
+    this.positionName =  userAddress.province + userAddress.city + userAddress.prefecture + userAddress.areaName + userAddress.placeName
   }
 };
 </script>
@@ -435,8 +441,8 @@ export default {
         text-align: center;
         border-radius: 4rpx;
         border-style: dashed;
-        color: #bdbdc0;
-        background: linear-gradient(#4153D1, #4153D1);
+        color: #ffffff;
+        background:linear-gradient(270deg,#1E99EB 0%,#3055FD 100%);
         margin-right: 24rpx;
         margin-bottom: 24rpx;
         padding: 0 26rpx;
@@ -484,6 +490,7 @@ export default {
   border: 1rpx solid #ddd;
   border-radius: 6rpx;
   box-sizing: border-box;
+  border-color:#3451FD;
 }
 
 .select-current::after {

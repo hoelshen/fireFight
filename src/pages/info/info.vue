@@ -179,6 +179,7 @@
       </session>
       -->
       <session class="my_contact flex column j-between center">
+        <!-- 
         <button
           v-if="!user.unionid"
           class="my_contact_item_button flex wrap center grow"
@@ -196,6 +197,7 @@
             src="/static/png/arrow.png"
           />
         </button>
+        -->
         <div
           class="loginImg"
           @click="toLogout"
@@ -385,7 +387,7 @@ export default {
       color: #4d495b;
     }
     &_text {
-      font-size:26rpx;
+      font-size:22rpx;
       font-family:PingFang SC;
       font-weight:500;
       color:rgba(62,74,89,1);

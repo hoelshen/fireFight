@@ -113,7 +113,7 @@ export default {
         .then(res => {
           getApp().globalData.user.userID = res.userID;
             wx.setStorage({
-              key: 'userID',
+              key: 'userId',
               data: res.userID
             })
             return this.$router.push({
