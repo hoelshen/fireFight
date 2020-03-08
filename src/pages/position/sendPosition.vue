@@ -20,7 +20,9 @@
         scale="14"
         :markers="markers"
         show-location
+        :include-points="markers"
         style="width: 100%; height: 100vh;"
+        @markertap="markertap"
       />
     </div>
   </div>
@@ -39,17 +41,23 @@ export default {
     }
   },
   methods: {
-    async getPhoneNumber(e) {
-
-    },
-    regionchange(e) {
-      console.log(e.type)
-    },
     markertap(e) {
-      console.log(e.markerId)
-    },
-    controltap(e) {
-      console.log(e.controlId)
+      const fID = e.markerId
+      this.$request
+      .post("/location/getPlace.do"	,{
+        fID
+      })
+      .then(res => {
+       const data = res;
+
+       console.log('data: ', data);
+      })
+      .catch(err => {
+        return wx.showToast({
+          title: "获取失败",
+          icon: "none"
+        });
+      }); 
     },
     position(){
       const that = this; 
@@ -72,12 +80,11 @@ export default {
     },
     sendPosition(){
       console.log(2)
-
     },
     getData(){
       const { userID } = getApp().globalData.user || 2002131059424992;
       const value = wx.getStorageSync("userAddress");
-      const province = '';
+      let province = '';
       if (value) {
         province = value.province
         // Do something with return value
@@ -94,7 +101,7 @@ export default {
        data.forEach(val=>{
          console.log('val: ', val);
         const obj = {};
-        obj.id = val.fAreaName;
+        obj.id = val.fID;
         obj.latitude = val.fPositionY;
         obj.longitude = val.fPositionX;
         obj.title =  val.fAreaName;

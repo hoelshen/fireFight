@@ -111,7 +111,11 @@ export default {
           code
         })
         .then(res => {
-          getApp().globalData.user.userID = res.userID
+          getApp().globalData.user.userID = res.userID;
+            wx.setStorage({
+              key: 'userID',
+              data: res.userID
+            })
             return this.$router.push({
               query: {},
               path: "/pages/home/index"

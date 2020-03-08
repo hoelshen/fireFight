@@ -28,7 +28,29 @@
           </div>
         </div>
         <div class="bottomDiv">
-          5分钟前
+          <scroll-view
+            :style="{'height': '600rpx'}"
+            :scroll-y="true"
+          >
+            <div
+              v-for="(item, index) in warnList"
+              :key="index"
+              class="flex j-between pdd-tb-20 mrg-lr-25 border_b"
+            >
+              <div class="flex">
+                <image
+                  class="mrg-r-20"
+                  src="/static/png/alarmicon.png"
+                />
+                <div class="time pdd-b-5">
+                  {{ item.alarmTime }}
+                </div>
+              </div>
+              <div>
+                {{ item.text }}
+              </div>
+            </div>
+          </scroll-view>
         </div>
       </div>
     </view>
@@ -51,29 +73,31 @@ export default {
       plateNum: "",
       tool_height: "",
       statusbarHeight: "",
-      title_height: ""
+      warnList: "",
+      title_height: "",
     };
   },
   methods: {
     getData(){
-      let {  userID } = getApp().globalData.user
+      let  userID ='';
       const value = wx.getStorageSync("userAddress");
-      const province = '';
+      const value2 = wx.getStorageSync("userId");
+
+      let province = '';
       if (value) {
-        province = value.province
+        province = value.province || '河北省'
         // Do something with return value
       }
+      userID = value2 || '2002122108384531'
       //todo 字段获取方式
       this.$request
-      .post("/countFacilityWarningTaskTo30DaysGZ.do",{
-        userID,
-        province,
-        page:1
+      .post("/facilityInfo/countFacilityWarningTaskTo30DaysGZ.do",{
+        userId,
+        page: 1,
+        province
       })
       .then(res => {
-       const data = res
-       console.log('data: ', data);
-       
+       this.changeData(res)
       })
       .catch(err => {
         return wx.showToast({
@@ -81,7 +105,63 @@ export default {
           icon: "none"
         });
       });
-    }
+    },
+    changeData(list){
+      this.warnList = list.map(e => {
+        switch (e.facilityType) {
+            case '0':
+            e['text'] = '烟感告警'
+            break;
+            case '1':
+            e['text'] = '气感告警'
+            break;
+            case '2':
+            case '5':
+            case '6':
+            e['text'] = '液位液压告警'
+            break;
+            case '3':
+            e['text'] = '电感告警'
+            break;
+            case '4':
+            e['text'] = '监控告警'
+            break;
+            case '7':
+            e['text'] = '消防栓告警'
+            break;
+            default:
+            e['text'] = '烟感告警'
+        }
+        if (e.reason == 1 || !e.reason) {
+            switch (e.fConfirmState) {
+                case '0':
+                    e['Result'] = '未确认'
+                    break;
+                case '1':
+                    e['Result'] = '已确认'
+                    break;
+                case '2':
+                    e['Result'] = '已完成'
+                    break;
+            }
+            if (e.fFireOverState == '1') {
+                e['Result'] = '已完成'
+            }
+        }
+
+        if (e.reason == 10) {
+            switch (e.fFireOverState) {
+                case '0':
+                    e['Result'] = '未恢复'
+                    break;
+                case '1':
+                    e['Result'] = '已恢复'
+                    break;
+            }
+        }
+         return e
+      })
+    },
   },
   onShow() {
     let res = wx.getSystemInfoSync();
@@ -168,8 +248,55 @@ export default {
       .bottomDiv{
         border-top-style: solid;
         border-top-color: hsla(89, 43%, 51%, 0.3);
+
+        .alarm-list {
+            .list-title{
+              height: 80rpx;
+              background:#E9F0FF;
+              border-radius:10px 10px 0px 0px;
+              // opacity:0.1;
+              image {
+                  width: 36rpx;
+                  height: 36rpx;
+              }
+            }
+            color: #3E4A59;
+            .equipment-item{
+              width: 662rpx;
+              background:rgba(255,255,255,1);
+              box-shadow:0px 9px 32px 0px rgba(51,83,253,0.1);
+              border-radius:20rpx;
+              color: #3E4A59;
+              .time{
+                font-size: 26rpx;
+              }
+              .btn{
+                width:80rpx;
+                height:36rpx;
+                background:rgba(34,172,56,1);
+                border-radius:5rpx;
+                color: #fff;
+                line-height: 36rpx;
+                font-size: 20rpx;
+              }
+            }
+            image{
+                width: 36rpx;
+                height: 36rpx;
+            }
+        }
+        .mrg-r-20{
+          width:36rpx;
+          height:36rpx;
+        }
+        .arrow{
+              width: 13rpx !important;
+              height: 22rpx !important;
+          }
       }
      }
+
+
   }
 }
 
