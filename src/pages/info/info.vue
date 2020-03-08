@@ -69,7 +69,7 @@
         </div>
       </div>
 
-      <session class="my_function flex">
+      <session class="my_function flex j-start">
         <button
           class="my_function_item_button flex column center"
           @click="jumpUrl('0')"
@@ -93,7 +93,6 @@
         </button>
 
         <button
-          v-if="!user.unionid"
           class="my_function_item_button flex column center"
           open-type="getUserInfo"
           lang="zh_CN"
@@ -108,7 +107,16 @@
         </button>
 
         <button
-          v-else
+          class="my_function_item_button flex column center"
+          @click="jumpUrl('4')"
+        >
+          <image
+            class="iconfont"
+            src="/static/png/fireHydrant.png"
+          />
+          <span class="my_function_item_text">视频监控</span>
+        </button>
+        <button
           class="my_function_item_button flex column center"
           @click="jumpUrl('2')"
         >
@@ -387,10 +395,11 @@ export default {
   }
 }
 .my_function {
-  height: 172rpx;
+  min-height: 172rpx;
   margin: 40rpx 40rpx;
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
+  flex-wrap: wrap;
   &_item {
     height: 172rpx;
     width: 210rpx;
