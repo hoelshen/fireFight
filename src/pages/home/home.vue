@@ -1,6 +1,9 @@
 <template>
   <div class="page flex column">
     <!-- 首页 -->
+    <div>
+      <Adress-info />
+    </div>
     <div class="head">
       <input
         class="input grow"
@@ -125,11 +128,13 @@
 </template>
 <script>
 import HomeTabbar from "@/components/HomeTabbar";
+import AdressInfo from "@/components/adressInfo";
 import shareMix from "@/mixins/mixin";
 // import myEvent from "@/utils/event";
 export default {
   components: {
     HomeTabbar,
+    AdressInfo
   },
   mixins: [shareMix],
   data() {

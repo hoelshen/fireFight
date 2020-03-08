@@ -43,12 +43,12 @@ export default {
       this.websocket.onMessage(event => {
         // websocket接收信息
         if (JSON.parse(event.data).operation != '1') return
-        let websocketData = JSON.parse(event.data).list[0]
+        let websocketData = JSON.stringify(JSON.parse(event.data).list[0])
         console.log(websocketData)
-        wx.setStorage({
-          key: 'websocketData',
-          data: websocketData
-        })
+        // wx.setStorage({
+        //   key: 'websocketData',
+        //   data: websocketData
+        // })
 
         wx.navigateTo({
           url: `/pages/alarmpage/index?websocketData=${websocketData}`

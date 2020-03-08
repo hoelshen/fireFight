@@ -4,8 +4,8 @@
       <div class="alarm-adress flex j-between">
         <div class="flex flex_1 a-center" />
         <div class="alarm-number flex a-center pdd-lr-25">
-          该场所下告警统计 
-          <span class="number pdd-lr-25">2</span>
+          该设备告警请尽快处理
+          <span class="number pdd-lr-25" />
         </div>
       </div>
       <div class="alarm-detail flex j-between a-center mrg-tb-25">
@@ -119,11 +119,10 @@ export default {
       }
   },
   onLoad(opt) {
-    
-    opt.websocketData = JSON.stringify(wx.getStorageSync('websocketData'))
+    console.log(opt)
+    // opt.websocketData = JSON.stringify(wx.getStorageSync('websocketData'))
     this.websocketData = JSON.parse(opt.websocketData)
 
-    console.log(opt.websocketData)
     this.params = wx.getStorageSync('userAddress')
     this.getWarningTask()
   },
@@ -135,7 +134,7 @@ export default {
     async getWarningTask() {
       let params = getParams(this.params)
       params['page'] = 1
-      params['userId'] = getApp().globalData.user.userID || 2002131059424992
+      params['userId'] = wx.getStorageSync('userID') || 2002131059424992
       try {
         let res = await this.$request.post('/facilityInfo/countFacilityWarningTaskTo30DaysGZ.do', params)
         this.changeData(res)

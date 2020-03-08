@@ -5,6 +5,7 @@ import filters from "./utils/filters";
 import megaloRouter from "megalo-router";
 import request from "./utils/request";
 import day from "./utils/day";
+// import './static/ezuikit.js'; //video 视频插件
 
 Vue.use(VHtmlPlugin);
 Object.keys(filters).forEach(key => Vue.filter(key, filters[key]));

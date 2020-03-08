@@ -72,9 +72,8 @@ export default {
       }
   },
   onLoad(opt) {
-    opt.websocketData = JSON.stringify(wx.getStorageSync('websocketData'))
     this.websocketData = JSON.parse(opt.websocketData)
-    this.userId = getApp().globalData.user.userID || 2002131059424992
+    this.userId = wx.getStorageSync('userID')
     this.getwarnInfo()
   },
   onShow() {

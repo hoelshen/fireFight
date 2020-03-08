@@ -1,10 +1,5 @@
 <template>
   <div class="detail-page flex column">
-    <div class="information-header">
-      <!-- <div>
-        <Adress-info />
-      </div> -->
-    </div>
     <div class="equipment-list mrg-center ">
       <div class="equipment-item mrg-b-40 pdd-20">
         <div class="flex">
@@ -142,7 +137,6 @@ import {
   formatTime
 } from "@/utils/index";
 import AdressInfo from "@/components/adressInfo";
-import {demo} from "@/static/ezuikit.js";
 export default {
   components: {
     // AdressInfo
@@ -202,10 +196,10 @@ export default {
         });
     },
     playVideo() {
-      console.log(demo)
-      let yplayz = new EZUIPlayer('video');
-      console.log(yplayz)
-      this.showVideo = true
+      // console.log(demo)
+      // let yplayz = new EZUIPlayer('video');
+      // console.log(yplayz)
+      // this.showVideo = true
     }
   }
   }
@@ -213,16 +207,6 @@ export default {
 <style lang="less" scoped>
 .detail-page {
   height: 100vh;
-  .information-header{
-      height: 90rpx;
-      background: #1D7FFD;
-      padding: 20rpx 25rpx 0;
-      color: #fff;
-    .icon{
-        width: 26rpx;
-        height: 36rpx;
-    }
-  }
   .equipment-info{
     width: 662rpx;
     height: 148rpx;
