@@ -10,12 +10,6 @@
         :value="userId"
         @input="bindUserId"
       >
-      <div
-        class="loginImg"
-        @click="search"
-      >
-        登录
-      </div>
     </div>
     <div class="pannel ">
       <div

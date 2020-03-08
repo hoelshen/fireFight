@@ -42,15 +42,30 @@ export default {
   },
   methods: {
     markertap(e) {
-      const fID = e.markerId
+      const that = this;
+      const placeId = e.markerId
       this.$request
       .post("/location/getPlace.do"	,{
-        fID
+        placeId
       })
       .then(res => {
-       const data = res;
-
-       console.log('data: ', data);
+       const data = res.list[0];
+       const markets = that.markers;
+        markets.forEach(val=>{
+          if(val.id == placeId){
+            val['callout'] = {
+              content: `场所名称：${data.fAreaName}\n 法人：${data.fVillagePrincipal} 紧急联系人：${data.fAreaPrincipal} 电话：${data.fAreaPhone} 地址：${data.fAreaAddress}` || '',
+              fontSize: 14,
+              bgColor: "#FFF",
+              borderWidth: 1,
+              borderColor: "#CCC",
+              padding: 4,
+              display: "ALWAYS",
+              textAlign: "center"
+            }
+          }
+        })
+        that.markers = markets;
       })
       .catch(err => {
         return wx.showToast({
@@ -99,7 +114,6 @@ export default {
        const data = res.list;
        const markers = [];
        data.forEach(val=>{
-         console.log('val: ', val);
         const obj = {};
         obj.id = val.fID;
         obj.latitude = val.fPositionY;
@@ -117,7 +131,6 @@ export default {
        })
         
        this.markers = markers;
-       console.log('data: ', this.markers);
       })
       .catch(err => {
         return wx.showToast({
