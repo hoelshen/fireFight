@@ -134,7 +134,7 @@ export default {
     async getWarningTask() {
       let params = getParams(this.params)
       params['page'] = 1
-      params['userId'] = wx.getStorageSync('userID') || 2002131059424992
+      params['userId'] = wx.getStorageSync('userId') || 2002131059424992
       try {
         let res = await this.$request.post('/facilityInfo/countFacilityWarningTaskTo30DaysGZ.do', params)
         this.changeData(res)
