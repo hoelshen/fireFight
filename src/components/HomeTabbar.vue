@@ -35,12 +35,12 @@
         hover-class="active"
       >
         <image
-          v-show="tab == 'mine'"
+          v-show="tab == 'fire'"
           class="icon"
           src="/static/png/fire_active.png"
         />
         <image
-          v-show="tab != 'mine'"
+          v-show="tab != 'fire'"
           class="icon"
           src="/static/png/fire.png"
         />
@@ -59,7 +59,7 @@
         <image
           v-show="tab == 'mine'"
           class="icon"
-          src="/static/png/mine.png"
+          src="/static/png/mine-active.png"
         />
         <image
           v-show="tab != 'mine'"
@@ -102,11 +102,13 @@ export default {
       });
     },
     data(e) {
+      this.tab = "mine" 
       wx.reLaunch({
         url: "/pages/home/index"
       });
     },
     toFire(){
+      this.tab = "fire" 
       wx.reLaunch({
         url: '/pages/examine/index'
       })

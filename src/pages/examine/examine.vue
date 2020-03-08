@@ -55,6 +55,7 @@
       </div>
     </view>
     <HomeTabbar
+      :active="tab"
       @change="onTabChange"
     />
   </view>
@@ -70,6 +71,7 @@ export default {
   mixins: [shareMix],
   data() {
     return {
+      tab: 'fire',
       plateNum: "",
       tool_height: "",
       statusbarHeight: "",

@@ -206,6 +206,7 @@
     </div>
 
     <HomeTabbar
+      :active="tab"
       @change="onTabChange"
     />
   </div>
@@ -220,7 +221,7 @@ export default {
   mixins: [shareMix],
   data() {
     return {
-      tab: "home",
+      tab: "mine",
       banners: [],
       cars: [],
       user: {
@@ -238,7 +239,6 @@ export default {
   },
   onLoad(opt) {
     this.toPage = opt.toPage;
-    this.tab = opt.tab;
   },
   onShow() {
     const that = this;
