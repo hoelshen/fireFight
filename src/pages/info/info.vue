@@ -179,25 +179,22 @@
       </session>
       -->
       <session class="my_contact flex column j-between center">
-        <!-- 
         <button
-          v-if="!user.unionid"
           class="my_contact_item_button flex wrap center grow"
           open-type="getUserInfo"
           lang="zh_CN"
-          @getuserinfo="onGotUserInfo"
+          @click="toPosition"
         >
           <image
             class="iconfont"
             src="/static/png/about.png"
           />
-          <span class="my_contact_item_text grow">关于</span>
+          <span class="my_contact_item_text grow">地图</span>
           <image
             class="iconfont_sixteen flex center"
             src="/static/png/arrow.png"
           />
         </button>
-        -->
         <div
           class="loginImg"
           @click="toLogout"
@@ -247,7 +244,6 @@ export default {
     if (this.toPage) {
       console.log('this.toPage: ', this.toPage);
       let toPage = this.toPage;
-
     }
     this.onTabChange(this.tab);
     wx.getSetting({
@@ -261,10 +257,6 @@ export default {
               that.user.aliasName = res.userInfo.nickName;
               getApp().globalData.user.userInfo = res.userInfo;
             }
-          });
-        } else {
-          this.$refs.mymodal.show({
-            age: 1
           });
         }
       }.bind(this)
@@ -296,6 +288,12 @@ export default {
       this.tool_height = res.statusBarHeight;
       // 页面title栏的高度
       this.title_height = totalBar * 2 - toolBar;
+    },
+    toPosition(){
+      this.$router.push({
+        query: { id: 1 },
+        path: "/pages/position/sendPosition"
+      });
     },
     onGotUserInfo(e) {
       console.log('e: ', e);
