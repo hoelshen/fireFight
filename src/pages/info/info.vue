@@ -72,7 +72,7 @@
       <session class="my_function flex">
         <button
           class="my_function_item_button flex column center"
-          @tap="toSmoke"
+          @click="jumpUrl('0')"
         >
           <image
             class="iconfont"
@@ -83,7 +83,7 @@
 
         <button
           class="my_function_item_button flex column center"
-          @click="toElectron"
+          @click="jumpUrl('3')"
         >
           <image
             class="iconfont"
@@ -98,6 +98,7 @@
           open-type="getUserInfo"
           lang="zh_CN"
           @getuserinfo="onGotUserInfo"
+          @click="jumpUrl('1')"
         >
           <image
             class="iconfont"
@@ -109,7 +110,7 @@
         <button
           v-else
           class="my_function_item_button flex column center"
-          @click="openbadge"
+          @click="jumpUrl('2')"
         >
           <image
             class="iconfont"
@@ -119,7 +120,7 @@
         </button>
         <button
           class="my_function_item_button flex column center"
-          @click="toFire"
+          @click="jumpUrl('7')"
         >
           <image
             class="iconfont"
@@ -264,8 +265,12 @@ export default {
   },
 
   methods: {
+    jumpUrl(type) {
+      wx.navigateTo({
+        url: `/pages/equipmentlist/index?type=${type}`
+      });
+    },
     toLogout() {
-      
       wx.removeStorage({
           key: 'userId',
           success(res) {
@@ -307,11 +312,11 @@ export default {
       });
     },
     onGotUserInfo(e) {
-      console.log('e: ', e);
-      this.$router.push({
-        query: { id: 1 },
-        path: "/pages/login/index"
-      });
+      // console.log('e: ', e);
+      // this.$router.push({
+      //   query: { id: 1 },
+      //   path: "/pages/login/index"
+      // });
     },
     toError(){
       this.$router.push({
