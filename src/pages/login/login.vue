@@ -18,7 +18,6 @@
             <input
               class="input grow"
               maxlength="11"
-              type="number"
               placeholder="请输入你的用户名/手机号"
               :focus="focusInput"
               :value="form.userName"
@@ -34,7 +33,6 @@
               class="input grow"
               maxlength="11"
               placeholder="输入您的密码"
-              type="number"
               :focus="focusInput"
               :value="form.pwd"
               @input="bindPassword"

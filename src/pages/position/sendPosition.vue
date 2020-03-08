@@ -123,8 +123,8 @@ export default {
         obj.smoke = val.smoke;
         obj.video =val.video;
         obj.water =val.water; 
-        obj.width = 50;
-        obj.height = 50;
+        obj.width = 20;
+        obj.height = 20;
         obj.co =val.co;
         obj.iconPath= '../../static/png/position.png'
         markers.push(obj)
