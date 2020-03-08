@@ -228,20 +228,9 @@ export default {
         aliasName: "",
         phoneNumber: ""
       },
-      form: {
-        code: "", // 临时授权码
-        encryptedData: "", // 加密数据
-        iv: "", // 初始向量
-        phoneNumber: 18664306047, //手机号，
-        purePhoneNumber: "", //没有区号的手机号
-        countryCode: "" //区号,
-      },
       scrolHeight: 541,
       toPage: null,
       page: 1,
-      plateNum: "",
-      focusInput: false,
-      autoPhone: true,
       title_height: "",
       statusbarHeight: "",
       tool_height: ""
@@ -266,7 +255,8 @@ export default {
           wx.getUserInfo({
             success: function(res) {
               console.log(res.userInfo);
-              that.user.avatarUrl = res.userInfo.avatarUrl;
+              that.user.aliasPortrait = res.userInfo.avatarUrl;
+              that.user.aliasName = res.userInfo.nickName;
               getApp().globalData.user.userInfo = res.userInfo;
             }
           });
@@ -311,22 +301,6 @@ export default {
         query: { id: 1 },
         path: "/pages/login/index"
       });
-    },
-    async getBanners() {
-      const res1 = await this.$request.post("/index.html");
-      const res2 = await this.$request.post("/indexitems.html");
-      if (res1 && res1.result) {
-        this.banners = res1.result.banners;
-      }
-      if (res2 && res2.result) {
-        this.cars = res2.result.items;
-      }
-    },
-    toShare() {
-      this.$router.push({ path: "/pages/share/share" });
-    },
-    hold() {
-      this.$router.push({ path: "/pages/bindPhone/index" });
     },
     toError(){
       this.$router.push({

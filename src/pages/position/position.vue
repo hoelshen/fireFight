@@ -538,8 +538,8 @@ export default {
   border-radius: 5px;
   text-align: center;
   line-height: 80rpx;
-  font-color: #eeeeee;
   color: #ffffff;
+  margin: 0 auto;
 }
 
 .positionName{

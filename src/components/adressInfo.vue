@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="adress-info pdd-lr-25 mrg-tb-20">
-      <div class="flex a-center">
+      <div
+        class="flex a-center"
+        @click="toPosition"
+      >
         <image
           class="adress-icon"
           src="/static/png/locations.png"
@@ -54,7 +57,11 @@ export default {
           return;
         });
     },
-
+    toPosition(){
+      wx.navigateTo({
+        url: `/pages/position/index`
+      });
+    },
   }
 }
 </script>

@@ -79,7 +79,7 @@ export default {
   },
   methods: {
     getData(){
-      let  userID ='';
+      let  userId ='';
       const value = wx.getStorageSync("userAddress");
       const value2 = wx.getStorageSync("userId");
 
@@ -88,7 +88,7 @@ export default {
         province = value.province || '河北省'
         // Do something with return value
       }
-      userID = value2 || '2002122108384531'
+      userId = value2 || '2002122108384531'
       //todo 字段获取方式
       this.$request
       .post("/facilityInfo/countFacilityWarningTaskTo30DaysGZ.do",{

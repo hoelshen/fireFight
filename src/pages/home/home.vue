@@ -14,113 +14,119 @@
         @input="bindUserId"
       >
     </div>
-    <div class="pannel ">
-      <div
-        class="pannel__item"
-        @click="jumpUrl(smokeType)"
-      >
-        <image
-          class="iconfont"
-          src="/static/png/smoke.png"
-        />
-        <p class="my_function_item_text">
-          智能烟感
-        </p>
-        <span>安装数量</span>
-        <span class="blue">{{ smokeCountFid }} </span>
-        <span>个 </span>
+    <scroll-view
+      :style="{'height': '76vh'}"
+      :scroll-y="true"
+    >
+      <div class="pannel ">
+        <div
+          class="pannel__item"
+          @click="jumpUrl(smokeType)"
+        >
+          <image
+            class="iconfont"
+            src="/static/png/smoke.png"
+          />
+          <p class="my_function_item_text">
+            智能烟感
+          </p>
+          <span>安装数量</span>
+          <span class="blue">{{ smokeCountFid }} </span>
+          <span>个 </span>
+        </div>
+        <div
+          class="pannel__item"
+          @click="jumpUrl(electronType)"
+        >
+          <image
+            class="iconfont"
+            src="/static/png/electron.png"
+          />
+          <p class="my_function_item_text">
+            智能用电
+          </p>
+          <span>安装数量</span>
+          <span class="blue">{{ electronCountFid }}</span>
+          <span>个 </span>
+        </div>
+        <div
+          class="pannel__item"
+          @click="jumpUrl(coType)"
+        >
+          <image
+            class="iconfont"
+            src="/static/png/co.png"
+          />
+          <p class="my_function_item_text">
+            智能气感
+          </p>
+          <span>安装数量： </span>
+          <span class="blue">{{ coCountFid }}</span>
+          <span>个 </span>
+        </div>
+        <div
+          class="pannel__item"
+          @click="jumpUrl(hydraulicType)"
+        >
+          <image
+            class="iconfont"
+            src="/static/png/hydraulic.png"
+          />
+          <p class="my_function_item_text">
+            液压液位检测
+          </p>
+          <span>安装数量： </span>
+          <span class="blue">{{ hydraulicCountFid }}</span>
+          <span>个 </span>
+        </div>
+        <div
+          class="pannel__item"
+          @click="jumpUrl(fireHydrantType)"
+        >
+          <image
+            class="iconfont"
+            src="/static/png/fireHydrant.png"
+          />
+          <p class="my_function_item_text">
+            智能消火栓
+          </p>
+          <span>安装数量： </span>
+          <span class="blue">{{ fireHydrantCountFid }} </span>
+          <span>个 </span>
+        </div>
+        <div
+          class="pannel__item"
+          @click="jumpUrl(videoType)"
+        >
+          <image
+            class="iconfont"
+            src="/static/png/fireHydrant.png"
+          />
+          <p class="my_function_item_text">
+            视频监控
+          </p>
+          <span>安装数量： </span>
+          <span class="blue">{{ videoCountFid }} </span>
+          <span>个 </span>
+        </div>
+        <div
+          class="pannel__item"
+          @click="jumpUrl(netType)"
+        >
+          <image
+            class="iconfont"
+            src="/static/png/fireHydrant.png"
+          />
+          <p class="my_function_item_text">
+            物联⽹关
+          </p>
+          <span>安装数量： </span>
+          <span class="blue">{{ netCountFid }} </span>
+          <span>个 </span>
+        </div>
       </div>
-      <div
-        class="pannel__item"
-        @click="jumpUrl(electronType)"
-      >
-        <image
-          class="iconfont"
-          src="/static/png/electron.png"
-        />
-        <p class="my_function_item_text">
-          智能用电
-        </p>
-        <span>安装数量</span>
-        <span class="blue">{{ electronCountFid }}</span>
-        <span>个 </span>
-      </div>
-      <div
-        class="pannel__item"
-        @click="jumpUrl(coType)"
-      >
-        <image
-          class="iconfont"
-          src="/static/png/co.png"
-        />
-        <p class="my_function_item_text">
-          智能气感
-        </p>
-        <span>安装数量： </span>
-        <span class="blue">{{ coCountFid }}</span>
-        <span>个 </span>
-      </div>
-      <div
-        class="pannel__item"
-        @click="jumpUrl(hydraulicType)"
-      >
-        <image
-          class="iconfont"
-          src="/static/png/hydraulic.png"
-        />
-        <p class="my_function_item_text">
-          液压液位检测
-        </p>
-        <span>安装数量： </span>
-        <span class="blue">{{ hydraulicCountFid }}</span>
-        <span>个 </span>
-      </div>
-      <div
-        class="pannel__item"
-        @click="jumpUrl(fireHydrantType)"
-      >
-        <image
-          class="iconfont"
-          src="/static/png/fireHydrant.png"
-        />
-        <p class="my_function_item_text">
-          智能消火栓
-        </p>
-        <span>安装数量： </span>
-        <span class="blue">{{ fireHydrantCountFid }} </span>
-        <span>个 </span>
-      </div>
-      <div
-        class="pannel__item"
-        @click="jumpUrl(videoType)"
-      >
-        <image
-          class="iconfont"
-          src="/static/png/fireHydrant.png"
-        />
-        <p class="my_function_item_text">
-          视频监控
-        </p>
-        <span>安装数量： </span>
-        <span class="blue">{{ videoCountFid }} </span>
-        <span>个 </span>
-      </div>
-      <div
-        class="pannel__item"
-        @click="jumpUrl(netType)"
-      >
-        <image
-          class="iconfont"
-          src="/static/png/fireHydrant.png"
-        />
-        <p class="my_function_item_text">
-          物联⽹关
-        </p>
-        <span>安装数量： </span>
-        <span class="blue">{{ netCountFid }} </span>
-        <span>个 </span>
-      </div>
-    </div>
+    </scroll-view>
+
     <HomeTabbar
       @change="onTabChange"
     />
@@ -230,6 +236,7 @@ export default {
         });
       });
     },
+
     search(){
 /*       userId = this.userId;
       province = this.province;
@@ -248,9 +255,7 @@ export default {
           icon: "none"
         });
       }); */;
-      wx.navigateTo({
-        url: `/pages/position/index`
-      });
+
     },
     jumpUrl(type) {
       wx.navigateTo({
