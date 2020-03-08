@@ -208,18 +208,14 @@
     <HomeTabbar
       @change="onTabChange"
     />
-
-    <Modal ref="mymodal" />
   </div>
 </template>
 <script>
 import HomeTabbar from "@/components/HomeTabbar";
-import Modal from "@/components/Modal";
 import shareMix from "@/mixins/mixin";
 export default {
   components: {
     HomeTabbar,
-    Modal,
   },
   mixins: [shareMix],
   data() {

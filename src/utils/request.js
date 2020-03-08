@@ -11,17 +11,11 @@ import mdUtils from "@/utils/md5";
 const environment = "prod"; // 配置环境
 wx.myEvent = myEvent;
 const fly = new flyio();
-const loginFly = new flyio();
-let tokenCode = "",
-  tokenInfo = "";
 
 fly.config.baseURL = getBaseURL(environment);
 fly.config.headers["Accept"] = "application/json";
 fly.config.headers["Content-Type"] = "application/x-www-form-urlencoded; charset=UTF-8";
 
-loginFly.config.baseURL = getBaseURL(environment);
-loginFly.config.headers["Accept"] = "application/json";
-loginFly.config.headers["Content-Type"] = "application/json; charset=utf-8";
 
 function getBaseURL(env) {
   switch (env) {
@@ -63,10 +57,6 @@ function uploadFile(path) {
   });
 }
 
-async function login(data) {
-  getApp().globalData.user = data.userInfo;  
-}
-
 fly.interceptors.request.use(async function (request) {
   // qs参数
   if (request.body) {
@@ -91,7 +81,6 @@ fly.interceptors.response.use(
   }
 );
 
-fly.login = login;
 fly.uploadFile = uploadFile;
 fly.getUser = getUser;
 export default fly

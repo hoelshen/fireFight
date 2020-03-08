@@ -133,7 +133,7 @@ export default {
 }
 .fix-iphonex-icon {
   height: 142rpx;
-  padding:32rpx 86rpx 80rpx;
+  padding: 80rpx 86rpx 80rpx;
 }
 .mailBtn {
   overflow: visible;

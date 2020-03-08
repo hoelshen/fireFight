@@ -35,13 +35,7 @@ export default {
     return {
       log: '113.324520',
       lat: '23.099994',
-      markers: [{
-        id: 0,
-        latitude: 23.099994,
-        longitude: 113.324520,
-        width: 50,
-        height: 50
-      }]
+      markers: []
     }
   },
   methods: {
@@ -59,27 +53,73 @@ export default {
     },
     position(){
       const that = this; 
-     wx.getLocation({
-      type: 'wgs84',
-        success (res) {
-          const latitude = res.latitude
-          that.lat =  res.latitude
-          console.log('latitude: ', latitude);
-          const longitude = res.longitude
-          that.log = res.longitude
-          console.log('longitude: ', longitude);
-          const speed = res.speed
-          console.log('speed: ', speed);
-          const accuracy = res.accuracy
-          console.log('accuracy: ', accuracy);
-          // that.markers[{}]
-        }
-      })
+      wx.getLocation({
+        type: 'wgs84',
+          success (res) {
+            const latitude = res.latitude
+            that.lat =  res.latitude
+            console.log('latitude: ', latitude);
+            const longitude = res.longitude
+            that.log = res.longitude
+            console.log('longitude: ', longitude);
+            const speed = res.speed
+            console.log('speed: ', speed);
+            const accuracy = res.accuracy
+            console.log('accuracy: ', accuracy);
+            // that.markers[{}]
+          }
+        })
     },
     sendPosition(){
       console.log(2)
 
+    },
+    getData(){
+      // let {  userID } = getApp().globalData.user
+
+      const userID  = 2002131059424992
+      const province = '北京市'
+      this.$request
+      .post("/location/getPosition.do"	,{
+        userID,
+        province,
+        page:1
+      })
+      .then(res => {
+       const data = res.list;
+       const markers = [];
+       data.forEach(val=>{
+         console.log('val: ', val);
+        const obj = {};
+        obj.id = val.fAreaName;
+        obj.latitude = val.fPositionY;
+        obj.longitude = val.fPositionX;
+        obj.title =  val.fAreaName;
+        obj.electricity = val.electricity; 
+        obj.smoke = val.smoke;
+        obj.video =val.video;
+        obj.water =val.water; 
+        obj.width = 50;
+        obj.height = 50;
+        obj.co =val.co;
+        obj.iconPath= '../../static/png/position.png'
+        markers.push(obj)
+       })
+        
+       this.markers = markers;
+       console.log('data: ', this.markers);
+      })
+      .catch(err => {
+        return wx.showToast({
+          title: "获取失败",
+          icon: "none"
+        });
+      });      
     }
+  },
+  onShow(){
+    this.position();
+    this.getData();
   }
 };
 </script>

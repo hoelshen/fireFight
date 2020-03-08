@@ -139,7 +139,6 @@ export default {
     if (this.toPage) {
       console.log('this.toPage: ', this.toPage);
       let toPage = this.toPage;
-
     }
     this.getData();
     this.onTabChange(this.tab);

@@ -2,24 +2,32 @@
   <view class="page">
     <view class="pannel">
       <div class="fireDiv">
-        <div class="header">
-          image
+        <div class="headerDiv flex j-between">
+          <div>
+            <image
+              class="iconfont"
+              src="/static/png/fire_todo.png"
+            />
+            <span class="text">
+              告警任务
+            </span>
+          </div>
           <image
-            class="iconfont"
-            src="/static/png/smoke.png"
-          />
-          <span class="my_function_item_text">
-            告警任务
-          </span>
-          <image
-            class="iconfont_sixteen flex center"
+            class="iconfont_sixteen"
             src="/static/png/arrow.png"
           />
         </div>
-        <div class="center">
-          <div class="radius" />
+        <div class="centerDiv">
+          <div class="radius">
+            <p class="one">
+              一级
+            </p>
+            <p>
+              低风险/安全
+            </p>
+          </div>
         </div>
-        <div>
+        <div class="bottomDiv">
           5分钟前
         </div>
       </div>
@@ -47,7 +55,30 @@ export default {
     };
   },
   methods: {
- 
+    getData(){
+      let {  userID } = getApp().globalData.user
+      //todo 字段获取方式
+      const province = '北京市';
+      this.$request
+      .post("/countFacilityWarningTaskTo30DaysGZ.do",{
+        userID,
+        province
+      })
+      .then(res => {
+       const data = res
+       console.log('data: ', data);
+       
+      })
+      .catch(err => {
+        return wx.showToast({
+          title: "获取失败",
+          icon: "none"
+        });
+      });
+
+
+
+    }
   },
   onShow() {
     let res = wx.getSystemInfoSync();
@@ -76,6 +107,7 @@ export default {
     
     // 页面title栏的高度
     this.title_height = totalBar * 2 - toolBar;
+    this.getData();
   }
 };
 </script>
@@ -87,16 +119,55 @@ export default {
   .pannel{
      height: 90vh;
      .fireDiv{
-       margin:50rpx 20rpx;
+       margin:0 20rpx;
        background-color: #ffffff;
-      .header{
-        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAr4AAABQBAMAAAANeGudAAAAG1BMVEUAAAAgf/8ccf8Sbf8eeP8XdP8Wb/8fcP8ddv8ZwFzQAAAACXRSTlMACAkOERYXGRpY6vdRAAAAs0lEQVR42u3QsY0BABiA0U8katVNoFAq1SobXHvXWUCiRjC2FRT+7r0RXtXm98X3nQ9V9aNiyH/V0sOYXbXXMOZWCwuD1q0kDPprK2HQtaOEQfdOEgY9ukgY9MzBKL9+/eLXr1/8+vWLX7/49esXv3794tevX/z6xa9fv/j16xe/fv3i1y9+/frFr1+/+PXrF79+8evXL379+sWvX7/49Ytfv37x69cvfv36xa9f/Pr1yyfedrw8OD53r34AAAAASUVORK5CYII=)
+      .headerDiv{
+        width: 710rpx;
+        height:80rpx;
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAr4AAABQBAMAAAANeGudAAAAG1BMVEUAAAAgf/8ccf8Sbf8eeP8XdP8Wb/8fcP8ddv8ZwFzQAAAACXRSTlMACAkOERYXGRpY6vdRAAAAs0lEQVR42u3QsY0BABiA0U8katVNoFAq1SobXHvXWUCiRjC2FRT+7r0RXtXm98X3nQ9V9aNiyH/V0sOYXbXXMOZWCwuD1q0kDPprK2HQtaOEQfdOEgY9ukgY9MzBKL9+/eLXr1/8+vWLX7/49esXv3794tevX/z6xa9fv/j16xe/fv3i1y9+/frFr1+/+PXrF79+8evXL379+sWvX7/49Ytfv37x69cvfv36xa9f/Pr1yyfedrw8OD53r34AAAAASUVORK5CYII=);
+        .iconfont_sixteen{
+          width: 31rpx;
+          height: 36rpx;
+          margin:21rpx 22rpx;
+
+        }
+        .iconfont{
+          margin:21rpx 22rpx;
+          width:31rpx;
+          height:36rpx;
+        }
+        .text{
+          position: absolute;
+          top: 21rpx;
+        }
+      }
+      .centerDiv{
+          box-sizing: border-box;
+          width: 278rpx;
+          height: 278rpx;
+          border-radius: 140rpx;
+          background-color: #04D1A5;
+          margin: 50rpx auto;
+          border: 21rpx solid #A8FBE9;
+          box-shadow: 0 0 0 21rpx #CFFEF4;
+          text-align: center;
+          p{
+            color:rgba(255,255,255,1);
+            font-family:PingFang SC;
+            font-size: 20rpx;
+          }
+          .one{
+            margin-top: 40rpx;
+            font-weight:500;
+            font-size:86rpx;
+          }
+      }
+      .bottomDiv{
+        border-top-style: solid;
+        border-top-color: hsla(89, 43%, 51%, 0.3);
       }
      }
   }
 }
-.iconfont_sixteen{
-  width: 32rpx;
-  height: 32rpx;
-}
+
 </style>
