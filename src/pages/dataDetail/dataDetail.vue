@@ -4,8 +4,39 @@
       <div class="equipment-item mrg-b-40 pdd-20">
         <div class="flex">
           <image
+            v-if="type == '0'"
             class="mrg-r-20"
             src="/static/png/smoke.png"
+          />
+          <image
+            v-if="type == '3'"
+            class="mrg-r-20"
+            src="/static/png/electron.png"
+          />
+          <image
+            v-if="type == '1'"
+            class="mrg-r-20"
+            src="/static/png/co.png"
+          />
+          <image
+            v-if="type == '2'"
+            class="mrg-r-20"
+            src="/static/png/hydraulic.png"
+          />
+          <image
+            v-if="type == '7'"
+            class="mrg-r-20"
+            src="/static/png/fireHydrant.png"
+          />
+          <image
+            v-if="type == '4'"
+            class="mrg-r-20"
+            src="/static/png/fireHydrant.png"
+          />
+          <image
+            v-if="type == '8'"
+            class="mrg-r-20"
+            src="/static/png/fireHydrant.png"
           />
           <div>
             <div class="flex j-between mrg-b-10 a-center">
@@ -174,15 +205,17 @@ export default {
         .post("/facilityInfo/queryFacilityInfo.do", { type: fType,facilityinfoId: facilityinfoId})
         .then(res => {
           this.dataInfo = res[0]
+          let CreateTime = res[0].fTime ? typeof(res[0].CreateTime) == 'string' ? res[0].CreateTime : formatTime(res[0].CreateTime, 'Y-M-D h:m:s') : '无'
+          let fTime = res[0].fTime ? typeof(res[0].fTime) == 'string' ? res[0].fTime : formatTime(res[0].fTime, 'Y-M-D h:m:s') : '无'
           this.facilityInfo = {
             state: isOnline,
             BatteryLevel: res[0].BatteryLevel,
             info: [
-              {'title': '告警时间', 'value': res[0].fTime ? formatTime(res[0].fTime, 'Y/M/D h:m:s') : '无'},
+              {'title': '告警时间', 'value': fTime},
               {'title': '备注', 'value': res[0].fAlias || '无'},
               {'title': 'IMEI', 'value': res[0].ModelNumber || '无'},
               {'title': '设备ID', 'value': res[0].facilityinfoId || '无'},
-              {'title': '安装时间', 'value': formatTime(res[0].CreateTime, 'Y/M/D h:m:s') || '无'},
+              {'title': '安装时间', 'value': CreateTime},
               {'title': '安装位置', 'value': res[0].facilitySecondPosition || '无'}
               ]
           }
@@ -228,10 +261,11 @@ export default {
   }
   .equipment-list {
       color: #3E4A59;
+      margin-top: 24rpx;
       .equipment-item{
         width: 662rpx;
         background:rgba(255,255,255,1);
-        box-shadow:0px 9px 32px 0px rgba(51,83,253,0.1);
+        box-shadow:1rpx 8rpx 64rpx 18rpx rgba(51, 83, 253, 0.1);
         border-radius:20rpx;
         font-size: 24rpx;
         .btn{

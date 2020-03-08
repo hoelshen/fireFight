@@ -9,7 +9,7 @@ export default {
     config: {
         navigationBarBackgroundColor: '#1D7FFD',
         navigationBarTextStyle: 'white',
-        navigationBarTitleText: '智能烟感',
+        navigationBarTitleText: '设备列表',
         backgroundColor: '#1D7FFD',
         disableScroll: true,
       }

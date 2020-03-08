@@ -91,6 +91,7 @@ export default {
     this.tab = this.active;
     const model = wx.getSystemInfoSync().model;
     if(model.match("iPhone X")){
+      console.log(2)
       this.isIpx = true;
     }
   },
@@ -117,14 +118,16 @@ export default {
 <style lang="less" scoped>
 .bar {
   flex-shrink: 0;
-  height: 124rpx;
+  height: 98rpx;
   width: 100%;
   color: #2a2a2a;
   background: #ffffff;
-  padding: 32rpx 86rpx;
+  padding: 0rpx 86rpx;
+  position: fixed;
+  bottom: 0;
   .icon {
-    width: 60rpx;
-    height: 60rpx;
+    width: 44rpx;
+    height: 44rpx;
     position: relative;
   }
   .active {
@@ -132,8 +135,10 @@ export default {
   }
 }
 .fix-iphonex-icon {
-  height: 142rpx;
+  position: fixed;
+  height: 132rpx;
   padding: 80rpx 86rpx 80rpx;
+  bottom: 0;
 }
 .mailBtn {
   overflow: visible;

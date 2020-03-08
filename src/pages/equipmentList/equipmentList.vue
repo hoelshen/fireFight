@@ -1,19 +1,46 @@
 <template>
   <div class="equipmentlist-page flex column">
     <scroll-view
-      :style="{'height': '100vh'}"
+      :style="{'height': '100%'}"
       :scroll-y="true"
     >
-      <div class="information-header">
-        <!-- <image
-          class="icon mrg-b-40"
-          src="/static/png/left-arrow.png"
-        /> -->
-      </div>
+      <!-- <div class="information-header">
+      </div> -->
       <div class="equipment-info mrg-center flex a-center pdd-lr-20 mrg-b-40">
         <image
+          v-if="type == '0'"
           class="info-img"
           src="/static/png/smoke.png"
+        />
+        <image
+          v-if="type == '3'"
+          class="info-img"
+          src="/static/png/electron.png"
+        />
+        <image
+          v-if="type == '1'"
+          class="info-img"
+          src="/static/png/co.png"
+        />
+        <image
+          v-if="type == '2'"
+          class="info-img"
+          src="/static/png/hydraulic.png"
+        />
+        <image
+          v-if="type == '7'"
+          class="info-img"
+          src="/static/png/fireHydrant.png"
+        />
+        <image
+          v-if="type == '4'"
+          class="info-img"
+          src="/static/png/fireHydrant.png"
+        />
+        <image
+          v-if="type == '8'"
+          class="info-img"
+          src="/static/png/fireHydrant.png"
         />
         <div class="pdd-l-40">
           <div>安装数量:</div>
@@ -29,8 +56,39 @@
         >
           <div class="flex">
             <image
+              v-if="type == '0'"
               class="mrg-r-20"
               src="/static/png/smoke.png"
+            />
+            <image
+              v-if="type == '3'"
+              class="mrg-r-20"
+              src="/static/png/electron.png"
+            />
+            <image
+              v-if="type == '1'"
+              class="mrg-r-20"
+              src="/static/png/co.png"
+            />
+            <image
+              v-if="type == '2'"
+              class="mrg-r-20"
+              src="/static/png/hydraulic.png"
+            />
+            <image
+              v-if="type == '7'"
+              class="mrg-r-20"
+              src="/static/png/fireHydrant.png"
+            />
+            <image
+              v-if="type == '4'"
+              class="mrg-r-20"
+              src="/static/png/fireHydrant.png"
+            />
+            <image
+              v-if="type == '8'"
+              class="mrg-r-20"
+              src="/static/png/fireHydrant.png"
             />
             <div>
               <div class="name pdd-b-10">
@@ -91,7 +149,6 @@ export default {
         });
     },
     async jumpDetail({fType, facilityinfoId, isOnline}) {
-      console.log(fType, facilityinfoId, isOnline)
       wx.navigateTo({
         url: `/pages/dataDetail/index?fType=${fType}&facilityinfoId=${facilityinfoId}&isOnline=${isOnline}`
       });
@@ -136,7 +193,7 @@ export default {
     border-radius: 10rpx;
     background: #fff;
     box-shadow:0px 9px 32px 0px rgba(51,83,253,0.1);
-    margin: -60rpx 0 20rpx 24rpx;
+    margin: 24rpx 0 20rpx 24rpx;
     .info-img{
       width: 72rpx;
       height: 88rpx;

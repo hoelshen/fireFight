@@ -9,7 +9,7 @@ export default {
     config: {
         navigationBarBackgroundColor: '#1D7FFD',
         navigationBarTextStyle: 'white',
-        navigationBarTitleText: '数据详情',
+        navigationBarTitleText: '设备详情',
         backgroundColor: '#1D7FFD',
         disableScroll: true,
       }

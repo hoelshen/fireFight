@@ -15,7 +15,7 @@
       >
     </div>
     <scroll-view
-      :style="{'height': '76vh'}"
+      :style="{'height': '72vh'}"
       :scroll-y="true"
     >
       <div class="pannel ">
