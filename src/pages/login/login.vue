@@ -111,7 +111,9 @@ export default {
           code
         })
         .then(res => {
-          getApp().globalData.user.userID = res.userID;
+          console.log(res)
+          if(res.state == 0) {
+            getApp().globalData.user.userID = res.userID;
             wx.setStorage({
               key: 'userId',
               data: res.userID
@@ -120,6 +122,15 @@ export default {
               query: {},
               path: "/pages/home/index"
             })
+          } else {
+              wx.showToast({
+                title: res.message,
+                icon: "none"
+              });
+              this.imgSrc = `http://121.36.15.94:8282/IntelligentFire/user/getPatternCode.do?time=${new Date().getTime()}`
+              this.form.code = ''
+          }
+          
         })
         .catch(err => {
           return wx.showToast({
@@ -197,7 +208,7 @@ export default {
 .inputDiv{
   margin-left: 100rpx;
   .codeImg{
-    width:80rpx;
+    width:120rpx;
     height:80rpx
   }
 }
