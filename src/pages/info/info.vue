@@ -264,6 +264,17 @@ export default {
   },
 
   methods: {
+    toLogout() {
+      
+      wx.removeStorage({
+          key: 'userId',
+          success(res) {
+            wx.reLaunch({
+              url: `/pages/login/index`
+            });
+          }
+        })
+    },
     onTabChange() {
       let res = wx.getSystemInfoSync();
       let isiOS = res.system.indexOf("iOS") > -1;
