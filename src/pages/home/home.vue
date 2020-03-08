@@ -145,6 +145,15 @@ export default {
   },
 
   methods: {
+    onTabChange(tab = "home") {
+      this.tab = tab;
+      if (this.tab === "home") {
+      }
+      if (this.tab === "mail") {
+      }
+      if (this.tab === "mine") {
+      }
+    },
     bindUserId(e){
       this.userId = e.detail.value;
     },
@@ -182,7 +191,7 @@ export default {
       });
     },
     search(){
-      userId = this.userId;
+/*       userId = this.userId;
       province = this.province;
       this.$request
       .post("/facilityInfo/countFacility.do",{
@@ -198,8 +207,12 @@ export default {
           title: "获取失败",
           icon: "none"
         });
+      }); */;
+      wx.navigateTo({
+        url: `/pages/position/index`
       });
-    }
+    },
+    
   }
 };
 </script>

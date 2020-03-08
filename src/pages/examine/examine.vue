@@ -57,12 +57,18 @@ export default {
   methods: {
     getData(){
       let {  userID } = getApp().globalData.user
+      const value = wx.getStorageSync("userAddress");
+      const province = '';
+      if (value) {
+        province = value.province
+        // Do something with return value
+      }
       //todo 字段获取方式
-      const province = '北京市';
       this.$request
       .post("/countFacilityWarningTaskTo30DaysGZ.do",{
         userID,
-        province
+        province,
+        page:1
       })
       .then(res => {
        const data = res
@@ -75,9 +81,6 @@ export default {
           icon: "none"
         });
       });
-
-
-
     }
   },
   onShow() {

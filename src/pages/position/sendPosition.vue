@@ -75,10 +75,13 @@ export default {
 
     },
     getData(){
-      // let {  userID } = getApp().globalData.user
-
-      const userID  = 2002131059424992
-      const province = '北京市'
+      const { userID } = getApp().globalData.user || 2002131059424992;
+      const value = wx.getStorageSync("userAddress");
+      const province = '';
+      if (value) {
+        province = value.province
+        // Do something with return value
+      }
       this.$request
       .post("/location/getPosition.do"	,{
         userID,

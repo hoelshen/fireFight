@@ -48,7 +48,7 @@
           </div>
         </div>
         <div
-          v-if="isShow"
+          v-if="isShowPro"
           class="option-list"
         >
           <option
@@ -76,7 +76,7 @@
           </div>
         </div>
         <div
-          v-if="isShow"
+          v-if="isShowCity"
           class="option-list"
         >
           <option
@@ -104,7 +104,7 @@
           </div>
         </div>
         <div
-          v-if="isShow"
+          v-if="isShowArea"
           class="option-list"
         >
           <option
@@ -132,7 +132,7 @@
           </div>
         </div>
         <div
-          v-if="isShow"
+          v-if="isShowPre"
           class="option-list"
         >
           <option
@@ -143,7 +143,7 @@
           >
             <div
               :value="index"
-              @click="clickAreas(item.fID)"
+              @click="clickAreas(item.fAreaName)"
             >
               {{ item.fAreaName }}
             </div> 
@@ -158,15 +158,15 @@
           @tap="openClose"
         >
           <div class="current-name">
-            {{ current.areaName }}
+            {{ current.placeName }}
           </div>
         </div>
         <div
-          v-if="isShow"
+          v-if="isShowPla"
           class="option-list"
         >
           <option
-            v-for="(item,index) in areas"
+            v-for="(item,index) in places"
             :key="item.fAreaName"
             class="option"
             :value="item.fAreaName"
@@ -198,7 +198,11 @@ export default {
   mixins: [shareMix],
   data() {
     return {
-      isShow: false,
+      isShowPro: false,
+      isShowCity: false,
+      isShowArea: false,
+      isShowPre: false,
+      isShowPla: false,
       positionName:'宁泰家园',
       textName: '', //场景名称
       provinces:[],
@@ -208,9 +212,11 @@ export default {
       places:[],
       userID: '', //用户id
       current:{
-        name:"",
-        fProvince: "",
-        fCity: ""
+        provinceName: "",
+        cityName: "",
+        prefectureName: "",
+        areaName: "",
+        placeName: ""
       }
     };
   },
@@ -235,27 +241,27 @@ export default {
       
     },
     clickProvince(item){
-      this.isShow = !this.isShow;
+      this.isShowPro = !this.isShowPro;
       this.current.provinceName = item;
       this.getCity(item);
     },
     clickCity(item){
-      this.isShow = !this.isShow;
+      this.isShowCity = !this.isShowCity;
       this.current.cityName = item;
       this.getPre(item);
     },
     clickPrefectures(item){
-      this.isShow = !this.isShow;
+      this.isShowArea = !this.isShowArea;
       this.current.prefectureName = item;
       this.getArea(item);
     },
     clickAreas(item){
-      this.isShow = !this.isShow;
+      this.isShowPre = !this.isShowPre;
       this.current.areaName = item;
       this.getPlace(item);
     },
     clickPlace(item){
-      this.isShow = !this.isShow;
+      this.isShowPla = !this.isShowPla;
       this.current.placeName = item;
     },
     async getProvince(){
@@ -361,7 +367,27 @@ export default {
       console.log('dataset: ', dataset);
     },
     openClose(){
-      this.isShow = !this.isShow;
+      this.isShowPro = !this.isShowPro;
+      this.isShowCity = !this.isShowCity;
+      this.isShowArea = !this.isShowArea;
+      this.isShowPre = !this.isShowPre;
+      this.isShowPla = !this.isShowPla;
+    },
+    sendPosition(){
+      const userAddress = {}; 
+      userAddress.province = this.current.provinceName;
+      userAddress.city = this.current.cityName;
+      userAddress.prefecture = this.current.prefectureName;
+      userAddress.areaName = this.current.areaName;
+      userAddress.placeName = this.current.placeName;
+      getApp().globalData.userAddress = userAddress;
+      wx.setStorage({
+        key: "userAddress",
+        data: userAddress
+      });
+      wx.reLaunch({
+        url: "/pages/home/index"
+      });
     }
   },
   onShow() {
