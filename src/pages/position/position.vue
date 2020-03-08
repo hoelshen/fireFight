@@ -43,7 +43,7 @@
       <div class="select-box">
         <div
           class="select-current"
-          @tap="openClose"
+          @tap="openClosePro"
         >
           <div class="current-name">
             {{ current.provinceName }}
@@ -71,7 +71,7 @@
       <div class="select-box">
         <div
           class="select-current"
-          @tap="openClose"
+          @tap="openCloseCity"
         >
           <div class="current-name">
             {{ current.cityName }}
@@ -99,7 +99,7 @@
       <div class="select-box">
         <div
           class="select-current"
-          @tap="openClose"
+          @tap="openClosePre"
         >
           <div class="current-name">
             {{ current.prefectureName }}
@@ -127,7 +127,7 @@
       <div class="select-box">
         <div
           class="select-current"
-          @tap="openClose"
+          @tap="openCloseArea"
         >
           <div class="current-name">
             {{ current.areaName }}
@@ -157,7 +157,7 @@
       <div class="select-boxx">
         <div
           class="select-current"
-          @tap="openClose"
+          @tap="openClosePla"
         >
           <div class="current-name">
             {{ current.placeName }}
@@ -267,7 +267,8 @@ export default {
       this.current.placeName = item;
     },
     async getProvince(){
-      let {  userID } = getApp().globalData.user
+      let userID = wx.getStorageSync('userId')
+      console.log('userID: ', userID);
       // const userID  = 2002131059424992
       this.$request
       .post("/location/getProvinceTreeList.do",{
@@ -281,7 +282,7 @@ export default {
       });
     },
     async getCity(item){
-      let {  userID } = getApp().globalData.user
+      let userID = wx.getStorageSync('userId')
 
       // const userID  = 2002131059424992
       const province = item;
@@ -303,7 +304,8 @@ export default {
     },
     //县区
     async getPre(item){
-      let {  userID } = getApp().globalData.user
+      let userID = wx.getStorageSync('userId')
+
 
       // const userID  = 2002131059424992
       const city = item;
@@ -324,7 +326,8 @@ export default {
     },
     //地区
     async getArea(item){
-      let {  userID } = getApp().globalData.user
+       let userID = wx.getStorageSync('userId')
+
 
       // const userID  = 2002131059424992
       const prefecture = item;
@@ -345,7 +348,7 @@ export default {
     },
     //具体地址
     async getPlace(item){
-      let {  userID } = getApp().globalData.user
+      let userID = wx.getStorageSync('userId')
 
       // const userID  = 2002131059424992
       const areaId = item;
@@ -368,12 +371,20 @@ export default {
       let dataset = e;//获取点击的下拉列表的下标
       console.log('dataset: ', dataset);
     },
-    openClose(){
+    openClosePro(){
       this.isShowPro = !this.isShowPro;
+    },
+    openCloseCity(){
       this.isShowCity = !this.isShowCity;
-      this.isShowArea = !this.isShowArea;
+    },
+    openClosePre(){
       this.isShowPre = !this.isShowPre;
+    },
+    openClosePla(){
       this.isShowPla = !this.isShowPla;
+    },
+    openCloseArea(){
+      this.isShowArea = !this.isShowArea;
     },
     sendPosition(){
       const userAddress = {}; 

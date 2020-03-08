@@ -43,8 +43,10 @@ export default {
 
   methods: {
     getUserAddress() {
+      let userId = wx.getStorageSync('userId')
+      
       this.$request
-        .post("/user/getUserAddress.do", { userId: 2002131059424992})
+        .post("/user/getUserAddress.do", { userId })
         .then(res => {
           this.userAddress = res.province + res.city + res.prefecture + res.areaName + res.placeName
           wx.setStorage({
