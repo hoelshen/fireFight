@@ -73,7 +73,7 @@ export default {
   },
   onLoad(opt) {
     this.websocketData = JSON.parse(opt.websocketData)
-    this.userId = wx.getStorageSync('userID')
+    this.userId = wx.getStorageSync('userId')
     this.getwarnInfo()
   },
   onShow() {

@@ -137,7 +137,7 @@ export default {
       let params = getParams(this.params)
       if (this.type == 0) params['sum'] = 0
       params['type'] = this.type
-      params['userId'] = wx.getStorageSync('userID') || 2002131059424992
+      params['userId'] = wx.getStorageSync('userId') || 2002131059424992
       this.$request
         .post("/facilityInfo/queryFacilityListByType.do", params)
         .then(res => {

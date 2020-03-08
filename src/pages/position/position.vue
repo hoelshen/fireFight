@@ -391,6 +391,9 @@ export default {
     }
   },
   onShow() {
+    let userAddress = wx.getStorageSync('userAddress')
+    console.log('userAddress: ', userAddress);
+
     const { user } = getApp().globalData;
     this.user = user;
     this.getProvince();
