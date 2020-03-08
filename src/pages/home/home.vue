@@ -18,7 +18,10 @@
       </div>
     </div>
     <div class="pannel ">
-      <div class="pannel__item">
+      <div
+        class="pannel__item"
+        @click="jumpUrl(smokeType)"
+      >
         <image
           class="iconfont"
           src="/static/png/smoke.png"
@@ -30,7 +33,10 @@
         <span class="blue">{{ smokeCountFid }} </span>
         <span>个 </span>
       </div>
-      <div class="pannel__item">
+      <div
+        class="pannel__item"
+        @click="jumpUrl(electronType)"
+      >
         <image
           class="iconfont"
           src="/static/png/electron.png"
@@ -42,7 +48,10 @@
         <span class="blue">{{ electronCountFid }}</span>
         <span>个 </span>
       </div>
-      <div class="pannel__item">
+      <div
+        class="pannel__item"
+        @click="jumpUrl(coType)"
+      >
         <image
           class="iconfont"
           src="/static/png/co.png"
@@ -54,7 +63,10 @@
         <span class="blue">{{ coCountFid }}</span>
         <span>个 </span>
       </div>
-      <div class="pannel__item">
+      <div
+        class="pannel__item"
+        @click="jumpUrl(hydraulicType)"
+      >
         <image
           class="iconfont"
           src="/static/png/hydraulic.png"
@@ -66,7 +78,10 @@
         <span class="blue">{{ hydraulicCountFid }}</span>
         <span>个 </span>
       </div>
-      <div class="pannel__item">
+      <div
+        class="pannel__item"
+        @click="jumpUrl(fireHydrantType)"
+      >
         <image
           class="iconfont"
           src="/static/png/fireHydrant.png"
@@ -78,7 +93,10 @@
         <span class="blue">{{ fireHydrantCountFid }} </span>
         <span>个 </span>
       </div>
-      <div class="pannel__item">
+      <div
+        class="pannel__item"
+        @click="jumpUrl(videoType)"
+      >
         <image
           class="iconfont"
           src="/static/png/fireHydrant.png"
@@ -90,7 +108,10 @@
         <span class="blue">{{ videoCountFid }} </span>
         <span>个 </span>
       </div>
-      <div class="pannel__item">
+      <div
+        class="pannel__item"
+        @click="jumpUrl(netType)"
+      >
         <image
           class="iconfont"
           src="/static/png/fireHydrant.png"
@@ -129,6 +150,13 @@ export default {
       fireHydrantCountFid:"",
       videoCountFid: "",
       netCountFid: "",
+      smokeType: '',
+      electronType: '',
+      coType: '',
+      hydraulicType: '',
+      fireHydrantType: '',
+      videoType: '',
+      netType: ''
     };
   },
   onLoad(opt) {
@@ -166,18 +194,31 @@ export default {
              switch (val.ftype) {
               case "0":
                  this.smokeCountFid = val.countFid
+                 this.smokeType = val.ftype
+                 break
               case "3":
                  this.electronCountFid = val.countFid
+                 this.electronType = val.ftype
+                 break
               case "1":
                  this.coCountFid = val.countFid
+                 this.coType = val.ftype
+                 break
               case "2":
                  this.hydraulicCountFid = val.countFid
+                 this.hydraulicType = val.ftype
+                 break
               case "7":
                  this.fireHydrantCountFid = val.countFid
+                 this.fireHydrantType = val.ftype
+                 break
               case "4":
                  this.videoCountFid = val.countFid;
+                 this.videoType= val.ftype;
+                 break
               case "8":
               this.netCountFid = val.countFid;
+              this.netType= val.ftype;
               default :
                 return ;
              }
@@ -212,7 +253,11 @@ export default {
         url: `/pages/position/index`
       });
     },
-    
+    jumpUrl(type) {
+      wx.navigateTo({
+        url: `/pages/equipmentlist/index?type=${type}`
+      });
+    }
   }
 };
 </script>

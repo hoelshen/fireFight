@@ -55,24 +55,33 @@
   </div>
 </template>
 <script>
+import {
+  getParams
+} from "@/utils/index";
 export default {
   data() {
       return {
           tab: 'home',
-          listByType: []
+          listByType: [],
+          params: ''
       }
   },
   onLoad(opt) {
+    this.type = opt.type
+    this.params = wx.getStorageSync('userAddress')
+    this.getList()
   },
   onShow() {
-    console.log(1)
-    this.getList()
   },
 
   methods: {
     async getList() {
+      let params = getParams(this.params)
+      if (this.type == 0) params['sum'] = 0
+      params['type'] = this.type
+      params['userId'] = getApp().globalData.user.userID || 2002131059424992
       this.$request
-        .post("/facilityInfo/queryFacilityListByType.do", { userId: 2002131059424992,sum: 0, type: 0})
+        .post("/facilityInfo/queryFacilityListByType.do", params)
         .then(res => {
           this.listByType = res
         })
@@ -81,9 +90,10 @@ export default {
           return;
         });
     },
-    async jumpDetail({fType, facilityinfoId}) {
+    async jumpDetail({fType, facilityinfoId, isOnline}) {
+      console.log(fType, facilityinfoId, isOnline)
       wx.navigateTo({
-        url: `/pages/dataDetail/index?type=${fType}&facilityinfoId=${facilityinfoId}`
+        url: `/pages/dataDetail/index?fType=${fType}&facilityinfoId=${facilityinfoId}&isOnline=${isOnline}`
       });
     }
   }

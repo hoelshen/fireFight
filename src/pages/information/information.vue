@@ -53,6 +53,7 @@
         <div
           v-else
           class="confirm tex-center mrg-center"
+          @click="showconfirmBtn('4')"
         >
           确认收到拆卸告警
         </div>
@@ -73,7 +74,6 @@ export default {
   onLoad(opt) {
     opt.websocketData = JSON.stringify(wx.getStorageSync('websocketData'))
     this.websocketData = JSON.parse(opt.websocketData)
-    console.log(getApp().globalData)
     this.userId = getApp().globalData.user.userID || 2002131059424992
     this.getwarnInfo()
   },
@@ -117,7 +117,7 @@ export default {
     showconfirmBtn(str) {
       let self = this
       if (str == '4') {
-        // this.confirmBtn()
+        self.confirmBtn(str)
       } else {
          let desc = str == '1' ? '真实火情是指已经产生明火燃烧发生了真实火灾，请务必谨慎确认。' : '设备预警是指由于环境或人为等因素干扰而产生的正常设备告警，确认设备预警后，相应的“告警异常”状态会自动解除，从而恢复正常的安全状态。'
           wx.showModal({
@@ -157,10 +157,8 @@ export default {
         timestamp: new Date().getTime(),
         fTime: this.websocketData.alarmTime
       }
-      console.log(params)
       try {
         let res = await this.$request.post(postUrl, params)
-        console.log(res)
         if (res.state == '0') {
           wx.showToast({
             title: message,

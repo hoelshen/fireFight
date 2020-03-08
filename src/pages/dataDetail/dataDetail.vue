@@ -1,9 +1,9 @@
 <template>
   <div class="detail-page flex column">
     <div class="information-header">
-      <div>
+      <!-- <div>
         <Adress-info />
-      </div>
+      </div> -->
     </div>
     <div class="equipment-list mrg-center ">
       <div class="equipment-item mrg-b-40 pdd-20">
@@ -16,19 +16,19 @@
             <div class="flex j-between mrg-b-10 a-center">
               <div
                 class="btn tex-center"
-                :style="{background:facilityInfo.status?'rgba(34,172,56,1)':'gray'}"
-                v-text="facilityInfo.status?'在线':'离线'"
+                :style="{background:facilityInfo.state != 'null' ?'rgba(34,172,56,1)':'gray'}"
+                v-text="facilityInfo.state != 'null' ? '在线':'离线'"
               />
               <div
                 v-if="type != 4"
                 v-text="facilityInfo.BatteryLevel ? '电量：'+facilityInfo.BatteryLevel+'%' : '电量：100%'"
               />
-              <div v-else>
+              <!-- <div v-else>
                 <image
                   src="/static/png/playvideo.png"
                   @click="playVideo"
                 />
-              </div>
+              </div> -->
             </div>
             <div
               v-show="showVideo"
@@ -127,21 +127,25 @@
             </div>
             <div class="btn tex-center ">
               安装
-            </div> -->
+            </div> 
+            <script src="../../static/ezuikit.js" ></script>
+            -->
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 <script>
 import {
   formatTime
 } from "@/utils/index";
 import AdressInfo from "@/components/adressInfo";
+import {demo} from "@/static/ezuikit.js";
 export default {
   components: {
-    AdressInfo
+    // AdressInfo
   },
   data() {
       return {
@@ -154,15 +158,15 @@ export default {
           },
           adress: '',
           adress_f: '',
-          showVideo: true
+          showVideo: false
 
       }
   },
   onLoad(opt) {
-    opt = {
-      facilityinfoId: "2002151524222011",
-      fType: "0"
-    }
+    // opt = {
+    //   facilityinfoId: "2002151524222011",
+    //   fType: "0"
+    // }
     this.type = opt.fType
     this.getdetailData(opt)
   },
@@ -171,21 +175,22 @@ export default {
   },
 
   methods: {
-    getdetailData({fType, facilityinfoId}) {
+    getdetailData({fType, facilityinfoId, isOnline}) {
       this.$request
         .post("/facilityInfo/queryFacilityInfo.do", { type: fType,facilityinfoId: facilityinfoId})
         .then(res => {
           this.dataInfo = res[0]
-          this.facilityInfo = {state: res[0].isOnline,
-          BatteryLevel: res[0].BatteryLevel,
-          info: [
-            {'title': '告警时间', 'value': res[0].fTime ? formatTime(res[0].fTime, 'Y/M/D h:m:s') : '无'},
-            {'title': '备注', 'value': res[0].fAlias || '无'},
-            {'title': 'IMEI', 'value': res[0].ModelNumber || '无'},
-            {'title': '设备ID', 'value': res[0].facilityinfoId || '无'},
-            {'title': '安装时间', 'value': formatTime(res[0].CreateTime, 'Y/M/D h:m:s') || '无'},
-            {'title': '安装位置', 'value': res[0].facilitySecondPosition || '无'}
-            ]
+          this.facilityInfo = {
+            state: isOnline,
+            BatteryLevel: res[0].BatteryLevel,
+            info: [
+              {'title': '告警时间', 'value': res[0].fTime ? formatTime(res[0].fTime, 'Y/M/D h:m:s') : '无'},
+              {'title': '备注', 'value': res[0].fAlias || '无'},
+              {'title': 'IMEI', 'value': res[0].ModelNumber || '无'},
+              {'title': '设备ID', 'value': res[0].facilityinfoId || '无'},
+              {'title': '安装时间', 'value': formatTime(res[0].CreateTime, 'Y/M/D h:m:s') || '无'},
+              {'title': '安装位置', 'value': res[0].facilitySecondPosition || '无'}
+              ]
           }
           console.log(this.facilityInfo)
           this.adress = res[0].fLiveAddress
@@ -197,6 +202,7 @@ export default {
         });
     },
     playVideo() {
+      console.log(demo)
       let yplayz = new EZUIPlayer('video');
       console.log(yplayz)
       this.showVideo = true

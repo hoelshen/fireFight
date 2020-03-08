@@ -124,18 +124,18 @@ export default {
     this.websocketData = JSON.parse(opt.websocketData)
 
     console.log(opt.websocketData)
+    this.params = wx.getStorageSync('userAddress')
+    this.getWarningTask()
   },
   onShow() {
-    this.params = wx.getStorageSync('userAddress')
-    console.log(this.params)
-    this.getWarningTask()
+    
   },
 
   methods: {
     async getWarningTask() {
       let params = getParams(this.params)
       params['page'] = 1
-      params['userId'] = 2002131059424992
+      params['userId'] = getApp().globalData.user.userID || 2002131059424992
       try {
         let res = await this.$request.post('/facilityInfo/countFacilityWarningTaskTo30DaysGZ.do', params)
         this.changeData(res)

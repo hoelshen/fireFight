@@ -49,6 +49,7 @@
     "@megalo/vhtml-plugin": "^0.1.2",
     "dayjs": "^1.8.0",
     "eslint-plugin-import": "^2.16.0",
+    "ezuikit": "^1.0.0",
     "flyio": "^0.6.9",
     "megalo": "^0.7.0",
     "megalo-router": "^1.0.3",

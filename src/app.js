@@ -23,6 +23,7 @@ export default {
   config: {
     cloud: true,
     pages: [
+      "pages/login/index", //登陆,
       "pages/alarmpage/index",  //设备告警
       "pages/dataDetail/index",  //数据详情
       "pages/equipmentlist/index",  //设备列表
@@ -34,7 +35,6 @@ export default {
       "pages/position/index", // 定位选择
       "pages/position/sendPosition", // 发送位置
       "pages/examine/index", //消防检测
-      "pages/login/index", //登陆,
       "pages/errors/index", //错误页面,
     ],
     "permission": {
