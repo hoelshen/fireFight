@@ -13,6 +13,23 @@
         :value="userId"
         @input="bindUserId"
       >
+      <div
+        v-if="showUserlist"
+        class="UserList"
+      >
+        <option
+          v-for="item in Userlist"
+          :key="item.fID"
+          class="option"
+          :value="item.fID"
+        >
+          <div
+            @click="clickProvince(item)"
+          >
+            {{ item.fEntityFacilityID }}
+          </div> 
+        </option>
+      </div>
     </div>
     <scroll-view
       :style="{'height': '72vh'}"
@@ -149,6 +166,8 @@ export default {
   data() {
     return {
       userId:"", //userId,
+      Userlist: [],
+      showUserlist: false,
       examObj:[],
       smokeCountFid:"",
       electronCountFid:"",
@@ -193,17 +212,19 @@ export default {
     },
     bindUserId(e){
       this.userId = e.detail.value;
-      let userId = this.userId;
-
       let params = getParams(this.params)
+      params['userId'] = wx.getStorageSync('userId') || 2002131059424992
+      params['param'] = this.userId;
 
-      params['userId'] = userId;
       this.$request
-      .post("/facilityInfo/countFacility.do",params)
+      .post("/search/likeSearch.do",params)
       .then(res => {
-       const data = res
-       this.filterdata(data)
-       
+       const data = res.list;
+        this.Userlist = data;
+        console.log('this.Userlist: ', this.Userlist);
+        if(data.length !=0){
+          this.showUserlist = true;
+        }
       })
       .catch(err => {
         return wx.showToast({
@@ -211,7 +232,25 @@ export default {
           icon: "none"
         });
       });
+    },
+    clickProvince({fID, fType}){
+      let params = getParams(this.params)
+      params['facilityinfoId'] = fID
+      params['type'] = fType
 
+    this.$request
+      .post("/facilityInfo/queryFacilityInfo.do",params)
+      .then(res => {
+       const data = res
+       console.log('data: ', data);
+
+      })
+      .catch(err => {
+        return wx.showToast({
+          title: "获取失败",
+          icon: "none"
+        });
+      });
     },
     filterdata(data){
         data.forEach(val=>{
@@ -284,6 +323,11 @@ export default {
       text-align: center;
       line-height: 110rpx;
     }
+  }
+  .UserList{
+    background-color: #ffffff;
+    margin: -45rpx 80rpx 0;
+    text-align: center;
   }
   .pannel{
     height: 76vh;

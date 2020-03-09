@@ -214,11 +214,11 @@ export default {
       places:[],
       userID: '', //用户id
       current:{
-        provinceName: "",
-        cityName: "",
-        prefectureName: "",
-        areaName: "",
-        placeName: ""
+        provinceName: "请选择",
+        cityName: "请选择",
+        prefectureName: "请选择",
+        areaName: "请选择",
+        placeName: "请选择"
       }
     };
   },
@@ -437,6 +437,7 @@ export default {
 }
 .icon {
   width: 34rpx;
+  margin-right: 15rpx;
   height: 36rpx;
   position: relative;
 }
@@ -497,7 +498,7 @@ export default {
   width: 100%;
   padding: 0 10rpx;
   line-height: 60rpx;
-  border: 1rpx solid #ddd;
+  border: 1rpx solid #3451FD;
   border-radius: 6rpx;
   box-sizing: border-box;
   border-color:#3451FD;
@@ -512,7 +513,7 @@ export default {
   width: 0;
   height: 0;
   border: 10rpx solid transparent;
-  border-top: 10rpx solid #999;
+  border-top: 10rpx solid #3451FD;
 }
 
 .current-name {
