@@ -49,12 +49,12 @@
                 v-if="type != 4"
                 v-text="facilityInfo.BatteryLevel ? '电量：'+facilityInfo.BatteryLevel+'%' : '电量：100%'"
               />
-              <!-- <div v-else>
+              <div v-else>
                 <image
                   src="/static/png/playvideo.png"
                   @click="playVideo"
                 />
-              </div> -->
+              </div>
             </div>
             <div
               v-show="showVideo"
@@ -66,18 +66,8 @@
                 playsInline
                 webkit-playsinline
                 autoplay
-              >
-                <source
-                  :src="adress"
-                  class="AVURL"
-                  type="application/x-mpegURL"
-                >
-                <source
-                  :src="adress_f"
-                  class="AVURL"
-                  type=""
-                >
-              </video>
+                :src="adress"
+              />
             </div>
             <div
               v-for="(item, index) in facilityInfo.info"
@@ -220,7 +210,7 @@ export default {
               ]
           }
           console.log(this.facilityInfo)
-          this.adress = res[0].fLiveAddress
+          this.adress = res[0].fHdAddress
           this.adress_f = res[0].fRtmp
         })
         .catch(err => {
@@ -232,7 +222,7 @@ export default {
       // console.log(demo)
       // let yplayz = new EZUIPlayer('video');
       // console.log(yplayz)
-      // this.showVideo = true
+      this.showVideo = true
     }
   }
   }
@@ -240,6 +230,7 @@ export default {
 <style lang="less" scoped>
 .detail-page {
   height: 100vh;
+  background: #1D7FFD;
   .equipment-info{
     width: 662rpx;
     height: 148rpx;
@@ -282,6 +273,9 @@ export default {
           width: 36rpx;
           height: 36rpx;
       }
+  }
+  #video {
+    width: 560rpx;
   }
   .arrow{
         width: 13rpx !important;
