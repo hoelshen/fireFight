@@ -243,7 +243,9 @@ export default {
       .then(res => {
        const data = res
        console.log('data: ', data);
-
+        wx.navigateTo({
+          url: `/pages/dataDetail/index?fType=${fType}&facilityinfoId=${fID}&isOnline=${data[0].isOnline}`
+        });
       })
       .catch(err => {
         return wx.showToast({

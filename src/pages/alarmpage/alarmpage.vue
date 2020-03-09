@@ -3,9 +3,10 @@
     <div class="alarm-info mrg-center ">
       <div class="alarm-adress flex j-between">
         <div class="flex flex_1 a-center" />
-        <div class="alarm-number flex a-center pdd-lr-25">
-          该设备告警请尽快处理
-          <span class="number pdd-lr-25" />
+        <div class="alarm-number pdd-lr-25">
+          <div>负责人 ：{{ websocketData.homeManager }}</div> 
+          <div>负责人电话 ：{{ websocketData.homeManagerPhone }}</div> 
+          <!-- <span class="number pdd-lr-25" /> -->
         </div>
       </div>
       <div class="alarm-detail flex j-between a-center mrg-tb-25">
@@ -18,11 +19,12 @@
           </div>
         </div>
         <div class="alarm-arrow flex a-center pdd-lr-25">
-          告警设备详情 
+          <!-- 告警设备详情 
           <image
             class=" pdd-l-24"
             src="/static/png/arrow-white.png"
-          />
+          /> -->
+          该设备告警请尽快处理
         </div>
       </div>
       <div>告警时间：{{ websocketData.alarmTime }}</div>
@@ -233,8 +235,9 @@ export default {
               height:22rpx;
           }
           .alarm-number{
-              width: 287rpx;
-              height: 60rpx;
+              width: 307rpx;
+              height: 80rpx;
+              line-height: 40rpx;
               background: #FF9E9D;
               border-radius: 40rpx 0 0 40rpx;
               font-size:22rpx;
