@@ -159,6 +159,7 @@ export default {
 <style lang="less" scoped>
 .equipmentlist-page {
   height: 100vh;
+  background: #1D7FFD;
   .information-header{
       height: 120rpx;
       background: #1D7FFD;

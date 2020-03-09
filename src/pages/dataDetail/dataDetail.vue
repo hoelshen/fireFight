@@ -240,6 +240,7 @@ export default {
 <style lang="less" scoped>
 .detail-page {
   height: 100vh;
+  background: #1D7FFD;
   .equipment-info{
     width: 662rpx;
     height: 148rpx;
