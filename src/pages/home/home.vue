@@ -173,6 +173,7 @@ export default {
       electronCountFid:"",
       coCountFid:"",
       hydraulicCountFid: "",
+      params: "",//参数
       fireHydrantCountFid:"",
       videoCountFid: "",
       netCountFid: "",
@@ -211,10 +212,10 @@ export default {
       }
     },
     bindUserId(e){
-      this.userId = e.detail.value;
-      let params = getParams(this.params)
-      params['userId'] = wx.getStorageSync('userId') || 2002131059424992
-      params['param'] = this.userId;
+      let param = e.detail.value;
+      let params = getParams(this.params);
+      params['userId'] = wx.getStorageSync('userId') || 2002131059424992;
+      params['param'] = param;
 
       this.$request
       .post("/search/likeSearch.do",params)
@@ -290,8 +291,10 @@ export default {
         })
     },
     getData(){
+      let params = getParams(this.params);
+      params['userId'] = wx.getStorageSync('userId') || 2002131059424992;
       this.$request
-      .post("/facilityInfo/countFacility.do")
+      .post("/facilityInfo/countFacility.do",params)
       .then(res => {
        const data = res
         this.filterdata(data)

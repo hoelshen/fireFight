@@ -214,11 +214,11 @@ export default {
       places:[],
       userID: '', //用户id
       current:{
-        provinceName: "请选择",
-        cityName: "请选择",
-        prefectureName: "请选择",
-        areaName: "请选择",
-        placeName: "请选择"
+        provinceName: "",
+        cityName: "",
+        prefectureName: "",
+        areaName: "",
+        placeName: ""
       }
     };
   },
@@ -269,7 +269,6 @@ export default {
     async getProvince(){
       let userID = wx.getStorageSync('userId')
       console.log('userID: ', userID);
-      // const userID  = 2002131059424992
       this.$request
       .post("/location/getProvinceTreeList.do",{
         userID
@@ -407,8 +406,10 @@ export default {
     const { user } = getApp().globalData;
     this.user = user;
     this.getProvince();
+    let params = getParams(this.params);
+      params['userId'] = wx.getStorageSync('userId') || 2002131059424992
+      params['param'] = this.userId;
     let userAddress = wx.getStorageSync('userAddress')
-    console.log('userAddress: ', userAddress);
 
     this.positionName =  userAddress.province + userAddress.city + userAddress.prefecture + userAddress.areaName + userAddress.placeName
   }
