@@ -1,6 +1,6 @@
 <template>
   <div class="appDiv flex column">
-    <div class="flex row center inputDiv">
+    <!--     <div class="flex row center inputDiv">
       <image
         class="icon"
         src="/static/png/search.png"
@@ -12,7 +12,7 @@
         :value="textName"
         @input="bindText"
       >
-    </div>
+    </div> -->
     <div class="positionDiv">
       <div class="positionName">
         <image
@@ -416,7 +416,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .appDiv {
-  margin: 40rpx 40rpx;
+  margin: 0 40rpx;
   min-height: 90vh;
   background-color: #ffffff;
   padding: 20rpx 0;
@@ -441,7 +441,6 @@ export default {
   position: relative;
 }
 .positionDiv{
-  margin:30rpx 0;
   .positionSelect{
     margin-top: 30rpx;
     border-color:#4153D1;

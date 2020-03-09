@@ -177,6 +177,8 @@ export default {
     }
     this.getData();
     this.onTabChange(this.tab);
+
+    this.params = wx.getStorageSync('userAddress')
   },
 
   methods: {
@@ -192,8 +194,9 @@ export default {
     bindUserId(e){
       this.userId = e.detail.value;
       let userId = this.userId;
+
       let params = getParams(this.params)
-      params['page'] = 1
+
       params['userId'] = userId;
       this.$request
       .post("/facilityInfo/countFacility.do",params)
