@@ -136,6 +136,9 @@
 import HomeTabbar from "@/components/HomeTabbar";
 import AdressInfo from "@/components/adressInfo";
 import shareMix from "@/mixins/mixin";
+import {
+  getParams
+} from "@/utils/index";
 // import myEvent from "@/utils/event";
 export default {
   components: {
@@ -145,7 +148,6 @@ export default {
   mixins: [shareMix],
   data() {
     return {
-      province: "", // 地址
       userId:"", //userId,
       examObj:[],
       smokeCountFid:"",
@@ -189,12 +191,26 @@ export default {
     },
     bindUserId(e){
       this.userId = e.detail.value;
-    },
-    getData(){
+      let userId = this.userId;
+      let params = getParams(this.params)
+      params['page'] = 1
+      params['userId'] = userId;
       this.$request
-      .post("/facilityInfo/countFacility.do")
+      .post("/facilityInfo/countFacility.do",params)
       .then(res => {
        const data = res
+       this.filterdata(data)
+       
+      })
+      .catch(err => {
+        return wx.showToast({
+          title: "获取失败",
+          icon: "none"
+        });
+      });
+
+    },
+    filterdata(data){
         data.forEach(val=>{
              switch (val.ftype) {
               case "0":
@@ -228,6 +244,13 @@ export default {
                 return ;
              }
         })
+    },
+    getData(){
+      this.$request
+      .post("/facilityInfo/countFacility.do")
+      .then(res => {
+       const data = res
+        this.filterdata(data)
       })
       .catch(err => {
         return wx.showToast({
@@ -235,27 +258,6 @@ export default {
           icon: "none"
         });
       });
-    },
-
-    search(){
-/*       userId = this.userId;
-      province = this.province;
-      this.$request
-      .post("/facilityInfo/countFacility.do",{
-        userId,
-        province
-      })
-      .then(res => {
-       const data = res
-       
-      })
-      .catch(err => {
-        return wx.showToast({
-          title: "获取失败",
-          icon: "none"
-        });
-      }); */;
-
     },
     jumpUrl(type) {
       wx.navigateTo({
