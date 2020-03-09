@@ -195,10 +195,10 @@ export default {
       console.log('this.toPage: ', this.toPage);
       let toPage = this.toPage;
     }
+    this.params = wx.getStorageSync('userAddress')
     this.getData();
     this.onTabChange(this.tab);
 
-    this.params = wx.getStorageSync('userAddress')
   },
 
   methods: {
