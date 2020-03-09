@@ -111,7 +111,7 @@ export default {
       });
     },
     getData(){
-      const { userID } = getApp().globalData.user || 2002131059424992;
+      const userId = wx.getStorageSync("userId");
       const value = wx.getStorageSync("userAddress");
       let province = '';
       if (value) {
@@ -120,7 +120,7 @@ export default {
       }
       this.$request
       .post("/location/getPosition.do"	,{
-        userID,
+        userId,
         province,
         page:1
       })
