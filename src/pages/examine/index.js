@@ -6,9 +6,9 @@ app.$mount()
 
 export default {
     config: {
-      navigationBarBackgroundColor: '#1B90FC',
+      navigationBarBackgroundColor: '#2E60FE',
       navigationBarTextStyle: 'white',
       navigationBarTitleText: '消防检测',
-      backgroundColor: '#1B90FC'  
+      backgroundColor: '#2E60FE'  
     }
 };
