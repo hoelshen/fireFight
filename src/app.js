@@ -24,6 +24,7 @@ export default {
   config: {
     cloud: true,
     pages: [
+      "pages/home/index", // 首页
       "pages/forgetpwd/index", //忘记密码,
       "pages/login/index", //登陆,
       "pages/alarmpage/index",  //设备告警
@@ -32,7 +33,6 @@ export default {
       "pages/monitorpage/index", //查看监控
       "pages/information/index", //确定信息
       "pages/detection/index", //数据检测
-      "pages/home/index", // 首页
       "pages/home/detail", // 详情
       "pages/info/index", //  个人信息  
       "pages/position/index", // 定位选择
