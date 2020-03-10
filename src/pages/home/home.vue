@@ -5,148 +5,129 @@
       <Adress-info />
     </div>
     <div class="head">
-      <input
-        class="input grow"
-        maxlength="40"
-        placeholder="输入设别ID或者你想查询的关键字"
-        :focus="focusInput"
-        :value="userId"
-        @input="bindUserId"
-      >
       <div
-        v-if="showUserlist"
-        class="UserList"
+        class="input grow"
+        @click="toDetail"
       >
-        <option
-          v-for="item in Userlist"
-          :key="item.fID"
-          class="option"
-          :value="item.fID"
-        >
+        输入设别ID或者你想查询的关键字
+      </div>
+      <scroll-view
+        :style="{'height': '72vh'}"
+        :scroll-y="true"
+      >
+        <div class="pannel ">
           <div
-            @click="clickProvince(item)"
+            class="pannel__item"
+            @click="jumpUrl(smokeType)"
           >
-            {{ item.fEntityFacilityID }}
-          </div> 
-        </option>
-      </div>
-    </div>
-    <scroll-view
-      :style="{'height': '72vh'}"
-      :scroll-y="true"
-    >
-      <div class="pannel ">
-        <div
-          class="pannel__item"
-          @click="jumpUrl(smokeType)"
-        >
-          <image
-            class="iconfont"
-            src="/static/png/smoke.png"
-          />
-          <p class="my_function_item_text">
-            智能烟感
-          </p>
-          <span>安装数量</span>
-          <span class="blue">{{ smokeCountFid }} </span>
-          <span>个 </span>
+            <image
+              class="iconfont"
+              src="/static/png/smoke.png"
+            />
+            <p class="my_function_item_text">
+              智能烟感
+            </p>
+            <span>安装数量</span>
+            <span class="blue">{{ smokeCountFid }} </span>
+            <span>个 </span>
+          </div>
+          <div
+            class="pannel__item"
+            @click="jumpUrl(electronType)"
+          >
+            <image
+              class="iconfont"
+              src="/static/png/electron.png"
+            />
+            <p class="my_function_item_text">
+              智能用电
+            </p>
+            <span>安装数量</span>
+            <span class="blue">{{ electronCountFid }}</span>
+            <span>个 </span>
+          </div>
+          <div
+            class="pannel__item"
+            @click="jumpUrl(coType)"
+          >
+            <image
+              class="iconfont"
+              src="/static/png/co.png"
+            />
+            <p class="my_function_item_text">
+              智能气感
+            </p>
+            <span>安装数量： </span>
+            <span class="blue">{{ coCountFid }}</span>
+            <span>个 </span>
+          </div>
+          <div
+            class="pannel__item"
+            @click="jumpUrl(hydraulicType)"
+          >
+            <image
+              class="iconfont"
+              src="/static/png/hydraulic.png"
+            />
+            <p class="my_function_item_text">
+              液压液位检测
+            </p>
+            <span>安装数量： </span>
+            <span class="blue">{{ hydraulicCountFid }}</span>
+            <span>个 </span>
+          </div>
+          <div
+            class="pannel__item"
+            @click="jumpUrl(fireHydrantType)"
+          >
+            <image
+              class="iconfont"
+              src="/static/png/fireHydrant.png"
+            />
+            <p class="my_function_item_text">
+              智能消火栓
+            </p>
+            <span>安装数量： </span>
+            <span class="blue">{{ fireHydrantCountFid }} </span>
+            <span>个 </span>
+          </div>
+          <div
+            class="pannel__item"
+            @click="jumpUrl(videoType)"
+          >
+            <image
+              class="iconfont"
+              src="/static/png/fireHydrant.png"
+            />
+            <p class="my_function_item_text">
+              视频监控
+            </p>
+            <span>安装数量： </span>
+            <span class="blue">{{ videoCountFid }} </span>
+            <span>个 </span>
+          </div>
+          <div
+            class="pannel__item"
+            @click="jumpUrl(netType)"
+          >
+            <image
+              class="iconfont"
+              src="/static/png/fireHydrant.png"
+            />
+            <p class="my_function_item_text">
+              物联⽹关
+            </p>
+            <span>安装数量： </span>
+            <span class="blue">{{ netCountFid }} </span>
+            <span>个 </span>
+          </div>
         </div>
-        <div
-          class="pannel__item"
-          @click="jumpUrl(electronType)"
-        >
-          <image
-            class="iconfont"
-            src="/static/png/electron.png"
-          />
-          <p class="my_function_item_text">
-            智能用电
-          </p>
-          <span>安装数量</span>
-          <span class="blue">{{ electronCountFid }}</span>
-          <span>个 </span>
-        </div>
-        <div
-          class="pannel__item"
-          @click="jumpUrl(coType)"
-        >
-          <image
-            class="iconfont"
-            src="/static/png/co.png"
-          />
-          <p class="my_function_item_text">
-            智能气感
-          </p>
-          <span>安装数量： </span>
-          <span class="blue">{{ coCountFid }}</span>
-          <span>个 </span>
-        </div>
-        <div
-          class="pannel__item"
-          @click="jumpUrl(hydraulicType)"
-        >
-          <image
-            class="iconfont"
-            src="/static/png/hydraulic.png"
-          />
-          <p class="my_function_item_text">
-            液压液位检测
-          </p>
-          <span>安装数量： </span>
-          <span class="blue">{{ hydraulicCountFid }}</span>
-          <span>个 </span>
-        </div>
-        <div
-          class="pannel__item"
-          @click="jumpUrl(fireHydrantType)"
-        >
-          <image
-            class="iconfont"
-            src="/static/png/fireHydrant.png"
-          />
-          <p class="my_function_item_text">
-            智能消火栓
-          </p>
-          <span>安装数量： </span>
-          <span class="blue">{{ fireHydrantCountFid }} </span>
-          <span>个 </span>
-        </div>
-        <div
-          class="pannel__item"
-          @click="jumpUrl(videoType)"
-        >
-          <image
-            class="iconfont"
-            src="/static/png/fireHydrant.png"
-          />
-          <p class="my_function_item_text">
-            视频监控
-          </p>
-          <span>安装数量： </span>
-          <span class="blue">{{ videoCountFid }} </span>
-          <span>个 </span>
-        </div>
-        <div
-          class="pannel__item"
-          @click="jumpUrl(netType)"
-        >
-          <image
-            class="iconfont"
-            src="/static/png/fireHydrant.png"
-          />
-          <p class="my_function_item_text">
-            物联⽹关
-          </p>
-          <span>安装数量： </span>
-          <span class="blue">{{ netCountFid }} </span>
-          <span>个 </span>
-        </div>
-      </div>
-    </scroll-view>
+      </scroll-view>
 
-    <HomeTabbar
-      @change="onTabChange"
-    />
+      <HomeTabbar
+        @change="onTabChange"
+      />
+    </div>
   </div>
 </template>
 <script>
@@ -211,28 +192,10 @@ export default {
       if (this.tab === "mine") {
       }
     },
-    bindUserId(e){
-      let param = e.detail.value;
-      let params = getParams(this.params);
-      params['userId'] = wx.getStorageSync('userId') || 2002131059424992;
-      params['param'] = param;
-
-      this.$request
-      .post("/search/likeSearch.do",params)
-      .then(res => {
-       const data = res.list;
-        this.Userlist = data;
-        console.log('this.Userlist: ', this.Userlist);
-        if(data.length !=0){
-          this.showUserlist = true;
-        }
-      })
-      .catch(err => {
-        return wx.showToast({
-          title: "获取失败",
-          icon: "none"
+    toDetail(){
+        wx.navigateTo({
+          url: `/pages/home/detail`
         });
-      });
     },
     clickProvince({fID, fType}){
       let params = getParams(this.params)
@@ -319,14 +282,14 @@ export default {
   height: 100vh;
   background-color: #2E60FE;
   .head{
-    input{
+    .input{
       margin:44rpx;
       background-color:#ffffff;
       width: 662rpx;
       height: 80rpx;
       border-radius: 50rpx;
       text-align: center;
-      line-height: 110rpx;
+      line-height: 80rpx;
     }
   }
   .UserList{

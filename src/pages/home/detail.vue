@@ -1,44 +1,54 @@
 <template>
-  <div class="head">
-    <input
-      class="input grow"
-      maxlength="40"
-      placeholder="输入设别ID或者你想查询的关键字"
-      :focus="focusInput"
-      :value="userId"
-      @input="bindUserId"
-    >
-    <div
-      v-if="showUserlist"
-      class="UserList"
-    >
-      <option
-        v-for="item in Userlist"
-        :key="item.fID"
-        class="option"
-        :value="item.fID"
+  <div class="page">
+    <div class="head">
+      <input
+        class="input grow"
+        maxlength="40"
+        placeholder="输入设别ID或者你想查询的关键字"
+        :focus="focusInput"
+        :value="userId"
+        @input="bindUserId"
       >
-        <div
-          @click="clickProvince(item)"
+      <div
+        v-if="showUserlist"
+        class="UserList"
+      >
+        <option
+          v-for="item in Userlist"
+          :key="item.fID"
+          class="option"
+          :value="item.fID"
         >
-          {{ item.fEntityFacilityID }}
-        </div> 
-      </option>
+          <div
+            @click="clickProvince(item)"
+          >
+            {{ item.fEntityFacilityID }}
+          </div> 
+        </option>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import shareMix from "@/mixins/mixin";
 import { promisify } from "@/utils/index";
-
+import {
+  getParams
+} from "@/utils/index";
 export default {
   mixins: [shareMix],
   data() {
     return {
-      log: '113.324520',
-      lat: '23.099994',
-      markers: []
+      userId:"", //userId,
+      Userlist: [],
+      showUserlist: false,
     }
+  },
+  onShow() {
+  if (this.toPage) {
+    let toPage = this.toPage;
+  }
+  this.params = wx.getStorageSync('userAddress')
   },
   methods: {
     bindUserId(e){
@@ -69,39 +79,32 @@ export default {
       params['facilityinfoId'] = fID
       params['type'] = fType
 
-    this.$request
-      .post("/facilityInfo/queryFacilityInfo.do",params)
-      .then(res => {
-       const data = res
-       console.log('data: ', data);
-        wx.navigateTo({
-          url: `/pages/dataDetail/index?fType=${fType}&facilityinfoId=${fID}&isOnline=${data[0].isOnline}`
+      this.$request
+        .post("/facilityInfo/queryFacilityInfo.do",params)
+        .then(res => {
+        const data = res
+        console.log('data: ', data);
+          wx.navigateTo({
+            url: `/pages/dataDetail/index?fType=${fType}&facilityinfoId=${fID}&isOnline=${data[0].isOnline}`
+          });
+        })
+        .catch(err => {
+          return wx.showToast({
+            title: "获取失败",
+            icon: "none"
+          });
         });
-      })
-      .catch(err => {
-        return wx.showToast({
-          title: "获取失败",
-          icon: "none"
-        });
-      });
-    },
+      },
   },
-  onShow(){
-    this.position();
-    this.getData();
-  }
 };
 </script>
 <style lang="less" scoped>
-.appDiv {
-  margin: 40rpx 40rpx;
-  min-height: 90vh;
-  background-color: #ffffff;
-  padding: 20rpx 0;
-}
+.page {
+  height: 100vh;
+  background-color: #2E60FE;
   .head{
     input{
-      margin:44rpx;
+      margin:0 44rpx;
       background-color:#ffffff;
       width: 662rpx;
       height: 80rpx;
@@ -112,7 +115,9 @@ export default {
   }
   .UserList{
     background-color: #ffffff;
-    margin: -45rpx 80rpx 0;
+    margin: 20rpx 40rpx;
     text-align: center;
+    height: 365rpx;
   }
+}
 </style>

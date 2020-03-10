@@ -24,7 +24,7 @@
           @click="login"
         >
 
-        <div
+        <!-- <div
           v-if="!user.aliasPortrait"
           class="flex column center"
         >
@@ -39,13 +39,12 @@
           <div class="my_info_user_address flex wrap">
             登录后体验完整功能
           </div>
-        </div>
+        </div> -->
 
         <div
-          v-else
-          class="flex column center"
+          class="center"
         >
-          <div class="flex j-around my_info_user_nickName">
+          <div class="my_info_user_nickName">
             <div @click="loginName">
               用户：{{ user.aliasName }}
             </div>
