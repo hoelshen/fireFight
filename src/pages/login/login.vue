@@ -130,6 +130,10 @@ export default {
               key: 'userId',
               data: res.userID
             })
+            wx.setStorage({
+              key: 'userName',
+              data: res.fName
+            })
             return this.$router.push({
               query: {},
               path: "/pages/home/index"
