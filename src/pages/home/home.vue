@@ -178,7 +178,7 @@ export default {
     }
     const value2 = wx.getStorageSync("userId");
     if(!value2){
-      wx.navigateTo({
+      wx.reLaunch({
         url: `/pages/login/index`
       });
     }
