@@ -176,6 +176,12 @@ export default {
       console.log('this.toPage: ', this.toPage);
       let toPage = this.toPage;
     }
+    const value2 = wx.getStorageSync("userId");
+    if(!value2){
+      wx.navigateTo({
+        url: `/pages/login/index`
+      });
+    }
     this.params = wx.getStorageSync('userAddress')
     this.getData();
     this.onTabChange(this.tab);
