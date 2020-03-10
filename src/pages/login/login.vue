@@ -6,7 +6,7 @@
           class="bannerImg"
           src="/static/png/banner.png"
         >
-        <div class="loginDiv flex j-between column">
+        <div class="loginDiv">
           <div class="loginText">
             登录
           </div>
@@ -38,26 +38,36 @@
               @input="bindPassword"
             >
           </div>
-          <div class="flex row center inputDiv">
-            <image
-              class="codeImg"
-              :src="imgSrc"
-            />
-            <input
-              class="input grow"
-              maxlength="11"
-              placeholder="输入您的验证码"
-              :focus="focusInput"
-              :value="form.code"
-              @input="bindCode"
+          <div
+            class="flex a-center"
+            style="margin-top:50rpx;"
+          >
+            <div
+              class="flex row center inputDiv"
+              style="margin: 0 0 0 100rpx"
             >
-          </div>
-          <div>
+              <image
+                class="codeImg"
+                :src="imgSrc"
+              />
+              <input
+                class="input grow"
+                maxlength="11"
+                placeholder="输入您的验证码"
+                :focus="focusInput"
+                :value="form.code"
+                @input="bindCode"
+              >
+            </div>
+
             <span
-              class="remindDiv"
-              onClick="remind"
+              @click="remind"
             >忘记密码？</span>
           </div>
+          
+          <!-- <div> -->
+          
+          <!-- </div> -->
         </div>
         <div class="flex column textAdd center">
           <div
@@ -98,6 +108,11 @@ export default {
     },
     bindCode(e){
       this.form.code = e.detail.value;
+    },
+    remind() {
+      wx.navigateTo({
+        url: `/pages/forgetpwd/index`
+      });
     },
     toLogin(){
       let { userName, pwd, code } = this.form;
@@ -192,7 +207,6 @@ export default {
 }
 
 .loginText{
-  height:44rpx;
   font-size:48px;
   font-family:PingFang SC;
   font-weight:500;
@@ -203,7 +217,8 @@ export default {
 }
 
 .inputDiv{
-  margin-left: 100rpx;
+  width: 400rpx;
+  margin: 50rpx 0 0 100rpx;
   .codeImg{
     width:120rpx;
     height:80rpx

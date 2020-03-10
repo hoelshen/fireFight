@@ -148,6 +148,13 @@
 					"scene": null
 				},
 				{
+					"id": 12,
+					"name": "重置密码",
+					"pathName": "pages/forgetpwd/index",
+					"query": "",
+					"scene": null
+				},
+				{
 					"id": -1,
 					"name": "消防检测",
 					"pathName": "pages/examine/index",

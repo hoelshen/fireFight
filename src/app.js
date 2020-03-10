@@ -24,6 +24,7 @@ export default {
   config: {
     cloud: true,
     pages: [
+      "pages/forgetpwd/index", //忘记密码,
       "pages/login/index", //登陆,
       "pages/alarmpage/index",  //设备告警
       "pages/dataDetail/index",  //数据详情

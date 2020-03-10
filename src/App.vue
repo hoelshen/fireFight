@@ -20,6 +20,10 @@ export default {
           "当前微信版本过低，可能影响使用体验，请升级到最新微信版本后重试。"
       });
     }
+    wx.removeStorage({
+      key: 'userAddress',
+      success(res) {}
+    })
     this.initWebsocket()
   },
   methods: {
