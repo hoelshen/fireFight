@@ -248,6 +248,7 @@ export default {
     this.toPage = opt.toPage;
   },
   onShow() {
+    this.user.aliasName = wx.getStorageSync('userName')
     const that = this;
     if (this.toPage) {
       console.log('this.toPage: ', this.toPage);
@@ -262,7 +263,6 @@ export default {
             success: function(res) {
               console.log(res.userInfo);
               that.user.aliasPortrait = res.userInfo.avatarUrl;
-              that.user.aliasName = wx.getStorageSync('userName')
               getApp().globalData.user.userInfo = res.userInfo;
             }
           });
