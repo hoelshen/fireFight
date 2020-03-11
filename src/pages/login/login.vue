@@ -1,81 +1,79 @@
 <template>
-  <div>
-    <div class="appDiv flex column">
-      <div class="flex column j-between">
-        <img
-          class="bannerImg"
-          src="/static/png/banner.png"
-        >
-        <div class="loginDiv">
-          <div class="loginText">
-            登录
-          </div>
-          <div class="flex row center inputDiv">
-            <image
-              class="icon"
-              src="/static/png/iphone.png"
-            />
-            <input
-              class="input grow"
-              maxlength="11"
-              placeholder="请输入你的用户名/手机号"
-              :focus="focusInput"
-              :value="form.userName"
-              @input="bindPhoneNumber"
-            >
-          </div>
-          <div class="flex row center inputDiv">
-            <image
-              class="icon"
-              src="/static/png/password.png"
-            />
-            <input
-              class="input grow"
-              maxlength="11"
-              placeholder="输入您的密码"
-              :focus="focusInput"
-              :value="form.pwd"
-              @input="bindPassword"
-            >
-          </div>
-          <div
-            class="flex a-center"
-            style="margin-top:50rpx;"
-          >
-            <div
-              class="flex row center inputDiv"
-              style="margin: 0 0 0 100rpx"
-            >
-              <image
-                class="codeImg"
-                :src="imgSrc"
-              />
-              <input
-                class="input grow"
-                maxlength="11"
-                placeholder="输入您的验证码"
-                :focus="focusInput"
-                :value="form.code"
-                @input="bindCode"
-              >
-            </div>
-
-            <span
-              @click="remind"
-            >忘记密码？</span>
-          </div>
-          
-          <!-- <div> -->
-          
-          <!-- </div> -->
+  <div class="appDiv flex column">
+    <div class="flex column j-between">
+      <img
+        class="bannerImg"
+        src="/static/png/banner.png"
+      >
+      <div class="loginDiv">
+        <div class="loginText">
+          登录
         </div>
-        <div class="flex column textAdd center">
-          <div
-            class="loginImg"
-            @click="toLogin"
+        <div class="flex row center inputDiv">
+          <image
+            class="icon"
+            src="/static/png/iphone.png"
+          />
+          <input
+            class="input grow"
+            maxlength="11"
+            placeholder="请输入你的用户名/手机号"
+            :focus="focusInput"
+            :value="form.userName"
+            @input="bindPhoneNumber"
           >
-            登录
+        </div>
+        <div class="flex row center inputDiv">
+          <image
+            class="icon"
+            src="/static/png/password.png"
+          />
+          <input
+            class="input grow"
+            maxlength="11"
+            placeholder="输入您的密码"
+            :focus="focusInput"
+            :value="form.pwd"
+            @input="bindPassword"
+          >
+        </div>
+        <div
+          class="flex a-center"
+          style="margin-top:50rpx;"
+        >
+          <div
+            class="flex row center inputDiv"
+            style="margin: 0 0 0 100rpx"
+          >
+            <image
+              class="codeImg"
+              :src="imgSrc"
+            />
+            <input
+              class="input grow"
+              maxlength="11"
+              placeholder="输入您的验证码"
+              :focus="focusInput"
+              :value="form.code"
+              @input="bindCode"
+            >
           </div>
+
+          <span
+            @click="remind"
+          >忘记密码？</span>
+        </div>
+          
+        <!-- <div> -->
+          
+        <!-- </div> -->
+      </div>
+      <div class="flex column textAdd center">
+        <div
+          class="loginImg"
+          @click="toLogin"
+        >
+          登录
         </div>
       </div>
     </div>
@@ -196,7 +194,7 @@ export default {
   margin-top: 40rpx;
 }
 .textAdd {
-  padding-bottom: 60rpx;
+  padding: 60rpx 0;
   position: relative;
   top: 610rpx;
 }
