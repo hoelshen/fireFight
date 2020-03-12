@@ -71,6 +71,9 @@
 </template>
 
 <script>
+import {
+  getParams
+} from "@/utils/index";
 export default {
   data() {
     return {
@@ -83,7 +86,26 @@ export default {
   },
   methods: {
     bindPhoneNumber(){
+      let params = getParams(this.params);
+      const value2 = wx.getStorageSync("userId");
 
+      params[fuserid] = value2;
+      params[ofbWay] = this.form.ofbWay;
+      params[fcontent] = this.form.fcontent;
+      params[fimage] = this.form.fimage;
+      params[fvideo] = this.form.fvideo;
+      this.$request
+      .post("/user/addUserFeedbackInfo.do ",params)
+      .then(res => {
+       this.places = res.list
+      })
+      .catch(err => {
+        return wx.showToast({
+          title: "获取失败",
+          icon: "none"
+        });
+      });
+      
     },
     bindTextAreaInput(e) {
       this.form.content = e.detail.value;
