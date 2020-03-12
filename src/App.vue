@@ -3,7 +3,8 @@ export default {
   mpType: "app",
   data() {
     return {
-      websocket: null
+      websocket: null,
+      number: 0
     }
   },
   onLaunch(opts) {
@@ -45,17 +46,29 @@ export default {
 
       this.websocket.onMessage(event => {
         // websocket接收信息
-        if (JSON.parse(event.data).operation != '1') return
-        let websocketData = JSON.stringify(JSON.parse(event.data).list[0])
-        console.log(websocketData)
-        // wx.setStorage({
-        //   key: 'websocketData',
-        //   data: websocketData
-        // })
-
-        wx.navigateTo({
-          url: `/pages/alarmpage/index?websocketData=${websocketData}`
-        });
+        if (JSON.parse(event.data).operation == '1') {
+          let websocketData = JSON.stringify(JSON.parse(event.data).list[0])
+          console.log(websocketData)
+          if(wx.getStorageSync('websocketData')) {
+            this.number++
+            wx.reLaunch({
+              url: `/pages/alarmpage/index?websocketData=${websocketData}&number=${this.number}`
+            });
+          } else {
+            wx.setStorage({
+              key: 'websocketData',
+              data: websocketData
+            })
+            wx.reLaunch({
+              url: `/pages/alarmpage/index?websocketData=${websocketData}&number=${this.number}`
+            });
+          }
+        } else {
+          wx.reLaunch({
+            url: `/pages/home/index`
+          });
+        }
+        
       })
     },
   },

@@ -152,11 +152,32 @@ export default {
           icon: "none"
         });
       });      
+    },
+    goPosition(x, y) {
+       wx.openLocation({ // 打开微信内置地图，实现导航功能（在内置地图里面打开地图软件）
+          latitude: +y,
+          longitude: +x,
+          name:'设备位置',
+          success:function(res){
+            console.log(res);
+          },
+          fail:function(res){
+            console.log(res);
+          }
+        })
+    }
+  },
+  onLoad(opt) {
+    let {positionX, positionY, isalarm} = opt
+    if(isalarm) {
+      this.goPosition(positionX, positionY)
+    } else {
+      this.position();
+      this.getData();
     }
   },
   onShow(){
-    this.position();
-    this.getData();
+    
   }
 };
 </script>

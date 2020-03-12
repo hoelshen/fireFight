@@ -1,111 +1,131 @@
 <template>
-  <div class="monitor-page flex column">
-    <go-back />
-    <adress-info />
-    <div class="swiper-container">
-      <swiper
-        class="swiper"
-        indicator-dots="true"
-        autoplay="true"
-        interval="5000"
-        duration="1000"
-      >
-        <block
-          v-for="(item, index) in movies"
+  <div class="equipmentlist-page flex column">
+    <scroll-view
+      :style="{'height': '100%'}"
+      :scroll-y="true"
+    >
+      <div class="equipment-list mrg-center ">
+        <div
+          v-for="(item,index) in videoList"
           :key="index"
-          :index="index"
+          class="equipment-item pdd-20"
         >
-          <swiper-item>
+          <div class="flex">
             <image
-              :src="item.url"
-              class="slide-image"
-              mode="aspectFill"
+              class="mrg-r-20"
+              src="/static/png/fireHydrant.png"
             />
-          </swiper-item>
-        </block>
-      </swiper>
-    </div>
-    <div class="monitor-info">
-      <div class="monitor-status flex j-between">
-        <div>
-          <div>
-            设备锁定
+            <div>
+              <div style="text-align: right; width：600rpx">
+                <image
+                  src="/static/png/playvideo.png"
+                  @click="playVideo(index)"
+                />
+              </div>
+              <video
+                v-if="showVideo && actionIndex == index"
+                id="video"
+                controls
+                poster
+                playsInline
+                webkit-playsinline
+                autoplay
+                :src="item.fhdaddress"
+              />
+              <div class="id pdd-b-10">
+                设备ID：{{ item.fdeviceserial }}
+              </div>
+              <div class="time pdd-b-10">
+                安装位置：{{ item.fhousenumber }}{{ item.fsecondposition }}
+              </div>
+              <div class="time pdd-b-10">
+                安装时间：{{ getformatTime(item.fcreateTime) }}
+              </div>
+            </div>
           </div>
-          <switch bindchange="switch1Change" />
-        </div>
-        <div>
-          <div>
-            设备锁定
-          </div>
-          <switch bindchange="switch1Change" />
-        </div>
-        <div>
-          <div>
-            设备锁定
-          </div>
-          <switch bindchange="switch1Change" />
         </div>
       </div>
-      <div class="pdd-tb-5">
-        位置：具体位置是啥呢巴拉巴拉巴拉
-      </div>
-      <div class="pdd-tb-5">
-        位置：具体位置是啥呢巴拉巴拉巴拉
-      </div>
-      <div class="pdd-tb-5">
-        位置：具体位置是啥呢巴拉巴拉巴拉
-      </div>
-    </div>
+    </scroll-view>
   </div>
 </template>
 <script>
-import GoBack from "@/components/goBack";
-import AdressInfo from "@/components/adressInfo";
+import {
+  formatTime
+} from "@/utils/index";
 export default {
-  components: {
-    GoBack,
-    AdressInfo
-  },
   data() {
       return {
-          movies: [{url:'../../static/png/110iphone.png'},{url:'../../static/png/119iphone.png'}]
+          videoList: [],
+          actionIndex: '',
+          showVideo: false
       }
   },
   onLoad(opt) {
+    this.getvideoList(opt.fentityFacilityID)
   },
   onShow() {
   },
 
   methods: {
+    async getvideoList(fentityFacilityID) {
+      try {
+        let res = await this.$request.post('facilityInfo/getNearbyMonitoring.do', {fentityFacilityID: fentityFacilityID})
+        this.videoList = res
+        console.log(this.videoList)
+      } catch (error) {
+      }
+    },
+    playVideo(i) {
+      this.actionIndex = i
+      this.showVideo = true
+    },
+    getformatTime(time) {
+      return formatTime(time, 'Y-M-D h:m:s')
+    }
   }
   }
 </script>
 <style lang="less" scoped>
-.monitor-page {
+.equipmentlist-page {
   height: 100vh;
   background: #1D7FFD;
- .swiper-container {
-     width: 100%;
-     height: 464rpx;
-     .swiper{
-         width: 100%;
-         height: 100%;
-        .slide-image{
-         width: 100%;
-         height: 100%;
+  .equipment-list {
+      color: #3E4A59;
+      width: 750rpx;
+      height: 760rpx;
+      .equipment-item{
+        width: 662rpx;
+        background:rgba(255,255,255,1);
+        box-shadow:0px 9px 32px 0px rgba(51,83,253,0.1);
+        border-radius:20rpx;
+        margin: 0rpx 24rpx 20rpx;
+        .name{
+          font-size: 26rpx;
         }
-     }
- }
- .monitor-info{
-     width: 460rpx;
-     height: 350rpx;
-     margin: 40rpx 25rpx;
-     background: #fff;
-     border-radius: 20rpx;
-     padding: 0rpx 120rpx 50rpx;
-     .monitor-status{
-         margin: 50rpx 0;
-     }
- }
+        .id{
+          font-size: 24rpx;
+        }
+        .time{
+          font-size: 22rpx;
+          color: #C2C2C4;
+        }
+        .btn{
+          width:80rpx;
+          height:36rpx;
+          background:rgba(34,172,56,1);
+          border-radius:5rpx;
+          color: #fff;
+          line-height: 36rpx;
+          font-size: 20rpx;
+        }
+      }
+      image{
+          width: 36rpx;
+          height: 36rpx;
+      }
+      #video {
+        width: 560rpx;
+      }
+  }
 }
 </style>

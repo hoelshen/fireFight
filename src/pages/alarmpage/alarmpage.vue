@@ -28,7 +28,7 @@
         </div>
       </div>
       <div>告警时间：{{ websocketData.alarmTime }}</div>
-      <div class="pdd-b-10 ">
+      <div class=" ">
         {{ websocketData.placeName }}{{ websocketData.facilitySecondPosition }}
         发生
         <span
@@ -36,6 +36,7 @@
           v-text="websocketData.fState == '1' ? '警告!' : '拆卸告警'"
         />
       </div>
+      <div>当前场所告警统计：{{ number }}</div>
     </div>
     <div class="alarm-tip mrg-center flex a-center j-between pdd-lr-20 mrg-b-40">
       <div class="flex a-center j-between">
@@ -45,7 +46,7 @@
         />
         <div
           class="pdd-l-40"
-          @click="jumpUrl"
+          @click="jumpUrl('comfirmAlarm')"
         >
           确认当前场所是否发生告警事件？
         </div>
@@ -55,11 +56,17 @@
         src="/static/png/arrow-red.png"
       />
     </div>
-    <!-- <div class="icon-container flex a-center j-between">
-      <image src="/static/png/localtion-icon.png" />
-      <image src="/static/png/video-icon.png" />
-      <image src="/static/png/video-icon.png" />
-    </div> -->
+    <div class="icon-container flex a-center j-between">
+      <!-- <image src="/static/png/localtion-icon.png" /> -->
+      <image
+        src="/static/png/video-icon.png"
+        @click="jumpUrl('videoList')"
+      />
+      <image
+        src="/static/png/direction-icon.png"
+        @click="jumpUrl('position')"
+      />
+    </div>
 
 
     
@@ -79,7 +86,7 @@
       </div>
       <div class="equipment-item mrg-b-40 pdd-20">
         <scroll-view
-          :style="{'height': '600rpx'}"
+          :style="{'height': '400rpx'}"
           :scroll-y="true"
         >
           <div
@@ -117,14 +124,16 @@ export default {
           tab: 'home',
           params: {},
           warnList: [],
-          websocketData: {}
+          websocketData: {},
+          number: 1
       }
   },
   onLoad(opt) {
-    console.log(opt)
-    // opt.websocketData = JSON.stringify(wx.getStorageSync('websocketData'))
-    this.websocketData = JSON.parse(opt.websocketData)
-
+    // console.log(opt)
+    // opt.websocketData = wx.getStorageSync('websocketData')
+    this.websocketData = JSON.parse(wx.getStorageSync('websocketData'))
+    this.number = opt.number
+    console.log(this.websocketData)
     this.params = wx.getStorageSync('userAddress')
     this.getWarningTask()
   },
@@ -199,11 +208,31 @@ export default {
          return e
       })
     },
-    jumpUrl() {
-      let websocketData = JSON.stringify(this.websocketData)
-      wx.navigateTo({
-        url: `/pages/information/index?websocketData=${websocketData}`
-      });
+    jumpUrl(str) {
+      switch (str) {
+        case 'comfirmAlarm':
+         let websocketData = JSON.stringify(this.websocketData)
+          wx.navigateTo({
+            url: `/pages/information/index?websocketData=${websocketData}`
+          });
+          break;
+        case 'videoList':
+          wx.navigateTo({
+            url: `/pages/monitorpage/index?fentityFacilityID=${this.websocketData.facilityId}`
+          });
+          break;
+        case 'position':
+          // console.log(`/pages/sendPosition/index?positionX=${this.websocketData.positionX}&positionY=${this.websocketData.positionY}&isalarm=true`)
+          // wx.navigateTo({
+          //   url: `/pages/sendPosition/index`
+          // });
+          this.$router.push({
+            query: { positionX: this.websocketData.positionX, positionY: this.websocketData.positionY, isalarm: true},
+            path: "/pages/position/sendPosition"
+          });
+          break;
+          
+      }
     }
   }
   }
@@ -315,9 +344,10 @@ export default {
     }
   }
   .icon-container{
-      width: 630rpx;
+      width: 500rpx;
       padding: 0 60rpx;
       height: 200rpx;
+      margin: 0 auto;
       image{
           width: 132rpx;
           height: 132rpx;
