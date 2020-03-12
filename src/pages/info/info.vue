@@ -1,8 +1,8 @@
 <template>
   <div class="page flex column">
     <!-- 我的 -->
-    <div class="pannel grow ">
-      <div class="my_info border-rad_20 ">
+    <div class="pannel grow">
+      <div class="my_info flex column">
         <button
           v-if="!user.aliasPortrait"
           open-type="getUserInfo"
@@ -24,7 +24,7 @@
           @click="login"
         >
 
-        <!-- <div
+        <div
           v-if="!user.aliasPortrait"
           class="flex column center"
         >
@@ -39,14 +39,15 @@
           <div class="my_info_user_address flex wrap">
             登录后体验完整功能
           </div>
-        </div> -->
+        </div>
 
         <div
-          class="center"
+          v-else
+          class="flex column center"
         >
-          <div class="my_info_user_nickName">
+          <div class="flex j-around my_info_user_nickName">
             <div @click="loginName">
-              用户：{{ user.aliasName }}
+              {{ user.aliasName }}
             </div>
             <button
               class="my_info_user_badgeBtn flex center"
@@ -68,9 +69,9 @@
         </div>
       </div>
 
-      <session class="my_function flex j-start mrg-center border-rad_20">
-        <div
-          class="my_function_item_button flex column center border-rad_20"
+      <session class="my_function flex j-start">
+        <button
+          class="my_function_item_button flex column center"
           @click="jumpUrl('0')"
         >
           <image
@@ -78,9 +79,9 @@
             src="/static/png/smoke.png"
           />
           <span class="my_function_item_text">智能烟感</span>
-        </div>
+        </button>
 
-        <div
+        <button
           class="my_function_item_button flex column center"
           @click="jumpUrl('3')"
         >
@@ -89,9 +90,9 @@
             src="/static/png/electron.png"
           />
           <span class="my_function_item_text">智能用电</span>
-        </div>
+        </button>
 
-        <div
+        <button
           class="my_function_item_button flex column center"
           open-type="getUserInfo"
           lang="zh_CN"
@@ -103,9 +104,9 @@
             src="/static/png/co.png"
           />
           <span class="my_function_item_text">智能气感</span>
-        </div>
+        </button>
 
-        <div
+        <button
           class="my_function_item_button flex column center"
           @click="jumpUrl('4')"
         >
@@ -114,8 +115,8 @@
             src="/static/png/fireHydrant.png"
           />
           <span class="my_function_item_text">视频监控</span>
-        </div>
-        <div
+        </button>
+        <button
           class="my_function_item_button flex column center"
           @click="jumpUrl('2')"
         >
@@ -124,8 +125,8 @@
             src="/static/png/hydraulic.png"
           />
           <span class="my_function_item_text">液压液位检测</span>
-        </div>
-        <div
+        </button>
+        <button
           class="my_function_item_button flex column center"
           @click="jumpUrl('7')"
         >
@@ -134,7 +135,7 @@
             src="/static/png/fireHydrant.png"
           />
           <span class="my_function_item_text">智能消火栓</span>
-        </div> 
+        </button> 
       </session>
       <!-- 
       <session class="my_function flex">
@@ -186,7 +187,7 @@
         </button>
       </session>
       -->
-      <session class="my_contact flex column j-between center border-rad_20">
+      <session class="my_contact flex column j-between center">
         <button
           class="my_contact_item_button flex wrap center grow"
           open-type="getUserInfo"
@@ -248,7 +249,6 @@ export default {
     this.toPage = opt.toPage;
   },
   onShow() {
-    this.user.aliasName = wx.getStorageSync('userName')
     const that = this;
     if (this.toPage) {
       console.log('this.toPage: ', this.toPage);
@@ -263,6 +263,7 @@ export default {
             success: function(res) {
               console.log(res.userInfo);
               that.user.aliasPortrait = res.userInfo.avatarUrl;
+              that.user.aliasName = res.userInfo.nickName;
               getApp().globalData.user.userInfo = res.userInfo;
             }
           });
@@ -284,11 +285,6 @@ export default {
             wx.reLaunch({
               url: `/pages/login/index`
             });
-          }
-        })
-        wx.removeStorage({
-          key: 'userName',
-          success(res) {
           }
         })
     },
@@ -342,10 +338,6 @@ export default {
 <style lang="less" scoped>
 .page {
   height: 100vh;
-  background: #2E60FE;
-}
-.border-rad_20{
-  border-radius: 20rpx;
 }
 
 .swiper {
@@ -356,13 +348,13 @@ export default {
     height: 320rpx;
   }
 }
+
 .my_info {
-  height: 360rpx;
-  width: 662rpx;
-  border-radius: 20rpx;
+  height: 526rpx;
+  margin: 40rpx 40rpx;
+  border-radius: 2px;
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
-  margin: 20rpx auto 0;
   &_user {
     &_badgeBtn {
       padding: 0;
@@ -374,17 +366,15 @@ export default {
     }
     &_avatarUrl {
       display: block;
-      border-radius: 80rpx;
+      border-radius: 50%;
       height: 148rpx;
       width: 148rpx;
-      // margin: 60rpx auto 44rpx;
-      margin: 0 auto 20rpx;
-      padding-top: 60rpx;
+      margin: 60rpx auto 44rpx;
     }
     &_nickName {
       font-weight: 600;
-      // height: 84rpx;
-      font-size: 36rpx;
+      height: 84rpx;
+      font-size: 60rpx;
       text-align: center;
       color: #4d495b;
     }
@@ -406,18 +396,17 @@ export default {
 }
 .my_function {
   min-height: 172rpx;
-  margin: 40rpx auto;
+  margin: 40rpx 40rpx;
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
   flex-wrap: wrap;
-  width: 662rpx;
   &_item {
     height: 172rpx;
-    width: 219rpx;
+    width: 210rpx;
     background-color: #ffffff;
     &_button {
       height: 172rpx;
-      width: 219rpx;
+      width: 222rpx;
       color: #4d495b;
     }
     &_text {
@@ -432,13 +421,12 @@ export default {
 
 .my_contact {
   height: 324rpx;
-  width: 662rpx;
-  margin: 0 auto;
+  margin: 40rpx 40rpx;
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
   &_item {
     &_button {
-      width: 600rpx;
+      width: 100%;
       height: 108rpx;
       padding: 32rpx 40rpx;
       align-items: center;
@@ -481,7 +469,6 @@ export default {
   line-height: 80rpx;
   font-color: #eeeeee;
   color: #ffffff;
-  margin: 40rpx 0;
 
 }
 </style>
