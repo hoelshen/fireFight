@@ -1,11 +1,61 @@
 <template>
-  <div class="equipmentlist-page flex column">
+  <div class="equipmentlist-page">
+    <div class="equipmentlist-header mrg-center flex j-between a-center">
+      <div
+        v-for="(item, index) in timeArr"
+        :key="index"
+        class="header-item flex_1 flex a-center tex-center j-center"
+        :class="index == action ? 'item-atcion' : ''"
+        @click="changeItem(index)"
+      >
+        <div v-if="index !=1 ">
+          {{ item.title }}
+        </div>
+        <picker
+          v-else
+          mode="date"
+          @change="bindDateChange"
+        >
+          <div class="index_picker">
+            <div class="">
+              选择
+            </div>
+            <div class="">
+              {{ changeTime }}
+            </div>
+          </div>
+        </picker>
+      </div>  
+    </div>
+
+
+    <div class="equipmentlist-header mrg-center flex j-between a-center">
+      <div
+        v-for="(item, index) in dayArr"
+        :key="index"
+        class="header-item flex_1 flex a-center tex-center j-center"
+        :class="index == dayAction ? 'item-atcion' : ''"
+        @click="changedayItem(item,index)"
+      >
+        {{ item.title }}
+      </div>  
+    </div>
+
+    <!-- <div class="equipmentlist-header mrg-center flex j-between a-center">
+      <div
+        v-for="(item, index) in timeArr"
+        :key="index"
+        class="header-item flex_1 flex a-center tex-center j-center"
+        :class="index == action ? 'item-atcion' : ''"
+        @click="changeItem(index)"
+      >
+        {{ item.title }}
+      </div>
+    </div> -->
     <scroll-view
-      :style="{'height': '100%'}"
+      :style="{'height': '85%'}"
       :scroll-y="true"
     >
-      <!-- <div class="information-header">
-      </div> -->
       <div class="equipment-info mrg-center flex a-center pdd-lr-20 mrg-b-40">
         <image
           v-if="type == '0'"
@@ -114,14 +164,21 @@
 </template>
 <script>
 import {
-  getParams
+  getParams,
+  getNowFormatDate,
+  getRecentlyDay
 } from "@/utils/index";
 export default {
   data() {
       return {
           tab: 'home',
           listByType: [],
-          params: ''
+          params: '',
+          timeArr: [{title:'全部设备'}, {title:'选择时间'}, {title:'回到今天'}],
+          dayArr: [{title:'近3日' ,value: -3}, {title:'近7日' ,value: -7}, {title:'近30日' ,value: -30}],
+          action: 0,
+          dayAction: 0,
+          changeTime: ''
       }
   },
   onLoad(opt) {
@@ -133,13 +190,17 @@ export default {
   },
 
   methods: {
-    async getList() {
+    async getList(creatTime,startTime,endTime) {
+      console.log(creatTime,startTime,endTime)
       let params = getParams(this.params)
       if (this.type == 0) params['sum'] = 0
       params['type'] = this.type
       params['userId'] = wx.getStorageSync('userId') || 2002131059424992
+      if(creatTime) params['createTime'] = creatTime
+      if(startTime) params['startTime'] = startTime
+      if(endTime) params['endTime'] = endTime
       this.$request
-        .post("/facilityInfo/queryFacilityListByType.do", params)
+        .post("facilityInfo/queryFacilityListByType.do", params)
         .then(res => {
           this.listByType = res
         })
@@ -152,6 +213,22 @@ export default {
       wx.navigateTo({
         url: `/pages/dataDetail/index?fType=${fType}&facilityinfoId=${facilityinfoId}&isOnline=${isOnline}`
       });
+    },
+    changeItem(i) {
+      this.action = i
+      if(i == 0) {
+        this.getList()
+      }else if(i == 2) {
+        this.getList(getNowFormatDate())
+      }
+    },
+    changedayItem(item, i) {
+      this.dayAction = i
+      console.log(getRecentlyDay(item.value))
+      this.getList('', getRecentlyDay(item.value), getNowFormatDate())
+    },
+    bindDateChange(e) {
+      this.getList(e.detail.value)
     }
   }
   }
@@ -160,11 +237,19 @@ export default {
 .equipmentlist-page {
   height: 100vh;
   background: #1D7FFD;
-  .information-header{
-      height: 120rpx;
-      background: #1D7FFD;
-      padding: 20rpx 25rpx 0;
+  .equipmentlist-header{
+      height: 80rpx;
+      width: 662rpx;
+      background: #619FFC;
       color: #fff;
+      border-radius: 40rpx;
+      margin-bottom: 20rpx;
+      .item-atcion{
+        height: 80rpx;
+        color: #619FFC;
+        background: #fff;
+        border-radius: 40rpx;
+      }
     .icon{
         width: 26rpx;
         height: 36rpx;

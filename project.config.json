@@ -153,6 +153,19 @@
 					"pathName": "pages/forgetpwd/index",
 					"query": "",
 					"scene": null
+				},{
+					"id": 13,
+					"name": "一键报警",
+					"pathName": "pages/alarmperson/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 14,
+					"name": "安装维保",
+					"pathName": "pages/installpage/index",
+					"query": "",
+					"scene": null
 				},
 				{
 					"id": -1,

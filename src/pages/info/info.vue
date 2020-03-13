@@ -46,12 +46,12 @@
           class="flex column center"
         >
           <div class="flex j-around my_info_user_nickName">
-            <div @click="loginName">
+            <div @click="openbadge(0)">
               {{ user.aliasName }}
             </div>
             <button
               class="my_info_user_badgeBtn flex center"
-              @click="openbadge"
+              @click="openbadge(1)"
             >
               <image
                 v-if="badge"
@@ -332,6 +332,18 @@ export default {
         path: "/pages/errors/index"
       });
     },
+    openbadge(str) {
+      if(str) {
+        wx.reLaunch({
+          url: `/pages/alarmperson/index`
+        });
+      } else {
+        wx.reLaunch({
+          url: `/pages/installpage/index`
+        });
+      }
+      
+    }
   }
 };
 </script>

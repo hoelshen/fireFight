@@ -14,7 +14,8 @@ const fly = new flyio();
 
 fly.config.baseURL = getBaseURL(environment);
 fly.config.headers["Accept"] = "application/json";
-fly.config.headers["Content-Type"] = "application/x-www-form-urlencoded; charset=UTF-8";
+fly.config.headers["Content-Type"] = "application/x-www-form-urlencoded; charset=UTF-8"; 
+// fly.config.headers["Content-Type"] = "application/json; charset=UTF-8";
 
 
 function getBaseURL(env) {
@@ -60,9 +61,15 @@ function uploadFile(path) {
 fly.interceptors.request.use(async function (request) {
   // qs参数
   if (request.body) {
-    request.body['timestamp'] = new Date().getTime()
-    request.body['sign'] = mdUtils.MD5(`${ObjectToString(objKeySort(request.body))}&key=3ux94uu9y5SoihjK1BLxZbTOn5dpTAEc`)
-    request.body = Qs.stringify(request.body);
+    if(request.body.isJson) {
+      request.headers["Content-Type"] = "application/json; charset=UTF-8";
+      delete request.body.isJson
+    } else {
+      request.body['timestamp'] = new Date().getTime()
+      request.body['sign'] = mdUtils.MD5(`${ObjectToString(objKeySort(request.body))}&key=3ux94uu9y5SoihjK1BLxZbTOn5dpTAEc`)
+      request.body = Qs.stringify(request.body);
+    }
+    
   }
 
   return request;

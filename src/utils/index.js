@@ -84,6 +84,63 @@ export function formatTime(number, format) {
   return format;
 }
 
+export function getNowFormatDate() {
+  var date = new Date();
+  var seperator1 = "-";
+  var year = date.getFullYear();
+  var month = date.getMonth() + 1;
+  var strDate = date.getDate();
+  if (month >= 1 && month <= 9) {
+    month = "0" + month;
+  }
+  if (strDate >= 0 && strDate <= 9) {
+    strDate = "0" + strDate;
+  }
+  var currentdate = year + seperator1 + month + seperator1 + strDate;
+  return currentdate;
+}
+
+
+export function getRecentlyDay(day){
+ 
+  　　var today = new Date();
+   
+   
+  　　var targetday_milliseconds=today.getTime() + 1000*60*60*24*day;
+   
+   
+  　　today.setTime(targetday_milliseconds); //注意，这行是关键代码
+   
+   
+   
+  　　var tYear = today.getFullYear();
+   
+  　　var tMonth = today.getMonth();
+   
+  　　var tDate = today.getDate();
+   
+  　　tMonth = doHandleMonth(tMonth + 1);
+   
+  　　tDate = doHandleMonth(tDate);
+   
+  　　return tYear+"-"+tMonth+"-"+tDate;
+   
+  }
+   
+  function doHandleMonth(month){
+   
+  　　var m = month;
+   
+  　　if(month.toString().length == 1){
+   
+  　　　　m = "0" + month;
+   
+  　　}
+   
+  　　return m;
+   
+  }
+
 export function getParams({ province, city, prefecture, areaName, placeName, placeId}) {
   let params = {
       province: province
@@ -108,5 +165,7 @@ export default {
   objKeySort,
   ObjectToString,
   formatTime,
-  getParams
+  getParams,
+  getNowFormatDate,
+  getRecentlyDay
 }
