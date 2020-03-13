@@ -13,7 +13,7 @@
             class="my_info_user_avatarUrl"
             src="/static/png/avatar.png"
             mode="scaleToFill"
-            @click="login"
+            @click="openbadge(1)"
           >
         </button>
         <img
@@ -51,7 +51,6 @@
             </div>
             <button
               class="my_info_user_badgeBtn flex center"
-              @click="openbadge(1)"
             >
               <image
                 v-if="badge"

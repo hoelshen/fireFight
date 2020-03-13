@@ -192,9 +192,6 @@ export default {
     background:#fff;
     margin: 300rpx auto 0;
 }
-.border-20{
-    border-radius: 20rpx;
-}
   
 }
 </style>
