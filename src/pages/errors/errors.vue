@@ -95,7 +95,6 @@ export default {
     return {
       form:{
         phoneNumber: '', //手机号码
-        content: '',  // 内容
         fimage: '', //图片地址
         ofbWay: '', //反馈方式
         fcontent: '', //反馈内容
@@ -105,27 +104,8 @@ export default {
     };
   },
   methods: {
-    bindPhoneNumber(){
-      let params = getParams(this.params);
-      const value2 = wx.getStorageSync("userId");
-
-      params[fuserid] = value2;
-      params[ofbWay] = this.form.ofbWay;
-      params[fcontent] = this.form.fcontent;
-      params[fimage] = this.form.fimage;
-      params[fvideo] = this.form.fvideo;
-      this.$request
-      .post("/user/addUserFeedbackInfo.do ",params)
-      .then(res => {
-       this.places = res.list
-      })
-      .catch(err => {
-        return wx.showToast({
-          title: "获取失败",
-          icon: "none"
-        });
-      });
-      
+    bindPhoneNumber(e){
+      this.form.phoneNumber = e.detail.value;
     },
     bindTextAreaInput(e) {
       this.form.fcontent = e.detail.value;
@@ -159,14 +139,7 @@ export default {
               that.$request.uploadFile(tempFilePaths[0]).then(
                 function(res) {
                   let data = JSON.parse(res.data);
-                  let user = this.user;
-                  user.aliasPortrait = data.data;
-                  this.user = user;
-                  const { aliasName, aliasPortrait } = this.user;
-                  this.$request.put("/user", {
-                    aliasName,
-                    aliasPortrait
-                  });
+                  console.log('data: ', data);
                   wx.hideLoading();
                 }.bind(that)
               );
@@ -183,10 +156,31 @@ export default {
     },
     select(index){
       console.log('index: ', index);
-      this.activeIndex = index
+      this.activeIndex = index;
+      this.form.ofbWay = index;
     },
     Request(){
+      let params = getParams(this.params);
+      const value2 = wx.getStorageSync("userId");
 
+      params[fuserid] = value2;
+      params[ofbWay] = this.form.ofbWay;
+      params[fcontent] = this.form.fcontent;
+      params[fimage] = this.form.fimage;
+      this.$request
+      .post("/user/addUserFeedbackInfo.do ",params)
+      .then(res => {
+        wx.switchTab({
+          url: `/pages/home/index`
+        }); 
+      })
+      .catch(err => {
+        return wx.showToast({
+          title: "获取失败",
+          icon: "none"
+        });
+      });
+      
     }
   },
   onLoad() {},
