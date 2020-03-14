@@ -85,12 +85,12 @@
         <image
           v-if="type == '4'"
           class="info-img"
-          src="/static/png/fireHydrant.png"
+          src="/static/png/video.png"
         />
         <image
           v-if="type == '8'"
           class="info-img"
-          src="/static/png/fireHydrant.png"
+          src="/static/png/iot.png"
         />
         <div class="pdd-l-40">
           <div>安装数量:</div>
@@ -133,12 +133,12 @@
             <image
               v-if="type == '4'"
               class="mrg-r-20"
-              src="/static/png/fireHydrant.png"
+              src="/static/png/video.png"
             />
             <image
               v-if="type == '8'"
               class="mrg-r-20"
-              src="/static/png/fireHydrant.png"
+              src="/static/png/iot.png"
             />
             <div>
               <div class="name pdd-b-10">

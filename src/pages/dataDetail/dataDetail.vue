@@ -31,12 +31,12 @@
           <image
             v-if="type == '4'"
             class="mrg-r-20"
-            src="/static/png/fireHydrant.png"
+            src="/static/png/video.png"
           />
           <image
             v-if="type == '8'"
             class="mrg-r-20"
-            src="/static/png/fireHydrant.png"
+            src="/static/png/iot.png"
           />
           <div>
             <div class="flex j-between mrg-b-10 a-center">
@@ -51,7 +51,7 @@
               />
               <div v-else>
                 <image
-                  src="/static/png/playvideo.png"
+                  :src="showVideo?'/static/png/pause.png' : '/static/png/play.png'"
                   @click="playVideo"
                 />
               </div>
@@ -222,7 +222,7 @@ export default {
       // console.log(demo)
       // let yplayz = new EZUIPlayer('video');
       // console.log(yplayz)
-      this.showVideo = true
+      this.showVideo = !this.showVideo
     }
   }
   }

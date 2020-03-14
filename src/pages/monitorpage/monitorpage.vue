@@ -18,7 +18,7 @@
             <div>
               <div style="text-align: right; width：600rpx">
                 <image
-                  src="/static/png/playvideo.png"
+                  :src="showVideo && actionIndex == index?'/static/png/pause.png' : '/static/png/play.png'"
                   @click="playVideo(index)"
                 />
               </div>
@@ -77,7 +77,7 @@ export default {
     },
     playVideo(i) {
       this.actionIndex = i
-      this.showVideo = true
+      this.showVideo = !this.showVideo
     },
     getformatTime(time) {
       return formatTime(time, 'Y-M-D h:m:s')

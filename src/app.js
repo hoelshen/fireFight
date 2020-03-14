@@ -61,7 +61,7 @@ export default {
         "pagePath": "pages/home/index",
         "text": "设备检测",
         "iconPath": "/static/png/data.png",
-        "selectedIconPath": "/static/png/data_active.png",
+        "selectedIconPath": "/static/png/detection.png",
       },{
         "pagePath": "pages/examine/index",
         "text": "消防检测",

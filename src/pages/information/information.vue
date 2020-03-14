@@ -163,9 +163,14 @@ export default {
             title: message,
             icon: "none"
           });
-          wx.reLaunch({
-            url: '/pages/home/index'
-          })
+          wx.removeStorage({
+          key: 'websocketData',
+          success(res) {
+            wx.reLaunch({
+              url: '/pages/home/index'
+            })
+          }
+        })
         } else {
           wx.showToast({
             title: res.message,

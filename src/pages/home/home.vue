@@ -266,9 +266,11 @@ export default {
       });
     },
     jumpUrl(type) {
-      wx.navigateTo({
-        url: `/pages/equipmentlist/index?type=${type}`
-      });
+      if(type != 8) {
+        wx.navigateTo({
+          url: `/pages/equipmentlist/index?type=${type}`
+        });
+      }
     }
   }
 };

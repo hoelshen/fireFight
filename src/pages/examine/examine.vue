@@ -12,10 +12,10 @@
               告警任务
             </span>
           </div>
-          <image
+          <!-- <image
             class="iconfont"
             src="/static/png/arrow.png"
-          /> 
+          />  -->
         </div>
         <div class="centerDiv">
           <div class="radius">

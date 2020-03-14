@@ -111,7 +111,7 @@
         >
           <image
             class="iconfont"
-            src="/static/png/fireHydrant.png"
+            src="/static/png/video.png"
           />
           <span class="my_function_item_text">视频监控</span>
         </button>
@@ -139,7 +139,7 @@
       <session class="my_function2 flex">
         <button
           class="my_function2_item_button flex column center"
-          @click="toPolice"
+          @click="toPolice(2)"
         >
           <image
             class="iconImg"
@@ -150,7 +150,7 @@
 
         <button
           class="my_function2_item_button flex column center"
-          @click="toPolice"
+          @click="toPolice(1)"
         >
           <image
             class="iconImg"
@@ -333,9 +333,10 @@ export default {
       }
       
     },
-    toPolice() {
+    toPolice(str) {
+      console.log(str)
       wx.navigateTo({
-        url: `/pages/alarmperson/index`
+        url: `/pages/alarmperson/index?type=${str}`
       });
     },
     goInstall() {

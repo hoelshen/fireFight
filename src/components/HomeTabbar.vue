@@ -15,7 +15,7 @@
         <image
           v-show="tab == 'data'"
           class="icon"
-          src="/static/png/data_active.png"
+          src="/static/png/detection.png"
         />
         <image
           v-show="tab != 'data'"

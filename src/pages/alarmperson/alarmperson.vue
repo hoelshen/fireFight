@@ -4,11 +4,27 @@
       <div class="title">
         一键拨打
       </div>
-      <div class="phone-list flex j-between a-center pdd-lr-20">
-        <div
+      <div
+        v-if="type == '1'"
+        class="phone-list flex  a-center pdd-lr-20"
+      >
+        <div 
           v-for="(item, index) in phoneList"
           :key="index"
-          class="phone-item flex_1 tex-center tex-overflow"
+          class="phone-item tex-center tex-overflow"
+          @click="call(item)"
+        >
+          {{ item.name }}
+        </div>
+      </div>
+      <div
+        v-if="type == '2'"
+        class="phone-list flex a-center pdd-lr-20"
+      >
+        <div 
+          v-for="(item, index) in userPhoneList"
+          :key="index"
+          class="phone-item tex-center tex-overflow"
           @click="call(item)"
         >
           {{ item.name }}
@@ -21,11 +37,15 @@
 export default {
   data() {
       return {
+          type: '',
           userId: '',
-          phoneList:[{name:'110',phoneNumber: '110'}, {name:'119',phoneNumber: '119'}, {name:'120',phoneNumber: '120'}]
+          phoneList:[{name:'110',phoneNumber: '110'}, {name:'119',phoneNumber: '119'}, {name:'120',phoneNumber: '120'}],
+          userPhoneList: []
       }
   },
   onLoad(opt) {
+    this.type = opt.type
+    console.log(this.type)
     this.userId = wx.getStorageSync('userId')
     this.getPhoneList()
   },
@@ -36,7 +56,7 @@ export default {
       async getPhoneList() {
           try {
             let res = await this.$request.post('/user/getemergencyContact.do', { userId: this.userId })
-            this.phoneList.push(res[0])
+            this.userPhoneList.push(res[0])
         } catch (error) {
         }
       },
@@ -71,10 +91,13 @@ export default {
             border-radius:10px 10px 0px 0px;
         }
       .phone-list{
+        flex-wrap: wrap;
         width: 662rpx;
         height: 200rpx;
         border-radius:10px 10px 0px 0px;
         .phone-item{
+            
+            width: 160rpx;
             color: #FE4043;
             font-weight: bold;
             font-size: 40rpx;
