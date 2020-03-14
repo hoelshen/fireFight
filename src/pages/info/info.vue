@@ -139,7 +139,7 @@
       <session class="my_function2 flex">
         <button
           class="my_function2_item_button flex column center"
-          @tap="memory"
+          @click="toPolice"
         >
           <image
             class="iconImg"
@@ -165,6 +165,7 @@
           open-type="getUserInfo"
           lang="zh_CN"
           @getuserinfo="onGotUserInfo"
+          @click="goInstall"
         >
           <image
             class="iconImg"
@@ -331,6 +332,16 @@ export default {
         });
       }
       
+    },
+    toPolice() {
+      wx.navigateTo({
+        url: `/pages/alarmperson/index`
+      });
+    },
+    goInstall() {
+      wx.navigateTo({
+        url: `/pages/installpage/index`
+      });
     }
   }
 };
