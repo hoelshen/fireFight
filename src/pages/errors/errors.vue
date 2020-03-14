@@ -174,6 +174,10 @@ export default {
       this.$request
       .post("/user/addUserFeedbackInfo.do ",params)
       .then(res => {
+        wx.showToast({
+          title: "反馈成功",
+          icon: "none"
+        })
         wx.switchTab({
           url: `/pages/home/index`
         }); 
