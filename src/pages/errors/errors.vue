@@ -98,7 +98,7 @@ export default {
     return {
       form:{
         foperatoruser: '', //手机号码
-        fimage: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1584179016365&di=6d263710d3ff3423433a919b4c8ebb8a&imgtype=0&src=http%3A%2F%2Fa4.att.hudong.com%2F21%2F09%2F01200000026352136359091694357.jpg', //图片地址
+        fimage: '', //图片地址
         ofbWay: '', //反馈方式
         fcontent: '', //反馈内容
       },
@@ -142,11 +142,9 @@ export default {
               that.$request.uploadFile(tempFilePaths[0]).then(
                 function(res) {
                   let data = res.data;
-                  console.log('data: ', data);
-                  this.form.fimage = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1584179016365&di=6d263710d3ff3423433a919b4c8ebb8a&imgtype=0&src=http%3A%2F%2Fa4.att.hudong.com%2F21%2F09%2F01200000026352136359091694357.jpg';
+                  console.log('data111: ', data,that);
+                  that.form.fimage = data;
                   wx.hideLoading();
-
-                  
                 }.bind(that)
               );
             }.bind(this),

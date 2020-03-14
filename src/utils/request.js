@@ -46,7 +46,6 @@ function uploadFile(path) {
         'content-type':'multipart/form-data',
         'accept': 'application/json'
       },
-      
       filePath: path,
       name: "file",
       formData: {
@@ -54,11 +53,9 @@ function uploadFile(path) {
       },
       success: function (res) {
         console.log(res)
-        // typeof resolve == "function" && resolve(res);
-        return resolve(res)
+        typeof resolve == "function" && resolve(res);
       },
       fail: function (err) {
-
         typeof reject == "function" && reject(err);
       }
     });
