@@ -178,9 +178,9 @@ export default {
           title: "反馈成功",
           icon: "none"
         })
-        wx.switchTab({
-          url: `/pages/home/index`
-        }); 
+        wx.reLaunch({
+          url: `/pages/info/index`
+        })
       })
       .catch(err => {
         return wx.showToast({

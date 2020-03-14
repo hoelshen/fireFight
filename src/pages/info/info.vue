@@ -252,7 +252,7 @@ export default {
             success: function(res) {
               console.log(res.userInfo);
               that.user.aliasPortrait = res.userInfo.avatarUrl;
-              that.user.aliasName = res.userInfo.nickName;
+              that.user.aliasName = wx.getStorageSync('userName');
               getApp().globalData.user.userInfo = res.userInfo;
             }
           });
@@ -274,6 +274,21 @@ export default {
             wx.reLaunch({
               url: `/pages/login/index`
             });
+          }
+        })
+        wx.removeStorage({
+          key: 'userName',
+          success(res) {
+          }
+        })
+        wx.removeStorage({
+          key: 'websocketData',
+          success(res) {
+          }
+        })
+        wx.removeStorage({
+          key: 'userAddress',
+          success(res) {
           }
         })
     },

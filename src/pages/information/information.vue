@@ -166,9 +166,9 @@ export default {
           wx.removeStorage({
           key: 'websocketData',
           success(res) {
-            wx.reLaunch({
-              url: '/pages/home/index'
-            })
+            wx.switchTab({
+              url: `/pages/home/index`
+            }); 
           }
         })
         } else {
