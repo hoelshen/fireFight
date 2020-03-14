@@ -141,7 +141,7 @@ export default {
               const tempFilePaths = res.tempFilePaths;
               that.$request.uploadFile(tempFilePaths[0]).then(
                 function(res) {
-                  let data = JSON.parse(res.data);
+                  let data = res.data;
                   console.log('data: ', data);
                   this.form.fimage = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1584179016365&di=6d263710d3ff3423433a919b4c8ebb8a&imgtype=0&src=http%3A%2F%2Fa4.att.hudong.com%2F21%2F09%2F01200000026352136359091694357.jpg';
                   wx.hideLoading();

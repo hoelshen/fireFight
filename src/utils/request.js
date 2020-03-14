@@ -41,17 +41,21 @@ function getUser() {
 function uploadFile(path) {
   return new Promise(function (resolve, reject) {
     wx.uploadFile({
-      url: getBaseURL(environment) + "/file/upload.do",
+      url: getBaseURL(environment) + "/video/upload.do",
       header:{
-        'content-type':'multipart/form-data'
+        'content-type':'multipart/form-data',
+        'accept': 'application/json'
       },
+      
       filePath: path,
-      name: "img",
+      name: "file",
       formData: {
-        'Param': 'file'
+        'file': path
       },
       success: function (res) {
-        typeof resolve == "function" && resolve(res);
+        console.log(res)
+        // typeof resolve == "function" && resolve(res);
+        return resolve(res)
       },
       fail: function (err) {
 
@@ -79,7 +83,7 @@ fly.interceptors.request.use(async function (request) {
 });
 
 fly.interceptors.response.use(
-
+  
   response => {
     return response.data;
   },
