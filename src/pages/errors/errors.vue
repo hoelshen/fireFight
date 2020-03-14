@@ -40,7 +40,7 @@
           maxlength="11"
           type="number"
           placeholder="请输入手机号码，仅用于我们向您核实问题"
-          :value="form.phoneNumber"
+          :value="form.foperatoruser"
           @input="bindPhoneNumber"
         >
         <textarea
@@ -55,18 +55,21 @@
         />
       </div>
       <div class="photos flex  row j-start">
-        <div
-          v-for="item in imgs"
-          :key="item"
-        >
+        <div v-if="form.fimage">
           <image
             class="photo"
-            :mode="item.mode"
-            :src="item.src"
+            :src="form.fimage"
           />
+          <img
+            class="leftTop"
+            src="/static/png/error.png"
+            @click="clearImg"
+          >
         </div>
-
-        <div class="photoDiv">
+        <div
+          v-else
+          class="photoDiv"
+        >
           <image
             class="addPhoto"
             src="/static/png/photo.png"
@@ -94,8 +97,8 @@ export default {
   data() {
     return {
       form:{
-        phoneNumber: '', //手机号码
-        fimage: '', //图片地址
+        foperatoruser: '', //手机号码
+        fimage: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1584179016365&di=6d263710d3ff3423433a919b4c8ebb8a&imgtype=0&src=http%3A%2F%2Fa4.att.hudong.com%2F21%2F09%2F01200000026352136359091694357.jpg', //图片地址
         ofbWay: '', //反馈方式
         fcontent: '', //反馈内容
       },
@@ -105,7 +108,7 @@ export default {
   },
   methods: {
     bindPhoneNumber(e){
-      this.form.phoneNumber = e.detail.value;
+      this.form.foperatoruser = e.detail.value;
     },
     bindTextAreaInput(e) {
       this.form.fcontent = e.detail.value;
@@ -140,7 +143,10 @@ export default {
                 function(res) {
                   let data = JSON.parse(res.data);
                   console.log('data: ', data);
+                  this.form.fimage = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1584179016365&di=6d263710d3ff3423433a919b4c8ebb8a&imgtype=0&src=http%3A%2F%2Fa4.att.hudong.com%2F21%2F09%2F01200000026352136359091694357.jpg';
                   wx.hideLoading();
+
+                  
                 }.bind(that)
               );
             }.bind(this),
@@ -155,18 +161,18 @@ export default {
       })
     },
     select(index){
-      console.log('index: ', index);
       this.activeIndex = index;
-      this.form.ofbWay = index;
     },
     Request(){
-      let params = getParams(this.params);
+      let params = {};
       const value2 = wx.getStorageSync("userId");
 
-      params[fuserid] = value2;
-      params[ofbWay] = this.form.ofbWay;
-      params[fcontent] = this.form.fcontent;
-      params[fimage] = this.form.fimage;
+      params['fuserid'] = value2;
+      params['ofbWay'] =  this.activeIndex;
+      params['fcontent'] = this.form.fcontent;
+      params['fimage'] = this.form.fimage;
+      params['foperatoruser'] = this.form.foperatoruser;
+      params['isJson'] = true;
       this.$request
       .post("/user/addUserFeedbackInfo.do ",params)
       .then(res => {
@@ -181,6 +187,9 @@ export default {
         });
       });
       
+    },
+    clearImg(){
+      this.form.fimage = "";
     }
   },
   onLoad() {},
@@ -208,6 +217,8 @@ export default {
     background: transparent;
     background-color: #fff;
     border-radius: 12rpx;
+    color: black;
+    padding-left: 20rpx ;
   }
   .choice{
     margin-top: 30rpx;
@@ -241,23 +252,32 @@ export default {
     padding: 40rpx;
     background-color: #ffffff;
     width: 100%;
-    color: #fff;
+    color: black;
     font-size: 28rpx;
     box-sizing: border-box;
     line-height:52rpx;
-    background: transparent;
-    background-color: #fff;
     border-width: 1rpx;
     border-style:dashed;
     border-radius: 24rpx;
   }
   .photos{
     margin:60rpx 0;
+    position: relative;
+    height: 120rpx;
     .photo{
       width: 120rpx;
       height: 120rpx;
       margin-right: 30rpx; 
       background-color: #eeeeee;
+      position: absolute;
+    }
+    .leftTop{
+      position: relative;
+      top: -5rpx;
+      right: -95rpx;
+      text-align:center;
+      width: 32rpx !important;
+      height: 32rpx !important;
     }
     .photoDiv{
       width:120rpx;
