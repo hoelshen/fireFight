@@ -394,7 +394,7 @@ export default {
 <style lang="less" scoped>
 .appDiv {
   min-height: 100vh;
-  background-color: #2E60FE;
+  background-color: #1D7FFD;
   padding: 20rpx 0;
 }
 .inputDiv{

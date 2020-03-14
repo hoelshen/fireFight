@@ -192,7 +192,7 @@ export default {
 <style scoped lang="less">
 .page {
   height: 100vh;
-  background-color: #2E60FE;
+  background-color: #1D7FFD;
   .pannel{
      height: 90vh;
      .fireDiv{

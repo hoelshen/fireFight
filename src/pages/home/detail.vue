@@ -101,7 +101,7 @@ export default {
 <style lang="less" scoped>
 .page {
   height: 100vh;
-  background-color: #2E60FE;
+  background-color: #1D7FFD;
   .head{
     input{
       margin:0 44rpx;
