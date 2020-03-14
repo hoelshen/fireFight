@@ -52,7 +52,7 @@
         maxlength="200"
         placeholder="输入200字以内的备注信息"
         @input="bindRemark"
-      >
+      />
     </div>
 
     <div

@@ -51,8 +51,28 @@ export default {
       backgroundTextStyle: "light",
       navigationBarBackgroundColor: "#fffefb",
       navigationBarTitleText: "消防检测",
-      navigationBarTextStyle: "black",
+      navigationBarTextStyle: "white",
       backgroundColor: "#fffefb"
+    },
+    "tabBar": {
+      "selectedColor": "#2E60FE",
+
+      "list": [{
+        "pagePath": "pages/home/index",
+        "text": "设备检测",
+        "iconPath": "/static/png/data.png",
+        "selectedIconPath": "/static/png/data_active.png",
+      },{
+        "pagePath": "pages/examine/index",
+        "text": "消防检测",
+        "iconPath": "/static/png/fire.png",
+        "selectedIconPath": "/static/png/fire_active.png",
+      },{
+        "pagePath": "pages/info/index",
+        "text": "个人中心",
+        "iconPath": "/static/png/mine.png",
+        "selectedIconPath": "/static/png/mine-active.png",
+      }]
     },
     navigateToMiniProgramAppIdList: [
       "wx70677f7a3878565b",  //签约小程序

@@ -7,9 +7,9 @@ app.$mount()
 
 export default {
     config: {
-        navigationBarBackgroundColor: '#fffefb',
-        navigationBarTextStyle: 'black',
-        navigationBarTitleText: '数据检测小程序',
+        navigationBarBackgroundColor: '#2E60FE',
+        navigationBarTextStyle: 'white',
+        navigationBarTitleText: '问题反馈',
         backgroundColor: '#FFFEFB',
         disableScroll: false
     }

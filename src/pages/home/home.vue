@@ -12,7 +12,7 @@
         输入设别ID或者你想查询的关键字
       </div>
       <scroll-view
-        :style="{'height': '72vh'}"
+        style="{'height': '81vh'}"
         :scroll-y="true"
       >
         <div class="pannel ">
@@ -97,7 +97,7 @@
           >
             <image
               class="iconfont"
-              src="/static/png/fireHydrant.png"
+              src="/static/png/video.png"
             />
             <p class="my_function_item_text">
               视频监控
@@ -112,7 +112,7 @@
           >
             <image
               class="iconfont"
-              src="/static/png/fireHydrant.png"
+              src="/static/png/iot.png"
             />
             <p class="my_function_item_text">
               物联⽹关
@@ -123,15 +123,10 @@
           </div>
         </div>
       </scroll-view>
-
-      <HomeTabbar
-        @change="onTabChange"
-      />
     </div>
   </div>
 </template>
 <script>
-import HomeTabbar from "@/components/HomeTabbar";
 import AdressInfo from "@/components/adressInfo";
 import shareMix from "@/mixins/mixin";
 import {
@@ -140,7 +135,6 @@ import {
 // import myEvent from "@/utils/event";
 export default {
   components: {
-    HomeTabbar,
     AdressInfo
   },
   mixins: [shareMix],
@@ -300,7 +294,7 @@ export default {
     text-align: center;
   }
   .pannel{
-    height: 76vh;
+    height: 81vh;
     &__item{
       display:inline-block;
       margin:20rpx;

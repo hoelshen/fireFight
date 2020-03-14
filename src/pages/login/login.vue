@@ -132,10 +132,9 @@ export default {
               key: 'userName',
               data: res.fName
             })
-            return this.$router.push({
-              query: {},
-              path: "/pages/home/index"
-            })
+            wx.switchTab({
+              url: `/pages/home/index`
+            });
           } else {
               wx.showToast({
                 title: res.message,
@@ -148,7 +147,7 @@ export default {
         })
         .catch(err => {
           return wx.showToast({
-            title: "获取失败",
+            title: err.message,
             icon: "none"
           });
         });

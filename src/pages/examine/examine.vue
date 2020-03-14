@@ -12,10 +12,10 @@
               告警任务
             </span>
           </div>
-          <!-- <image
-            class="iconfont_sixteen"
+          <image
+            class="iconfont"
             src="/static/png/arrow.png"
-          /> -->
+          /> 
         </div>
         <div class="centerDiv">
           <div class="radius">
@@ -54,20 +54,12 @@
         </div>
       </div>
     </view>
-    <HomeTabbar
-      :active="tab"
-      @change="onTabChange"
-    />
   </view>
 </template>
 
 <script>
-import HomeTabbar from "@/components/HomeTabbar";
 import shareMix from "@/mixins/mixin";
 export default {
-  components: {
-    HomeTabbar,
-  },
   mixins: [shareMix],
   data() {
     return {
@@ -210,12 +202,6 @@ export default {
         width: 710rpx;
         height:80rpx;
         background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAr4AAABQBAMAAAANeGudAAAAG1BMVEUAAAAgf/8ccf8Sbf8eeP8XdP8Wb/8fcP8ddv8ZwFzQAAAACXRSTlMACAkOERYXGRpY6vdRAAAAs0lEQVR42u3QsY0BABiA0U8katVNoFAq1SobXHvXWUCiRjC2FRT+7r0RXtXm98X3nQ9V9aNiyH/V0sOYXbXXMOZWCwuD1q0kDPprK2HQtaOEQfdOEgY9ukgY9MzBKL9+/eLXr1/8+vWLX7/49esXv3794tevX/z6xa9fv/j16xe/fv3i1y9+/frFr1+/+PXrF79+8evXL379+sWvX7/49Ytfv37x69cvfv36xa9f/Pr1yyfedrw8OD53r34AAAAASUVORK5CYII=);
-        .iconfont_sixteen{
-          width: 31rpx;
-          height: 36rpx;
-          margin:21rpx 22rpx;
-
-        }
         .iconfont{
           margin:21rpx 22rpx;
           width:31rpx;

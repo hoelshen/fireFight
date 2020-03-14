@@ -64,7 +64,7 @@ export default {
             });
           }
         } else {
-          wx.reLaunch({
+          wx.switchTab({
             url: `/pages/home/index`
           });
         }

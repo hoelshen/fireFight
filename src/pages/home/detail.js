@@ -8,7 +8,7 @@ app.$mount()
 export default {
   config: {
     navigationBarBackgroundColor: '#2E60FE',
-    navigationBarTextStyle: 'black',
+    navigationBarTextStyle: 'white',
     navigationBarTitleText: '搜索详情',
     backgroundColor: '#FFFEFB'
   }

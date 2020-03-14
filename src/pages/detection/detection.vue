@@ -85,22 +85,10 @@
         </div>
       </div>
     </div>
-
-
-
-    <HomeTabbar
-      :mail-count="unreadMessages"
-      :active="tab"
-      @change="onTabChange"
-    />
   </div>
 </template>
 <script>
-import HomeTabbar from "@/components/HomeTabbar";
 export default {
-  components: {
-    HomeTabbar,
-  },
   data() {
       return {
           tab: 'home'
@@ -119,7 +107,6 @@ export default {
         query: this.$mp.query
       });
     }
-    console.log('2', this.tab)
     this.onTabChange(this.tab);
   },
 

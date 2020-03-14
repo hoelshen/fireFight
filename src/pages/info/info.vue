@@ -47,7 +47,7 @@
         >
           <div class="flex j-around my_info_user_nickName">
             <div @click="openbadge(0)">
-              {{ user.aliasName }}
+              用户： {{ user.aliasName }}
             </div>
             <button
               class="my_info_user_badgeBtn flex center"
@@ -136,33 +136,32 @@
           <span class="my_function_item_text">智能消火栓</span>
         </button> 
       </session>
-      <!-- 
-      <session class="my_function flex">
+      <session class="my_function2 flex">
         <button
-          class="my_function_item_button flex column center"
+          class="my_function2_item_button flex column center"
           @tap="memory"
         >
           <image
             class="iconImg"
             src="/static/png/119iphone.png"
           />
-          <span class="my_function_item_text">告警接收电话</span>
+          <span class="my_function2_item_text">告警接收电话</span>
         </button>
 
         <button
-          class="my_function_item_button flex column center"
+          class="my_function2_item_button flex column center"
           @click="toPolice"
         >
           <image
             class="iconImg"
             src="/static/png/110iphone.png"
           />
-          <span class="my_function_item_text">一键报警</span>
+          <span class="my_function2_item_text">一键报警</span>
         </button>
 
         <button
           v-if="!user.unionid"
-          class="my_function_item_button flex column center"
+          class="my_function2_item_button flex column center"
           open-type="getUserInfo"
           lang="zh_CN"
           @getuserinfo="onGotUserInfo"
@@ -171,21 +170,20 @@
             class="iconImg"
             src="/static/png/retire.png"
           />
-          <span class="my_function_item_text">安装维保</span>
+          <span class="my_function2_item_text">安装维保</span>
         </button>
 
         <button
-          class="my_function_item_button flex column center"
+          class="my_function2_item_button flex column center"
           @click="toError"
         >
           <image
             class="iconImg"
             src="/static/png/reply.png"
           />
-          <span class="my_function_item_text">问题反馈</span>
+          <span class="my_function2_item_text">问题反馈</span>
         </button>
       </session>
-      -->
       <session class="my_contact flex column j-between center">
         <button
           class="my_contact_item_button flex wrap center grow"
@@ -211,20 +209,11 @@
         </div>
       </session>
     </div>
-
-    <HomeTabbar
-      :active="tab"
-      @change="onTabChange"
-    />
   </div>
 </template>
 <script>
-import HomeTabbar from "@/components/HomeTabbar";
 import shareMix from "@/mixins/mixin";
 export default {
-  components: {
-    HomeTabbar,
-  },
   mixins: [shareMix],
   data() {
     return {
@@ -429,7 +418,30 @@ export default {
     }
   }
 }
-
+.my_function2 {
+  min-height: 172rpx;
+  margin: 40rpx 40rpx;
+  background-color: #ffffff;
+  box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
+  &_item {
+    height: 172rpx;
+    width: 210rpx;
+    background-color: #ffffff;
+    &_button {
+      height: 172rpx;
+      width: 222rpx;
+      padding: 0;
+      color: #4d495b;
+    }
+    &_text {
+      font-size:22rpx;
+      font-family:PingFang SC;
+      font-weight:500;
+      color:rgba(62,74,89,1);
+      line-height:40rpx;
+    }
+  }
+}
 .my_contact {
   height: 324rpx;
   margin: 40rpx 40rpx;
@@ -478,9 +490,7 @@ export default {
   border-radius: 5px;
   text-align: center;
   line-height: 80rpx;
-  font-color: #eeeeee;
   color: #ffffff;
-
 }
 </style>
 

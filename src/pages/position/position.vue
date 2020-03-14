@@ -450,6 +450,7 @@ export default {
 }
 .choiceDiv{
   margin: 40rpx 10rpx;
+  padding-left: 10rpx;
   color: #ffffff;
 }
 .selectDiv{

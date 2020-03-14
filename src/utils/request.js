@@ -41,11 +41,14 @@ function getUser() {
 function uploadFile(path) {
   return new Promise(function (resolve, reject) {
     wx.uploadFile({
-      url: getBaseURL(environment) + "/file",
+      url: getBaseURL(environment) + "/file/upload.do",
+      header:{
+        'content-type':'multipart/form-data'
+      },
       filePath: path,
       name: "img",
-      header: {
-        "x-csrf-token": token
+      formData: {
+        'Param': 'file'
       },
       success: function (res) {
         typeof resolve == "function" && resolve(res);

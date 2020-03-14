@@ -8,7 +8,7 @@ app.$mount()
 export default {
     config: {
         navigationBarBackgroundColor: '#fff',
-        navigationBarTextStyle: 'black',
+        navigationBarTextStyle: 'white',
         navigationBarTitleText: '告警异常',
         backgroundColor: 'white',
         disableScroll: true,
