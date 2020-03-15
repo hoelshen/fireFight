@@ -28,7 +28,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.5.2",
 	"appid": "wxc04c020deeb8c417",
-	"projectname": "Meistop2.0_megalo",
+	"projectname": "FireFight_megalo",
 	"miniprogramRoot": "dist-wechat/",
 	"cloudfunctionTemplateRoot": "",
 	"watchOptions": {
