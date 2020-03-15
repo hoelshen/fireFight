@@ -24,7 +24,7 @@
           @click="login"
         >
 
-        <div
+        <!-- <div
           v-if="!user.aliasPortrait"
           class="flex column center"
         >
@@ -39,14 +39,16 @@
           <div class="my_info_user_address flex wrap">
             登录后体验完整功能
           </div>
-        </div>
+        </div> -->
 
         <div
-          v-else
-          class="flex column center"
+          class=""
         >
-          <div class="flex j-around my_info_user_nickName">
-            <div @click="openbadge(0)">
+          <div class="flex a-center my_info_user_nickName">
+            <div
+              style="width: 100%;font-size:44rpx;"
+              @click="openbadge(0)"
+            >
               用户： {{ user.aliasName }}
             </div>
             <button
@@ -59,12 +61,12 @@
               />
             </button>
           </div>
-          <div
+          <!-- <div
             class="my_info_user_address flex wrap"
             @click="showAddressModal"
           >
             {{ user.aliasAddress }}
-          </div>
+          </div> -->
         </div>
       </div>
 
@@ -235,7 +237,7 @@ export default {
     };
   },
   onLoad(opt) {
-    this.toPage = opt.toPage;
+    this.user.aliasName = wx.getStorageSync('userName');
   },
   onShow() {
     const that = this;
@@ -250,9 +252,7 @@ export default {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称
           wx.getUserInfo({
             success: function(res) {
-              console.log(res.userInfo);
               that.user.aliasPortrait = res.userInfo.avatarUrl;
-              that.user.aliasName = wx.getStorageSync('userName');
               getApp().globalData.user.userInfo = res.userInfo;
             }
           });
@@ -377,8 +377,8 @@ export default {
 }
 
 .my_info {
-  height: 526rpx;
-  margin: 40rpx 40rpx;
+  height: 400rpx;
+  margin: 20rpx 40rpx;
   border-radius: 2px;
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
@@ -474,6 +474,7 @@ export default {
   margin: 40rpx 40rpx;
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
+  padding-bottom: 40rpx;
   &_item {
     &_button {
       width: 100%;
@@ -501,8 +502,8 @@ export default {
   }
 }
 .iconfont_sixteen{
-  width: 32rpx;
-  height: 32rpx;
+  width: 24rpx;
+  height: 24rpx;
 }
 .iconImg{
   width:88rpx;

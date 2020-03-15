@@ -208,18 +208,18 @@ export default {
 }
 
 .loginText{
-  font-size:48px;
+  font-size:76rpx;
   font-family:PingFang SC;
-  font-weight:500;
+  font-weight:400;
   color:rgba(62,74,89,1);
   line-height:72px;
   margin:70rpx;
-  margin-bottom:45rpx;
+  margin-bottom:0rpx;
 }
 
 .inputDiv{
   width: 400rpx;
-  margin: 50rpx 0 0 100rpx;
+  margin: 40rpx 0 0 100rpx;
   .codeImg{
     width:120rpx;
     height:80rpx

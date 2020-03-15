@@ -29,7 +29,7 @@
         </div>
         <div class="bottomDiv">
           <scroll-view
-            :style="{'height': '600rpx'}"
+            :style="{'height': '800rpx'}"
             :scroll-y="true"
           >
             <div
