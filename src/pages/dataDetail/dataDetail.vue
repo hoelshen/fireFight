@@ -202,6 +202,10 @@ export default {
             BatteryLevel: res[0].BatteryLevel,
             info: [
               {'title': '告警时间', 'value': fTime},
+              {'title': '法人', 'value': res[0].fVillagePrincipal},
+              {'title': '法人电话', 'value': res[0].fVillagePhone},
+              {'title': '紧急联系人', 'value': res[0].fAreaPrincipal},
+              {'title': '紧急联系人电话', 'value': res[0].fAreaPhone},
               {'title': '备注', 'value': res[0].fAlias || '无'},
               {'title': 'IMEI', 'value': res[0].ModelNumber || '无'},
               {'title': '设备ID', 'value': res[0].facilityinfoId || '无'},
