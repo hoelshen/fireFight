@@ -14,8 +14,10 @@
       </div>
     </div>
     <div class="flex j-between deviceChange timeChange a-center border-20">
-      <div>上门时间</div>
-      <div>
+      <div style="padding-left: 40rpx;">
+        上门时间
+      </div>
+      <div style="padding-right: 40rpx;">
         <picker
           mode="date"
           @change="bindDateChange"
@@ -30,8 +32,10 @@
       </div>
     </div>
     <div class="flex j-between deviceChange a-center">
-      <div>设备类型</div>
-      <div>
+      <div style="padding-left: 40rpx;">
+        设备类型
+      </div>
+      <div style="padding-right: 40rpx;">
         <picker
           :range="deviceArray"
           @change="bindDeviceChange"
@@ -168,20 +172,26 @@ export default {
       margin: 80rpx auto 0 !important;
   }
   .deviceChange{
-      width: 582rpx;
+      width: 662rpx;
       background: #fff;
-      height: 60rpx;
+      height: 80rpx;
       color: #619FFC;
-      padding: 0 40rpx;
+      // padding: 0 40rpx;
       margin: 20rpx auto 0;
+      border-radius: 10rpx;
   }
   .remark {
-      width: 582rpx;
+      width: 662rpx;
       background: #fff;
       height: 260rpx;
       color: #619FFC;
-      padding: 20rpx 40rpx;
-      margin: 20rpx auto 0;
+      // padding: 20rpx 40rpx;
+      margin: 60rpx auto 0;
+      border-radius: 10rpx;
+      .input{
+        padding: 10rpx;
+        height: 220rpx;
+      }
   }
   .loginImg {
     width: 479rpx;
