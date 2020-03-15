@@ -365,6 +365,10 @@ export default {
 <style lang="less" scoped>
 .page {
   height: 100vh;
+  background: #1D7FFD;
+  .pannel{
+    background: #1D7FFD;
+  }
 }
 
 .swiper {
@@ -379,7 +383,7 @@ export default {
 .my_info {
   height: 400rpx;
   margin: 20rpx 40rpx;
-  border-radius: 2px;
+  border-radius: 4rpx;
   background-color: #ffffff;
   box-shadow: 0 0 40rpx 0 rgba(0, 0, 0, 0.05);
   &_user {
