@@ -111,7 +111,7 @@
           >
             <div
               :value="index"
-              @click="clickAreas(item.fAreaName)"
+              @click="clickAreas(item)"
             >
               {{ item.fAreaName }}
             </div> 
@@ -231,8 +231,8 @@ export default {
     },
     clickAreas(item){
       this.isShowArea = !this.isShowArea;
-      this.current.areaName = item;
-      this.getPlace(item);
+      this.current.areaName = item.fAreaName;
+      this.getPlace(item.fID);
     },
     clickPlace(item){
       this.isShowPla = !this.isShowPla;
@@ -511,6 +511,8 @@ export default {
   height: 100%;
   word-wrap: normal;
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .option-list {
