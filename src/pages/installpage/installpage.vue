@@ -77,7 +77,7 @@ export default {
           tab: 'home',
           listByType: [],
           params: '',
-          installFacilityList: [{title:'安装', type:0}, {title:'维修', type:1}],
+          installFacilityList: [{title:'安装设备', type:0}, {title:'维修设备', type:1}],
           action: 0,
           changeTime: '',
           installTime: '请选择',

@@ -57,7 +57,7 @@
               </div>
             </div>
             <div
-              v-show="showVideo"
+              v-if="showVideo"
             >
               <video
                 id="video"
