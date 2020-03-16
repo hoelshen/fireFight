@@ -29,7 +29,7 @@
         </div>
         <div class="bottomDiv">
           <scroll-view
-            :style="{'height': '800rpx'}"
+            :style="{'height': '620rpx'}"
             :scroll-y="true"
           >
             <div
@@ -194,7 +194,7 @@ export default {
   height: 100vh;
   background-color: #1D7FFD;
   .pannel{
-     height: 90vh;
+     height: 100vh;
      .fireDiv{
        margin:0 20rpx;
        background-color: #ffffff;
