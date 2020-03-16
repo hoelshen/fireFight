@@ -20,6 +20,7 @@
           :value="item.fID"
         >
           <div
+            class="option_item"
             @click="clickProvince(item)"
           >
             {{ item.fEntityFacilityID }}
@@ -103,6 +104,7 @@ export default {
   height: 100vh;
   background-color: #1D7FFD;
   .head{
+    padding: 22px 0;
     input{
       margin:0 44rpx;
       background-color:#ffffff;
@@ -117,7 +119,21 @@ export default {
     background-color: #ffffff;
     margin: 20rpx 40rpx;
     text-align: center;
-    height: 365rpx;
+    border-radius: 24rpx;
+
+  }
+  .option_item{
+    padding: 0 20px;
+    margin: 0;
+    line-height: 34px;
+    cursor: pointer;
+    color: #606266;
+    font-size: 14px;
+    list-style: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
+
 </style>

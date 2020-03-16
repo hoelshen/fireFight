@@ -129,6 +129,10 @@ export default {
               data: res.userID
             })
             wx.setStorage({
+              key:'phoneNumber',
+              data: userName
+            })
+            wx.setStorage({
               key: 'userName',
               data: res.fName
             })

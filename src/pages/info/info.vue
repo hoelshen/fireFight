@@ -23,24 +23,6 @@
           mode="scaleToFill"
           @click="login"
         >
-
-        <!-- <div
-          v-if="!user.aliasPortrait"
-          class="flex column center"
-        >
-          <button
-            class="lightButton"
-            open-type="getUserInfo"
-            lang="zh_CN"
-            @getuserinfo="onGotUserInfo"
-          >
-            点击登录
-          </button>
-          <div class="my_info_user_address flex wrap">
-            登录后体验完整功能
-          </div>
-        </div> -->
-
         <div
           class=""
         >
@@ -51,22 +33,12 @@
             >
               用户： {{ user.aliasName }}
             </div>
-            <button
-              class="my_info_user_badgeBtn flex center"
-            >
-              <image
-                v-if="badge"
-                class="my_info_user_badge"
-                :src="badge.imgUrl"
-              />
-            </button>
           </div>
-          <!-- <div
-            class="my_info_user_address flex wrap"
-            @click="showAddressModal"
+          <div
+            class="my_info_user_address"
           >
-            {{ user.aliasAddress }}
-          </div> -->
+            手机号： {{ user.phoneNumber }}
+          </div> 
         </div>
       </div>
 
@@ -238,6 +210,7 @@ export default {
   },
   onLoad(opt) {
     this.user.aliasName = wx.getStorageSync('userName');
+    this.user.phoneNumber = wx.getStorageSync('phoneNumber');
   },
   onShow() {
     const that = this;
@@ -400,7 +373,7 @@ export default {
       border-radius: 50%;
       height: 148rpx;
       width: 148rpx;
-      margin: 60rpx auto 44rpx;
+      margin: 40rpx auto 40rpx;
     }
     &_nickName {
       font-weight: 600;
@@ -409,13 +382,8 @@ export default {
       text-align: center;
       color: #4d495b;
     }
-    &_address {
-      height: 40rpx;
-      font-size: 32rpx;
-      text-align: center;
-      color: #bdbdc0;
-      margin-top: 20rpx;
-      margin-bottom: 60rpx;
+    &_address{
+      text-align: center;;
     }
   }
   .lightButton {
