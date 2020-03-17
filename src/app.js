@@ -25,6 +25,7 @@ export default {
     cloud: true,
     pages: [
       "pages/home/index", // 首页
+      "pages/warnpage/index", // 一键报警
       "pages/installpage/index", // 一键报警
       "pages/alarmperson/index", // 一键报警
       "pages/forgetpwd/index", //忘记密码,

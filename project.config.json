@@ -169,6 +169,13 @@
 					"scene": null
 				},
 				{
+					"id": 15,
+					"name": "历史告警记录",
+					"pathName": "pages/warnpage/index",
+					"query": "",
+					"scene": null
+				},
+				{
 					"id": -1,
 					"name": "消防检测",
 					"pathName": "pages/examine/index",

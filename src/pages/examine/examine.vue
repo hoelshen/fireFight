@@ -2,20 +2,23 @@
   <view class="page">
     <view class="pannel">
       <div class="fireDiv">
-        <div class="headerDiv flex j-between">
+        <div
+          class="headerDiv flex j-between"
+          @click="jumpList"
+        >
           <div>
             <image
               class="iconfont"
               src="/static/png/fire_todo.png"
             />
             <span class="text">
-              告警任务
+              历史告警记录
             </span>
           </div>
-          <!-- <image
+          <image
             class="iconfont"
             src="/static/png/arrow.png"
-          />  -->
+          /> 
         </div>
         <div class="centerDiv">
           <div class="radius">
@@ -156,6 +159,11 @@ export default {
          return e
       })
     },
+    jumpList() {
+      wx.navigateTo({
+        url: `/pages/warnpage/index`
+      });
+    }
   },
   onShow() {
     let res = wx.getSystemInfoSync();
