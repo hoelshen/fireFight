@@ -72,6 +72,12 @@ export default {
         let res = await this.$request.post('facilityInfo/getNearbyMonitoring.do', {fentityFacilityID: fentityFacilityID})
         this.videoList = res
         console.log(this.videoList)
+        if(this.videoList.length == 0) {
+          wx.showToast({
+            title: "暂无监控",
+            icon: "none"
+          });
+        }
       } catch (error) {
       }
     },
