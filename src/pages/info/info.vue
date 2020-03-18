@@ -94,6 +94,7 @@
           @click="jumpUrl('2')"
         >
           <image
+            style="width: 33rpx !important;height: 44rpx;"
             class="iconfont"
             src="/static/png/hydraulic.png"
           />

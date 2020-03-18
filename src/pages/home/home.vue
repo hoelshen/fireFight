@@ -96,6 +96,7 @@
             @click="jumpUrl(videoType)"
           >
             <image
+              
               class="iconfont"
               src="/static/png/video.png"
             />
@@ -111,6 +112,7 @@
             @click="jumpUrl(netType)"
           >
             <image
+              style="width: 52px;"
               class="iconfont"
               src="/static/png/iot.png"
             />
