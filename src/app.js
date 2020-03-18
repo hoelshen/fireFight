@@ -60,12 +60,12 @@ export default {
 
       "list": [{
         "pagePath": "pages/home/index",
-        "text": "设备检测",
+        "text": "设备管理",
         "iconPath": "/static/png/data.png",
         "selectedIconPath": "/static/png/detection.png",
       },{
         "pagePath": "pages/examine/index",
-        "text": "消防检测",
+        "text": "警报管理",
         "iconPath": "/static/png/fire.png",
         "selectedIconPath": "/static/png/fire_active.png",
       },{

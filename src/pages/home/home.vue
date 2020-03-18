@@ -50,10 +50,15 @@
             class="pannel__item"
             @click="jumpUrl(coType)"
           >
-            <image
-              class="iconfont"
-              src="/static/png/co.png"
-            />
+            <div
+              style="height: 98rpx;"
+            >
+              <image
+                class="iconfont"
+                src="/static/png/co.png"
+                style="width: 101rpx; height: 52rpx;"
+              />
+            </div>
             <p class="my_function_item_text">
               智能气感
             </p>
@@ -82,7 +87,8 @@
           >
             <image
               class="iconfont"
-              src="/static/png/fireHydrant.png"
+              src="/static/png/fireHydrant1.png"
+              style="width: 63rpx;"
             />
             <p class="my_function_item_text">
               智能消火栓
@@ -112,7 +118,7 @@
             @click="jumpUrl(netType)"
           >
             <image
-              style="width: 52px;"
+              style="width: 100rpx;"
               class="iconfont"
               src="/static/png/iot.png"
             />
@@ -303,10 +309,11 @@ export default {
       display:inline-block;
       margin:20rpx;
       width: 332rpx;
-      height : 359rpx;
+      height : 290rpx;
       background: #ffffff;
       border-radius: 24rpx;
       text-align: center;
+      padding-top: 60rpx;
       .blue{
         font-size:44rpx;
         font-family:PingFang SC;
@@ -325,7 +332,7 @@ export default {
         width: 72rpx;
         height:88rpx;
         margin: 0 auto;
-        margin-top: 50rpx;
+        // margin-top: 50rpx;
       }
     }
   }
