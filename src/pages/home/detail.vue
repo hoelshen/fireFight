@@ -23,7 +23,7 @@
             class="option_item"
             @click="clickProvince(item)"
           >
-            {{ item.fEntityFacilityID }}
+            {{ isNumber ? item.fEntityFacilityID : item.fAlias }}
           </div> 
         </option>
       </div>
@@ -43,6 +43,7 @@ export default {
       userId:"", //userId,
       Userlist: [],
       showUserlist: false,
+      isNumber: true
     }
   },
   onShow() {
@@ -54,6 +55,9 @@ export default {
   methods: {
     bindUserId(e){
       let param = e.detail.value;
+      var reg = /\D/;    
+      this.isNumber = !reg.test(param); 
+      var pattern=new RegExp(reg);
       let params = getParams(this.params);
       params['userId'] = wx.getStorageSync('userId') || 2002131059424992;
       params['param'] = param;
