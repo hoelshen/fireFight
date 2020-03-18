@@ -19,8 +19,9 @@
             src="/static/png/co.png"
           />
           <image
-            v-if="type == '2'"
+            v-if="type == '2' || type == '5' || type == '6'"
             class="mrg-r-20"
+            style="height: 43rpx;"
             src="/static/png/hydraulic.png"
           />
           <image
@@ -30,6 +31,7 @@
           />
           <image
             v-if="type == '4'"
+            style="height: 43rpx;"
             class="mrg-r-20"
             src="/static/png/video.png"
           />
@@ -49,9 +51,18 @@
                 v-if="type != 4"
                 v-text="facilityInfo.BatteryLevel ? '电量：'+facilityInfo.BatteryLevel+'%' : '电量：100%'"
               />
-              <div v-else>
-                <image
+              <div
+                v-else
+                style="widht: 36rpx; height:36rpx;"
+              >
+                <!-- <image
                   :src="showVideo?'/static/png/pause.png' : '/static/png/play.png'"
+                  @click="playVideo"
+                /> -->
+
+                <image
+                  v-if="!showVideo"
+                  src="/static/png/play.png"
                   @click="playVideo"
                 />
               </div>
@@ -68,6 +79,28 @@
                 autoplay
                 :src="adress"
               />
+            </div>
+            <div
+              v-if="showVideo"
+              class="flex j-between mrg-b-10"
+            >
+              <div class="flex a-center">
+                设备锁定：
+                <switch
+                  color="#1D7FFD"
+                  :checked="isLockChecked"
+                  @change="switchChange1"
+                />
+              </div>
+              <div class="flex a-center">
+                设备关闭：
+                <switch
+                  color="#1D7FFD"
+                  :disabled="isdis"
+                  :checked="isCloseChecked"
+                  @change="switchChange2"
+                />
+              </div>
             </div>
             <div
               v-for="(item, index) in facilityInfo.info"
@@ -173,7 +206,10 @@ export default {
           },
           adress: '',
           adress_f: '',
-          showVideo: false
+          showVideo: false,
+          isLockChecked: false,
+          isCloseChecked: false,
+          isdis: false
 
       }
   },
@@ -183,6 +219,7 @@ export default {
     //   fType: "0"
     // }
     this.type = opt.fType
+    console.log(this.type)
     this.getdetailData(opt)
   },
   onShow() {
@@ -227,6 +264,20 @@ export default {
       // let yplayz = new EZUIPlayer('video');
       // console.log(yplayz)
       this.showVideo = !this.showVideo
+      this.isCloseChecked = false
+      this.isLockChecked = false
+    },
+
+    switchChange1(e) {
+      this.isLockChecked = e.detail.value
+      this.isdis = e.detail.value
+    },
+
+    switchChange2(e) {
+      this.isCloseChecked = e.detail.value
+      if( this.isCloseChecked ) {
+        this.showVideo = !this.showVideo
+      }
     }
   }
   }

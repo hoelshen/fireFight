@@ -56,6 +56,7 @@
             处理完成时间：
             <div v-text="item.fConfirmState == '0' ? '(未完成)': item.fOperationTime" />
           </div>
+          
           <!--  -->
           <div
             v-if="item.Result == '未确认'"
@@ -73,6 +74,18 @@
             >
               确认为火警
             </div>
+          </div>
+
+          <div class="icon-container flex a-center j-between">
+            <!-- <image src="/static/png/localtion-icon.png" /> -->
+            <image
+              src="/static/png/video-icon.png"
+              @click="jumpUrl('videoList', item)"
+            />
+            <image
+              src="/static/png/direction-icon.png"
+              @click="jumpUrl('position', item)"
+            />
           </div>
         </div>
       </div>
@@ -236,6 +249,23 @@ export default {
         }
       } catch (error) {
         }
+    },
+
+
+    jumpUrl(str, item) {
+      switch (str) {
+        case 'videoList':
+          wx.navigateTo({
+            url: `/pages/monitorpage/index?fentityFacilityID=${item.facilityId}`
+          });
+          break;
+        case 'position':
+          this.$router.push({
+            query: { positionX: item.positionX, positionY: item.positionY, isalarm: true},
+            path: "/pages/position/sendPosition"
+          });
+          break;  
+      }
     }
   }
   }
@@ -281,6 +311,16 @@ export default {
         .fire-btn{
           background: #FF1761;
           margin-left: 40rpx;
+        }
+        .icon-container{
+            width: 662rpx;
+            // padding: 0 60rpx;
+            height: 120rpx;
+            margin: 0 auto;
+            image{
+                width: 72rpx;
+                height: 72rpx;
+            }
         }
       }
       image{

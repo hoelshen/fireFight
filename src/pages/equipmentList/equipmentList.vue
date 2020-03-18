@@ -70,6 +70,7 @@
         <image
           v-if="type == '1'"
           class="info-img"
+          style="height: 72rpx;"
           src="/static/png/co.png"
         />
         <image
@@ -123,6 +124,7 @@
             <image
               v-if="type == '2'"
               class="mrg-r-20"
+              style="height: 43rpx;"
               src="/static/png/hydraulic.png"
             />
             <image
@@ -132,6 +134,7 @@
             />
             <image
               v-if="type == '4'"
+              style="height: 43rpx;"
               class="mrg-r-20"
               src="/static/png/video.png"
             />

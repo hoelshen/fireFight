@@ -56,8 +56,7 @@
         src="/static/png/arrow-red.png"
       />
     </div>
-    <div class="icon-container flex a-center j-between">
-      <!-- <image src="/static/png/localtion-icon.png" /> -->
+    <!-- <div class="icon-container flex a-center j-between">
       <image
         src="/static/png/video-icon.png"
         @click="jumpUrl('videoList')"
@@ -66,7 +65,7 @@
         src="/static/png/direction-icon.png"
         @click="jumpUrl('position')"
       />
-    </div>
+    </div> -->
 
 
     
