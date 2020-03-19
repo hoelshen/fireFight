@@ -56,7 +56,9 @@ export default {
       async getPhoneList() {
           try {
             let res = await this.$request.post('/user/getemergencyContact.do', { userId: this.userId })
-            this.userPhoneList.push(res[0])
+            for(let i = 0; i < res.length; i ++ ){
+              this.userPhoneList.push(res[i])
+            }
         } catch (error) {
         }
       },
