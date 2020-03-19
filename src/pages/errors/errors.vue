@@ -54,7 +54,7 @@
           @input="bindTextAreaInput"
         />
       </div>
-      <div class="photos flex  row j-start">
+      <div class="photos flex  row j-center">
         <div v-if="form.fimage">
           <image
             class="photo"
@@ -117,7 +117,7 @@ export default {
       let sourceType = [];
       const that = this;
       wx.showActionSheet({
-      itemList: ['从相册选择新头像', '拍个新头像'],
+      itemList: ['从相册中选择照片', '拍一张新照片'],
         success(res) {
           if(res.tapIndex === 0){
             sourceType = ['album']

@@ -43,7 +43,7 @@
       </div>
 
       <session class="my_function flex j-start">
-        <button
+        <div
           class="my_function_item_button flex column center"
           @click="jumpUrl('0')"
         >
@@ -52,9 +52,9 @@
             src="/static/png/smoke.png"
           />
           <span class="my_function_item_text">智能烟感</span>
-        </button>
+        </div>
 
-        <button
+        <div
           class="my_function_item_button flex column center"
           @click="jumpUrl('3')"
         >
@@ -63,23 +63,29 @@
             src="/static/png/electron.png"
           />
           <span class="my_function_item_text">智能用电</span>
-        </button>
+        </div>
 
-        <button
+        <div
           class="my_function_item_button flex column center"
           open-type="getUserInfo"
           lang="zh_CN"
           @getuserinfo="onGotUserInfo"
           @click="jumpUrl('1')"
         >
-          <image
-            class="iconfont"
-            src="/static/png/co.png"
-          />
+          <div
+            style="height:44rpx; width:44rpx;"
+            class="flex a-center"
+          >
+            <image
+              class=""
+              src="/static/png/co.png"
+              style="height:38rpx;"
+            />
+          </div>
           <span class="my_function_item_text">智能气感</span>
-        </button>
+        </div>
 
-        <button
+        <div
           class="my_function_item_button flex column center"
           @click="jumpUrl('4')"
         >
@@ -88,8 +94,8 @@
             src="/static/png/video.png"
           />
           <span class="my_function_item_text">视频监控</span>
-        </button>
-        <button
+        </div>
+        <div
           class="my_function_item_button flex column center"
           @click="jumpUrl('2')"
         >
@@ -99,8 +105,8 @@
             src="/static/png/hydraulic.png"
           />
           <span class="my_function_item_text">液压液位检测</span>
-        </button>
-        <button
+        </div>
+        <div
           class="my_function_item_button flex column center"
           @click="jumpUrl('7')"
         >
@@ -109,7 +115,7 @@
             src="/static/png/fireHydrant.png"
           />
           <span class="my_function_item_text">智能消火栓</span>
-        </button> 
+        </div> 
       </session>
       <session class="my_function2 flex">
         <button
@@ -170,6 +176,7 @@
           <image
             class="iconfont"
             src="/static/png/about.png"
+            style="height: 44rpx;"
           />
           <span class="my_contact_item_text grow">地图</span>
           <image
@@ -398,7 +405,7 @@ export default {
     background-color: #ffffff;
     &_button {
       height: 172rpx;
-      width: 222rpx;
+      width: 165rpx;
       color: #4d495b;
     }
     &_text {
@@ -469,6 +476,10 @@ export default {
 .iconfont_sixteen{
   width: 24rpx;
   height: 24rpx;
+}
+.iconfont{
+  width: 44rpx ;
+  height: 48rpx ;
 }
 .iconImg{
   width:88rpx;
