@@ -12,7 +12,7 @@
         >
           <div class="name pdd-b-10 flex j-between">
             <div>
-              告警设备：{{ item.text }}
+              警报设备：{{ item.text }}
             </div>
             <div
               class="btn-text tex-center"
@@ -21,16 +21,16 @@
             </div>
           </div>
           <div class="time pdd-b-10">
-            告警时间：{{ item.alarmTime }}
+            警报时间：{{ item.alarmTime }}
           </div>
           <div class="time pdd-b-10">
-            告警地址：{{ item.placeAddress }}{{ item.placeName }}{{ item.facilitySecondPosition }}
+            警报地址：{{ item.placeAddress }}{{ item.placeName }}{{ item.facilitySecondPosition }}
           </div>
           <div class="time pdd-b-10 flex">
-            告警原因：
+            警报原因：
             <div
               v-if="item.reason"
-              v-text="item.reason == '1' ? '烟雾告警': '拆卸告警'"
+              v-text="item.reason == '1' ? '烟雾警报': '拆卸警报'"
             />
             <div
               v-else
@@ -147,27 +147,27 @@ export default {
       this.warnList = list.map(e => {
         switch (e.facilityType) {
             case '0':
-            e['text'] = '烟感告警'
+            e['text'] = '烟感警报'
             break;
             case '1':
-            e['text'] = '气感告警'
+            e['text'] = '气感警报'
             break;
             case '2':
             case '5':
             case '6':
-            e['text'] = '液位液压告警'
+            e['text'] = '液位液压警报'
             break;
             case '3':
-            e['text'] = '电感告警'
+            e['text'] = '电感警报'
             break;
             case '4':
-            e['text'] = '监控告警'
+            e['text'] = '监控警报'
             break;
             case '7':
-            e['text'] = '消防栓告警'
+            e['text'] = '消防栓警报'
             break;
             default:
-            e['text'] = '烟感告警'
+            e['text'] = '烟感警报'
         }
         if (e.reason == 1 || !e.reason) {
             switch (e.fConfirmState) {
@@ -205,7 +205,7 @@ export default {
       const that = this
       const message = str == 'confirme' ? '预警已确认' : '火情已确认'
       const postUrl = '/realTimeAlarm/confirmAlarm.do'
-      const confirmStr = str == 'confirme' ? '设备预警是指由于环境或人为等因素干扰而产生的正常设备告警，确认设备预警后，相应的“告警异常”状态会自动解除，从而恢复正常的安全状态。' : '真实火情是指已经产生明火燃烧发生了真实火灾，请务必谨慎确认。'
+      const confirmStr = str == 'confirme' ? '设备预警是指由于环境或人为等因素干扰而产生的正常设备警报，确认设备预警后，相应的“警报异常”状态会自动解除，从而恢复正常的安全状态。' : '真实火情是指已经产生明火燃烧发生了真实火灾，请务必谨慎确认。'
       const state = str == 'confirme' ? '2' : '1'
       const params = {
         facilityID: obj.facilityId,

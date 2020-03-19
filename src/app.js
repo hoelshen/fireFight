@@ -30,7 +30,7 @@ export default {
       "pages/alarmperson/index", // 一键报警
       "pages/forgetpwd/index", //忘记密码,
       "pages/login/index", //登陆,
-      "pages/alarmpage/index",  //设备告警
+      "pages/alarmpage/index",  //设备警报
       "pages/dataDetail/index",  //数据详情
       "pages/equipmentlist/index",  //设备列表
       "pages/monitorpage/index", //查看监控

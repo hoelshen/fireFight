@@ -8,7 +8,7 @@ export default {
     config: {
       navigationBarBackgroundColor: '#1D7FFD',
       navigationBarTextStyle: 'white',
-      navigationBarTitleText: '历史告警记录',
+      navigationBarTitleText: '历史警报记录',
       backgroundColor: '#2E60FE'  
     }
 };

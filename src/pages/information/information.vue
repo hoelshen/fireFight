@@ -2,7 +2,7 @@
   <div class="information-page flex column">
     <div class="information-container">
       <div class="warn mrg-b-40">
-        确认当前场所是否发生告警事件？
+        确认当前场所是否发生警报事件？
       </div>
       <div class="content mrg-center pdd-40">
         <div class="flex mrg-b-40">
@@ -10,7 +10,7 @@
             class="mrg-r-20"
             src="/static/png/smoke.png"
           />
-          <div> {{ websocketData.text }}告警</div>
+          <div> {{ websocketData.text }}警报</div>
         </div>
         <div class="flex mrg-b-40">
           <image
@@ -31,7 +31,7 @@
             class="mrg-r-20"
             src="/static/png/alarmicon.png"
           />
-          <div>告警时间：{{ websocketData.alarmTime }}</div>
+          <div>警报时间：{{ websocketData.alarmTime }}</div>
         </div>
         <div
           v-if="websocketData.fState == '1'"
@@ -55,7 +55,7 @@
           class="confirm tex-center mrg-center"
           @click="showconfirmBtn('4')"
         >
-          确认收到拆卸告警
+          确认收到拆卸警报
         </div>
         <image />
       </div>
@@ -68,7 +68,7 @@ export default {
       return {
           tab: 'home',
           userId: '',
-          infoTop: {title: '告警信息', haveInfo: true, showNext: true, fState: '11', warnAdress: '', homeManager: '', homeManagerPhone: '', infoArr: [{title: '告警时间', key: 'alarmTime', val: '无', showColor: false, showHead: true, showtitle: true}, {title: '告警设备类型：', key: 'facilityType', val: '无', showColor: true, showHead: false, showtitle: true}, {title: '所在场所：', key: 'placeName', val: '无', showColor: true, showHead: false, showtitle: true}]},
+          infoTop: {title: '警报信息', haveInfo: true, showNext: true, fState: '11', warnAdress: '', homeManager: '', homeManagerPhone: '', infoArr: [{title: '警报时间', key: 'alarmTime', val: '无', showColor: false, showHead: true, showtitle: true}, {title: '警报设备类型：', key: 'facilityType', val: '无', showColor: true, showHead: false, showtitle: true}, {title: '所在场所：', key: 'placeName', val: '无', showColor: true, showHead: false, showtitle: true}]},
       }
   },
   onLoad(opt) {
@@ -118,7 +118,7 @@ export default {
       if (str == '4') {
         self.confirmBtn(str)
       } else {
-         let desc = str == '1' ? '真实火情是指已经产生明火燃烧发生了真实火灾，请务必谨慎确认。' : '设备预警是指由于环境或人为等因素干扰而产生的正常设备告警，确认设备预警后，相应的“告警异常”状态会自动解除，从而恢复正常的安全状态。'
+         let desc = str == '1' ? '真实火情是指已经产生明火燃烧发生了真实火灾，请务必谨慎确认。' : '设备预警是指由于环境或人为等因素干扰而产生的正常设备警报，确认设备预警后，相应的“警报异常”状态会自动解除，从而恢复正常的安全状态。'
           wx.showModal({
             title: '提示',
             content: desc,

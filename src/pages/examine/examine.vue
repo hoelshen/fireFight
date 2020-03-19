@@ -12,7 +12,7 @@
               src="/static/png/fire_todo.png"
             />
             <span class="text">
-              历史告警记录
+              历史警报记录
             </span>
           </div>
           <image

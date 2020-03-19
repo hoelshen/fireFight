@@ -128,7 +128,7 @@
 				},
 				{
 					"id": 9,
-					"name": "告警异常",
+					"name": "警报异常",
 					"pathName": "pages/alarmpage/index",
 					"query": "",
 					"scene": null
@@ -170,7 +170,7 @@
 				},
 				{
 					"id": 15,
-					"name": "历史告警记录",
+					"name": "历史警报记录",
 					"pathName": "pages/warnpage/index",
 					"query": "",
 					"scene": null

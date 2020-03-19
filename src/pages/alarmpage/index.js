@@ -9,7 +9,7 @@ export default {
     config: {
         navigationBarBackgroundColor: '#fff',
         navigationBarTextStyle: 'white',
-        navigationBarTitleText: '告警异常',
+        navigationBarTitleText: '警报异常',
         backgroundColor: 'white',
         disableScroll: true,
       }

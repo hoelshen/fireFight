@@ -238,7 +238,7 @@ export default {
             state: isOnline,
             BatteryLevel: res[0].BatteryLevel,
             info: [
-              {'title': '告警时间', 'value': fTime},
+              {'title': '警报时间', 'value': fTime},
               {'title': '法人', 'value': res[0].fVillagePrincipal},
               {'title': '法人电话', 'value': res[0].fVillagePhone},
               {'title': '紧急联系人', 'value': res[0].fAreaPrincipal},

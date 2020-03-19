@@ -19,24 +19,24 @@
           </div>
         </div>
         <div class="alarm-arrow flex a-center pdd-lr-25">
-          <!-- 告警设备详情 
+          <!-- 警报设备详情 
           <image
             class=" pdd-l-24"
             src="/static/png/arrow-white.png"
           /> -->
-          该设备告警请尽快处理
+          该设备警报请尽快处理
         </div>
       </div>
-      <div>告警时间：{{ websocketData.alarmTime }}</div>
+      <div>警报时间：{{ websocketData.alarmTime }}</div>
       <div class=" ">
         {{ websocketData.placeName }}{{ websocketData.facilitySecondPosition }}
         发生
         <span
           class="warnColor"
-          v-text="websocketData.fState == '1' ? '警告!' : '拆卸告警'"
+          v-text="websocketData.fState == '1' ? '警告!' : '拆卸警报'"
         />
       </div>
-      <div>当前场所告警统计：{{ number }}</div>
+      <div>当前场所警报统计：{{ number }}</div>
     </div>
     <div class="alarm-tip mrg-center flex a-center j-between pdd-lr-20 mrg-b-40">
       <div class="flex a-center j-between">
@@ -48,7 +48,7 @@
           class="pdd-l-40"
           @click="jumpUrl('comfirmAlarm')"
         >
-          确认当前场所是否发生告警事件？
+          确认当前场所是否发生警报事件？
         </div>
       </div>  
       <image
@@ -76,7 +76,7 @@
             class="pdd-r-20"
             src="/static/png/history.png"
           />
-          历史告警
+          历史警报
         </div>
         <!-- <image
           class="arrow"
@@ -155,27 +155,27 @@ export default {
       this.warnList = list.map(e => {
         switch (e.facilityType) {
             case '0':
-            e['text'] = '烟感告警'
+            e['text'] = '烟感警报'
             break;
             case '1':
-            e['text'] = '气感告警'
+            e['text'] = '气感警报'
             break;
             case '2':
             case '5':
             case '6':
-            e['text'] = '液位液压告警'
+            e['text'] = '液位液压警报'
             break;
             case '3':
-            e['text'] = '电感告警'
+            e['text'] = '电感警报'
             break;
             case '4':
-            e['text'] = '监控告警'
+            e['text'] = '监控警报'
             break;
             case '7':
-            e['text'] = '消防栓告警'
+            e['text'] = '消防栓警报'
             break;
             default:
-            e['text'] = '烟感告警'
+            e['text'] = '烟感警报'
         }
         if (e.reason == 1 || !e.reason) {
             switch (e.fConfirmState) {
