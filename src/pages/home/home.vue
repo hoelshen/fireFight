@@ -9,7 +9,7 @@
         class="input grow"
         @click="toDetail"
       >
-        输入设别ID或者你想查询的关键字
+        输入您想查询的设备ID或者关键字
       </div>
       <scroll-view
         style="{'height': '81vh'}"

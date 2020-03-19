@@ -4,7 +4,7 @@
       <input
         class="input grow"
         maxlength="40"
-        placeholder="输入设别ID或者你想查询的关键字"
+        placeholder="输入您想查询的设备ID或者关键字"
         :focus="focusInput"
         :value="userId"
         @input="bindUserId"

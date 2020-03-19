@@ -1,7 +1,7 @@
 <template>
   <view class="page">
     <view class="pannel">
-      <div class="fireDiv">
+      <div class="fireDiv flex column">
         <div
           class="headerDiv flex j-between"
           @click="jumpList"
@@ -30,9 +30,9 @@
             </p>
           </div>
         </div>
-        <div class="bottomDiv">
+        <div class="bottomDiv flex column">
           <scroll-view
-            :style="{'height': '620rpx'}"
+            :style="{'height': '100%'}"
             :scroll-y="true"
           >
             <div
@@ -107,27 +107,27 @@ export default {
       this.warnList = list.map(e => {
         switch (e.facilityType) {
             case '0':
-            e['text'] = '烟感告警'
+            e['text'] = '烟感警报'
             break;
             case '1':
-            e['text'] = '气感告警'
+            e['text'] = '气感警报'
             break;
             case '2':
             case '5':
             case '6':
-            e['text'] = '液位液压告警'
+            e['text'] = '液位液压警报'
             break;
             case '3':
-            e['text'] = '电感告警'
+            e['text'] = '电感警报'
             break;
             case '4':
-            e['text'] = '监控告警'
+            e['text'] = '监控警报'
             break;
             case '7':
-            e['text'] = '消防栓告警'
+            e['text'] = '消防栓警报'
             break;
             default:
-            e['text'] = '烟感告警'
+            e['text'] = '烟感警报'
         }
         if (e.reason == 1 || !e.reason) {
             switch (e.fConfirmState) {
@@ -206,6 +206,7 @@ export default {
      .fireDiv{
        margin:0 20rpx;
        background-color: #ffffff;
+       height: 98vh;
       .headerDiv{
         width: 710rpx;
         height:80rpx;
@@ -242,6 +243,7 @@ export default {
           }
       }
       .bottomDiv{
+        flex: 1;
         border-top-style: solid;
         border-top-color: hsla(89, 43%, 51%, 0.3);
 

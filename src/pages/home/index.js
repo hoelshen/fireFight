@@ -9,7 +9,7 @@ export default {
   config: {
     navigationBarBackgroundColor: '#1D7FFD',
     navigationBarTextStyle: 'white',
-    navigationBarTitleText: '数据检测小程序',
+    navigationBarTitleText: 'You-Link万物智联',
     backgroundColor: '#FFFEFB',
   }
 }

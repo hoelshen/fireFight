@@ -8,7 +8,7 @@ export default {
     config: {
       navigationBarBackgroundColor: '#1D7FFD',
       navigationBarTextStyle: 'white',
-      navigationBarTitleText: '消防检测',
+      navigationBarTitleText: 'You-Link万物智联',
       backgroundColor: '#2E60FE'  
     }
 };

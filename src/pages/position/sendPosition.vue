@@ -106,9 +106,14 @@ export default {
       console.log(2)
     },
     toInfo(){
-      wx.reLaunch({
-        url: "/pages/info/index"
-      });
+      // wx.reLaunch({
+      //   url: "/pages/info/index"
+      // });
+
+      wx.navigateBack({
+        delta: 1,  // 返回上一级页面。
+        success: function() {}
+        })
     },
     getData(){
       const userId = wx.getStorageSync("userId");

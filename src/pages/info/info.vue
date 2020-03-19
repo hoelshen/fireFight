@@ -120,7 +120,7 @@
             class="iconImg"
             src="/static/png/119iphone.png"
           />
-          <span class="my_function2_item_text">告警接收电话</span>
+          <span class="my_function2_item_text">紧急联系人电话</span>
         </button>
 
         <button
@@ -210,16 +210,9 @@ export default {
     };
   },
   onLoad(opt) {
+    const that = this;
     this.user.aliasName = wx.getStorageSync('userName');
     this.user.phoneNumber = wx.getStorageSync('phoneNumber');
-  },
-  onShow() {
-    const that = this;
-    if (this.toPage) {
-      console.log('this.toPage: ', this.toPage);
-      let toPage = this.toPage;
-    }
-    this.onTabChange(this.tab);
     wx.getSetting({
       success: function(res) {
         if (res.authSetting["scope.userInfo"]) {
@@ -233,6 +226,9 @@ export default {
         }
       }.bind(this)
     });
+  },
+  onShow() {
+    
   },
 
   methods: {
@@ -298,11 +294,7 @@ export default {
       });
     },
     onGotUserInfo(e) {
-      // console.log('e: ', e);
-      // this.$router.push({
-      //   query: { id: 1 },
-      //   path: "/pages/login/index"
-      // });
+      this.user.aliasPortrait = e.detail.userInfo.avatarUrl;
     },
     toError(){
       this.$router.push({
