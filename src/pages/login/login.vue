@@ -160,7 +160,9 @@ export default {
   onShow() {
     const { user } = getApp().globalData;
     this.user = user;
-    console.log(' this.user: ',  this.user);
+    if(wx.getStorageSync('phoneNumber')) {
+      this.form.userName  = wx.getStorageSync('phoneNumber')
+    }
   }
 };
 </script>
