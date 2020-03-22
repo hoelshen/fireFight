@@ -67,6 +67,16 @@
         <!-- <div> -->
           
         <!-- </div> -->
+
+        <div class="checkbox-cont">
+          <checkbox-group @change="changeCheck">
+            <checkbox
+              color="blue"
+              :checked="isRemberID"
+              :value="val"
+            />记住用户名
+          </checkbox-group>
+        </div>
       </div>
       <div class="flex column textAdd center">
         <div
@@ -87,7 +97,9 @@ export default {
   mixins: [shareMix],
   data() {
     return {
-      focusInput: true,
+      focusInput: false,
+      isRemberID: false,
+      val: true,
       form: {
         userName: "", // 用户名
         pwd: "", //手机号，
@@ -112,6 +124,9 @@ export default {
         url: `/pages/forgetpwd/index`
       });
     },
+    changeCheck(e) {
+      this.isRemberID = !!e.detail.value.join(',')
+    },  
     toLogin(){
       let { userName, pwd, code } = this.form;
       this.$request
@@ -121,7 +136,6 @@ export default {
           code
         })
         .then(res => {
-          console.log(res)
           if(res.state == 0) {
             getApp().globalData.user.userID = res.userID;
             wx.setStorage({
@@ -136,9 +150,13 @@ export default {
               key: 'userName',
               data: res.fName
             })
-            wx.switchTab({
-              url: `/pages/home/index`
-            });
+            wx.setStorage({
+              key: 'isRemberID',
+              data: this.isRemberID
+            })
+            // wx.switchTab({
+            //   url: `/pages/home/index`
+            // });
           } else {
               wx.showToast({
                 title: res.message,
@@ -160,7 +178,8 @@ export default {
   onShow() {
     const { user } = getApp().globalData;
     this.user = user;
-    if(wx.getStorageSync('phoneNumber')) {
+    this.isRemberID = wx.getStorageSync('isRemberID')
+    if(wx.getStorageSync('isRemberID') && wx.getStorageSync('phoneNumber')) {
       this.form.userName  = wx.getStorageSync('phoneNumber')
     }
   }
@@ -173,6 +192,7 @@ export default {
 }
 .bannerImg{
   width:100%;
+  height: 500rpx;
 }
 .loginDiv{
   z-index:2;
@@ -230,6 +250,13 @@ export default {
     width:120rpx;
     height:80rpx
   }
+}
+.checkbox-cont{
+  position: absolute;
+  width: 400rpx; 
+  height: 65rpx;
+  bottom: -10px;
+  left: 140rpx;
 }
 .remindDiv{
   position: absolute;
