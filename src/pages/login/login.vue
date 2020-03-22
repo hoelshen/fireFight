@@ -180,6 +180,12 @@ export default {
   onShow() {
     const { user } = getApp().globalData;
     this.user = user;
+    const value2 = wx.getStorageSync("userId");
+    if(value2){
+      wx.reLaunch({
+        url: `/pages/home/index`
+      });
+    }
     this.isRemberID = wx.getStorageSync('isRemberID')
     if(wx.getStorageSync('isRemberID') && wx.getStorageSync('phoneNumber')) {
       this.form.userName  = wx.getStorageSync('phoneNumber')
