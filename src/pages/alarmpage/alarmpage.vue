@@ -38,7 +38,10 @@
       </div>
       <div>当前场所警报统计：{{ number }}</div>
     </div>
-    <div class="alarm-tip mrg-center flex a-center j-between pdd-lr-20 mrg-b-40">
+    <div
+      class="alarm-tip mrg-center flex a-center j-between pdd-lr-20 mrg-b-40"
+      @click="jumpUrl('comfirmAlarm')"
+    >
       <div class="flex a-center j-between">
         <image
           class="info-img"
@@ -46,7 +49,6 @@
         />
         <div
           class="pdd-l-40"
-          @click="jumpUrl('comfirmAlarm')"
         >
           确认当前场所是否发生警报事件？
         </div>
@@ -208,9 +210,11 @@ export default {
       })
     },
     jumpUrl(str) {
+      console.log(str)
       switch (str) {
         case 'comfirmAlarm':
          let websocketData = JSON.stringify(this.websocketData)
+         console.log(websocketData)
           wx.navigateTo({
             url: `/pages/information/index?websocketData=${websocketData}`
           });
