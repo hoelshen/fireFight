@@ -132,7 +132,7 @@ export default {
     toLogin(){
       let { userName, pwd, code } = this.form;
       this.$request
-        .post("/user/login.do", {
+        .post("/user/appletLogin.do", {
           userName,
           pwd,
           code

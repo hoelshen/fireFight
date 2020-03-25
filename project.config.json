@@ -176,6 +176,34 @@
 					"scene": null
 				},
 				{
+					"id": 16,
+					"name": "巡更记录",
+					"pathName": "pages/watchList/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 17,
+					"name": "任务详情",
+					"pathName": "pages/taskDetail/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 17,
+					"name": "异常上报",
+					"pathName": "pages/taskUpload/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 17,
+					"name": "设备巡更",
+					"pathName": "pages/watchTask/index",
+					"query": "",
+					"scene": null
+				},
+				{
 					"id": -1,
 					"name": "消防检测",
 					"pathName": "pages/examine/index",

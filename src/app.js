@@ -42,6 +42,10 @@ export default {
       "pages/position/sendPosition", // 发送位置
       "pages/examine/index", //消防检测
       "pages/errors/index", //错误页面,
+      "pages/watchList/index", //巡更列表,
+      "pages/watchTask/index", //设备巡更,
+      "pages/taskDetail/index", //任务详情,
+      "pages/taskUpload/index", //任务详情,
     ],
     "permission": {
       "scope.userLocation": {
