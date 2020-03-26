@@ -73,6 +73,11 @@ export default {
         "iconPath": "/static/png/fire.png",
         "selectedIconPath": "/static/png/fire_active.png",
       },{
+        "pagePath": "pages/watchList/index",
+        "text": "巡更管理",
+        "iconPath": "/static/png/watch.png",
+        "selectedIconPath": "/static/png/watch_active.png",
+      },{
         "pagePath": "pages/info/index",
         "text": "个人中心",
         "iconPath": "/static/png/mine.png",
