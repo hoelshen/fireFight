@@ -8,7 +8,7 @@
           任务名称：{{ taskResult.fTaskName }}
         </div>
         <div class="id pdd-b-10">
-          设备ID：{{ taskResult.fID }}
+          设备ID：{{ taskResult.fTaskCode }}
         </div>
       </div>
       <div style="margin-top: 500rpx;">
@@ -41,6 +41,7 @@ export default {
   },
   onLoad(opt) {
     this.taskResult = JSON.parse(opt.result)
+    console.log(this.taskResult)
     this.userId = wx.getStorageSync('userId')
   },
   onShow() {

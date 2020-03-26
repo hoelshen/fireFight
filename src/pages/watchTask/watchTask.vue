@@ -13,7 +13,7 @@
         >  
           <div class="flex j-between">
             <div class="id pdd-b-10">
-              设备ID：{{ item.fdeviceserial }}
+              设备ID：{{ item.ftaskCode }}
             </div>
             <div
               class="id pdd-b-10"
