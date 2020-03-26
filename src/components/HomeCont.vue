@@ -1,10 +1,10 @@
 <template>
   <div class="page flex column">
     <!-- 首页 -->
-    <div>
+    <div style="height:6vh;">
       <Adress-info />
     </div>
-    <div class="head">
+    <div class="head flex column">
       <div
         class="input grow"
         @click="toDetail"
@@ -12,7 +12,7 @@
         输入您想查询的设备ID或者关键字
       </div>
       <scroll-view
-        style="{'height': '81vh'}"
+        class="flex_1"
         :scroll-y="true"
       >
         <div class="pannel ">
@@ -141,16 +141,8 @@ import {
   getParams
 } from "@/utils/index";
 // import myEvent from "@/utils/event";
-
-// {
-// 					"id": -1,
-// 					"name": "首页",
-// 					"pathName": "pages/home/index",
-// 					"query": "tab=home",
-// 					"scene": null
-// 				},
 export default {
-  name: "Home",
+  name: "HomeCont",
   components: {
     AdressInfo
   },
@@ -294,11 +286,11 @@ export default {
 </script>
 <style lang="less" scoped>
 .page {
-  height: 100vh;
+  height: 91vh;
   background-color: #1D7FFD;
   .head{
     .input{
-      margin:44rpx;
+      margin:24rpx 44rpx;
       background-color:#ffffff;
       width: 662rpx;
       height: 80rpx;
@@ -313,7 +305,7 @@ export default {
     text-align: center;
   }
   .pannel{
-    height: 81vh;
+    height: 75vh;
     &__item{
       display:inline-block;
       margin:20rpx;

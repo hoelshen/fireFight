@@ -24,7 +24,8 @@ export default {
   config: {
     cloud: true,
     pages: [
-      "pages/home/index", // 首页
+      "pages/index/index", //首页
+      "pages/home/index", // home
       "pages/warnpage/index", // 一键报警
       "pages/installpage/index", // 一键报警
       "pages/alarmperson/index", // 一键报警
@@ -82,7 +83,8 @@ export default {
         "text": "个人中心",
         "iconPath": "/static/png/mine.png",
         "selectedIconPath": "/static/png/mine-active.png",
-      }]
+      }
+    ]
     },
     navigateToMiniProgramAppIdList: [
       "wx70677f7a3878565b",  //签约小程序

@@ -197,9 +197,16 @@
 					"scene": null
 				},
 				{
-					"id": 17,
+					"id": 18,
 					"name": "设备巡更",
 					"pathName": "pages/watchTask/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 19,
+					"name": "首页",
+					"pathName": "pages/index/index",
 					"query": "",
 					"scene": null
 				},
