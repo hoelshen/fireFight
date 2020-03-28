@@ -89,7 +89,7 @@ export default {
                     icon: "none"
                 });
                 wx.reLaunch({
-                    url: `/pages/watchList/index`
+                    url: `/pages/watchTask/index?patrolshiftsId=${this.patrolshiftsId}`
                 })
             } catch (error) {
             }
