@@ -101,7 +101,11 @@ export default {
       }
     },
     getformatTime(time) {
-      return formatTime(time, 'Y-M-D h:m:s')
+      if(time) {
+        return formatTime(time, 'Y-M-D h:m:s')
+      }
+      return '无'
+      
     },
     scanBtn() {
       wx.scanCode({
