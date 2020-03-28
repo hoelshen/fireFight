@@ -28,11 +28,11 @@
         <div
           v-else
           class="photoDiv"
+          @click="upFile"
         >
           <image
             class="addPhoto"
             src="/static/png/photo.png"
-            @click="upFile"
           />
         </div>
       </div>
