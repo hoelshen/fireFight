@@ -112,7 +112,7 @@ export default {
         success: (res) => {
           const result = res.result
           wx.navigateTo({
-            url: `/pages/taskDetail/index?result=${result}`
+            url: `/pages/taskDetail/index?result=${result}&patrolshiftsId=${this.patrolshiftsId}`
           });
         }
       })

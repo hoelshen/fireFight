@@ -36,10 +36,12 @@ export default {
   data() {
       return {
           actionIndex: '',
-          showVideo: false
+          showVideo: false,
+          patrolshiftsId: ''
       }
   },
   onLoad(opt) {
+    this.patrolshiftsId = opt.patrolshiftsId
     this.taskResult = JSON.parse(opt.result)
     console.log(this.taskResult)
     this.userId = wx.getStorageSync('userId')
@@ -66,6 +68,7 @@ export default {
         console.log(flag)
         if(flag) {
             this.taskResult['isNromo'] = flag
+            this.taskResult['patrolshiftsId'] = this.patrolshiftsId
             wx.navigateTo({
                 url: `/pages/taskUpload/index?taskResult=${JSON.stringify(this.taskResult)}`
             });

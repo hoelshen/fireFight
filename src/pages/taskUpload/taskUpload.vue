@@ -61,7 +61,8 @@ export default {
           fTaskName: '',
           isNromo: '',
           unusualPhoto: '',
-          unusualContent: ''
+          unusualContent: '',
+          fPatrolShiftsID: ''
       }
     };
   },
@@ -140,11 +141,12 @@ export default {
     }
   },
   onLoad(opt) {
-      const {fID, fTaskCode, fTaskName, isNromo}= JSON.parse(opt.taskResult)
+      const {fID, fTaskCode, fTaskName, isNromo, patrolshiftsId}= JSON.parse(opt.taskResult)
       this.form.fID = fID
       this.form.fTaskCode = fTaskCode
       this.form.fTaskName = fTaskName
       this.form.isNromo = isNromo
+      this.form.fPatrolShiftsID = patrolshiftsId
   },
   onShow() {}
 };
