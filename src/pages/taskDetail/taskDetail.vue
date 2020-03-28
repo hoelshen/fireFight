@@ -80,6 +80,7 @@ export default {
                     fTaskCode: this.taskResult.fTaskCode,
                     fTaskName: this.taskResult.fTaskName,
                     fID: this.taskResult.fID,
+                    fPatrolShiftsID: this.patrolshiftsId,
                     isNromo: flag,
                     isJson: true
                 }
