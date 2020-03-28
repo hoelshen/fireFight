@@ -89,8 +89,12 @@ export default {
                     title: '提交成功',
                     icon: "none"
                 });
-                wx.reLaunch({
-                    url: `/pages/watchTask/index?patrolshiftsId=${this.patrolshiftsId}`
+                // wx.reLaunch({
+                //     url: `/pages/watchTask/index?patrolshiftsId=${this.patrolshiftsId}`
+                // })
+                wx.navigateBack({
+                    delta: 1,  // 返回上一级页面。
+                    success: function() {}
                 })
             } catch (error) {
             }

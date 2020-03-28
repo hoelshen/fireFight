@@ -124,8 +124,13 @@ export default {
           title: "反馈成功",
           icon: "none"
         })
-        wx.reLaunch({
-          url: `/pages/watchTask/index?patrolshiftsId=${this.form.fPatrolShiftsID}`
+        // wx.reLaunch({
+        //   url: `/pages/watchTask/index?patrolshiftsId=${this.form.fPatrolShiftsID}`
+        // })
+
+        wx.navigateBack({
+            delta: 2,  // 返回上一级页面。
+            success: function() {}
         })
       })
       .catch(err => {
