@@ -124,7 +124,7 @@ export default {
           icon: "none"
         })
         wx.reLaunch({
-          url: `/pages/watchList/index`
+          url: `/pages/watchTask/index`
         })
       })
       .catch(err => {
