@@ -2,7 +2,7 @@
   <div class="page flex column">
     <!-- 首页 -->
     <div style="height:6vh;">
-      <Adress-info />
+      <Adress-info :user-address="childUserAddress" />
     </div>
     <div class="head flex column">
       <div
@@ -149,6 +149,7 @@ export default {
   mixins: [shareMix],
   data() {
     return {
+      childUserAddress: null,
       userId:"", //userId,
       Userlist: [],
       showUserlist: false,
@@ -182,21 +183,11 @@ export default {
       });
     } else {
       this.params = wx.getStorageSync('userAddress')
-      this.getData();
-      this.onTabChange(this.tab);
+      this.getHomeData()
     }
   },
 
   methods: {
-    onTabChange(tab = "home") {
-      this.tab = tab;
-      if (this.tab === "home") {
-      }
-      if (this.tab === "mail") {
-      }
-      if (this.tab === "mine") {
-      }
-    },
     toDetail(){
         wx.navigateTo({
           url: `/pages/home/detail`
@@ -258,7 +249,11 @@ export default {
              }
         })
     },
-    getData(){
+    getHomeData(){
+      this.params = wx.getStorageSync('userAddress')
+      if(this.params) {
+        this.childUserAddress = this.params.province + this.params.city + this.params.prefecture + this.params.areaName + this.params.placeName
+      }
       let params = getParams(this.params);
       params['userId'] = wx.getStorageSync('userId') || 2002131059424992;
       this.$request

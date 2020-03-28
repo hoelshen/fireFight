@@ -5,6 +5,30 @@
       :scroll-y="true"
     >
       <div class="equipment-list mrg-center ">
+        <div class="equipment-item pdd-20">
+          <div class="time pdd-b-10 flex j-between">
+            <div>
+              总任务数：{{ watchData.countTaskNum }}
+            </div>
+            <div>
+              已完成数：{{ watchData.completeNum }}
+            </div>
+            <div>
+              未完成数：{{ watchData.notCompleteNum }}
+            </div>
+          </div>
+          <div class="time pdd-b-10 flex j-between">
+            <div>
+              近三天漏巡数：{{ watchData.threeDaysNotCompleteNum }}
+            </div>
+            <div>
+              正常设备数：{{ watchData.normalDeviceNum }}
+            </div>
+            <div>
+              问题设备数：{{ watchData.problemDeviceNum }}
+            </div>
+          </div>
+        </div>
         <div
           v-for="(item,index) in videoList"
           :key="index"
@@ -29,6 +53,12 @@
           <div class="time pdd-b-10">
             任务说明：{{ item.ftaskExplain }}
           </div>
+          <div class="time pdd-b-10">
+            设备安装位置：{{ item.fareaAddress }} {{ item.fsecondPosition }}
+          </div>
+          <div class="time pdd-b-10">
+            设备巡检完成时间：{{ getformatTime(item.foperationTime) }}
+          </div>
         </div>
       </div>
     </scroll-view>
@@ -50,7 +80,8 @@ export default {
           videoList: [{fdeviceserial: 1, fhousenumber: 2, fsecondposition: 3, fcreateTime: 4}],
           actionIndex: '',
           showVideo: false,
-          patrolshiftsId: ''
+          patrolshiftsId: '',
+          watchData: []
       }
   },
   onLoad(opt) {
@@ -64,11 +95,13 @@ export default {
     async getvideoList(patrolshiftsId) {
       try {
         let res = await this.$request.post('/patrolshifts/getPatrolshiftsDeviceMessage.do', {patrolshiftsId: patrolshiftsId})
-        this.videoList = res.data
+        this.videoList = res.data.facilitypatrolDeviceMessageDto
+        this.watchData = res.data
       } catch (error) {
       }
     },
-    jumpUrl() {
+    getformatTime(time) {
+      return formatTime(time, 'Y-M-D h:m:s')
     },
     scanBtn() {
       wx.scanCode({

@@ -21,13 +21,25 @@ export default {
     name: "IndexTabbar",
     data() {
       return {
-        tabList: [{imgSrc: '/static/png/data.png', activeimgSrc: '/static/png/detection.png', text: '设备管理'},{imgSrc: '/static/png/fire.png', activeimgSrc: '/static/png/fire_active.png', text: '警报管理'},{imgSrc: '/static/png/mine.png',activeimgSrc: '/static/png/mine-active.png', text: '个人中心'}],
-        indexAction: 0
+        tabList: [],
+        indexAction: '',
+        userTitle: ''
       }
     },
     methods: {
       isActive(i) {
         this.indexAction = i
+        console.log(i)
+        this.$emit('parentsIsActive', i)
+      }
+    },
+    onShow() {
+      this.userTitle = wx.getStorageSync("userTitle");
+      console.log(this.userTitle)
+      if(this.userTitle === 0) {
+        this.tabList = [{imgSrc: '/static/png/data.png', activeimgSrc: '/static/png/detection.png', text: '设备管理'},{imgSrc: '/static/png/fire.png', activeimgSrc: '/static/png/fire_active.png', text: '警报管理'},{imgSrc: '/static/png/mine.png',activeimgSrc: '/static/png/mine-active.png', text: '个人中心'}]
+      } else {
+        this.tabList = [{imgSrc: '/static/png/watch.png', activeimgSrc: '/static/png/watch_active.png', text: '巡更管理'}, {imgSrc: '/static/png/mine.png',activeimgSrc: '/static/png/mine-active.png', text: '个人中心'}]
       }
     }
 }

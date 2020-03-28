@@ -24,10 +24,14 @@
 export default {
     name: "AdressInfo",
     props: {
+      userAddress: {
+        type: String,
+        default: ''
+      }
     },
     data() {
       return {
-        userAddress: ''
+        // userAddress: ''
       }
     },
     onLoad(opt) {

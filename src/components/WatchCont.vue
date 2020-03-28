@@ -36,6 +36,7 @@ import {
   formatTime
 } from "@/utils/index";
 export default {
+  name: 'WatchCont',
   data() {
       return {
           userId: '',
@@ -45,14 +46,16 @@ export default {
       }
   },
   onLoad(opt) {
-    this.userId = wx.getStorageSync('userId')
-    this.getvideoList()
+    
   },
   onShow() {
+    this.userId = wx.getStorageSync('userId')
+    this.getvideoList()
   },
 
   methods: {
     async getvideoList() {
+      this.userId = wx.getStorageSync('userId')
       try {
         let res = await this.$request.post('/patrolshifts/getPatrolshiftsTask.do', {userId: this.userId})
         this.videoList = res.data
