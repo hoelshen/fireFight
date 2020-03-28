@@ -125,7 +125,7 @@ export default {
           icon: "none"
         })
         wx.reLaunch({
-          url: `/pages/watchTask/index`
+          url: `/pages/watchTask/index?patrolshiftsId=${this.form.fPatrolShiftsID}`
         })
       })
       .catch(err => {
