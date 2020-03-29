@@ -46,10 +46,10 @@
             />
           </div>
           <div class="time pdd-b-10">
-            任务开始时间：{{ item.fstartTime }}
+            任务计划开始时间：{{ item.fstartTime }}
           </div>
           <div class="time pdd-b-10">
-            任务结束时间：{{ item.fendTime }}
+            任务计划结束时间：{{ item.fendTime }}
           </div>
           <div class="time pdd-b-10">
             任务说明：{{ item.ftaskExplain }}
@@ -86,7 +86,15 @@ export default {
       }
   },
   onLoad(opt) {
-    this.patrolshiftsId = opt.patrolshiftsId
+    if(wx.getStorageSync('patrolshiftsId')) {
+        this.patrolshiftsId = wx.getStorageSync('patrolshiftsId')
+    }else {
+        wx.setStorage({
+            key: 'patrolshiftsId',
+            data: opt.patrolshiftsId
+        })
+        this.patrolshiftsId = opt.patrolshiftsId
+    }
     this.getvideoList(this.patrolshiftsId)
   },
   onShow() {
@@ -162,7 +170,7 @@ export default {
       }
   }
   .scanImg{
-    width: 479rpx;
+    width: 662rpx;
     height: 80rpx;
     line-height: 80rpx;
     border-radius: 50rpx;

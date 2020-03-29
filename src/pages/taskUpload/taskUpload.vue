@@ -128,6 +128,13 @@ export default {
         //   url: `/pages/watchTask/index?patrolshiftsId=${this.form.fPatrolShiftsID}`
         // })
 
+        var pages = getCurrentPages();//当前页面栈
+        if (pages.length > 1) {
+
+        var beforePage = pages[pages.length - 3];//获取上一个页面实例对象
+        beforePage.onLoad();//触发父页面中is.patrolshiftsId的方法
+        }
+
         wx.navigateBack({
             delta: 2,  // 返回上一级页面。
             success: function() {}
