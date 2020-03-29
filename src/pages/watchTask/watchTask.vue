@@ -41,6 +41,7 @@
             </div>
             <div
               class="id pdd-b-10"
+              :style="item.patrollingState == 0? 'color: red;' : 'color: green;'"
               v-text="item.patrollingState == 0 ? '待巡更' : '已完成'"
             />
           </div>
