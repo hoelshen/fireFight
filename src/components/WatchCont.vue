@@ -63,9 +63,14 @@ export default {
       }
     },
     jumpUrl({patrolshiftsId}) {
-      wx.navigateTo({
-        url: `/pages/watchTask/index?patrolshiftsId=${patrolshiftsId}`
-      });
+      wx.removeStorage({
+        key: 'patrolshiftsId',
+        success(res) {
+          wx.navigateTo({
+            url: `/pages/watchTask/index?patrolshiftsId=${patrolshiftsId}`
+          });
+        }
+      })
     },
     getformatTime(time) {
       return formatTime(time, 'Y-M-D h:m:s')
