@@ -52,17 +52,18 @@ export default {
     }
   },
   onLoad(opt) {
+        const userId = wx.getStorageSync("userId");
+        this.userTitle = wx.getStorageSync("userTitle");
+        if(!userId){
+            wx.reLaunch({
+                url: `/pages/login/index`
+            });
+        }else {
+            this.parentsIsActive(0)
+        }
   },
   onShow() {
-    const userId = wx.getStorageSync("userId");
-    this.userTitle = wx.getStorageSync("userTitle");
-    if(!userId){
-        wx.reLaunch({
-            url: `/pages/login/index`
-        });
-    }else {
-        this.parentsIsActive(0)
-    }
+    
   },
   methods: {
       parentsIsActive(i) {
