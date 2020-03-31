@@ -13,26 +13,30 @@
           @input="bindTextAreaInput"
         />
       </div>
-      <div class="photos flex  row j-center">
-        <div v-if="form.unusualPhoto">
+      <div class="photos flex">
+        <div
+          v-for="(item, index) in form.unusualPhoto"
+          :key="index"
+          style="height: 120rpx; width: 120rpx; margin-right: 30rpx;"
+        >
           <image
             class="photo"
-            :src="form.unusualPhoto"
+            :src="item"
           />
           <img
             class="leftTop"
             src="/static/png/error.png"
-            @click="clearImg"
+            @click="clearImg(index)"
           >
         </div>
         <div
-          v-else
+          v-if="form.unusualPhoto.length != 3"
           class="photoDiv"
           @click="upFile"
         >
           <image
             class="addPhoto"
-            src="/static/png/photo.png"
+            src="/static/png/error1.png"
           />
         </div>
       </div>
@@ -60,7 +64,7 @@ export default {
           fTaskCode: '',
           fTaskName: '',
           isNromo: '',
-          unusualPhoto: '',
+          unusualPhoto: [],
           unusualContent: '',
           fPatrolShiftsID: ''
       }
@@ -100,7 +104,7 @@ export default {
                 function(res) {
                   let data = res.data;
                   console.log('data111: ', data,that);
-                  that.form.unusualPhoto = data;
+                  that.form.unusualPhoto.push(data);
                   wx.hideLoading();
                 }.bind(that)
               );
@@ -117,6 +121,7 @@ export default {
     },
     Request(){
       this.form['isJson'] = true;
+      this.form['unusualPhoto'] = this.form.unusualPhoto.join(',');
       this.$request
       .post("/patrolshifts/patrollingPeopleDeviceIsNromo.do ",this.form)
       .then(res => {
@@ -148,8 +153,8 @@ export default {
       });
       
     },
-    clearImg(){
-      this.form.unusualPhoto = "";
+    clearImg(i){
+      this.form.unusualPhoto.splice(i, 1)
     }
   },
   onLoad(opt) {
@@ -255,12 +260,12 @@ export default {
       height:120rpx;
       text-align: center;
       line-height: 130rpx;
-      border-width: 1rpx;
-      border-style:dashed;
-      background-color: #ffffff;
+    //   border-width: 1rpx;
+    //   border-style:dashed;
+    //   background-color: #ffffff;
       .addPhoto{
-        width:52rpx;
-        height: 43rpx;
+        width:120rpx;
+        height: 120rpx;
       }
     }
 

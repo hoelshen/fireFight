@@ -54,25 +54,30 @@
           @input="bindTextAreaInput"
         />
       </div>
-      <div class="photos flex  row j-center">
-        <div v-if="form.fimage">
+      <div class="photos flex">
+        <div
+          v-for="(item, index) in form.fimage"
+          :key="index"
+          style="height: 120rpx; width: 120rpx; margin-right: 30rpx;"
+        >
           <image
             class="photo"
-            :src="form.fimage"
+            :src="item"
           />
           <img
             class="leftTop"
             src="/static/png/error.png"
-            @click="clearImg"
+            @click="clearImg(index)"
           >
         </div>
+        <!-- v-if="form.fimage.length != 3" -->
         <div
-          v-else
+          v-if="form.fimage.length != 3"
           class="photoDiv"
         >
           <image
             class="addPhoto"
-            src="/static/png/photo.png"
+            src="/static/png/error1.png"
             @click="upFile"
           />
         </div>
@@ -98,7 +103,7 @@ export default {
     return {
       form:{
         foperatoruser: '', //手机号码
-        fimage: '', //图片地址
+        fimage: [], //图片地址
         ofbWay: '', //反馈方式
         fcontent: '', //反馈内容
       },
@@ -142,8 +147,7 @@ export default {
               that.$request.uploadFile(tempFilePaths[0]).then(
                 function(res) {
                   let data = res.data;
-                  console.log('data111: ', data,that);
-                  that.form.fimage = data;
+                  that.form.fimage.push(data);
                   wx.hideLoading();
                 }.bind(that)
               );
@@ -168,7 +172,7 @@ export default {
       params['fuserid'] = value2;
       params['ofbWay'] =  this.activeIndex;
       params['fcontent'] = this.form.fcontent;
-      params['fimage'] = this.form.fimage;
+      params['fimage'] = this.form.fimage.join(',');
       params['foperatoruser'] = this.form.foperatoruser;
       params['isJson'] = true;
       this.$request
@@ -194,8 +198,8 @@ export default {
       });
       
     },
-    clearImg(){
-      this.form.fimage = "";
+    clearImg(i){
+      this.form.fimage.splice(i, 1)
     }
   },
   onLoad() {},
@@ -294,12 +298,12 @@ export default {
       height:120rpx;
       text-align: center;
       line-height: 130rpx;
-      border-width: 1rpx;
-      border-style:dashed;
-      background-color: #ffffff;
+      // border-width: 1rpx;
+      // border-style:dashed;
+      // background-color: #ffffff;
       .addPhoto{
-        width:52rpx;
-        height: 43rpx;
+        width:120rpx;
+        height: 120rpx;
       }
     }
 
