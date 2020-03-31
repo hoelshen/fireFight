@@ -23,29 +23,37 @@
 <script>
 export default {
     name: "AdressInfo",
-    props: {
-      userAddress: {
-        type: String,
-        default: ''
-      }
-    },
+    // props: {
+    //   userAddress: {
+    //     type: String,
+    //     default: ''
+    //   }
+    // },
     data() {
       return {
-        // userAddress: ''
+        userAddress: ''
       }
     },
     onLoad(opt) {
     },
     onShow() {
-      if(wx.getStorageSync('userAddress')) {
-        let userAddress = wx.getStorageSync('userAddress')
-        this.userAddress = userAddress.province + userAddress.city + userAddress.prefecture + userAddress.areaName + userAddress.placeName
-      } else {
-        this.getUserAddress()
-      }
+      // this.initData()
     },
 
   methods: {
+    initData() {
+      setTimeout(() => {
+        this.$nextTick(() => {
+          if( wx.getStorageSync('userAddress' )) {
+            let userAddress = wx.getStorageSync('userAddress')
+            this.userAddress = userAddress.province + userAddress.city + userAddress.prefecture + userAddress.areaName + userAddress.placeName
+          } else {
+            this.getUserAddress()
+          }
+        })
+      }, 0)
+      
+    },
     getUserAddress() {
       let userId = wx.getStorageSync('userId')
       
@@ -53,6 +61,7 @@ export default {
         .post("/user/getUserAddress.do", { userId })
         .then(res => {
           this.userAddress = res.province + res.city + res.prefecture + res.areaName + res.placeName
+          console.log(this.userAddress)
           wx.setStorage({
             key: 'userAddress',
             data: res

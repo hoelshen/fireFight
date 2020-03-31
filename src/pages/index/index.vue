@@ -14,7 +14,7 @@
         ref="info"
       />
     </div>
-    <div v-else>
+    <div v-if="userTitle !== 0">
       <Watch-cont
         v-if="isSelected === 0"
         ref="watchs"
@@ -48,7 +48,7 @@ export default {
   data() {
     return {
       isSelected: 0,
-      userTitle: null
+      userTitle: ''
     }
   },
   onLoad(opt) {
@@ -57,14 +57,15 @@ export default {
     const userId = wx.getStorageSync("userId");
     this.userTitle = wx.getStorageSync("userTitle");
     if(!userId){
-    wx.reLaunch({
-        url: `/pages/login/index`
-    });
+        wx.reLaunch({
+            url: `/pages/login/index`
+        });
+    }else {
+        this.parentsIsActive(0)
     }
   },
   methods: {
       parentsIsActive(i) {
-          console.log(i)
           this.isSelected = i
           this.$nextTick(() => {
               switch(i) {

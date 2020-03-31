@@ -46,11 +46,11 @@ export default {
       }
   },
   onLoad(opt) {
-    
-  },
-  onShow() {
     this.userId = wx.getStorageSync('userId')
     this.getvideoList()
+  },
+  onShow() {
+    
   },
 
   methods: {

@@ -128,8 +128,12 @@ export default {
                 title: '提交成功',
                 icon: "none"
             });
-            wx.reLaunch({
-                url: `/pages/info/index`
+            // wx.reLaunch({
+            //     url: `/pages/index/index`
+            // })
+            wx.navigateBack({
+              delta: 1,  // 返回上一级页面。
+              success: function() {}
             })
           } else {
               wx.showToast({

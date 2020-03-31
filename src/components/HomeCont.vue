@@ -1,8 +1,13 @@
 <template>
   <div class="page flex column">
-    <!-- 首页 -->
+    <!-- 
+      首页 
+      :user-address="childUserAddress"
+    -->
     <div style="height:6vh;">
-      <Adress-info :user-address="childUserAddress" />
+      <Adress-info
+        ref="adress"
+      />
     </div>
     <div class="head flex column">
       <div
@@ -172,10 +177,6 @@ export default {
     };
   },
   onLoad(opt) {
-    this.toPage = opt.toPage;
-    this.tab = opt.tab;
-  },
-  onShow() {
     const value2 = wx.getStorageSync("userId");
     if(!value2){
       wx.reLaunch({
@@ -185,6 +186,9 @@ export default {
       this.params = wx.getStorageSync('userAddress')
       this.getHomeData()
     }
+  },
+  onShow() {
+    
   },
 
   methods: {
@@ -250,6 +254,7 @@ export default {
         })
     },
     getHomeData(){
+      this.$refs.adress.initData()
       this.params = wx.getStorageSync('userAddress')
       if(this.params) {
         this.childUserAddress = this.params.province + this.params.city + this.params.prefecture + this.params.areaName + this.params.placeName

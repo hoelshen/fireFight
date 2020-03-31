@@ -178,8 +178,12 @@ export default {
           title: "反馈成功",
           icon: "none"
         })
-        wx.reLaunch({
-          url: `/pages/info/index`
+        // wx.reLaunch({
+        //   url: `/pages/info/index`
+        // })
+        wx.navigateBack({
+          delta: 1,  // 返回上一级页面。
+          success: function() {}
         })
       })
       .catch(err => {

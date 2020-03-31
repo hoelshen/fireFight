@@ -382,7 +382,7 @@ export default {
         data: userAddress
       });
       wx.reLaunch({
-        url: "/pages/home/index"
+        url: "/pages/index/index"
       });
     }
   },
