@@ -75,22 +75,9 @@ export default {
       this.form.unusualContent = e.detail.value;
     },
     upFile(){
-      let sourceType = [];
+      let sourceType = ['album', 'camera'];
       const that = this;
-      wx.showActionSheet({
-      itemList: ['从相册中选择照片', '拍一张新照片'],
-        success(res) {
-          if(res.tapIndex === 0){
-            sourceType = ['album']
-          }
-          if(res.tapIndex === 1){
-            sourceType = ['camera']
-          }
-          if(res.tapIndex === 2){
-            return;
-          } 
-          that.getPhoto = true;
-          wx.chooseImage({
+      wx.chooseImage({
             count: 1,
             sizeType: ["compressed"],
             sourceType: sourceType,
@@ -103,7 +90,6 @@ export default {
               that.$request.uploadFile(tempFilePaths[0]).then(
                 function(res) {
                   let data = res.data;
-                  console.log('data111: ', data,that);
                   that.form.unusualPhoto.push(data);
                   wx.hideLoading();
                 }.bind(that)
@@ -113,11 +99,47 @@ export default {
               wx.hideLoading();
             }
           });
-        },
-        fail(res) {
-          console.log(res.errMsg)
-        }
-      })
+    //   wx.showActionSheet({
+    //   itemList: ['从相册中选择照片', '拍一张新照片'],
+    //     success(res) {
+    //       if(res.tapIndex === 0){
+    //         sourceType = ['album']
+    //       }
+    //       if(res.tapIndex === 1){
+    //         sourceType = ['camera']
+    //       }
+    //       if(res.tapIndex === 2){
+    //         return;
+    //       } 
+    //       that.getPhoto = true;
+    //       wx.chooseImage({
+    //         count: 1,
+    //         sizeType: ["compressed"],
+    //         sourceType: sourceType,
+    //         success: function(res) {
+    //           wx.showLoading({
+    //             title: "上传中",
+    //             mask: true
+    //           });
+    //           const tempFilePaths = res.tempFilePaths;
+    //           that.$request.uploadFile(tempFilePaths[0]).then(
+    //             function(res) {
+    //               let data = res.data;
+    //               console.log('data111: ', data,that);
+    //               that.form.unusualPhoto.push(data);
+    //               wx.hideLoading();
+    //             }.bind(that)
+    //           );
+    //         }.bind(this),
+    //         fail(e) {
+    //           wx.hideLoading();
+    //         }
+    //       });
+    //     },
+    //     fail(res) {
+    //       console.log(res.errMsg)
+    //     }
+    //   })
     },
     Request(){
       this.form['isJson'] = true;
