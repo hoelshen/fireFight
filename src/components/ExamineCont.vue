@@ -209,7 +209,7 @@ export default {
      .fireDiv{
        margin:0 20rpx;
        background-color: #ffffff;
-       height: 90vh;
+       height: 92vh;
       .headerDiv{
         width: 710rpx;
         height:80rpx;

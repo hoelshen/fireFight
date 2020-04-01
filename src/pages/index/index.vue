@@ -95,7 +95,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .page {
-  height: 91vh;
+  height: 93vh;
   .tab-position{
       position: fixed;
       bottom: 0;

@@ -286,7 +286,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .page {
-  height: 91vh;
+  height: 93vh;
   background-color: #1D7FFD;
   .head{
     .input{

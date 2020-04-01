@@ -44,7 +44,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .tab-bar{
-    height: 9vh;
+    height: 7vh;
     width: 750rpx;
     background: #fff;
     .tab-com{
