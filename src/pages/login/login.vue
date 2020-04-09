@@ -108,7 +108,7 @@ export default {
         code: '' //验证码
       },
       user: {},
-      imgSrc: `http://121.36.15.94:8282/IntelligentFire/user/getPatternCode.do?time=${new Date().getTime()}`,
+      imgSrc: `https://youlink.you-gogo.com:8282/IntelligentFire/user/getPatternCode.do?time=${new Date().getTime()}`,
       userTitle: 0
     };
   },

@@ -21,7 +21,7 @@ fly.config.headers["Content-Type"] = "application/x-www-form-urlencoded; charset
 function getBaseURL(env) {
   switch (env) {
     case "prod":
-      return "http://121.36.15.94:8282/IntelligentFire";
+      return "https://youlink.you-gogo.com:8282/IntelligentFire";
       default :
         return "http://192.168.118.149:10701";
   }

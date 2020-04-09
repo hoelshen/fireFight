@@ -30,7 +30,7 @@ export default {
   methods: {
     initWebsocket() {
       this.websocket = wx.connectSocket({
-        url: 'ws://121.36.15.94:8282/IntelligentFire/websocket'
+        url: 'wss://youlink.you-gogo.com:8282/IntelligentFire/websocket'
       })
 
 
