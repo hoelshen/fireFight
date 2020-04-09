@@ -67,9 +67,7 @@
 
         <div
           class="my_function_item_button flex column center"
-          open-type="getUserInfo"
           lang="zh_CN"
-          @getuserinfo="onGotUserInfo"
           @click="jumpUrl('1')"
         >
           <div
@@ -143,9 +141,7 @@
         <button
           v-if="!user.unionid"
           class="my_function2_item_button flex column center"
-          open-type="getUserInfo"
           lang="zh_CN"
-          @getuserinfo="onGotUserInfo"
           @click="goInstall"
         >
           <image
@@ -169,7 +165,6 @@
       <session class="my_contact flex column j-between center">
         <button
           class="my_contact_item_button flex wrap center grow"
-          open-type="getUserInfo"
           lang="zh_CN"
           @click="toPosition"
         >
@@ -227,19 +222,21 @@ export default {
       const that = this;
       this.user.aliasName = wx.getStorageSync('userName');
       this.user.phoneNumber = wx.getStorageSync('phoneNumber');
-      wx.getSetting({
-        success: function(res) {
-          if (res.authSetting["scope.userInfo"]) {
-            // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-            wx.getUserInfo({
-              success: function(res) {
-                that.user.aliasPortrait = res.userInfo.avatarUrl;
-                getApp().globalData.user.userInfo = res.userInfo;
-              }
-            });
-          }
-        }.bind(this)
-      });
+      this.user.aliasPortrait = wx.getStorageSync('aliasPortrait');
+      // wx.getSetting({
+      //   success: function(res) {
+      //     if (res.authSetting["scope.userInfo"]) {
+      //       // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+      //       wx.getUserInfo({
+      //         success: function(res) {
+      //           console.log(11)
+      //           that.user.aliasPortrait = res.userInfo.avatarUrl;
+      //           getApp().globalData.user.userInfo = res.userInfo;
+      //         }
+      //       });
+      //     }
+      //   }.bind(this)
+      // });
     },
     jumpUrl(type) {
       wx.navigateTo({
@@ -247,14 +244,7 @@ export default {
       });
     },
     toLogout() {
-      wx.removeStorage({
-          key: 'userId',
-          success(res) {
-            wx.reLaunch({
-              url: `/pages/login/index`
-            });
-          }
-        })
+      
         wx.removeStorage({
           key: 'userName',
           success(res) {
@@ -268,6 +258,19 @@ export default {
         wx.removeStorage({
           key: 'userAddress',
           success(res) {
+          }
+        })
+        wx.removeStorage({
+          key: 'aliasPortrait',
+          success(res) {
+          }
+        })
+        wx.removeStorage({
+          key: 'userId',
+          success(res) {
+            wx.reLaunch({
+              url: `/pages/login/index`
+            });
           }
         })
     },
@@ -303,7 +306,14 @@ export default {
       });
     },
     onGotUserInfo(e) {
-      this.user.aliasPortrait = e.detail.userInfo.avatarUrl;
+      if(e.detail.userInfo) {
+        this.user.aliasPortrait = e.detail.userInfo.avatarUrl;
+        wx.setStorage({
+          key: 'aliasPortrait',
+          data: this.user.aliasPortrait
+        })
+      }
+      
     },
     toError(){
       this.$router.push({
