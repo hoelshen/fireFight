@@ -169,7 +169,7 @@ export default {
                 title: res.message,
                 icon: "none"
               });
-              this.imgSrc = `http://121.36.15.94:8282/IntelligentFire/user/getPatternCode.do?time=${new Date().getTime()}`
+              this.imgSrc = `https://youlink.you-gogo.com:8282/IntelligentFire/user/getPatternCode.do?time=${new Date().getTime()}`
               this.form.code = ''
           }
           
